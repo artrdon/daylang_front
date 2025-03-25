@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="32bacc8a-1915-4ac8-9f52-a73ce7c69b8f" name="Changes" comment="videocall" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;artrdon&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/artrdon/daylang_.git&quot;,
+    &quot;accountId&quot;: &quot;58daaefc-384e-482f-8e04-e98387602f11&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2seWyQzVs0cctLULiYYMt0wm3rH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.views.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Den/PycharmProjects/daylang/frontend/src/pages&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Den\PycharmProjects\daylang\frontend\src\pages" />
+      <recent name="C:\Users\Den\PycharmProjects\daylang\frontend\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Den\PycharmProjects\daylang\frontend\src\static\img" />
+      <recent name="C:\Users\Den\PycharmProjects\daylang" />
+      <recent name="C:\Users\Den\PycharmProjects\daylang\frontend\src\static\lang_flag" />
+      <recent name="C:\Users\Den\PycharmProjects\daylang\frontend\src\static" />
+      <recent name="C:\Users\Den\PycharmProjects\daylang\backend" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="32bacc8a-1915-4ac8-9f52-a73ce7c69b8f" name="Changes" comment="" />
+      <created>1738816774784</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738816774784</updated>
+    </task>
+    <task id="LOCAL-00018" summary="vrode messages send only to opredelennomu person">
+      <option name="closed" value="true" />
+      <created>1740241284015</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1740241284015</updated>
+    </task>
+    <task id="LOCAL-00019" summary="i can save to favorite">
+      <option name="closed" value="true" />
+      <created>1740502011136</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1740502011136</updated>
+    </task>
+    <task id="LOCAL-00020" summary="i can save to favorite | all made">
+      <option name="closed" value="true" />
+      <created>1740506109273</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1740506109273</updated>
+    </task>
+    <task id="LOCAL-00021" summary="теперь ссылка срузу формируется при зигрузке оффера к мессаджу">
+      <option name="closed" value="true" />
+      <created>1740564238963</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1740564238963</updated>
+    </task>
+    <task id="LOCAL-00022" summary="updating and deleting of offers">
+      <option name="closed" value="true" />
+      <created>1740638849745</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1740638849745</updated>
+    </task>
+    <task id="LOCAL-00023" summary="beggining of adaptive design">
+      <option name="closed" value="true" />
+      <created>1740679519033</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1740679519033</updated>
+    </task>
+    <task id="LOCAL-00024" summary="still apadting">
+      <option name="closed" value="true" />
+      <created>1740765518963</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1740765518963</updated>
+    </task>
+    <task id="LOCAL-00025" summary="all was adapted">
+      <option name="closed" value="true" />
+      <created>1740833687575</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1740833687575</updated>
+    </task>
+    <task id="LOCAL-00026" summary="nachal delat svetluju temu">
+      <option name="closed" value="true" />
+      <created>1740854062097</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1740854062097</updated>
+    </task>
+    <task id="LOCAL-00027" summary="languagi">
+      <option name="closed" value="true" />
+      <created>1740912625177</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1740912625177</updated>
+    </task>
+    <task id="LOCAL-00028" summary="another languages was added">
+      <option name="closed" value="true" />
+      <created>1740913749739</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1740913749739</updated>
+    </task>
+    <task id="LOCAL-00029" summary="jos another languages was added">
+      <option name="closed" value="true" />
+      <created>1740925136660</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1740925136660</updated>
+    </task>
+    <task id="LOCAL-00030" summary="ese chu chut">
+      <option name="closed" value="true" />
+      <created>1740928885846</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1740928885846</updated>
+    </task>
+    <task id="LOCAL-00031" summary="all i created">
+      <option name="closed" value="true" />
+      <created>1740935119629</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1740935119629</updated>
+    </task>
+    <task id="LOCAL-00032" summary="before deleting vigratiobs">
+      <option name="closed" value="true" />
+      <created>1741102078474</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1741102078474</updated>
+    </task>
+    <task id="LOCAL-00033" summary="ama make a account for pupil and teacher defferent">
+      <option name="closed" value="true" />
+      <created>1741179032229</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1741179032229</updated>
+    </task>
+    <task id="LOCAL-00034" summary="smeles">
+      <option name="closed" value="true" />
+      <created>1741252388391</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1741252388391</updated>
+    </task>
+    <task id="LOCAL-00035" summary="deploying">
+      <option name="closed" value="true" />
+      <created>1741433264585</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1741433264585</updated>
+    </task>
+    <task id="LOCAL-00036" summary="deleting messages">
+      <option name="closed" value="true" />
+      <created>1741532946326</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1741532946326</updated>
+    </task>
+    <task id="LOCAL-00037" summary="deleting messages">
+      <option name="closed" value="true" />
+      <created>1741532960674</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1741532960674</updated>
+    </task>
+    <task id="LOCAL-00038" summary="updating messages">
+      <option name="closed" value="true" />
+      <created>1741593679540</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1741593679540</updated>
+    </task>
+    <task id="LOCAL-00039" summary="websockets message">
+      <option name="closed" value="true" />
+      <created>1741629519891</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1741629519891</updated>
+    </task>
+    <task id="LOCAL-00040" summary="real time deleting and ipdating of messages">
+      <option name="closed" value="true" />
+      <created>1741691366807</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1741691366807</updated>
+    </task>
+    <task id="LOCAL-00041" summary="message unreaded">
+      <option name="closed" value="true" />
+      <created>1741712512102</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1741712512102</updated>
+    </task>
+    <task id="LOCAL-00042" summary="my messages are readed automatically">
+      <option name="closed" value="true" />
+      <created>1741713907707</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1741713907707</updated>
+    </task>
+    <task id="LOCAL-00043" summary="norm message indicator">
+      <option name="closed" value="true" />
+      <created>1741714709565</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1741714709565</updated>
+    </task>
+    <task id="LOCAL-00044" summary="message_list real time changing">
+      <option name="closed" value="true" />
+      <created>1741782504207</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1741782504207</updated>
+    </task>
+    <task id="LOCAL-00045" summary="improved loading page">
+      <option name="closed" value="true" />
+      <created>1741799526678</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1741799526678</updated>
+    </task>
+    <task id="LOCAL-00046" summary="i dont know but commit lol">
+      <option name="closed" value="true" />
+      <created>1741889918871</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1741889918871</updated>
+    </task>
+    <task id="LOCAL-00047" summary="so, i made a custom user">
+      <option name="closed" value="true" />
+      <created>1742148754698</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1742148754698</updated>
+    </task>
+    <task id="LOCAL-00048" summary="so, i made a custom user">
+      <option name="closed" value="true" />
+      <created>1742148769631</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1742148769631</updated>
+    </task>
+    <task id="LOCAL-00049" summary="xss valuibility(ujazvimost) in Message was removed">
+      <option name="closed" value="true" />
+      <created>1742289694376</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1742289694376</updated>
+    </task>
+    <task id="LOCAL-00050" summary="improved frontend of offer">
+      <option name="closed" value="true" />
+      <created>1742323812593</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1742323812593</updated>
+    </task>
+    <task id="LOCAL-00051" summary="privacy policy, cookie, classification of offers">
+      <option name="closed" value="true" />
+      <created>1742393114769</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1742393114770</updated>
+    </task>
+    <task id="LOCAL-00052" summary="a can create new offer">
+      <option name="closed" value="true" />
+      <created>1742400693326</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1742400693326</updated>
+    </task>
+    <task id="LOCAL-00053" summary="a can more update new offer">
+      <option name="closed" value="true" />
+      <created>1742403563825</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1742403563825</updated>
+    </task>
+    <task id="LOCAL-00054" summary="blob storage connected">
+      <option name="closed" value="true" />
+      <created>1742637286633</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1742637286634</updated>
+    </task>
+    <task id="LOCAL-00055" summary="blob storage connected">
+      <option name="closed" value="true" />
+      <created>1742637303225</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1742637303225</updated>
+    </task>
+    <task id="LOCAL-00056" summary="everyone hs yourselve`s image">
+      <option name="closed" value="true" />
+      <created>1742646494301</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1742646494301</updated>
+    </task>
+    <task id="LOCAL-00057" summary="everyone hs yourselve`s image">
+      <option name="closed" value="true" />
+      <created>1742646513288</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1742646513288</updated>
+    </task>
+    <task id="LOCAL-00058" summary="authentication with email">
+      <option name="closed" value="true" />
+      <created>1742719558241</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1742719558242</updated>
+    </task>
+    <task id="LOCAL-00059" summary="refresh secured tiken">
+      <option name="closed" value="true" />
+      <created>1742809021515</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1742809021516</updated>
+    </task>
+    <task id="LOCAL-00060" summary="refresh secured tiken">
+      <option name="closed" value="true" />
+      <created>1742809034040</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1742809034040</updated>
+    </task>
+    <task id="LOCAL-00061" summary="refreshing in all pages">
+      <option name="closed" value="true" />
+      <created>1742817398382</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1742817398382</updated>
+    </task>
+    <task id="LOCAL-00062" summary="bye and call button, if_teacher and real_man in CustomUser model">
+      <option name="closed" value="true" />
+      <created>1742883790536</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1742883790536</updated>
+    </task>
+    <task id="LOCAL-00063" summary="bye and call button, if_teacher and real_man in CustomUser model">
+      <option name="closed" value="true" />
+      <created>1742883805032</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1742883805032</updated>
+    </task>
+    <task id="LOCAL-00064" summary="balance">
+      <option name="closed" value="true" />
+      <created>1742910582506</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1742910582506</updated>
+    </task>
+    <task id="LOCAL-00065" summary="balance">
+      <option name="closed" value="true" />
+      <created>1742910596495</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1742910596495</updated>
+    </task>
+    <task id="LOCAL-00066" summary="videocall">
+      <option name="closed" value="true" />
+      <created>1742921008432</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1742921008432</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="deploying" />
+    <MESSAGE value="deleting messages" />
+    <MESSAGE value="updating messages" />
+    <MESSAGE value="websockets message" />
+    <MESSAGE value="real time deleting and ipdating of messages" />
+    <MESSAGE value="message unreaded" />
+    <MESSAGE value="my messages are readed automatically" />
+    <MESSAGE value="norm message indicator" />
+    <MESSAGE value="message_list real time changing" />
+    <MESSAGE value="improved loading page" />
+    <MESSAGE value="i dont know but commit lol" />
+    <MESSAGE value="so, i made a custom user" />
+    <MESSAGE value="xss valuibility(ujazvimost) in Message was removed" />
+    <MESSAGE value="improved frontend of offer" />
+    <MESSAGE value="privacy policy, cookie, classification of offers" />
+    <MESSAGE value="a can create new offer" />
+    <MESSAGE value="a can more update new offer" />
+    <MESSAGE value="blob storage connected" />
+    <MESSAGE value="everyone hs yourselve`s image" />
+    <MESSAGE value="authentication with email" />
+    <MESSAGE value="refresh secured tiken" />
+    <MESSAGE value="refreshing in all pages" />
+    <MESSAGE value="bye and call button, if_teacher and real_man in CustomUser model" />
+    <MESSAGE value="balance" />
+    <MESSAGE value="videocall" />
+    <option name="LAST_COMMIT_MESSAGE" value="videocall" />
+  </component>
+</project>

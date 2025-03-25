@@ -1,0 +1,278 @@
+import { useState, useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+import axios from 'axios';
+import Finded from '/src/pages/finded.jsx'
+import Type_offer from '/src/elems/offer_type.jsx'
+import App from '/src/App.jsx'
+import AppLoad from '/src/AppLoad.jsx'
+
+function Find() {
+
+      const [groups, setGroup] = useState([0]);
+  const [ws, setWs] = useState(null);
+
+useEffect(() => {
+
+    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+
+    socket.onopen = () => {
+        console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        console.log(data);
+        if (data.tip === "delete"){
+            document.getElementById(`chatnum${data.chat_id}`).children[0].children[0].children[0].children[2].textContent = data.last_mess;
+            console.log(data);
+            return;
+        }
+
+        if (data.tip === "change"){
+         //   document.getElementById(`mess${data.id}`).children[0].children[0].firstChild.textContent = data.text;
+            document.getElementById(`chatnum${data.chat_id}`).children[0].children[0].children[0].children[2].textContent = data.last_mess;
+            console.log(data);
+            return;
+        }
+        /*setMessage(data.message);
+        const newComponent = {
+            id: data.id,
+            text: data.message,
+            sender: data.sender, // Уникальный идентификатор
+        };
+        setComponents((components) => [...components, newComponent]);*/
+        if (data.tip === "send"){
+            document.getElementById(`chatnum${data.chat_id}`).children[0].children[0].children[0].children[2].textContent = data.message;
+
+            return;
+        }
+
+         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    setWs(socket);
+
+    return () => {
+      socket.close();
+    };
+  }, [groups]);
+
+
+
+    const [count, setCount] = useState(0)
+
+    document.querySelector("title").textContent = "DayLang";
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    const lang = getCookie('lang');
+    let [langua, setData10] = useState(null);
+
+if (lang != undefined){
+    langua = lang;
+}
+else{
+    document.cookie = `lang=English; path=/;max-age=31556926`;
+    langua = "English";
+}
+    var arrLang = {
+      'English': {
+          'teacher': 'Teacher',
+          'teacher_description': 'Teacher can help u if u dont speak fluently or correct you grammar mistakes and just make ur level of language up',
+          'eng': 'English',
+          'germ': 'Germany',
+          'rus': 'Russian',
+          'chin': 'Chinese',
+          'fren': 'French',
+          'ital': 'Italian',
+          'span': 'Spanish',
+          'serb': 'Serbian',
+      },
+      'Русский': {
+          'teacher': 'Преподаватель',
+          'teacher_description': 'Преподаватель может помочь вам, если вы не говорите бегло, или исправить ваши грамматические ошибки, и просто повысить ваш уровень владения языком',
+          'eng': 'English',
+          'germ': 'Germany',
+          'rus': 'Russian',
+          'chin': 'Chinese',
+          'fren': 'French',
+          'ital': 'Italian',
+          'span': 'Spanish',
+          'serb': 'Serbian',
+      },
+      'Srpski': {
+          'teacher': 'Nastavnik',
+          'teacher_description': 'Nastavnik vam može pomoći ako ne govorite tečno ili ispraviti gramatičke greške i jednostavno povećati nivo znanja jezika',
+          'eng': 'English',
+          'germ': 'Germany',
+          'rus': 'Russian',
+          'chin': 'Chinese',
+          'fren': 'French',
+          'ital': 'Italian',
+          'span': 'Spanish',
+          'serb': 'Serbian',
+      },
+      'Српски': {
+          'teacher': 'Наставник',
+          'teacher_description': 'Наставник вам може помоћи ако не говорите течно или исправити граматичке грешке и једноставно повећати ниво знања језика',
+          'eng': 'English',
+          'germ': 'Germany',
+          'rus': 'Russian',
+          'chin': 'Chinese',
+          'fren': 'French',
+          'ital': 'Italian',
+          'span': 'Spanish',
+          'serb': 'Serbian',
+      },
+      'Deutsch': {
+          'teacher': 'Lehrer',
+          'teacher_description': 'Der Lehrer kann dir helfen, wenn du nicht fließend sprichst oder deine Grammatikfehler korrigierst und einfach dein Sprachniveau verbesserst',
+          'eng': 'English',
+          'germ': 'Germany',
+          'rus': 'Russian',
+          'chin': 'Chinese',
+          'fren': 'French',
+          'ital': 'Italian',
+          'span': 'Spanish',
+          'serb': 'Serbian',
+      },
+      'Español': {
+          'teacher': 'Profesor',
+          'teacher_description': 'El profesor puede ayudarte si no hablas con fluidez o corriges tus errores gramaticales y simplemente subes de nivel el idioma',
+          'eng': 'English',
+          'germ': 'Germany',
+          'rus': 'Russian',
+          'chin': 'Chinese',
+          'fren': 'French',
+          'ital': 'Italian',
+          'span': 'Spanish',
+          'serb': 'Serbian',
+      },
+      'عربي': {
+          'teacher': 'المعلم',
+          'teacher_description': 'يمكن للمعلم مساعدتك إذا كنت لا تتحدث بطلاقة أو تصحح أخطائك النحوية وتجعل مستوى لغتك مرتفعا',
+          'eng': 'English',
+          'germ': 'Germany',
+          'rus': 'Russian',
+          'chin': 'Chinese',
+          'fren': 'French',
+          'ital': 'Italian',
+          'span': 'Spanish',
+          'serb': 'Serbian',
+      }
+
+    }
+
+
+const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+
+axios.defaults.withCredentials = true;
+
+  const [data12, setData12] = useState(null);
+  const [loading12, setLoading12] = useState(true);
+  const [error12, setError12] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        setData(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        if (response.data != null){
+            for (let i = 0; i < response.data[0].length; i++){
+                console.log(response.data[0][i].id);
+                setGroup((groups) => [...groups, response.data[0][i].id]);
+            }
+        }
+        setData12(response.data);
+      } catch (err) {
+        setError12(err.message);
+      } finally {
+        setLoading12(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
+  if (loading) return (
+      <>
+      <AppLoad lang={langua}/>
+</>
+
+  );
+  if (error) return <p>Error: {error}</p>;
+
+
+  if (loading12) return (
+      <>
+      <AppLoad lang={langua}/>
+</>
+
+  );
+  if (error12) return <p>Error: {error}</p>;
+
+console.log(lang);
+    return (
+        <>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
+
+<div className="find_panel">
+  <div className="tag_select_panel">
+    <h1 style={{ width: "auto", marginLeft: 30 }}>{arrLang[lang]['teacher']}</h1>
+    <p style={{width: "auto", margin: 30, overflowWrap: "anywhere", marginTop: 10, fontSize: 20}}>
+      {arrLang[lang]['teacher_description']}
+    </p>
+    <div style={{margin: 20,marginBottom: 50,width: "calc(100% - 40px)", height: "auto"}}>
+      <div style={{overflow: "hidden", width: "100%", height: "100%", overflowWrap: "anywhere" }}>
+
+
+        <Type_offer lang={lang}/>
+
+      </div>
+    </div>
+  </div>
+  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
+</div>
+
+
+</>
+
+  )
+}
+
+export default Find

@@ -1,0 +1,226 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+        function clear_mess()
+        {
+            document.getElementById("Finding").textContent = "";
+        }
+    </script>
+    <style>
+        body {overflow-x: hidden;}
+    </style>
+    <style>
+		.form-control{
+		    padding: 5px;
+		    margin-top: 10px;
+		    margin-bottom: 10px;
+		    outline: none;
+		    color: white;
+		    border: 0px;
+            background: #00000000;
+            border-bottom: 2px solid;
+		}
+
+		.user_card {
+			width: 350px;
+			background: #191919;
+			position: relative;
+			padding: 0px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+			margin: auto;
+		}
+
+		.form_container {
+			display: flex;
+			justify-content: center;
+			margin: 40px;
+		}
+
+
+		#form-title{
+			color: #fff;
+
+		}
+        .mt-4{
+            padding-bottom: 30px;
+        }
+		.login_btn {
+			width: 100%;
+			background: #969696;
+			color: white !important;
+			height: 30px;
+			border: 0px;
+		}
+		.login_btn:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+		.login_container {
+			padding-top: 40px;
+			display: flex;
+			justify-content: center;
+
+		}
+		.input-group-text {
+			background: #f7ba5b !important;
+			color: white !important;
+			border: 0 !important;
+			border-radius: 0.25rem 0 0 0.25rem !important;
+		}
+		.input_user,
+		.input_pass:focus {
+			box-shadow: none !important;
+			outline: 0px !important;
+		}
+
+		#messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
+        /*#mainVideo{
+            transition: width .50s;
+            transition: height .50s;
+        }
+        #myVideo{
+            transition: width .50s;
+            transition: height .50s;
+        }*/
+	</style>
+    <script>
+
+
+  /*  document.querySelector('textarea').addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = `${this.scrollHeight}px`;
+    });*/
+
+
+    </script>
+    <script>
+
+        /*if (document.getElementById("divoffb").clientWidth < 630)
+        {
+            document.getElementById("divoffb_img").style.width = "90%";
+            document.getElementById("divoffb_img").style.height = "auto";
+            document.getElementById("divoffb_button").style.width = "90%";
+        }*/
+
+        function save_to_favor(){
+            if (document.getElementById("favorito").getAttribute('src') === '/src/static/img/srce.png')
+            {
+                document.getElementById("favorito").setAttribute("src", `/src/static/img/srcered.png`);
+            }
+            else
+            {
+                document.getElementById("favorito").setAttribute("src", `/src/static/img/srce.png`);
+            }
+        }
+    </script>
+    <script>
+
+        function goback()
+        {
+            window.history.back();
+        }
+        function clear_mess()
+        {
+            document.getElementById("mess").textContent = "";
+        }
+
+      /*  function send_message(kkk)
+        {
+           // if (document.getElementById("mess").innerText != "")
+          //  {
+                let span = document.createElement('pre');
+                let d = document.createElement('div');
+                let div = document.createElement('div');
+                let img = document.createElement('img');
+                let Div = document.createElement('div');
+                d.setAttribute("style",`width: 10px; height: 10px; background-color: rgb(12, 12, 12); position: absolute; left: -10px; bottom: 0px; border-top-left-radius: 100% `);
+                Div.setAttribute("style",`margin-top: 40px; margin-bottom: 20px; position: relative; left: 30px; max-width: 50%; display: block; `);
+                div.setAttribute("style",` position: relative; left: 70px; top: -20px; border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;`);
+                span.setAttribute("style",`font-size: 18px; position: relative; padding: 10px; background-color: rgb(12 12 12); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-top-right-radius: 10px; border-top-left-radius: 10px; border-bottom-right-radius: 10px;`);
+                img.setAttribute("src", `/src/static/img/noob.jpg`);
+                img.setAttribute("style", `height: 50px; width: 50px; border-radius: 30px; position: absolute; bottom: 0px;`);
+                span.textContent = kkk;
+                div.append(span);
+                div.append(d);
+                Div.append(img);
+                Div.append(div);
+                document.getElementById("mesfield").append(Div);
+               // clear_mess();
+                document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+            //}
+        }
+
+        function send_my_message(kkk)
+        {
+           // if (document.getElementById("mess").innerText != "")
+          //  {
+                let span = document.createElement('pre');
+                let d = document.createElement('div');
+                let div = document.createElement('div');
+                let img = document.createElement('img');
+                let Div = document.createElement('div');
+                d.setAttribute("style",`width: 10px; height: 10px; background-color: rgb(12, 12, 12); position: absolute; left: -10px; bottom: 0px; border-top-left-radius: 100% `);
+                Div.setAttribute("style",`margin-top: 40px; margin-bottom: 20px; position: relative; left: 30px; max-width: 50%; display: block; `);
+                div.setAttribute("style",` position: relative; left: 70px; top: -20px; border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;`);
+                span.setAttribute("style",`font-size: 18px; position: relative; padding: 10px; background-color: rgb(12 12 12); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-top-right-radius: 10px; border-top-left-radius: 10px; border-bottom-right-radius: 10px;`);
+                img.setAttribute("src", `/src/static/img/noob.jpg`);
+                img.setAttribute("style", `height: 50px; width: 50px; border-radius: 30px; position: absolute; bottom: 0px;`);
+                span.textContent = kkk;
+                div.append(span);
+                div.append(d);
+                Div.append(img);
+                Div.append(div);
+                document.getElementById("mesfield").append(Div);
+               // clear_mess();
+                document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+            //}
+        }
+
+        function send()
+        {
+            let span = document.createElement('a');
+            let div = document.createElement('div');
+            let img = document.createElement('img');
+            let Div = document.createElement('div');
+            Div.setAttribute("style",`margin-top: 0px; position: relative; left: 30px; max-width: 50%; display: block; `);
+            div.setAttribute("style",` position: relative; left: 60px; top: -30px; border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;`);
+            span.setAttribute("style",`font-size: 18px; position: relative; padding: 10px; background-color: rgb(12 12 12); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;`);
+            img.setAttribute("src", `/src/static/img/noob.jpg`);
+            img.setAttribute("style", `height: 50px; width: 50px; border-radius: 30px;`);
+            span.textContent = document.getElementById("mess").innerText;
+            div.append(span);
+            Div.append(img);
+            Div.append(div);
+            document.getElementById("mesfield").append(Div);
+            document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+
+        }*/
+    </script>
+    <link rel="stylesheet" href="src/static/find.css">
+    <link rel="stylesheet" href="src/static/finded.css">
+    <link rel="stylesheet" href="src/static/messagesss.css">
+    <link rel="stylesheet" href="src/static/message.css">
+    <link rel="stylesheet" href="src/static/offer.css">
+    <link rel="stylesheet" href="src/static/me.css">
+    <link rel="stylesheet" href="src/static/srt_offer.css">
+  <!--  <link rel="stylesheet" href="src/static/regtimer.css">-->
+    <link rel="icon" type="image/png" href="src/static/img/favicon.png">
+    <title>Find</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<script type="module" src="src/main.jsx"></script>
+</body>
+</html>

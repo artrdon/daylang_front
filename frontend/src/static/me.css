@@ -1,0 +1,424 @@
+.page_of_type{
+    padding-left: 40px;
+    width: calc(100% - 40px); height: 50px; background-color: #ebebeb; position: absolute; top: 340px;
+}
+.me_selected{
+    border-bottom: 5px solid black
+}
+.me_under_find{
+    width: 100%; height: 191px; background-color: gray; position: absolute;
+}
+.me_avatar{
+    width: 150px; height: 150px; position: relative; left: 100px; top: 150px; border-radius: 100px;
+}
+.me_name_surname_panel{
+    position: absolute; left: 130px; top: 130px;
+}
+.me_name{
+    position: relative; left: 150px; top: 100px; font-size: 30px; margin-right: 10px;
+}
+.me_surname{
+    position: relative; left: 150px; top: 100px; font-size: 30px; margin-right: 10px;
+}
+.me_real_pers{
+    position: relative; left: 150px; top: 100px; width: 30px;
+}
+.me_setting_ref{
+    position: relative; left: calc(100% - 400px); top: 110px; width: 30px; border-radius: 50%; height: 30px; display: inline-block;
+}
+.me_setting_img{
+    height: 30px; width: 30px; filter: brightness(10%);
+}
+.me_div_of_button{
+    height: 100%; width: auto; display: inline-block; padding-left: 20px; padding-right: 20px;
+}
+.me_span_of_button{
+    display: flex; justify-content: center; align-items: center; height: 100%; width: auto;
+}
+.me_span_of_button_text{
+    font-size: 30px; color: black;
+}
+.me_description_offer{
+    display: inline-block; font-size: 25px; padding: 50px; position: relative; top: 400px; width: 60%; padding-bottom: 100px;
+}
+.degree_description_about{
+    display: inline-block; font-size: 25px; top: 400px; width: 60%;
+}
+.degree_img{
+    width: 200px; height: auto;
+}
+.degree_button{
+    margin: 10px;
+}
+.degree_page_around{
+    position: relative; top: 400px; padding: 50px; padding-bottom: 100px;
+}
+.feedback_review_score{
+    position: relative; top: 400px; width: calc(100% - 80px); padding: 40px; padding-bottom: 100px;
+}
+.feedback_review_img{
+    width: 30px; height: 30px;
+}
+.feedback_review_container{
+    width: 60%; height: auto; border: 1px solid gray;
+}
+.feedback_review_div_container{
+    position: relative; top: 20px; left: 20px; cursor: pointer; width: calc(100% - 20px);
+}
+.feedback_review_zvezde{
+    width: 100px; height: 20px; right: 0px; position: absolute; top: 10px; margin-right: 20px; transform: scale(-1, 1);
+}
+.feedback_review_text{
+    padding: 20px; margin-top: 20px; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.feedback_review_down_block{
+    position: relative; top: 10px;
+}
+.feedback_review_price_text{
+    color: rgb(0, 184, 0); font-weight: bold;
+}
+.offer_add_button{
+    width: 218px; height: 318px; background-color: #00000000; display: inline-block; margin: 5px; border-radius: 30px; border: 1px solid black;
+}
+.offer_plus_container{
+    margin-top: 85px; margin-left: 35px;
+}
+.offer_plus{
+    width: 150px; height: 150px; background-color: black; border-radius: 50%; margin: auto; position: absolute; font-size: 140px; text-align: center; color: white;
+}
+.dark_theme{
+    .page_of_type{
+        background-color: #191919;
+    }
+    .me_span_of_button_text{
+        color: white;
+    }
+    .me_selected{
+        border-bottom: 5px solid white
+    }
+    .offer_add_button{
+        border: 1px solid white;
+    }
+    .offer_plus{
+        background-color: white; color: black;
+    }
+    .me_setting_img{
+        filter: unset;
+    }
+}
+
+
+@media only screen and (max-width: 1200px)
+{
+    .me_setting_ref{
+        left: calc(100% - 300px);
+    }
+}
+
+@media only screen and (max-width: 1000px)
+{
+    .me_setting_ref{
+        left: calc(100% - 250px);
+    }
+    .me_span_of_button_text{
+        font-size: 25px;
+    }
+}
+@media only screen and (max-width: 900px)
+{
+    .crt_offer_blank{
+        margin-bottom: 100px;
+    }
+    .me_description_offer{
+        width: calc(100% - 100px);
+        padding-bottom: 100px;
+    }
+    .degree_description_about{
+        width: 100%;
+    }
+    .feedback_review_container{
+        width: 100%;
+    }
+}
+
+
+@media only screen and (max-width: 660px)
+{
+    .me_div_of_button{
+        padding-left: 10px; padding-right: 10px;
+    }
+    .me_avatar{
+        left: 40px;
+        width: 130px;
+        height: 130px;
+    }
+    .me_name{
+        left: 80px;
+    }
+    .me_surname{
+        left: 80px;
+    }
+    .me_real_pers{
+        left: 80px;
+    }
+    .me_setting_ref{
+        top: 130px;
+        left: calc(100% - 200px);
+    }
+}
+@media only screen and (max-width: 560px)
+{
+    .page_of_type{
+        padding-left: 10px;
+        width: calc(100% - 10px);
+    }
+    .me_name{
+        left: 50px;
+    }
+    .me_surname{
+        left: 50px;
+    }
+    .me_real_pers{
+        left: 50px;
+    }
+    .me_setting_ref{
+        top: 130px;
+        left: calc(100% - 180px);
+    }
+    .me_description_offer{
+        padding: 20px;
+        width: calc(100% - 40px);
+        padding-bottom: 100px;
+    }
+    .degree_img{
+        width: 35vw;
+    }
+    .degree_button{
+        margin: 2vw;
+    }
+    .degree_page_around{
+        padding: 3.8vw;
+        padding-bottom: 100px;
+    }
+    .feedback_review_score{
+        padding: 3.8vw;
+        width: calc(100% - 7.6vw);
+        padding-bottom: 100px;
+    }
+}
+@media only screen and (max-width: 500px)
+{
+
+    .me_under_find{
+        width: 100%; height: 170px;
+    }
+    .page_of_type{
+        padding-left: 10px;
+        top: 270px;
+    }
+    .me_avatar{
+        top: 130px;
+        left: 30px;
+        width: 110px;
+        height: 110px;
+    }
+    .me_name{
+        font-size: 25px;
+        top: 60px;
+        left: 30px;
+    }
+    .me_surname{
+        font-size: 25px;
+        top: 60px;
+        left: 30px;
+    }
+    .me_real_pers{
+        top: 60px;
+        left: 30px;
+    }
+    .me_setting_ref{
+        top: 110px;
+        left: calc(100% - 180px);
+    }
+    .me_description_offer{
+        padding: 10px;
+        width: calc(100% - 20px);
+        top: 360px;
+        font-size: 20px;
+        padding-bottom: 100px;
+    }
+    .degree_page_around{
+        padding: 3vw;
+        padding-bottom: 100px;
+    }
+    .feedback_review_score{
+        padding: 3vw;
+        width: calc(100% - 6vw);
+        padding-bottom: 100px;
+    }
+}
+@media only screen and (max-width: 460px)
+{
+
+    .me_under_find{
+        width: 100%; height: 170px;
+    }
+    .me_avatar{
+        top: 130px;
+        left: 20px;
+        width: 110px;
+        height: 110px;
+    }
+    .me_name{
+        font-size: 25px;
+        top: 60px;
+        left: 10px;
+    }
+    .me_surname{
+        font-size: 25px;
+        top: 60px;
+        left: 10px;
+    }
+    .me_real_pers{
+        top: 60px;
+        left: 10px;
+    }
+    .me_setting_ref{
+        top: 110px;
+        left: calc(100% - 160px);
+    }
+    .offer_add_button{
+        aspect-ratio: 11/16;
+        width: calc(47.8vw - 0.36vw);
+        height: auto;
+        margin: 1.08vw;
+        border-radius: 6.52vw;
+        border: 0.36vw solid white;
+    }
+    .offer_plus_container{
+        margin-top: 18.48vw; margin-left: 7.61vw;
+    }
+    .offer_plus{
+        width: 32.6vw; height: 32.6vw; font-size: 31.6vw;
+    }
+
+}
+@media only screen and (max-width: 420px)
+{
+    .me_under_find{
+        width: 100%; height: 130px;
+    }
+    .page_of_type{
+        padding-left: 10px;
+        top: 220px;
+    }
+    .me_description_offer{
+        top: 310px;
+    }
+    .degree_page_around{
+        top: 310px;
+    }
+    .feedback_review_score{
+        top: 310px;
+    }
+    .me_avatar{
+        top: 80px;
+        left: 20px;
+        width: 100px;
+        height: 100px;
+    }
+    .me_name{
+        font-size: 20px;
+        top: 10px;
+        left: 5px;
+    }
+    .me_surname{
+        font-size: 20px;
+        top: 10px;
+        left: 5px;
+    }
+    .me_real_pers{
+        top: 10px;
+        left: 5px;
+        width: 25px;
+    }
+    .me_setting_ref{
+        top: 60px;
+        left: calc(100% - 140px);
+        width: 25px;
+        height: 25px;
+    }
+    .me_setting_img{
+        width: 25px;
+        height: 25px;
+    }
+}
+@media only screen and (max-width: 365px)
+{
+    .me_under_find{
+        width: 100%; height: 130px;
+    }
+    .page_of_type{
+        padding-left: 10px;
+    }
+    .me_avatar{
+        top: 90px;
+        left: 20px;
+        width: 90px;
+        height: 90px;
+    }
+    .me_name{
+        font-size: 20px;
+        top: 10px;
+        left: -10px;
+    }
+    .me_surname{
+        font-size: 20px;
+        top: 10px;
+        left: -10px;
+    }
+    .me_real_pers{
+        top: 10px;
+        left: -10px;
+        width: 25px;
+    }
+    .me_setting_ref{
+        top: 120px;
+        left: -70px;
+        width: 25px;
+        height: 25px;
+    }
+}
+@media only screen and (max-width: 300px)
+{
+    .me_under_find{
+        width: 100%; height: 130px;
+    }
+    .me_avatar{
+        top: 90px;
+        left: 20px;
+        width: 90px;
+        height: 90px;
+    }
+    .me_name{
+        font-size: 20px;
+        top: 10px;
+        left: -10px;
+    }
+    .me_surname{
+        font-size: 20px;
+        top: 10px;
+        left: -10px;
+    }
+    .me_real_pers{
+        top: 10px;
+        left: -10px;
+        width: 25px;
+    }
+    .me_setting_ref{
+        top: 120px;
+        left: -70px;
+        width: 25px;
+        height: 25px;
+    }
+}

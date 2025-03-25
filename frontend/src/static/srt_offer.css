@@ -1,0 +1,107 @@
+.crt_offer_gray_thing{
+    width: 800px; height: auto; background-color: #c2c2c2; border: 2px solid #444444; top: 0px; position: absolute; border-radius: 5px;/* box-shadow: 0px 0px 10px rgb(119, 119, 119);*/ margin-top: 30px; margin-bottom: 30px;
+}
+.input_field_name{
+    color: rgb(0, 0, 0); background-color: #f1f1f1; border-radius: 3px; border: 0px; font-size: 20px; height: 20px; width: 550px; display: block; margin-left: auto; margin-right: auto; margin-top: 50px; outline: none; padding: 10px;
+}
+
+.input_field_description{
+    color: rgb(0, 0, 0); background-color: #f1f1f1; border-radius: 3px; border: 0px; font-size: 20px; display: block; resize: none; width: 550px; height: 400px;  margin-left: auto; margin-right: auto; margin-top: 50px; outline: none; padding: 10px; margin-bottom: 50px;
+}
+.input_field_price{
+    color: rgb(207, 207, 207); background-color: #181818; border-radius: 3px; border: 0px; font-size: 20px; display: block; width: 550px; height: 20px;  margin-left: auto; margin-right: auto; margin-top: 50px; outline: none; padding: 10px;
+}
+.input_submit_button{
+    background-color: #181818; display: block; width: 200px; height: 40px;  margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 20px;
+}
+.ctr_offer_find_panel{
+    width: 100%;
+    height: auto;
+    right: 0px;
+    top: 70px;
+    position: absolute;
+    background-color: #ebebeb;
+}
+.crt_offer_name_of_fields{
+    width: 570px; margin-left: auto; margin-right: auto; position: relative; top: 40px; font-size: 20px;
+}
+.crt_offer_photo_div{
+    width: 570px; margin-left: auto; margin-right: auto; position: relative; top: 50px; font-size: 20px; height: 500px;
+}
+.crt_offer_photo{
+    width: 300px; height: 300px; position: relative; top: 50px; display: block;
+}
+.setting_language_selector{
+    color: rgb(0, 0, 0); background-color: #f1f1f1; border-radius: 3px; border: 0px; font-size: 20px; height: 40px; width: 570px; display: block; margin-left: auto; margin-right: auto; margin-top: 50px; outline: none;
+}
+
+.dark_theme{
+    .crt_offer_gray_thing{
+        background-color: #333333;
+    }
+    .setting_language_selector{
+        color: rgb(207, 207, 207); background-color: #181818;
+    }
+    .input_field_name{
+        color: rgb(207, 207, 207); background-color: #181818;
+    }
+    .input_field_description{
+        color: rgb(207, 207, 207); background-color: #181818;
+    }
+}
+
+@media only screen and (max-width: 1600px)
+{
+    .ctr_offer_find_panel{
+        width: 80%;
+    }
+}
+@media only screen and (max-width: 1300px)
+{
+    .ctr_offer_find_panel{
+        width: 75%;
+    }
+}
+@media only screen and (max-width: 1150px)
+{
+    .ctr_offer_find_panel{
+        width: 75%;
+    }
+    .crt_offer_gray_thing{
+        width: calc(100% - 100px);
+    }
+}
+@media only screen and (max-width: 900px)
+{
+    .ctr_offer_find_panel{
+        width: 100%;
+    }
+    .crt_offer_gray_thing{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 700px)
+{
+    .input_field_name{
+        width: 78.573%;
+    }
+
+    .input_field_description{
+        width: 78.573%;
+    }
+    .crt_offer_name_of_fields{
+        width: 78.573%;
+    }
+    .crt_offer_photo_div{
+        width: 78.573%;
+    }
+    .setting_language_selector{
+        width: calc(78.573% + 20px);
+    }
+}
+@media only screen and (max-width: 380px)
+{
+    .crt_offer_photo{
+        width: 100%; height: auto; aspect-ratio: 1/1;
+    }
+}

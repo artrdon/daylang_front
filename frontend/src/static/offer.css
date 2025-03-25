@@ -1,0 +1,349 @@
+.div_of_foto_and_button{
+    height: auto; width: 47%; position: absolute;top: 40px; left: 50px; 
+}
+.foto_main{
+    width: auto; aspect-ratio: 1/1; max-height: 630px; box-shadow: 0px 0px 10px #666666;
+}
+.button_under_foto{
+    background-color: gray; color: white; font-size: 30px; height: 50px; width: 630px; position: absolute; left: 0px; top: calc(100% + 20px); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0px 0px 0px #666666;
+}
+.div_description{
+    width: 47%; height: auto;  left: 0px; z-index: 15; position: relative; top: 700px; margin: 50px; margin-top: 100px;
+}
+.description_text{
+    display: inline-block; font-size: 25px; padding: 0px; white-space: pre-wrap; overflow-wrap: anywhere; margin-bottom: 100px; width: 630px;
+}
+.div_of_offer_div{
+    width: 100%; height: auto;  left: 0px; z-index: 15; position: relative; top: 700px;
+}
+.offer_div
+{
+    display: inline-block;font-size: 25px; padding: 50px;
+}
+.review_div{
+    height: auto; width: 53%; top: 0px; position: absolute; right: 0px;
+}
+.margin_of_offer{
+    margin: 50px; width: 70%;
+}
+.offer_price_div{
+    padding-bottom: 50px;
+}
+.offer_price{
+    font-size: 40px; position: relative; margin-top: 30px;
+}
+.offer_save_to_fav_button{
+    position: absolute; right: 80px; top: 60px; background-color: #00000000; filter: brightness(70%);
+}
+.offer_src_img{
+    width: 40px; height: 40px; z-index: 10;
+}
+.offer_review_div_div{
+    width: calc(100% - 2px); height: auto; border: 1px solid gray; position: relative; top: 100px;
+}
+.offer_review_div{
+    position: relative; top: 20px; left: 20px; cursor: pointer; width: calc(100% - 20px);
+}
+.offer_score_img{
+    width: 100px; height: 20px; right: 0px; position: absolute; top: 10px; margin-right: 20px; transform: scale(-1, 1); filter: hue-rotate(340deg);
+}
+.offer_review_text{
+  padding: 20px;
+  margin-top: 20px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.offer_author_name_div{
+    position: relative;
+    bottom: 50px;
+    left: 10px;
+    display: inline-block;
+}
+.offer_author_name_span{
+    color: black;
+    position: relative;
+    top: 0px;
+    font-size: 20px;
+    margin-right: 5px;
+}
+.offer_set_review_div{
+    display: flex;
+    justify-content: center;
+    min-height: 50px;
+    width: 60%;
+    left: 130px;
+    position: absolute;
+}
+.offer_about_author_div{
+    width: 628px; height: 90px; position: relative; border: 1px solid black; background-color: #ededed; z-index: 5; display: flex; align-items: center; border-radius: 5px;
+}
+.offer_about_author{
+    position: absolute; cursor: pointer; left: 20px;
+}
+.offer_me_real_pers{
+    position: relative; left: 0px; top: 0px; width: 25px;
+}
+.offer_author_description{
+    position: absolute; color: black; left: 90px; top: 40px; font-size: 20px; max-width: 200%; white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*feedback moment*/
+.star{
+    height: 50px; height: 50px; display: inline-block; margin: 10px;
+    z-index: 20;
+}
+
+/*feedback moment*/
+
+.dark_theme{
+    .offer_save_to_fav_button{
+        filter: brightness(100%);
+    }
+    .offer_about_author_div{
+        background-color: #191919;
+    }
+    .offer_author_description{
+        color: white;
+    }
+    .offer_about_author_div{
+        border: 1px solid white;
+    }
+    .offer_author_name_span{
+        color: white;
+    }
+    .button_under_foto{
+        background-color: white; color: black
+    }
+    .offer_score_img{
+        filter: unset;
+    }
+}
+
+@media only screen and (max-width: 1750px)
+{
+    .offer_author_description{
+        max-width: 20vw;
+    }
+    .offer_about_author_div{
+        width: 36vw;
+    }
+    .foto_main{
+        max-height: 36vw;
+    }
+    .button_under_foto {
+        width: 36vw;
+    }
+    .review_div{
+        width: 40vw;
+    }
+    .description_text{
+        width: 36vw;
+    }
+}
+@media only screen and (min-width: 1451px)
+{
+    #comp{
+        display: block;
+    }
+    #phone{
+        display: none;
+    }
+}
+@media only screen and (max-width: 1450px)
+{
+    .offer_author_description{
+        max-width: 40vw;
+    }
+    .offer_about_author_div{
+        width: calc(100% - 2px);
+    }
+    .offer_set_review_div{
+        left: 0px;
+    }
+    .offer_save_to_fav_button {
+        right: unset;
+        position: absolute;
+        left: calc(100% - 40px);
+        top: 0px;
+        background-color: #00000000;
+    }
+    .div_of_foto_and_button{
+        height: auto; width: 60%; position: relative; left: unset; top: unset; margin: 50px;
+    }
+    .foto_main{
+        width: 100%; height: auto; position: relative; aspect-ratio: 1/1; max-height: unset;
+    }
+    .button_under_foto{
+        font-size: 30px; height: 50px; width: 100%; position: relative; left: 0px; top: 0px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0px 0px 0px #666666;
+    }
+    .div_description{
+        width: 100%; height: auto; left: 0px; z-index: 15; position: relative; top: 0px; margin: 0px;
+    }
+    .description_text{
+        display: inline-block; font-size: 25px; padding: 0px; width: 100%
+    }
+    .review_div{
+        height: auto; width: 60%; top: 50px; position: relative; right: unset; left: 0px; margin: 50px;
+    }
+    .margin_of_offer{
+        margin: 0px;
+        margin-top: 40px;
+        width: calc(100% - 60px);
+    }
+    .div_of_offer_div{
+        width: 60%; height: auto;  left: 0px; z-index: 15; position: relative; top: 50px; margin: 40px;
+    }
+    .offer_div
+    {
+        display: inline-block; font-size: 25px; padding: 0px; width: 100%; padding-bottom: 100px;
+    }
+    #comp{
+        display: none;
+    }
+    #phone{
+        display: block;
+    }
+}
+@media only screen and (max-width: 1200px)
+{
+    .review_div{
+        width: 70%;
+    }
+    .offer_author_description{
+        max-width: 40vw;
+    }
+    .offer_set_review_div{
+        left: 60px;
+    }
+    .offer_save_to_fav_button {
+         left: calc(100% - 40px);
+    }
+    .div_of_foto_and_button{
+        width: 70%;
+    }
+    .foto_main{
+        width: 100%;
+    }
+    .div_description{
+        width: 100%;
+    }
+    .margin_of_offer{
+        width: calc(100% - 60px);
+    }
+    .div_of_offer_div{
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 900px)
+{
+    .offer_author_description{
+        max-width: 70vw;
+    }
+    .offer_set_review_div{
+        left: 120px;
+    }
+    .offer_save_to_fav_button {
+        left: 90%;
+    }
+    .div_of_foto_and_button{
+        width: calc(100% - 100px);
+    }
+    .div_description{
+        width: 100%;
+    }
+    .margin_of_offer{
+        width: calc(100% - 20px);
+    }
+    .div_of_offer_div{
+        width: calc(100% - 100px);
+    }
+}
+@media only screen and (max-width: 800px)
+{
+    .review_div{
+        margin: 40px;
+        width: calc(100% - 80px);
+    }
+    .offer_save_to_fav_button {
+        left: 90%;
+    }
+    .div_of_foto_and_button{
+        margin: 40px;
+        width: calc(100% - 80px);
+    }
+    .div_description{
+        width: 100%;
+    }
+    .margin_of_offer{
+        width: calc(100% - 20px);
+    }
+    .div_of_offer_div{
+        margin: 40px;
+        width: calc(100% - 80px);
+    }
+}
+@media only screen and (max-width: 700px)
+{
+    .offer_set_review_div{
+        left: 80px;
+    }
+    .review_div{
+        margin: 30px;
+        width: calc(100% - 60px);
+    }
+    .offer_save_to_fav_button {
+        left: 90%;
+    }
+    .div_of_foto_and_button{
+        margin: 30px;
+        width: calc(100% - 60px);
+    }
+    .div_description{
+        width: 100%;
+    }
+    .margin_of_offer{
+        width: calc(100% - 20px);
+    }
+    .div_of_offer_div{
+        margin: 30px;
+        width: calc(100% - 60px);
+    }
+}
+
+@media only screen and (max-width: 525px)
+{
+    .offer_set_review_div{
+        left: unset;
+        width: calc(100% - 120px);
+    }
+    .review_div{
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+    .offer_save_to_fav_button {
+        left: 90%;
+    }
+    .div_of_foto_and_button{
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+    .div_description{
+        width: 100%;
+    }
+    .margin_of_offer{
+        width: calc(100% - 20px);
+    }
+    .div_of_offer_div{
+        margin:0px;
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 450px)
+{
+    .star{
+        height: 11.114vw;
+        margin: 2.2228vw;
+    }
+}

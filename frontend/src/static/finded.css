@@ -1,0 +1,229 @@
+.offer_of_lang_finded{
+    width: 1000px;
+    height: 260px;
+    margin: 20px;
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 0px 0px 0px #666666; 
+    cursor: pointer;
+    
+    background-color: #ebebeb; 
+}
+.offer_of_lang_finded_sort_panel{
+    width: 1000px;
+    height: 260px;
+    margin: 20px;
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 0px 0px 0px #666666;
+    cursor: pointer;
+
+    background-color: gray;
+}
+.src_img{
+    width: 40px; height: 40px; position: absolute; top: 20px; right: 20px; filter: brightness(70%);
+}
+.offer_of_lang_finded:hover{
+    transition: background-color .2s;
+    background-color: #c4c4c4;
+}
+
+.finded_panel{
+    width: 60%;
+    left: 17%;
+    right: 0px;
+    top: 70px;
+    position: absolute;
+    background-color: #ebebeb;
+}
+.sborishe_chelov{
+    background-color: #ebebeb; height: auto; padding: 20px; width: 1100px;
+}
+
+/*offer*/
+
+.finded_name{
+    position: absolute; color: black; left: 310px; top: 20px; color: rgb(40, 108, 255); width: 60%; overflow-wrap: anywhere; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.finded_img{
+    position: relative; height: 100%; border-top-left-radius: 20px; border-bottom-left-radius: 20px; aspect-ratio: 1 / 1; width: auto;
+}
+.part_with_text{
+    position: absolute; top: 70px; left: 310px; 
+}
+.finded_price{
+    display: block; left: 0px; font-size: 30px; position: relative; color: black;
+}
+.finded_online_status{
+    display: block; right: 0px; font-size: 30px; position: relative; color: black;
+}
+.finded_review{
+    position: absolute; left: 600px; top: 0px;  filter: hue-rotate(340deg);
+}
+.img_review{
+    width: 30px; height: 30px; display: inline-block;
+}
+.review_text{
+    color: black; position: absolute; display: inline-block;
+}
+.description_lol{
+    font-size: 20px; color: black; margin-top: 30px; overflow-wrap: anywhere; margin-right: 50px; width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; top: 100px; position: absolute;
+}
+/*offer*/
+
+
+.dark_theme{
+    .src_img{
+        filter: brightness(100%);
+    }
+    .finded_name{
+        color: white; 
+    }
+    .finded_review{
+        filter: unset;
+    }
+    .finded_price{
+        color: white;
+    }
+    .finded_online_status{
+        color: white;
+    }
+    .review_text{
+        color: white;
+    }
+    .description_lol{
+        color: white; 
+    }
+    .sborishe_chelov{
+        background-color: #191919;
+    }
+    .offer_of_lang_finded{
+        
+        background-color: #191919; 
+    }
+ /*   .offer_of_lang_finded_sort_panel{
+        background-color: #2b2b2b;
+    }*/
+    .offer_of_lang_finded:hover{
+        transition: background-color .2s;
+        background-color: #2b2b2b;
+    }
+}
+
+
+@media only screen and (max-width: 900px)
+{
+    .finded_img{
+        height: auto;
+        width: 25vw;
+    }
+    .finded_panel{
+        width: 100%;
+        left: 0px;
+    }
+    .sborishe_chelov{
+        padding: 0px;
+        padding-top: 50px;
+    }
+    .offer_of_lang_finded{
+        width: calc(100% - 1.2vw);
+        margin: 1.2vw;
+        height: 25vw;
+        border-radius: 2.22vw;
+    }
+    .offer_of_lang_finded_sort_panel{
+        width: calc(100% - 1.2vw);
+        margin: 1.2vw;
+        height: 25vw;
+        border-radius: 2.22vw;
+    }
+    .finded_img {
+        border-top-left-radius: 2.22vw;
+        border-bottom-left-radius: 2.22vw;
+    }
+    .finded_name{
+        font-size: 4vw;
+        left: 28vw;
+        top: 1vw;
+    }
+    .part_with_text{
+        top: 40px;
+        left: 25%;
+    }
+    .finded_review{
+        left: 57vw;
+        top: 3vw;
+    }
+    .finded_price{
+        font-size: 4vw;
+        position: absolute;
+        width: 50vw;
+        left: 4vw;
+        margin-top: 3vw;
+    }
+    .finded_online_status{
+        display: none;
+        font-size: 20px;
+    }
+    .description_lol{
+        font-size: 2.6vw;
+        margin-top: 10px;
+        margin-right: 0px;
+        width: 60vw;
+        left: 4vw;
+        position: absolute;
+        top: 13vw;
+    }
+    .review_text{
+        font-size: 5vw;
+    }
+    .img_review{
+        width: 5vw;
+        height: 5vw;
+    }
+    .src_img{
+        top: 1vw;
+        right: 6vw;
+        height: 5vw;
+        width: 5vw;
+    }
+}
+@media only screen and (max-width: 600px)
+{
+    .description_lol{
+        top: 10vw;
+    }
+}
+@media only screen and (max-width: 450px)
+{
+    .src_img{
+        right: 2vw;
+    }
+    .finded_price{
+        margin-top: -1vw;
+    }
+    .finded_review{
+        left: 57vw;
+        top: -2vw;
+    }
+    .description_lol{
+        top: 7vw;
+    }
+}
+@media only screen and (max-width: 350px)
+{
+    .src_img{
+        right: 2vw;
+    }
+    .finded_price{
+        margin-top: -1vw;
+    }
+    .finded_review{
+        left: 57vw;
+        top: -2vw;
+    }
+    .description_lol{
+        top: 4vw;
+        font-size: 3vw;
+    }
+}

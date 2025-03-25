@@ -1,0 +1,239 @@
+import { useState, useEffect, state, handleChange, handleSubmit, setStat, useRef }  from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import React, { Component } from 'react'
+import Reg from '/src/pages/reg.jsx'
+import axios from 'axios';
+import io from 'socket.io-client';
+import SimplePeer from 'simple-peer';
+
+
+
+//const socket = io('ws://127.0.0.1:8000/socket.io'); // Определите socket
+
+function Call() {
+  const [localStream, setLocalStream] = useState(null);
+  const [remoteStream, setRemoteStream] = useState(null);
+  const localVideoRef = useRef(null);
+  const remoteVideoRef = useRef(null);
+  const pcRef = useRef(null);
+  const wsRef = useRef(null);
+  const [isCallStarted, setIsCallStarted] = useState(false);
+
+  useEffect(() => {
+    const initWebSocket = () => {
+      wsRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/videochat/1/`);
+
+        wsRef.current.onopen = () => {
+        console.log('WebSocket connected');
+    }
+
+      wsRef.current.onmessage = async (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.type === 'new_offer') {
+          await handleOffer(data.offer);
+        } else if (data.type === 'new_answer') {
+          await handleAnswer(data.answer);
+        } else if (data.type === 'new_ice_candidate') {
+          await handleNewICECandidate(data.candidate);
+        }
+      };
+
+      wsRef.current.onclose = () => {
+        console.log('WebSocket disconnected');
+      };
+    };
+
+    const initPeerConnection = () => {
+      const pc = new RTCPeerConnection({
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          // Добавьте свои TURN серверы при необходимости
+        ]
+      });
+
+      pc.onicecandidate = (event) => {
+        if (event.candidate) {
+          wsRef.current.send(JSON.stringify({
+            type: 'new_ice_candidate',
+            candidate: event.candidate
+          }));
+        }
+      };
+
+      pc.ontrack = (event) => {
+        if (remoteVideoRef.current) {
+          remoteVideoRef.current.srcObject = event.streams[0];
+          setRemoteStream(event.streams[0]);
+        }
+      };
+
+      pcRef.current = pc;
+    };
+
+    const getMedia = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true
+        });
+
+        if (localVideoRef.current) {
+          localVideoRef.current.srcObject = stream;
+          setLocalStream(stream);
+
+          stream.getTracks().forEach(track => {
+            pcRef.current.addTrack(track, stream);
+          });
+        }
+      } catch (error) {
+        console.error('Error accessing media devices:', error);
+      }
+    };
+
+    initWebSocket();
+    initPeerConnection();
+    getMedia();
+
+    return () => {
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+      if (pcRef.current) {
+        pcRef.current.close();
+      }
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
+
+  const createOffer = async () => {
+    try {
+      const offer = await pcRef.current.createOffer();
+      await pcRef.current.setLocalDescription(offer);
+
+      wsRef.current.send(JSON.stringify({
+        type: 'new_offer',
+        offer: offer
+      }));
+
+      setIsCallStarted(true);
+    } catch (error) {
+      console.error('Error creating offer:', error);
+    }
+  };
+
+  const handleOffer = async (offer) => {
+    try {
+      await pcRef.current.setRemoteDescription(new RTCSessionDescription(offer));
+
+      const answer = await pcRef.current.createAnswer();
+      await pcRef.current.setLocalDescription(answer);
+
+      wsRef.current.send(JSON.stringify({
+        type: 'new_answer',
+        answer: answer
+      }));
+
+      setIsCallStarted(true);
+    } catch (error) {
+      console.error('Error handling offer:', error);
+    }
+  };
+
+  const handleAnswer = async (answer) => {
+    try {
+      await pcRef.current.setRemoteDescription(new RTCSessionDescription(answer));
+    } catch (error) {
+      console.error('Error handling answer:', error);
+    }
+  };
+
+  const handleNewICECandidate = async (candidate) => {
+    try {
+      await pcRef.current.addIceCandidate(new RTCIceCandidate(candidate));
+    } catch (error) {
+      console.error('Error adding ICE candidate:', error);
+    }
+  };
+
+  const endCall = () => {
+    if (pcRef.current) {
+      pcRef.current.close();
+      pcRef.current = new RTCPeerConnection({
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' }
+        ]
+      });
+    }
+    setIsCallStarted(false);
+  };
+
+    const change = () => {
+        if (a === 0) {
+            document.getElementById("mainVideo").style.width = "30%";
+            document.getElementById("mainVideo").style.height = "30%";
+            document.getElementById("mainVideo").style.bottom = 0;
+            document.getElementById("mainVideo").style.right = 0;
+            document.getElementById("mainVideo").style.zIndex = 1;
+
+
+            document.getElementById("myVideo").style.width = "100%";
+            document.getElementById("myVideo").style.height = "100%";
+            document.getElementById("myVideo").style.bottom = 0;
+            document.getElementById("myVideo").style.right = 0;
+            document.getElementById("myVideo").style.zIndex = 0;
+            a = 1;
+            return 0;
+        }
+
+        if (a === 1) {
+            document.getElementById("myVideo").style.width = "30%";
+            document.getElementById("myVideo").style.height = "30%";
+            document.getElementById("myVideo").style.bottom = 0;
+            document.getElementById("myVideo").style.right = 0;
+            document.getElementById("myVideo").style.zIndex = 1;
+
+
+            document.getElementById("mainVideo").style.width = "100%";
+            document.getElementById("mainVideo").style.height = "100%";
+            document.getElementById("mainVideo").style.bottom = 0;
+            document.getElementById("mainVideo").style.right = 0;
+            document.getElementById("mainVideo").style.zIndex = 0;
+            a = 0;
+            return 0;
+        }
+
+//transition: transform .2s;
+    }
+
+    return (
+        <>
+        <video style={{ width:"100%", height:"100%", position: "absolute", bottom: 0, right: 0, backgroundColor: "black", zIndex: 0,}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
+        <video style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1,}} ref={localVideoRef} autoPlay muted playsInline id="myVideo"></video>
+        <button style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, zIndex: 5, backgroundColor: "#00000000"}} onClick={change}></button>
+        <div className="parent_panel_call">
+
+        </div>
+        <div className="panel_call">
+            <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 115, marginLeft: 115, }} onClick={createOffer}>
+                <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
+            </button>
+
+            <button style={{ backgroundColor: "red", borderRadius: "50%"}} >
+                <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
+            </button>
+
+            <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 115, marginLeft: 115, }} onClick={endCall}>
+                <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
+            </button>
+
+        </div>
+        </>
+
+  )
+}
+
+export default Call

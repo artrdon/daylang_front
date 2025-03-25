@@ -1,0 +1,305 @@
+import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+/*import Find from '/src/pages/find.jsx'
+import Finded from '/src/pages/finded.jsx'
+import Message_list from '/src/pages/message_list.jsx'
+import Saved from '/src/pages/saved.jsx'
+import Message from '/src/pages/message.jsx'
+import Offer from '/src/pages/offer.jsx'
+import Me from '/src/pages/me.jsx'
+import Degree from '/src/pages/degree.jsx'
+import Feedback from '/src/pages/feedback.jsx'
+import Offers_on_main from '/src/pages/offers_main.jsx'
+import Settings from '/src/pages/settings.jsx'
+import About from '/src/pages/about_us.jsx'
+import NotFound from '/src/pages/notfound.jsx'*/
+import Cookie from '/src/elems/cookie.jsx'
+import Docks from '/src/elems/docks.jsx'
+import axios from 'axios';
+
+
+function App({ name, lastname, username, lang, if_teach, mess_count, photo, balance }) {
+  const [count, setCount] = useState(0)
+
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+
+    const theme = getCookie('theme');
+    //console.log(getCookie('theme'));
+    
+    
+    if (getCookie('theme') === "dark"){
+        if (document.querySelector('body') != null)
+            document.querySelector('body').className = "dark_theme";
+    }
+    else{
+        if (document.querySelector('body') != null)
+            document.querySelector('body').className = "light_theme";
+    }
+    
+    
+    function change_theme() {
+        if (document.querySelector('body').className === "dark_theme")
+        {
+    
+            document.querySelector('body').className = "light_theme";
+            document.cookie = "theme=light; path=/;max-age=31556926";
+            document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+        }
+        else
+        {
+            document.querySelector('body').className = "dark_theme";
+            document.cookie = "theme=dark; path=/;max-age=31556926";
+            document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+        }
+    }
+
+    var arrLang = {
+      'English': {
+          'find': "Find",
+          'messages': 'Messages',
+          'saved': 'Saved',
+          'setting': 'Settings',
+          'support': 'Support',
+          'about': 'About Us',
+      },
+      'Русский': {
+          'find': "Найти",
+          'messages': 'Сообщения',
+          'saved': 'Сохранённые',
+          'setting': 'Настройки',
+          'support': 'Поддержка',
+          'about': 'О нас',
+      },
+      'Srpski': {
+          'find': "Naći",
+          'messages': 'Poruke',
+          'saved': 'Sačuvano',
+          'setting': 'Podešavanja',
+          'support': 'Podrška',
+          'about': 'O nama',
+      },
+      'Српски': {
+          'find': "Наћи",
+          'messages': 'Поруке',
+          'saved': 'Сачувано',
+          'setting': 'Подешавања',
+          'support': 'Подршка',
+          'about': 'О нама',
+      },
+      'Deutsch': {
+          'find': "Finden",
+          'messages': 'Nachrichten',
+          'saved': 'Spielstand',
+          'setting': 'Einstellungen',
+          'support': 'Unterstützung',
+          'about': 'Über uns',
+      },
+      'Español': {
+          'find': "Encuentre",
+          'messages': 'Mensajes',
+          'saved': 'Guardado',
+          'setting': 'Ajustes',
+          'support': 'Ayuda',
+          'about': 'Quiénes somos',
+      },
+      'عربي': {
+          'find': "ابحث عن",
+          'messages': 'الرسائل',
+          'saved': 'تم الحفظ',
+          'setting': 'الإعدادات',
+          'support': 'الدعم',
+          'about': 'نبذة عنا',
+      }
+
+    }
+
+//console.log(if_teach);
+
+  return (
+      <>
+  <div className="top_banner">
+    <div
+      style={{
+        width: "17%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        left: 20,
+        position: "absolute"
+      }}
+    >
+      <Link to="/">
+        <div className="name_of_comp" translate="no">
+          DayLang
+        </div>
+      </Link>
+    </div>
+    {/*<div className="search_all_pos">
+      <div id="search_all">
+          <button className="clear_mes_butt"><img src="/src/static/img/delete.png" alt="" className="clear_mes_butt_img" id="delete"/></button>
+          <button className="search_butt" ><img src="/src/static/img/search.png" alt="" className="search_butt_img" id="search"/></button>
+          <input type="text" name="Find" id="Finding" placeholder="Find" className="search_input_field"/>
+      </div>
+  </div>*/}
+    <button className="change_theme_button" onClick={change_theme}>
+
+      {theme === "dark" ? (
+          <img
+            src="/src/static/img/moon.png"
+            alt=""
+            className="change_theme_button_img"
+            id="theme_img"
+          />
+                ) :
+              (
+              <img
+                src="/src/static/img/sunce.png"
+                alt=""
+                className="change_theme_button_img"
+                id="theme_img"
+              />
+                )
+                }
+    </button>
+      {(() => {
+        if (if_teach) {
+          return <p style={{ position: "absolute", right: 130, top: 25, fontSize: 25 }}>{balance}₽</p>;
+        }
+      })()}
+
+          {username === undefined ? (
+          <Link to={`/log/`}>
+              <div className="my_account_panel" style={{ right: 40 }}>
+                <img src="/src/static/img/giga.jpg" alt="pupil" className="avatar" />
+                <span className="ime_i" translate="no" style={{ top: 15, fontSize: 20 }}>
+                  Login
+                </span>
+              </div>
+            </Link>
+                ) :
+              (
+              if_teach === true ? (
+          <Link to={`/t/user/${username}/`}>
+              <div className="my_account_panel">
+                <img src={photo} alt="pupil" className="avatar" />
+              </div>
+            </Link>
+                ) :
+              (
+              <Link to={`/p/user/${username}/`}>
+                  <div className="my_account_panel">
+                    <img src={photo} alt="pupil" className="avatar" />
+                  </div>
+                </Link>
+                )
+                )
+
+
+                }
+  </div>
+  <div className="navig_panel">
+    <div className="app_navig_panel_razdel">
+      <Link className="navig_panel_button" to="/">
+        <img
+          src="/src/static/img/search.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        <span className="text_in_panel" id="not_for_fon" key="about">{arrLang[lang]['find']}</span>
+      </Link>
+      <Link className="navig_panel_button" to="/message_list/">
+        <img
+          src="/src/static/img/messagebutwhite.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        {(() => {
+        if (mess_count > 0) {
+          return <div className="app_message_indicator">{mess_count}</div>;
+        }
+      })()}
+
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
+      </Link>
+      <Link className="navig_panel_button" to="/saved/">
+        <img
+          src="/src/static/img/srce.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+      </Link>
+      {username === undefined ? (
+              <a className="navig_panel_button" href={`/log/`} id="only_for_fon">
+                <img
+                  src="/src/static/img/giga.jpg"
+                  alt=""
+                  className="avatar_in_panel"
+                />
+              </a>
+                ) :
+              (
+              if_teach === true ? (
+              <a className="navig_panel_button" href={`/t/user/${username}/`} id="only_for_fon">
+                <img
+                  src={photo}
+                  alt=""
+                  className="avatar_in_panel"
+                />
+              </a>
+                ) :
+              (
+              <a className="navig_panel_button" href={`/p/user/${username}/`} id="only_for_fon">
+                <img
+                  src={photo}
+                  alt=""
+                  className="avatar_in_panel"
+                />
+              </a>
+                )
+                )
+
+
+                }
+
+    </div>
+    <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">
+      <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
+        <img
+          src="/src/static/img/setting.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        <span className="text_in_panel">{arrLang[lang]['setting']}</span>
+      </Link>
+      <Link className="navig_panel_button" id="not_for_fon" to="/message_list/support/">
+        <img
+          src="/src/static/img/support.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        <span className="text_in_panel">{arrLang[lang]['support']}</span>
+      </Link>
+      <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
+        <img src="/src/static/img/dj.png" alt="" className="app_navig_panel_img on_desktop_panel" />
+        <span className="text_in_panel">{arrLang[lang]['about']}</span>
+      </Link>
+      <Cookie />
+      <Docks />
+    </div>
+  </div>
+
+
+
+</>
+
+  )
+}
+
+export default App

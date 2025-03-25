@@ -1,0 +1,249 @@
+.delete_mess_button{
+    border-top-left-radius: 20px; 
+    border-bottom-left-radius: 20px;
+    width: 50px; 
+    height: 50px; 
+    background-color: #949494; 
+    border-right: 2px solid black; 
+    position: absolute; 
+    bottom: 0px; 
+    left: 50px; 
+    display: inline-block; 
+    outline: none;
+}
+.extra_mess_button{
+    width: 55px; 
+    height: 50px; 
+    background-color: #949494; 
+    position: absolute; 
+    right: 100px; 
+    display: inline-block; 
+    border-left: 2px solid black; 
+    border-right: 2px solid black; 
+    outline: none;
+}
+
+.extra_mess{
+    width: 200px;
+    height: 200px;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    bottom: 0px;
+    right: 28px;
+    display: flex;
+}
+
+.parent_panel_call{
+    width: 700px;
+    height: 100px;
+    position: absolute;
+    bottom: 0px;
+    left: calc(50% - 350px);
+
+}
+
+.panel_call{
+    width: 700px;
+    height: 100px;
+    position: absolute;
+    bottom: 0px;
+    left: calc(50% - 350px);
+    background-color: #3773ff;
+    display: flex;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+.parent_panel_call:hover ~ .panel_call { height: 100px; opacity: 1;}
+.panel_call:hover {
+    height: 100px;
+    opacity: 1;
+}
+
+.panel_of_messages{
+    width: 900px; height: calc(100% - 30px); background-color: #bfbfbf; top: 10px; position: absolute; border-radius: 20px; box-shadow: 0px 0px 5px #5c5c5c;
+}
+/*message header*/
+.goback_but{
+    position: absolute; z-index: 100; display: none; filter: brightness(30%); margin-left: 10px
+}
+.panel_of_header{
+    position: absolute; background-color: #ebebeb; width: 100%; height: 70px; top: 0px; border-top-right-radius: 20px; border-top-left-radius: 20px; z-index: 5;
+}
+.positing_of_micro_chel{
+    width: 100%; height: 70px; position: absolute;
+}
+.img_of_micro_chel{
+    width: 50px; height: 50px; border-radius: 50px; top: 0px; display: inline-block;
+}
+.message_top_banner{
+    width: 100%;
+    position: fixed;
+    background-color: #3369ff;
+    height: 70px;
+    top: 0px;
+    left: 0px;
+    z-index: 101;
+}
+/*message header*/
+
+/* place of messages*/
+.place_of_mess{
+    background-color: #19191900; height: calc(100% - 200px); position: relative; bottom: 0px; display: block; width: 100%; flex-direction: column; justify-content: flex-end; flex-wrap: nowrap; display: flex; padding-top: 40px; ;
+}
+.message_mess_block{
+    padding: 30px; display: block; overflow: auto; height: calc(100% - 60px); position: absolute; width: calc(100% - 60px); top: 0px; margin-top: 70px;
+}
+/* place of messages*/
+
+
+/*place of writing message*/
+.inviz_panel_of_writing{
+    position: absolute; background-color: rgba(0, 0, 0, 0); width: 100%; height: 90px; bottom: 0px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; z-index: 5;
+}
+.jos_inviz_panel{
+    width: 100%; min-height: 50px; position: absolute; bottom: 20px;
+}
+.centering_of_mess_panel{
+    position: relative; cursor: pointer; justify-content: center; display: flex;
+}
+.some_vizible_part{
+    background-color: #81242400; width: 800px; min-height: 50px; border-radius: 20px; box-shadow: 0px 0px 0px #5c5c5c;
+}
+.input_panel{
+    font-size: 20px; padding: 10.5px; width: calc(100% - 300px); background-color: #949494; min-height: 25px; bottom: 0px; left: 100px; position: absolute; outline: none; display: inline-block; color: white; max-height: 100px; overflow: auto; border-radius: 5px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border: 2px solid gray;
+}
+.sending_button{
+    width: 70px; height: 50px; background-color: #949494;  position: absolute; right: 30px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; display: inline-block; outline: none;
+}
+
+.clear_and_send_buttons_pos{
+    position: absolute; right: 20px;
+}
+.img_delete{
+    height: 25px; width: 23px;
+}
+.img_send{
+    height: 30px; width: 30px;
+}
+/*place of writing message*/
+
+
+div *::-webkit-scrollbar {
+    height: 12px;
+    width: 3px;
+}
+*::-webkit-scrollbar-track,
+div *::-webkit-scrollbar-track {
+    background: rgb(70, 70, 70);
+}
+*::-webkit-scrollbar-thumb,
+div *::-webkit-scrollbar-thumb {
+    background-color: rgb(105, 105, 105);
+    border: 0px solid rgb(70, 70, 70);;
+}
+
+
+.dark_theme{
+    .panel_of_messages{
+        background-color: rgb(49, 49, 49);
+    }
+    .panel_of_header{
+        background-color: rgb(22, 22, 22);
+    }
+    .input_panel{
+        background-color: #191919;
+        border: 2px solid gray;
+    }
+    .delete_mess_button{
+        background-color: #191919;
+        border: 2px solid gray;
+    }
+    .extra_mess_button{
+        background-color: #191919;
+        border: 2px solid gray;
+    }
+    .sending_button{
+        background-color: #191919;
+        border: 2px solid gray;
+    }
+    .goback_but{
+        filter: unset;
+    }
+}
+
+@media only screen and (max-width: 1250px)
+{
+    .panel_of_messages{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 900px)
+{
+    .panel_of_header{
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+    .panel_of_messages{
+        top: 0px;
+        border-radius: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .goback_but{
+        display: block;
+    }
+    .message_find_panel{
+        top: 0px;
+        height: 100%;
+    }
+    .input_panel{
+        width: calc(100% - 300px);
+    }
+}
+
+
+@media only screen and (max-width: 525px)
+{
+    .jos_inviz_panel{
+        bottom: 20px;
+    }
+    .delete_mess_button{
+        left: 0px;
+    }
+
+    .panel_of_messages{
+        top: 0px;
+        border-radius: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    .top_banner{
+        display: none;
+    }
+    .navig_panel{
+        display: none;
+    }
+    .find_panel{
+        top: 0px;
+    }
+    .panel_of_header{
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+    .input_panel{
+        width: calc(100% - 200px);
+        left: 50px;
+    }
+    .sending_button{
+        right: 0px;
+    }
+    .clear_and_send_buttons_pos {
+        right: 0px;
+    }
+    .extra_mess_button{
+        right: 70px;
+    }
+}
