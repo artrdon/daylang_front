@@ -34,7 +34,7 @@ axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get('http://api.daylang.ru/userinfo/');
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -49,7 +49,7 @@ axios.defaults.withCredentials = true;
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/get_fav/');
+        const response = await axios.get('http://api.daylang.ru/get_fav/');
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -64,7 +64,7 @@ axios.defaults.withCredentials = true;
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get('http://api.daylang.ru/getchatlist/');
         setData12(response.data);
       } catch (err) {
         setError12(err.message);

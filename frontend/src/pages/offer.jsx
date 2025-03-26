@@ -123,7 +123,7 @@ const save_to_fav = async (e) => {
 
             e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/save_to_fav/', favor, {
+            const response = await axios.post('http://api.daylang.ru/save_to_fav/', favor, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -165,7 +165,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get('http://api.daylang.ru/userinfo/');
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -180,7 +180,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/usersettings/${params.username}/`);
+        const response = await axios.get(`http://api.daylang.ru/usersettings/${params.username}/`);
         setData7(response.data);
       } catch (err) {
         setError7(err.message);
@@ -194,7 +194,7 @@ const save_to_fav = async (e) => {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.id}/`);
+        const response = await axios.get(`http://api.daylang.ru/gettingoffer/${params.username}/${params.id}/`);
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -209,7 +209,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/userinfo/${params.username}/`);
+        const response = await axios.get(`http://api.daylang.ru/userinfo/${params.username}/`);
         setData2(response.data);
       } catch (err) {
         setError2(err.message);
@@ -225,7 +225,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/reviews_two/`); //`http://127.0.0.1:8000/reviews/`
+        const response = await axios.get(`http://api.daylang.ru/reviews_two/`); //`http://api.daylang.ru/reviews/`
         setData3(response.data);
       } catch (err) {
         setError3(err.message);
@@ -241,7 +241,7 @@ const save_to_fav = async (e) => {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/creatingoffer/');
+        const response = await axios.get('http://api.daylang.ru/creatingoffer/');
         setData5(response.data);
       } catch (err) {
         setError5(err.message);
@@ -256,7 +256,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get('http://api.daylang.ru/getchatlist/');
         setData12(response.data);
       } catch (err) {
         setError12(err.message);

@@ -31,7 +31,7 @@ const [messId, setMessId] = useState(null);
 
   useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`ws://api.daylang.ru/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -184,7 +184,7 @@ const messChange = (idd) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+                const response = await axios.get('http://api.daylang.ru/userinfo/');
                 setData(response.data);
             } catch (err) {
                 setError(err.message);
@@ -235,7 +235,7 @@ const add_smile = (par) => {
 useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/getmessagelist/${params.id}/`);
+                const response = await axios.get(`http://api.daylang.ru/getmessagelist/${params.id}/`);
                 setData2(response.data);
                 console.log(1);
                 console.log(response.data);
@@ -267,7 +267,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get('http://api.daylang.ru/getchatlist/');
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);

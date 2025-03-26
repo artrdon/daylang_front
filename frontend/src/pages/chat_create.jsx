@@ -40,7 +40,7 @@ useEffect(() => {
 
     const sendpost = async () => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/create_chat/', message,{
+            const response = await axios.post('http://api.daylang.ru/create_chat/', message,{
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

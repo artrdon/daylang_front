@@ -110,7 +110,7 @@ var arrLang = {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/userinfo/${params.user}/`);
+        const response = await axios.get(`http://api.daylang.ru/userinfo/${params.user}/`);
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -126,7 +126,7 @@ var arrLang = {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/usersettings/${params.user}/`);
+        const response = await axios.get(`http://api.daylang.ru/usersettings/${params.user}/`);
         if (response.data.i_am_teacher === true)
         {
             window.location.replace(`/t/user/${params.user}/feedback/`)
@@ -145,7 +145,7 @@ var arrLang = {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/userinfo/`);
+        const response = await axios.get(`http://api.daylang.ru/userinfo/`);
         setData2(response.data);
       } catch (err) {
         setError2(err.message);
@@ -161,7 +161,7 @@ var arrLang = {
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/reviewsmy/${params.user}/`);
+        const response = await axios.get(`http://api.daylang.ru/reviewsmy/${params.user}/`);
         setData3(response.data);
       } catch (err) {
         setError3(err.message);
@@ -176,7 +176,7 @@ useEffect(() => {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/reviews/${params.user}/`);
+        const response = await axios.get(`http://api.daylang.ru/reviews/${params.user}/`);
         setData4(response.data);
       } catch (err) {
         setError4(err.message);
@@ -192,7 +192,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get('http://api.daylang.ru/getchatlist/');
         setData12(response.data);
       } catch (err) {
         setError12(err.message);

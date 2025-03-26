@@ -179,7 +179,7 @@ var Lang = {
       useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get('http://api.daylang.ru/userinfo/');
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -195,7 +195,7 @@ var Lang = {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get('http://api.daylang.ru/getchatlist/');
         setData12(response.data);
       } catch (err) {
         setError12(err.message);
@@ -218,7 +218,7 @@ var Lang = {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/creatingoffer/${data.language}/`, data, {
+            const response = await axios.post(`http://api.daylang.ru/creatingoffer/${data.language}/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

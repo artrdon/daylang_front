@@ -53,7 +53,7 @@ function Log() {
         try {
             if (captcha != null)
             {
-                const response = await axios.post('http://127.0.0.1:8000/log/', data, {
+                const response = await axios.post('http://api.daylang.ru/log/', data, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -65,7 +65,7 @@ function Log() {
 
                 }*/
                 setConf(true);
-                const to_email = await axios.post(`http://127.0.0.1:8000/email/${response.data}`, data, {
+                const to_email = await axios.post(`http://api.daylang.ru/email/${response.data}`, data, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -84,7 +84,7 @@ function Log() {
         try {
             if (captcha != null)
             {
-                const response = await axios.post(`http://127.0.0.1:8000/confirm/`, data1, {
+                const response = await axios.post(`http://api.daylang.ru/confirm/`, data1, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,

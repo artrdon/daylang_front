@@ -49,7 +49,7 @@ function UpdateOffer() {
       useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get('http://api.daylang.ru/userinfo/');
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -65,7 +65,7 @@ function UpdateOffer() {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.index}/`);
+        const response = await axios.get(`http://api.daylang.ru/gettingoffer/${params.username}/${params.index}/`);
         setData2(response.data);
 
       } catch (err) {
@@ -82,7 +82,7 @@ function UpdateOffer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get('http://api.daylang.ru/getchatlist/');
         setData12(response.data);
       } catch (err) {
         setError12(err.message);
