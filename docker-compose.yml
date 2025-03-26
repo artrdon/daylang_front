@@ -1,10 +1,9 @@
+
+
 services:
   web:
-    build: ./frontend
-    volumes:
-      - ./frontend/dist:/sites/daylang/dist
-    ports:
-      - "3000:3000"
+    build: 
+      context: ./frontend
 
 
   nginx:
@@ -13,7 +12,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - ./frontend/src/static:/usr/share/nginx/html
     depends_on:
       - web
