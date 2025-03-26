@@ -9,7 +9,7 @@ import SimplePeer from 'simple-peer';
 
 
 
-//const socket = io('ws://127.0.0.1:8000/socket.io'); // Определите socket
+//const socket = io('ws://api.daylang.ru/socket.io'); // Определите socket
 
 function Call() {
   const [localStream, setLocalStream] = useState(null);
@@ -22,7 +22,7 @@ function Call() {
 
   useEffect(() => {
     const initWebSocket = () => {
-      wsRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/videochat/1/`);
+      wsRef.current = new WebSocket(`ws://api.daylang.ru/ws/videochat/1/`);
 
         wsRef.current.onopen = () => {
         console.log('WebSocket connected');
