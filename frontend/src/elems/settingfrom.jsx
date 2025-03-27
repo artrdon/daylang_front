@@ -142,7 +142,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
         formData.append('image', file);
         console.log("zagruzaju photo");
         try {
-            const response = await axios.post('http://api.daylang.ru/change_avatar/', formData, {
+            const response = await axios.post('http://127.0.0.1:8000/change_avatar/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': csrfToken,
@@ -170,7 +170,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 
         try {
             await handleSubmitPhoto(e);
-            const response = await axios.post('http://api.daylang.ru/usersettings/', settingChange, {
+            const response = await axios.post('http://127.0.0.1:8000/usersettings/', settingChange, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -189,7 +189,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     const exit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://api.daylang.ru/logout/', {
+            const response = await axios.post('http://127.0.0.1:8000/logout/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

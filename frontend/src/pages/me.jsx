@@ -35,10 +35,42 @@ function Me() {
         return;
     }
     function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+
+  const theme = getCookie('theme');
+  //console.log(getCookie('theme'));
+  
+  
+  if (getCookie('theme') === "dark"){
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "dark_theme";
+  }
+  else{
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "light_theme";
+  }
+  
+  
+  function change_theme() {
+      if (document.querySelector('body').className === "dark_theme")
+      {
+  
+          document.querySelector('body').className = "light_theme";
+          document.cookie = "theme=light; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+      }
+      else
+      {
+          document.querySelector('body').className = "dark_theme";
+          document.cookie = "theme=dark; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+      }
+  }
+
 
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
@@ -53,7 +85,7 @@ function Me() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://api.daylang.ru/usersettings/${params.user}/`);
+                const response = await axios.get(`http://127.0.0.1:8000/usersettings/${params.user}/`);
                 setData1(response.data);
             } catch (err) {
                 setError1(err.message);
@@ -70,7 +102,7 @@ function Me() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://api.daylang.ru/userinfo/${params.user}/`);
+                const response = await axios.get(`http://127.0.0.1:8000/userinfo/${params.user}/`);
                 if (response.data.i_am_teacher === false)
                 {
                     window.location.replace(`/p/user/${params.user}/`)
@@ -93,7 +125,7 @@ function Me() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://api.daylang.ru/userinfo/`);
+                const response = await axios.get(`http://127.0.0.1:8000/userinfo/`);
                 setData2(response.data);
             } catch (err) {
                 setError2(err.message);
@@ -108,7 +140,7 @@ function Me() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://api.daylang.ru/getchatlist/');
+                const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
                 setData12(response.data);
             } catch (err) {
                 setError12(err.message);
@@ -213,7 +245,7 @@ function Me() {
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={data.balance}/>
+        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={usernow.balance}/>
 
   <div className="find_panel">
   <div className="me_under_find">

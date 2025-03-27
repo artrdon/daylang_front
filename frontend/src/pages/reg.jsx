@@ -23,10 +23,42 @@ function Reg() {
     const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: '', is_teacher: false });
 
     function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+
+  const theme = getCookie('theme');
+  //console.log(getCookie('theme'));
+  
+  
+  if (getCookie('theme') === "dark"){
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "dark_theme";
+  }
+  else{
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "light_theme";
+  }
+  
+  
+  function change_theme() {
+      if (document.querySelector('body').className === "dark_theme")
+      {
+  
+          document.querySelector('body').className = "light_theme";
+          document.cookie = "theme=light; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+      }
+      else
+      {
+          document.querySelector('body').className = "dark_theme";
+          document.cookie = "theme=dark; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+      }
+  }
+
 
     const csrfToken = getCookie('csrftoken');
 
@@ -65,7 +97,7 @@ function Reg() {
         try {
             if (captcha != null)
             {
-                const response = await axios.post('http://api.daylang.ru/reg/', data, {
+                const response = await axios.post('http://127.0.0.1:8000/reg/', data, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -83,7 +115,7 @@ function Reg() {
                 }
                 else{
                     setConf(true);
-                    const email = await axios.post(`http://api.daylang.ru/email/${response.data}`, data, {
+                    const email = await axios.post(`http://127.0.0.1:8000/email/${response.data}`, data, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': csrfToken,
@@ -109,7 +141,7 @@ function Reg() {
     const handleSubmit2 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://api.daylang.ru/confirmreg/`, data2, {
+            const response = await axios.post(`http://127.0.0.1:8000/confirmreg/`, data2, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

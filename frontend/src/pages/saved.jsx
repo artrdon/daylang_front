@@ -21,6 +21,43 @@ function Saved() {
 
 axios.defaults.withCredentials = true;
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+const theme = getCookie('theme');
+//console.log(getCookie('theme'));
+
+
+if (getCookie('theme') === "dark"){
+  if (document.querySelector('body') != null)
+      document.querySelector('body').className = "dark_theme";
+}
+else{
+  if (document.querySelector('body') != null)
+      document.querySelector('body').className = "light_theme";
+}
+
+
+function change_theme() {
+  if (document.querySelector('body').className === "dark_theme")
+  {
+
+      document.querySelector('body').className = "light_theme";
+      document.cookie = "theme=light; path=/;max-age=31556926";
+      document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+  }
+  else
+  {
+      document.querySelector('body').className = "dark_theme";
+      document.cookie = "theme=dark; path=/;max-age=31556926";
+      document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+  }
+}
+
 
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
@@ -34,7 +71,7 @@ axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://api.daylang.ru/userinfo/');
+        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -49,7 +86,7 @@ axios.defaults.withCredentials = true;
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://api.daylang.ru/get_fav/');
+        const response = await axios.get('http://127.0.0.1:8000/get_fav/');
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -64,7 +101,7 @@ axios.defaults.withCredentials = true;
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://api.daylang.ru/getchatlist/');
+        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
         setData12(response.data);
       } catch (err) {
         setError12(err.message);

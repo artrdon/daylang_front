@@ -196,7 +196,7 @@ var Lang = {
         formData.append('image', file);
         //console.log("zagruzaju photo");
         try {
-            const response = await axios.post(`http://api.daylang.ru/change_offer_photo/${params.index}/`, formData, {
+            const response = await axios.post(`http://127.0.0.1:8000/change_offer_photo/${params.index}/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': csrfToken,
@@ -224,7 +224,7 @@ var Lang = {
         e.preventDefault();
         try {
             await handleSubmitPhoto(e);
-            const response = await axios.post(`http://api.daylang.ru/updatingoffer/${id}/`, data, {
+            const response = await axios.post(`http://127.0.0.1:8000/updatingoffer/${id}/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -242,7 +242,7 @@ var Lang = {
     const delete_offer = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://api.daylang.ru/deletingoffer/${id}/`, data, {
+            const response = await axios.post(`http://127.0.0.1:8000/deletingoffer/${id}/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

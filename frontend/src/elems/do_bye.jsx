@@ -23,7 +23,7 @@ function DoBye({setdate, date, removeDataSetter, am_teach }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://api.daylang.ru/bye/`, data, {
+            const response = await axios.post(`http://127.0.0.1:8000/bye/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

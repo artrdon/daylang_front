@@ -14,10 +14,42 @@ function UpdateOffer() {
     let params = useParams();
 
     function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+
+  const theme = getCookie('theme');
+  //console.log(getCookie('theme'));
+  
+  
+  if (getCookie('theme') === "dark"){
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "dark_theme";
+  }
+  else{
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "light_theme";
+  }
+  
+  
+  function change_theme() {
+      if (document.querySelector('body').className === "dark_theme")
+      {
+  
+          document.querySelector('body').className = "light_theme";
+          document.cookie = "theme=light; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+      }
+      else
+      {
+          document.querySelector('body').className = "dark_theme";
+          document.cookie = "theme=dark; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+      }
+  }
+
 
     const csrfToken = getCookie('csrftoken');
 
@@ -49,7 +81,7 @@ function UpdateOffer() {
       useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://api.daylang.ru/userinfo/');
+        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -65,7 +97,7 @@ function UpdateOffer() {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://api.daylang.ru/gettingoffer/${params.username}/${params.index}/`);
+        const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.index}/`);
         setData2(response.data);
 
       } catch (err) {
@@ -82,7 +114,7 @@ function UpdateOffer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://api.daylang.ru/getchatlist/');
+        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
         setData12(response.data);
       } catch (err) {
         setError12(err.message);

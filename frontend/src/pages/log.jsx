@@ -16,10 +16,42 @@ function Log() {
     const [confirmation, setConf] = useState(false);
 
     function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+
+  const theme = getCookie('theme');
+  //console.log(getCookie('theme'));
+  
+  
+  if (getCookie('theme') === "dark"){
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "dark_theme";
+  }
+  else{
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "light_theme";
+  }
+  
+  
+  function change_theme() {
+      if (document.querySelector('body').className === "dark_theme")
+      {
+  
+          document.querySelector('body').className = "light_theme";
+          document.cookie = "theme=light; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+      }
+      else
+      {
+          document.querySelector('body').className = "dark_theme";
+          document.cookie = "theme=dark; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+      }
+  }
+
 
     const onChange = (value) => {
       console.log("Captcha value:", value);
@@ -53,7 +85,7 @@ function Log() {
         try {
             if (captcha != null)
             {
-                const response = await axios.post('http://api.daylang.ru/log/', data, {
+                const response = await axios.post('http://127.0.0.1:8000/log/', data, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -65,7 +97,7 @@ function Log() {
 
                 }*/
                 setConf(true);
-                const to_email = await axios.post(`http://api.daylang.ru/email/${response.data}`, data, {
+                const to_email = await axios.post(`http://127.0.0.1:8000/email/${response.data}`, data, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -84,7 +116,7 @@ function Log() {
         try {
             if (captcha != null)
             {
-                const response = await axios.post(`http://api.daylang.ru/confirm/`, data1, {
+                const response = await axios.post(`http://127.0.0.1:8000/confirm/`, data1, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,

@@ -31,7 +31,7 @@ const [messId, setMessId] = useState(null);
 
   useEffect(() => {
 
-    const socket = new WebSocket(`ws://api.daylang.ru/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -119,10 +119,42 @@ const messChange = (idd) => {
     const [count, setCount] = useState(0)
 
     function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+
+  const theme = getCookie('theme');
+  //console.log(getCookie('theme'));
+  
+  
+  if (getCookie('theme') === "dark"){
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "dark_theme";
+  }
+  else{
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "light_theme";
+  }
+  
+  
+  function change_theme() {
+      if (document.querySelector('body').className === "dark_theme")
+      {
+  
+          document.querySelector('body').className = "light_theme";
+          document.cookie = "theme=light; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+      }
+      else
+      {
+          document.querySelector('body').className = "dark_theme";
+          document.cookie = "theme=dark; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+      }
+  }
+
 
     const csrfToken = getCookie('csrftoken');
     const lang = getCookie('lang');
@@ -184,7 +216,7 @@ const messChange = (idd) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://api.daylang.ru/userinfo/');
+                const response = await axios.get('http://127.0.0.1:8000/userinfo/');
                 setData(response.data);
             } catch (err) {
                 setError(err.message);
@@ -235,7 +267,7 @@ const add_smile = (par) => {
 useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://api.daylang.ru/getmessagelist/${params.id}/`);
+                const response = await axios.get(`http://127.0.0.1:8000/getmessagelist/${params.id}/`);
                 setData2(response.data);
                 console.log(1);
                 console.log(response.data);
@@ -267,7 +299,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://api.daylang.ru/getchatlist/');
+        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);
