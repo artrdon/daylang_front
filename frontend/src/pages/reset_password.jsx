@@ -8,12 +8,14 @@ import axios from 'axios';
 
 
 
-function Log() {
+function Log_reset() {
 
     const [count, setCount] = useState(0);
     const [ifChel, setIfChel] = useState(false);
     const [captcha, setCaptcha] = useState(null);
     const [confirmation, setConf] = useState(false);
+    const [new_password, setNewPassword] = useState(false);
+    const [pass_diff, setPassDiff] = useState(false);
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -65,13 +67,14 @@ function Log() {
 
     document.querySelector("title").textContent = "Authentication";
 
-    const [data, setData] = useState({ username: '', password: ''});
-    const [data1, setData1] = useState({ code: '', username: data.username, password: data.username});
+    const [data, setData] = useState({ email: '', password1: '', password2: ''});
+    const [data1, setData1] = useState({ code: '', email: data.email});
     const history = useNavigate();
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
         setData1({ ...data1, [e.target.name]: e.target.value });
+        setPassDiff(false);
     };
 
     const handleChange1 = (e) => {
@@ -83,31 +86,18 @@ function Log() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (captcha != null)
-            {
-                const response = await axios.post('http://127.0.0.1:8000/log/', data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,
-                    },
-                });
-                /*if (response.data["if"] === "yes"){
-                    document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
-                    window.location.replace('/'); // Нет возможности вернуться
-
-                }*/
-                    if (response.data != 'username or password is incorrect'){
-                      setConf(true);
-                      const to_email = await axios.post(`http://127.0.0.1:8000/email/${response.data}`, data, {
-                          headers: {
-                              'Content-Type': 'application/json',
-                              'X-CSRFToken': csrfToken,
-                          },
-                      });
-                      console.log('Response:', response.data);
-  
-                  }
-            }
+         //   if (captcha != null)
+          //  {
+                setConf(true);
+                    const to_email = await axios.post(`http://127.0.0.1:8000/email/${data.email}`, data, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken,
+                        },
+                    });
+                    console.log('Response:', response.data);
+                
+          //  }
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -117,26 +107,52 @@ function Log() {
     const handleSubmit1 = async (e) => {
         e.preventDefault();
         try {
-            if (captcha != null)
-            {
-                const response = await axios.post(`http://127.0.0.1:8000/confirm/`, data1, {
+            //if (captcha != null)
+            //{
+                const response = await axios.post(`http://127.0.0.1:8000/forgot_password/`, data1, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
                     },
                 });
                 if (response.data["if"] === "yes"){
-                    document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
-                    window.location.replace('/'); // Нет возможности вернуться
-
+                    setNewPassword(true);
+                    
                 }
                 console.log('Response:', response.data);
-            }
+          //  }
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
     };
+
+    const handleSubmit2 = async (e) => {
+        e.preventDefault();
+        try {
+            //if (captcha != null)
+            //{
+                const response = await axios.post(`http://127.0.0.1:8000/forgot_password_reset/`, data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+                });
+                if (response.data["if"] === "yes"){
+                    window.location.replace('/log/');
+                }
+                if (response.data["if"] === "passwords are different"){
+                    setPassDiff(true);
+                }
+                console.log('Response:', response.data);
+          //  }
+
+        } catch (error) {
+            console.error('There was an error!', error.response.data);
+        }
+    };
+
+
 
     return (
         <>
@@ -156,11 +172,11 @@ function Log() {
               </span>
             </div>
             <input
-              type="text"
-              name="username"
-              placeholder="username"
+              type="email"
+              name="email"
+              placeholder="email"
               className="form-control"
-              value={data.username}
+              value={data.email}
             onChange={handleChange}
             />
           </div>
@@ -170,14 +186,14 @@ function Log() {
                 <i className="fas fa-key" />
               </span>
             </div>
-            <input
+            {/*<input
               type="password"
               name="password"
               placeholder="Password"
               className="form-control"
               value={data.password}
             onChange={handleChange}
-            />
+            />*/}
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
             <input
@@ -193,24 +209,12 @@ function Log() {
 {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
       </div>
       <div className="mt-4">
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          Don't have an account?{" "}
-          <a href="/reg/" style={{ marginLeft: 10, color: "white" ,}}>
-            Sign Up
-          </a>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          Forgot the password?{" "}
-          <a href="/log/reset/" style={{ marginLeft: 10, color: "white" ,}}>
-            Reset
-          </a>
-        </div>
       </div>
     </div>
   </div>
 </div>}
 
-{confirmation && <div style={{ width: "100vw", height: "100vh" }}>
+{confirmation && !new_password && <div style={{ width: "100vw", height: "100vh" }}>
   <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
@@ -256,6 +260,47 @@ function Log() {
     </div>
   </div>
 </div>}
+{new_password && <div style={{ width: "100vw", height: "100vh" }}>
+  <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <div className="user_card">
+      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+        <h3 id="form-title">REGISTER ACCOUNT</h3>
+      </div>
+      <div className="d-flex justify-content-center form_container">
+        <form onSubmit={handleSubmit2}>
+          <div className="input-group mb-2">
+            <input
+              type="password"
+              name="password1"
+              placeholder="Password"
+              className="form-control"
+              value={data.password1}
+            onChange={handleChange}
+            />
+          </div>
+          <div className="input-group mb-2">
+            <input
+              type="password"
+              name="password2"
+              placeholder="Confirm password"
+              className="form-control"
+              value={data.password2}
+            onChange={handleChange}
+            />
+          </div>
+          <div className="d-flex justify-content-center mt-3 login_container">
+            <input
+              className="btn login_btn"
+              type="submit"
+              defaultValue="Register Account"
+            />
+          </div>
+        </form>
+      </div>
+      {pass_diff && <div>passwords are different</div>}
+    </div>
+  </div>
+</div>}
 
 
 
@@ -264,4 +309,4 @@ function Log() {
   )
 }
 
-export default Log
+export default Log_reset

@@ -7,6 +7,79 @@ import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
 
+function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="img_of_autor_mes"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="offer_image"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+function ImageWithFallbackMain({ src, fallbackSrc, alt }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+      style={{ width: "100%", height: "auto", margin: "auto", display: "block" }}
+      id="divoffb_img"
+    />
+  );
+}
+
+function ImageWithFallbackFeedback({ src, fallbackSrc, alt }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className='avatar'
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
+
+
+
 function Offer() {
 
   function getCookie(name) {
@@ -383,12 +456,7 @@ console.log(data1);
 <div className="find_panel">
   <div className="div_of_foto_and_button" id="divoffb">
     <div className="foto_main" style={{display: "flex", justifyContent: "center", alignItem : "center"}}>
-        <img
-          src={data1.photo}
-          alt=""
-          style={{ width: "100%", height: "auto", margin: "auto", display: "block" }}
-          id="divoffb_img"
-        />
+        <ImageWithFallbackMain src={data1.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
 
     </div>
 
@@ -476,11 +544,7 @@ console.log(data1);
       <Link to={`/t/user/${data2.username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
-          <img
-            src="/src/static/img/giga.jpg"
-            alt="pupil"
-            className="img_of_autor_mes"
-          />
+          <ImageWithFallbackAuthor src={data2.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
           <div className="offer_author_name_div">
             <span className="ime offer_author_name_span" translate="no">
               {data2.first_name} {data2.last_name}
@@ -518,7 +582,7 @@ console.log(data1);
         {data3.map((rew) => (
             rew.number_of_offer === Number(params.id) ? (<div className="offer_review_div_div" key={rew.id}>
           <div className="offer_review_div">
-            <img src={rew.photo} alt="pupil" className="avatar" />
+            <ImageWithFallbackFeedback src={rew.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
             <span className="ime_review">{rew.name}  {rew.last_name}</span>
             <img src={`/src/static/img/${rew.score}.png`} alt="" className="offer_score_img"/>
           </div>
@@ -570,7 +634,7 @@ console.log(data1);
       <a href={`/${dat.chel}/offer/${dat.id}/`} key={dat.id}>
       <div className="offer_of_lang" id={dat.id}>
         <div className="first_sloj">
-          <img src={dat.photo} alt="nekicovek nekicovekovic" className="offer_image" />
+          <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
           <div className="feedback_review_down_block">
             <h1 className="name_of_offer" >
               {dat.name}

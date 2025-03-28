@@ -9,6 +9,7 @@ import Message from '/src/pages/message.jsx'
 import Offer from '/src/pages/offer.jsx'
 import Me from '/src/pages/me.jsx'
 import Me_pup from '/src/pages/me_pup.jsx'
+import Log_reset from '/src/pages/reset_password.jsx'
 import Degree from '/src/pages/degree.jsx'
 import Feedback from '/src/pages/feedback.jsx'
 import Feedback_pup from '/src/pages/feedback_pup.jsx'
@@ -33,6 +34,7 @@ createRoot(document.querySelector('body')).render(
                 <Route path="/" element={<Find />}/>
                 <Route path="/user/undefined/" element={<Log />}/>
                 <Route path="/log/" element={<Log />}/>
+                <Route path="/log/reset/" element={<Log_reset />}/>
                 <Route path="/reg/" element={<Reg />}/>
                 <Route path="/create_offer/" element={<CreateOffer />}/>
                 <Route path="/update_offer/:username/:index/" element={<UpdateOffer />}/>

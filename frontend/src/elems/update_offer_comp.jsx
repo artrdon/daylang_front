@@ -4,6 +4,24 @@ import { useParams } from "react-router";
 import App from '/src/App.jsx'
 import axios from 'axios';
 
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="crt_offer_photo"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
 
 function UpdateOfferComp({ name, description, price, id, language, format, target, age, microphone, photo}) {
 
@@ -186,7 +204,6 @@ var Lang = {
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
 
-        handleSubmitPhoto(e);
     };
 
     const handleSubmitPhoto = async (e) => {
@@ -202,9 +219,9 @@ var Lang = {
                     'X-CSRFToken': csrfToken,
                 },
             });
-          /*  console.log(response.data);
+            console.log(response.data);
             data.photo = response.data;
-            console.log(settingChange);*/
+           /* console.log(settingChange);*/
         } catch (error) {
             console.error('Ошибка при загрузке фото:', error);
         }
@@ -382,7 +399,7 @@ var Lang = {
               }}
             />
             <div className="crt_offer_photo_div">
-              <img alt="" className="crt_offer_photo" src={photo}/>
+              <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
             </div>
               <button
                 style={{
