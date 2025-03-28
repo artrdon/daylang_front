@@ -31,6 +31,10 @@ const [data, setData] = useState(null);
   const [loading2, setLoading2] = useState(true);
   const [error2, setError2] = useState(null);
 
+  const [data3, setData3] = useState(null);
+  const [loading3, setLoading3] = useState(true);
+  const [error3, setError3] = useState(null);
+
   const [isVisible, setIsVisible] = useState(false);
 
   // Функция, которая будет вызываться при нажатии на кнопку
@@ -191,6 +195,21 @@ var arrLang = {
   }, []);
 
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/get_degree_load/${params.user}/`);
+        setData3(response.data);
+      } catch (err) {
+        setError3(err.message);
+      } finally {
+        setLoading3(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -238,6 +257,15 @@ var arrLang = {
 
     document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | ${arrLang[lang]['degree']}`;
 
+  if (loading3) return (
+      <>
+      <AppLoad lang={langua}/>
+      <Degree_load/>
+</>
+
+  );
+  if (error3) return <p>Error: {error}</p>;
+
   if (loading12) return (
       <>
       <AppLoad lang={langua}/>
@@ -246,6 +274,7 @@ var arrLang = {
 
   );
   if (error12) return <p>Error: {error}</p>;
+
 
     return (
         <>
@@ -329,15 +358,12 @@ var arrLang = {
     <p className="degree_description_about" >{data1.about_my_degree}</p>
     <br />
     <br />
-    <button className="degree_button" onClick={toggleVisibility}>
-        <img src="/src/static/img/ielts.jpg" alt="" className="degree_img" />
-    </button>
-    <button className="degree_button" onClick={toggleVisibility}>
-        <img src="/src/static/img/ielts.jpg" alt="" className="degree_img" />
-    </button>
-    <button className="degree_button" onClick={toggleVisibility}>
-        <img src="/src/static/img/ielts.jpg" alt="" className="degree_img" />
-    </button>
+    {data3.map((photo) => (
+            <button className="degree_button" onClick={toggleVisibility} key={photo.id}>
+                <img src={photo.photo} alt="" className="degree_img" />
+            </button>
+    ))}
+    
     {isVisible && <div style={{ position: "fixed", top: 0, left: 0, zIndex: 150, width: "100vw", height: "100vh", }}>
         <button onClick={toggleVisibility} style={{ width: "100vw", height: "100vh", position: "fixed", backgroundColor:"#00000000", zIndex: 150}}>
            <img src="/src/static/img/creep.png" alt="" style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5}} />

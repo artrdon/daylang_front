@@ -4,7 +4,7 @@ import App from '/src/App.jsx'
 import axios from 'axios';
 
 
-function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo }) {
+function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo }) {
 
     const [count, setCount] = useState(0)
      function getCookie(name) {
@@ -116,12 +116,24 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 
 
     const csrfToken = getCookie('csrftoken');
+    const handleDegreeLoad = (e) => {
+      setComponents([]);
+      for (let i = 0; i < e.target.files.length; i++){
+        setComponents((components) => [...components, e.target.files[i]]);
+        console.log(e.target.files[i]);
+      }
+      
+
+     // await handleSubmitPhoto(e);
+  };;
+    
 
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [settingChange, setData1] = useState({language: language, name: name, surname: surname, about_myself: about_myself, about_my_degree: about_my_degree, photo: photo});
+    const [components, setComponents] = useState([]);
     let sett = [];
 
     axios.defaults.withCredentials = true;
@@ -157,6 +169,32 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     };
 
 
+    
+  const handleSubmitDegreePhoto = async (e) => {
+      e.preventDefault();
+      console.log("beggining of degree");
+      const formData = new FormData();
+      for (let i = 0; i < components.length; i++){
+        formData.append(`image_${i}`, components[i]);
+        console.log(components[i]);
+      }
+      
+      console.log("zagruzaju photo");
+      try {
+          const response = await axios.post('http://127.0.0.1:8000/degree_load/', formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+                  'X-CSRFToken': csrfToken,
+              },
+          });
+          console.log(response.data);
+          /*settingChange.photo = response.data;
+          console.log(settingChange);*/
+      } catch (error) {
+          console.error('Ошибка при загрузке фото:', error);
+      }
+  };
+
 
 //onLoad = () => setData1({ ...settingChange, about_myself: "lol" });
 
@@ -170,6 +208,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 
         try {
             await handleSubmitPhoto(e);
+            await handleSubmitDegreePhoto(e);
             const response = await axios.post('http://127.0.0.1:8000/usersettings/', settingChange, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -282,7 +321,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               }}
             />
             <div className="crt_offer_photo_div">
-              <img alt="" className="crt_offer_photo" src={settingChange.photo} style={{ borderRadius: "50%" }}/>
+              <img alt="" className="crt_offer_photo" src={settingChange.photo} style={{ borderRadius: "50%" }} />
             </div>
 
             {if_teacher === false ? (
@@ -313,6 +352,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               id="icon404873"
               name="icon"
               type="file"
+              onChange={handleDegreeLoad}
               tabIndex={-1}
               aria-hidden="true"
               style={{
@@ -321,20 +361,26 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                 top: 18,
                 left: 0
               }}
+              multiple
             />
             <div className="crt_offer_photo_div">
-              <img
+              {degree_photo.map((photo) => (
+                <img
                 alt=""
                 style={{
                   width: 200,
                   height: "auto",
                   position: "relative",
                   top: 0,
-                  display: "block",
+                  display: "inline-block",
                   margin: 10,
                 }}
-                src="/src/static/img/ielts.jpg"
+                src={photo.photo}
+                key={photo.id}
               />
+              
+              ))}
+              
             </div>
 
               </>

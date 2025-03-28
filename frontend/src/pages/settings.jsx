@@ -30,6 +30,10 @@ function Settings() {
   const [loading1, setLoading1] = useState(true);
   const [error1, setError1] = useState(null);
 
+  const [data2, setData2] = useState(null);
+  const [loading2, setLoading2] = useState(true);
+  const [error2, setError2] = useState(null);
+
 axios.defaults.withCredentials = true;
 
 
@@ -113,6 +117,21 @@ function change_theme() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/degree_load/');
+        setData2(response.data);
+      } catch (err) {
+        setError2(err.message);
+      } finally {
+        setLoading2(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
     useEffect(() => {
     const fetchData = async () => {
       try {
@@ -148,6 +167,16 @@ function change_theme() {
   );
   if (error1) return <p>Error: {error}</p>;
 
+  if (loading2) return (
+    <>
+    <AppLoad lang={langua}/>
+    <Settings_load/>
+</>
+
+);
+if (error2) return <p>Error: {error}</p>;
+
+
   if (loading12) return (
       <>
       <AppLoad lang={langua}/>
@@ -159,7 +188,6 @@ function change_theme() {
 
   document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | Настройки`;
 
-//  console.log(data);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
@@ -177,7 +205,7 @@ function change_theme() {
             }
             else{
                 return (<>
-                     <SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo}/>
+                     <SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2}/>
                     </>)
                 }
         }
