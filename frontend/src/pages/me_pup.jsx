@@ -8,6 +8,23 @@ import My_pup_load from '/src/load_elems/me_pup_load.jsx'
 import axios from 'axios';
 
 
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="me_avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
 function Me_pup() {
 
     const [count, setCount] = useState(0)
@@ -253,7 +270,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
 
   <div className="find_panel">
   <div className="me_under_find">
-    <img src={data.photo} alt="" className="me_avatar"/>
+    <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
     <div className="me_name_surname_panel">
       <span className="me_name" translate="no" >
         {data.first_name} {data.last_name}

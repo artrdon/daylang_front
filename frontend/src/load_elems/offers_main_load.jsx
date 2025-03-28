@@ -72,7 +72,7 @@ function Offers_main_load() {
 
 <div className="find_panel">
   <div className="me_under_find">
-    <img src="/src/static/img/giga.jpg" alt="" className="me_avatar"/>
+    <img src="/src/static/img/nema.png" alt="" className="me_avatar"/>
     <div className="me_name_surname_panel">
       <span className="me_name" translate="no" >
       </span>

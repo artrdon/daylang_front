@@ -7,6 +7,23 @@ import Feedback_load from '/src/load_elems/feedback_load.jsx'
 import Feedback_pup from '/src/pages/feedback_pup.jsx'
 import axios from 'axios';
 
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="me_avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
 
 function Feedback() {
 
@@ -308,7 +325,7 @@ useEffect(() => {
 
               <div className="find_panel">
   <div className="me_under_find">
-    <img src={data.photo} alt="" className="me_avatar"/>
+    <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
     <div className="me_name_surname_panel">
       <span className="me_name" translate="no" >
         {data.first_name}

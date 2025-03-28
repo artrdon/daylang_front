@@ -261,7 +261,7 @@ function Settings_load() {
                   display: "block",
                   borderRadius: "50%"
                 }}
-                src="/src/static/img/giga.jpg"
+                src="/src/static/img/nema.png"
               />
             </div>
             <p

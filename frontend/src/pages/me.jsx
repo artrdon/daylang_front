@@ -7,6 +7,23 @@ import My_load from '/src/load_elems/me_load.jsx'
 import Me_pup from '/src/pages/me_pup.jsx'
 import axios from 'axios';
 
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="me_avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
 
 function Me() {
 
@@ -249,7 +266,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
 
   <div className="find_panel">
   <div className="me_under_find">
-    <img src={data.photo} alt="" className="me_avatar"/>
+    <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
     <div className="me_name_surname_panel">
       <span className="me_name" translate="no" >
         {data.first_name} {data.last_name}

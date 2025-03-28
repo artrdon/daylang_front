@@ -208,6 +208,36 @@ var Lang = {
   const [loading12, setLoading12] = useState(true);
   const [error12, setError12] = useState(null);
 
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+      setFile(e.target.files[0]);
+
+     // await handleSubmitPhoto(e);
+  };
+
+  const handleSubmitPhoto = async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append('image', file);
+      console.log("zagruzaju photo");
+      try {
+          const response = await axios.post('http://127.0.0.1:8000/creatingofferimg/', formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+                  'X-CSRFToken': csrfToken,
+              },
+          });
+          /*console.log(response.data);
+          settingChange.photo = response.data;*/
+          console.log(settingChange);
+      } catch (error) {
+          console.error('Ошибка при загрузке фото:', error);
+      }
+  };
+
+
       useEffect(() => {
     const fetchData = async () => {
       try {
@@ -248,6 +278,7 @@ var Lang = {
 
 
     const handleSubmit = async (e) => {
+        await handleSubmitPhoto(e);
         e.preventDefault();
         try {
             const response = await axios.post(`http://127.0.0.1:8000/creatingoffer/${data.language}/`, data, {
@@ -290,7 +321,7 @@ var Lang = {
 
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={data12[1]} photo={data1.photo} balance={data.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={data12[1]} photo={data1.photo} balance={data1.balance}/>
 
 
 <div className="ctr_offer_find_panel">
@@ -374,7 +405,7 @@ var Lang = {
             </div>
             <input accept="image/png" id="icon404873" name="icon" type="file" tabIndex={-1} aria-hidden="true" style={{position: "relative", display: "inline-block", top: 18, left: 0 }}/>
             <div className="crt_offer_photo_div">
-              <img alt="" className="crt_offer_photo" src="/src/static/img/giga.jpg"/>
+              <img alt="" className="crt_offer_photo" src="/src/static/img/nema.png"/>
             </div>
               <button style={{width: 200, height: 50,backgroundColor: "gray", margin: 20, fontSize: 30, marginBottom: 100, }} type="submit">
                 {arrLang[lang]['save']}

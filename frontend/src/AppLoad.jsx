@@ -137,13 +137,7 @@ function AppLoad({ lang }) {
                 }
     </button>
               <div className="my_account_panel">
-                <img src="/src/static/img/giga.jpg" alt="pupil" className="avatar" />
-                <span className="ime_i" translate="no">
-                    loading...
-                </span>
-                <span className="familija" translate="no">
-                    loading...
-                </span>
+                <img src="/src/static/img/nema.png" alt="pupil" className="avatar" />
               </div>
   </div>
   <div className="navig_panel">

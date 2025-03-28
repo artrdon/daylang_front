@@ -137,7 +137,7 @@ function Create_offer_load() {
                   top: 50,
                   display: "block",
                 }}
-                src="/src/static/img/giga.jpg"
+                src="/src/static/img/nema.png"
               />
             </div>
               <button

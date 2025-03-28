@@ -5,6 +5,26 @@ import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
 import axios from 'axios';
 
+
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="finded_img"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
+
 function Saved() {
 
     const [count, setCount] = useState(0)
@@ -168,11 +188,7 @@ console.log(data1);
                           <div className="offer_of_lang_finded">
                             <div style={{ width: "100%", height: "100%", position: "relative" }}>
                               <h1 className="finded_name">{data.name}</h1>
-                              <img
-                                src={data.photo}
-                                alt="nekicovek nekicovekovic"
-                                className="finded_img"
-                              />
+                              <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
                                <img src="/src/static/img/srcered.png" alt="" className="src_img" />
                                 <div className="part_with_text">
                                 <p className="finded_price" style={{color: "rgb(0, 184, 0)" }}>{data.price} ₽</p>

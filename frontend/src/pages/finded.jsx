@@ -8,6 +8,25 @@ import NotFoundSave from '/src/elems/not_found_save.jsx'
 import axios from 'axios';
 
 
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="finded_img"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
+
 function Finded() {
     const [count, setCount] = useState(0)
 
@@ -141,7 +160,7 @@ function change_theme() {
         <div style={{ width: "100%", height: "100%", position: "relative" }}>
           <h1 className="finded_name" style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere",  }}></h1>
           <img
-            src="/src/static/img/giga.jpg"
+            src="/src/static/img/nema.png"
             alt="nekicovek nekicovekovic"
             className="finded_img"
           />
@@ -199,11 +218,7 @@ function change_theme() {
                       <div className="offer_of_lang_finded">
                         <div style={{ width: "100%", height: "100%", position: "relative" }}>
                           <h1 className="finded_name">{data.name}</h1>
-                          <img
-                            src={data.photo}
-                            alt="nekicovek nekicovekovic"
-                            className="finded_img"
-                          />
+                          <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
                             {data.isFav === false ? (
                               <img src="/src/static/img/srce.png" alt="" className="src_img" />
                             ) : (

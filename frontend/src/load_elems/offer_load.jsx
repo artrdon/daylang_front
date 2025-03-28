@@ -14,7 +14,7 @@ function Offer_load() {
     <div className="find_panel">
   <div className="div_of_foto_and_button" id="divoffb">
     <img
-      src="/src/static/img/giga.jpg"
+      src="/src/static/img/nema.png"
       alt=""
       className="foto_main"
       id="divoffb_img"
@@ -236,7 +236,7 @@ function Offer_load() {
         <div className="offer_of_lang">
           <div className="first_sloj">
             <img
-              src="/src/static/img/giga.jpg"
+              src="/src/static/img/nema.png"
               alt="nekicovek nekicovekovic"
               className="offer_image"
             />

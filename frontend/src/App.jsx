@@ -17,6 +17,41 @@ import Cookie from '/src/elems/cookie.jsx'
 import Docks from '/src/elems/docks.jsx'
 import axios from 'axios';
 
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="avatar_in_panel"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
 
 function App({ name, lastname, username, lang, if_teach, mess_count, photo, balance }) {
   const [count, setCount] = useState(0)
@@ -176,7 +211,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
           {username === undefined ? (
           <Link to={`/log/`}>
               <div className="my_account_panel" style={{ right: 40 }}>
-                <img src="/src/static/img/giga.jpg" alt="pupil" className="avatar" />
+                <img src="/src/static/img/nema.png" alt="pupil" className="avatar" />
                 <span className="ime_i" translate="no" style={{ top: 15, fontSize: 20 }}>
                   Login
                 </span>
@@ -187,14 +222,14 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
               if_teach === true ? (
           <Link to={`/t/user/${username}/`}>
               <div className="my_account_panel">
-                <img src={photo} alt="pupil" className="avatar" />
+                <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
               </div>
             </Link>
                 ) :
               (
               <Link to={`/p/user/${username}/`}>
                   <div className="my_account_panel">
-                    <img src={photo} alt="pupil" className="avatar" />
+                    <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
                   </div>
                 </Link>
                 )
@@ -238,7 +273,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       {username === undefined ? (
               <a className="navig_panel_button" href={`/log/`} id="only_for_fon">
                 <img
-                  src="/src/static/img/giga.jpg"
+                  src="/src/static/img/nema.png"
                   alt=""
                   className="avatar_in_panel"
                 />
@@ -247,20 +282,12 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
               (
               if_teach === true ? (
               <a className="navig_panel_button" href={`/t/user/${username}/`} id="only_for_fon">
-                <img
-                  src={photo}
-                  alt=""
-                  className="avatar_in_panel"
-                />
+                <ImageWithFallbackPanel src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
               </a>
                 ) :
               (
               <a className="navig_panel_button" href={`/p/user/${username}/`} id="only_for_fon">
-                <img
-                  src={photo}
-                  alt=""
-                  className="avatar_in_panel"
-                />
+                <ImageWithFallbackPanel src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
               </a>
                 )
                 )

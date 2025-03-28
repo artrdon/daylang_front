@@ -7,6 +7,41 @@ import Offers_main_load from '/src/load_elems/offers_main_load.jsx'
 import Add_button from '/src/elems/add_button.jsx'
 import axios from 'axios';
 
+function ImageWithFallbackAvatar({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="me_avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="offer_image"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
 
 function Offers_on_main() {
 
@@ -279,7 +314,7 @@ var arrLang = {
 
 <div className="find_panel">
   <div className="me_under_find">
-    <img src={data.photo} alt="" className="me_avatar"/>
+    <ImageWithFallbackAvatar src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
     <div className="me_name_surname_panel">
       <span className="me_name" translate="no" >
         {data.first_name} {data.last_name}
@@ -362,7 +397,7 @@ var arrLang = {
     <Link to={`/${data.username}/offer/${dat.id}/`} key={dat.id}>
       <div className="offer_of_lang" id={dat.id}>
         <div className="first_sloj">
-          <img src={dat.photo} alt="nekicovek nekicovekovic" className="offer_image" />
+          <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
           <div className="feedback_review_down_block">
             <h1 className="name_of_offer" >
               {dat.name}

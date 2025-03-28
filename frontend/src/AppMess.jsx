@@ -17,6 +17,23 @@ import Cookie from '/src/elems/cookie.jsx'
 import Docks from '/src/elems/docks.jsx'
 import axios from 'axios';
 
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
 
 function AppMess({ name, lastname, username, lang, if_teach, mess_count, photo, balance }) {
   const [count, setCount] = useState(0)
@@ -173,14 +190,14 @@ console.log(mess_count);
     {if_teach === true ? (
           <Link to={`/t/user/${username}/`}>
       <div className="my_account_panel">
-        <img src={photo} alt="pupil" className="avatar" />
+        <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
       </div>
     </Link>
                 ) :
               (
               <Link to={`/p/user/${username}/`}>
       <div className="my_account_panel">
-        <img src={photo} alt="pupil" className="avatar" />
+        <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
       </div>
     </Link>
                 )
