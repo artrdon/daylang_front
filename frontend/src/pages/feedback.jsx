@@ -7,6 +7,24 @@ import Feedback_load from '/src/load_elems/feedback_load.jsx'
 import Feedback_pup from '/src/pages/feedback_pup.jsx'
 import axios from 'axios';
 
+function ImageWithFallbackAvatar({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
 
@@ -406,7 +424,7 @@ useEffect(() => {
 
     <div className="feedback_review_container" key={rew.id}>
       <div className="feedback_review_div_container">
-        <img src={rew.photo} alt="pupil" className="avatar" />
+        <ImageWithFallbackAvatar src={rew.photo} alt="pupil" fallbackSrc="/src/static/img/nema.png"/>
         <span className="ime_review" translate="no">
           {rew.name} {rew.last_name}
         </span>

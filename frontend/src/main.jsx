@@ -25,6 +25,7 @@ import UpdateOffer from '/src/pages/update_offer.jsx'
 import ChatCreate from '/src/pages/chat_create.jsx'
 import App from './App.jsx'
 import Call from '/src/pages/call.jsx'
+import Finded_deep from './pages/finded_deep.jsx'
 
 createRoot(document.querySelector('body')).render(
     <StrictMode>
@@ -40,6 +41,7 @@ createRoot(document.querySelector('body')).render(
                 <Route path="/update_offer/:username/:index/" element={<UpdateOffer />}/>
                 <Route path="/create_chat/:username/:offer_name/:id/" element={<ChatCreate />}/>
                 <Route path="/finded/:language/" element={<Finded />}/>
+                <Route path="/finded/:language/:format/:target/:age/:microphone/:min/:max/" element={<Finded_deep />}/>
                 <Route path="/t/user/:user/" element={<Me />}/>
                 <Route path="/t/user/:user/degree/" element={<Degree />}/>
                 <Route path="/t/user/:user/feedback/" element={<Feedback />}/>

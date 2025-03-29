@@ -27,7 +27,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 
-function Finded() {
+function Finded_deep() {
   
   var arrLang = {
     'English': {
@@ -160,6 +160,12 @@ function change_theme() {
   const [loading12, setLoading12] = useState(true);
   const [error12, setError12] = useState(null);
 
+  const [data2, setData2] = useState({price_min: params.min, price_max: params.max, format: params.format, target: params.target, age: params.age, microphone: params.microphone, language: params.language});
+  const handleChange = (e) => {
+    setData2({ ...data2, [e.target.name]: e.target.value });
+};
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -175,11 +181,12 @@ function change_theme() {
 
     fetchData();
   }, []);
+  console.log(data2);
 
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/creatingoffer/${params.language}/`);
+        const response = await axios.get(`http://127.0.0.1:8000/deep_offer_getting/${params.language}/${params.format}/${params.target}/${params.age}/${params.microphone}/${params.min}/${params.max}/`);
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -207,32 +214,6 @@ function change_theme() {
     fetchData();
   }, []);
 
-  const [data2, setData2] = useState({price_min: 0, price_max: 1000, format: 'individual', target: 'exam', age: '5-12', microphone: 'yes'});
-  const handleChange = (e) => {
-    setData2({ ...data2, [e.target.name]: e.target.value });
-};
-
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.post(`http://127.0.0.1:8000/creatingoffer/${data.language}/`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-        });
-        console.log('Response:', response.data);
-        if (response.data === "serializer.data"){
-            location.reload();
-        }
-
-    } catch (error) {
-        console.error('There was an error!', error.response.data);
-    }
-
-};
 
 
   if (loading) return (
@@ -295,7 +276,7 @@ function change_theme() {
 
 <div className="saved_finded_panel">
   <div className="sborishe_chelov">
-    <div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>
+  <div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>
 {(() => {
         if (data1.length === 0) {
             return (<>
@@ -341,9 +322,9 @@ function change_theme() {
 
   </div>
 </div>
-{search && <div style={{ display: "flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center", }}>
+{search && <div style={{ display: "flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center" }}>
     <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}} onClick={closeSearch}></div>
-    <div style={{ width: 600, height: "auto", backgroundColor: "#2e2e2e", position: "fixed", top: 150, borderRadius: 5,  zIndex: 1001}}>
+    <div style={{ width: 600, height: "auto", backgroundColor: "#2e2e2e", position: "fixed", top: 150, borderRadius: 20,  zIndex: 1001}}>
         <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
             <p id="form-title">Are you serious want to delete the chat</p>
         </div>
@@ -355,7 +336,7 @@ function change_theme() {
                           <div className="finded_crt_offer_name_of_fields">
                             <span>Format</span>
                           </div>
-                          <select id="formate" className="finded_setting_language_selector" onChange={handleChange} value={data.format} name="format">
+                          <select id="formate" className="finded_setting_language_selector" onChange={handleChange} value={data2.format} name="format">
                             <option id="ind" value="individual">Individual</option>
                             <option id="gro" value="group">Group</option>
                           </select>
@@ -363,7 +344,7 @@ function change_theme() {
                           <div className="finded_crt_offer_name_of_fields">
                             <span>Target</span>
                           </div>
-                          <select id="target" className="finded_setting_language_selector" onChange={handleChange} value={data.target} name="target">
+                          <select id="target" className="finded_setting_language_selector" onChange={handleChange} value={data2.target} name="target">
                             <option id="exam" value="exam">Exam</option>
                             <option id="selfdev" value="self_development">Self development</option>
                             <option id="trav" value="travelling">Travelling</option>
@@ -372,7 +353,7 @@ function change_theme() {
                           <div className="finded_crt_offer_name_of_fields">
                             <span>Age</span>
                           </div>
-                          <select id="age" className="finded_setting_language_selector" onChange={handleChange} value={data.age} name="age">
+                          <select id="age" className="finded_setting_language_selector" onChange={handleChange} value={data2.age} name="age">
                             <option id="5-12" value="5-12">5-12</option>
                             <option id="13-17" value="13-17">13-17</option>
                             <option id="18-30" value="18-30">18-30</option>
@@ -383,7 +364,7 @@ function change_theme() {
                           <div className="finded_crt_offer_name_of_fields">
                             <span>I have microphone</span>
                           </div>
-                          <select id="microphone" className="finded_setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
+                          <select id="microphone" className="finded_setting_language_selector" onChange={handleChange} value={data2.microphone} name="microphone">
                             <option id="yes" value="yes">Yes</option>
                             <option id="no" value="no">No</option>
                           </select>
@@ -416,4 +397,4 @@ function change_theme() {
   )
 }
 
-export default Finded
+export default Finded_deep
