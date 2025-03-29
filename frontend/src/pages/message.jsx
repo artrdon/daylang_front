@@ -23,6 +23,10 @@ const [messId, setMessId] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [changeMess, setMessChanger] = useState(false);
   const [groups, setGroup] = useState([0]);
+  const [data3, setData3] = useState(null);
+  const [loading3, setLoading3] = useState(true);
+  const [error3, setError3] = useState(null);
+
 
   // Функция, которая будет вызываться при нажатии на кнопку
   const toggleVisibility = () => {
@@ -228,6 +232,20 @@ const messChange = (idd) => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await axios.get(`http://127.0.0.1:8000/offerinfo_bychat/${params.id}/`);
+              setData3(response.data);
+          } catch (err) {
+              setError3(err.message);
+          } finally {
+              setLoading3(false);
+          }
+      };
+
+      fetchData();
+  }, []);
 
 const ByeButton = () => {
     setBye(true);
@@ -256,7 +274,7 @@ const add_smile = (par) => {
 
 
             const g = document.getElementById("mess").innerText.replace(/\s+/g, ' ').trim();
-            console.log(g);
+            //console.log(g);
             sendMessage(g);
 
             document.getElementById("mess").textContent = "";
@@ -269,19 +287,19 @@ useEffect(() => {
             try {
                 const response = await axios.get(`http://127.0.0.1:8000/getmessagelist/${params.id}/`);
                 setData2(response.data);
-                console.log(1);
+                /*console.log(1);
                 console.log(response.data);
-                console.log(2);
+                console.log(2);*/
                 if (response.data != null)
                 {
-                    console.log(3);
+                   // console.log(3);
                     if (response.data.length === undefined){
-                        console.log(4);
-                        console.log("lolpre");
+                        /*console.log(4);
+                        console.log("lolpre");*/
                         setData4(response.data.chat_name);
                     }
                     else{
-                        console.log(response.data);
+                        //console.log(response.data);
                         setData4(response.data[0].chat_name);
                     }
                 }
@@ -342,7 +360,7 @@ useEffect(() => {
   );
   if (error12) return <p>Error: {error}</p>;
 
-console.log(data12[0]);
+//console.log(data12[0]);
 
 
     return (
@@ -412,7 +430,7 @@ console.log(data12[0]);
       })()}
 
             </div>
-            <Bye_and_call bye={ByeButton} am_teach={data.i_am_teacher}/>
+            <Bye_and_call bye={ByeButton} am_teach={data.i_am_teacher} />
           </div>
           <div className="place_of_mess">
               <div id="mesfield" className="message_mess_block" >
@@ -505,7 +523,7 @@ console.log(data12[0]);
       </div>
     </div>
 
-      {ifBye && <DoBye setdate={setDate7} date={date7} removeDataSetter={removeDataSetter} am_teach={data.i_am_teacher}/>}
+      {ifBye && <DoBye setdate={setDate7} date={date7} removeDataSetter={removeDataSetter} am_teach={data.i_am_teacher} name_of_offer={data3.name_of_offer} price={data3.price} photo={data3.photo} review_score={data3.review_score} description={data3.description}/>}
 
 
 </>
