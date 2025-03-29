@@ -86,8 +86,8 @@ function Log_reset() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-         //   if (captcha != null)
-          //  {
+            if (captcha != null)
+            {
                 setConf(true);
                     const to_email = await axios.post(`http://127.0.0.1:8000/email/${data.email}`, data, {
                         headers: {
@@ -97,7 +97,7 @@ function Log_reset() {
                     });
                     console.log('Response:', response.data);
                 
-          //  }
+            }
 
         } catch (error) {
             console.error('There was an error!', error.response.data);

@@ -54,7 +54,7 @@ const [messId, setMessId] = useState(null);
 
             if (data.tip === "change"){
                 document.getElementById(data.id).children[0].children[0].firstChild.textContent = data.text;
-
+                document.getElementById(data.id).children[0].children[0].children[0].children[1].innerText = "chan.";
                 return;
             }
             setMessage(data.message);
@@ -360,7 +360,7 @@ useEffect(() => {
   );
   if (error12) return <p>Error: {error}</p>;
 
-//console.log(data12[0]);
+//console.log(data2);
 
 
     return (
@@ -390,7 +390,7 @@ useEffect(() => {
                     alt="pupil"
                     className="img_of_micro_chel"
                   />
-                  {(() => {
+                  {/*(() => {
                       if (data12[0][params.id].me === true) {
                           return (<> <span className="ime" translate="no" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", overflowWrap: "anywhere", width: "calc(100% - 240px)", marginLeft: 10 }}>
                                         {data12[0][params.id].ime} {data12[0][params.id].prezime}
@@ -404,7 +404,7 @@ useEffect(() => {
                       }
 
 
-                      })()}
+                      })()*/}
 
                 </div>
             </Link>
@@ -440,9 +440,9 @@ useEffect(() => {
         if (data2.length != undefined) {
           return (<>
 
-              {        data2.map((da) => (
-    <Message_comp int={da.text} key={da.id} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} />
-))}
+              {data2.map((da) => (
+                  <Message_comp int={da.text} key={da.id} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged}/>
+              ))}
               </>);
         }else{
             return (<>
