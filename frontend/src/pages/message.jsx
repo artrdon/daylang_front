@@ -42,26 +42,38 @@ const [messId, setMessId] = useState(null);
     };
 
     socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
+        const dataMess = JSON.parse(event.data);
 
-        console.log(data);
-        if (data.chat_id === params.id)
+        console.log(dataMess);
+        if (dataMess.chat_id === params.id)
         {
-            if (data.tip === "delete"){
-                document.getElementById(`mess${data.id}`).remove();
+            if (dataMess.tip === "delete"){
+                document.getElementById(`mess${dataMess.id}`).remove();
                 return;
             }
 
-            if (data.tip === "change"){
-                document.getElementById(data.id).children[0].children[0].firstChild.textContent = data.text;
-                document.getElementById(data.id).children[0].children[0].children[0].children[1].innerText = "chan.";
-                return;
+            if (dataMess.tip === "change"){
+                console.log(dataMess);
+                console.log(document.getElementById(dataMess.id).children[1].children[0]);
+                if (dataMess.sender === data.username){
+                  console.log("my message");
+                  document.getElementById(dataMess.id).children[0].children[0].firstChild.textContent = dataMess.text;
+                  document.getElementById(dataMess.id).children[0].children[0].children[0].children[1].innerText = "chan.";
+                  return;
+                }
+                else{
+                  console.log("its not my mess");
+                  document.getElementById(dataMess.id).children[1].children[0].firstChild.textContent = dataMess.text;
+                  document.getElementById(dataMess.id).children[1].children[0].children[0].children[1].innerText = "chan.";
+                  return;
+                }
+                
             }
-            setMessage(data.message);
+            setMessage(dataMess.message);
             const newComponent = {
-                id: data.id,
-                text: data.message,
-                sender: data.sender, // Уникальный идентификатор
+                id: dataMess.id,
+                text: dataMess.message,
+                sender: dataMess.sender, // Уникальный идентификатор
             };
             setComponents((components) => [...components, newComponent]);
 
@@ -94,7 +106,7 @@ const [messId, setMessId] = useState(null);
 
   const changeMessage = (idd, text) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: "change", id: params.id, id_mess: idd, text: text }));
+      ws.send(JSON.stringify({ type: "change", id: params.id, id_mess: idd, text: text, sender: data.username  }));
     } else {
       console.error('WebSocket is not open');
     }
