@@ -70,10 +70,13 @@ const [messId, setMessId] = useState(null);
                 
             }
             setMessage(dataMess.message);
+            console.log(dataMess);
             const newComponent = {
                 id: dataMess.id,
                 text: dataMess.message,
-                sender: dataMess.sender, // Уникальный идентификатор
+                sender: dataMess.sender,
+                hour: dataMess.hour,
+                minute: dataMess.minute, // Уникальный идентификатор
             };
             setComponents((components) => [...components, newComponent]);
 
@@ -453,7 +456,7 @@ useEffect(() => {
           return (<>
 
               {data2.map((da) => (
-                  <Message_comp int={da.text} key={da.id} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged}/>
+                  <Message_comp int={da.text} key={da.id} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
               ))}
               </>);
         }else{
@@ -470,7 +473,7 @@ useEffect(() => {
         }
       })()}
   {components.map((component) => (
-      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false}/>
+      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} hour={component.hour} minute={component.minute}/>
       ))}
 
             </div>

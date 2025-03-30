@@ -19,7 +19,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
   );
 }
 
-function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_teach, changed }) {
+function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_teach, changed, hour, minute }) {
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -53,7 +53,7 @@ console.log(if_teach);
                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}}  onClick={() => toggleVisibility(id)}>
                       {int}
                       <div>
-                        <span style={{ fontSize: 12 }}>14:35</span>
+                        <span style={{ fontSize: 12 }}>{hour}:{minute}</span>
                         {(() => {
                           if (changed === true) {
                               return <span style={{ fontSize: 12, }}>chan.</span>;
@@ -97,7 +97,7 @@ console.log(if_teach);
                       {int}
                       
                       <div>
-                        <span style={{ fontSize: 12 }}>14:35</span>
+                        <span style={{ fontSize: 12 }}>{hour}:{minute}</span>
                         {(() => {
                           if (changed === true) {
                               return <span style={{ fontSize: 12, }}>chan.</span>;
@@ -129,7 +129,7 @@ console.log(if_teach);
                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
                       {int}
                       <div>
-                        <span style={{ fontSize: 12 }}>14:35</span>
+                        <span style={{ fontSize: 12 }}>{hour}:{minute}</span>
                         {(() => {
                           if (changed === true) {
                               return <span style={{ fontSize: 12, }}>chan.</span>;
