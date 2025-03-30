@@ -254,11 +254,9 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
           alt=""
           className="app_navig_panel_img on_desktop_panel"
         />
-        {(() => {
-        if (mess_count > 0) {
-          return <div className="app_message_indicator">{mess_count}</div>;
-        }
-      })()}
+        
+
+        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
 
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>

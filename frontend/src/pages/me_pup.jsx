@@ -27,6 +27,62 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function Me_pup() {
 
+    
+  const [groups, setGroup] = useState([0]);
+  const [ws, setWs] = useState(null);
+  const [messNumb, setMessNumb] = useState(null);
+
+useEffect(() => {
+
+    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+
+    socket.onopen = () => {
+        console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+        const dataMess = JSON.parse(event.data);
+
+        console.log(dataMess);
+        if (dataMess.tip === "delete"){
+            let i_read = true;
+            for (let i = 0; dataMess.if_readed.length > i; i++){
+                console.log(dataMess.if_readed[i]);
+                console.log(data.username);
+                if (dataMess.if_readed[i] === data.username){
+                  console.log("i_read");
+                  i_read = false;
+                }
+            }
+            if (i_read)
+              setMessNumb(prev => prev - 1);
+            return;
+        }
+
+        if (dataMess.tip === "send"){
+            setMessNumb(prev => prev + 1);
+            return;
+        }
+
+         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    setWs(socket);
+
+    return () => {
+      socket.close();
+    };
+  }, [groups]);
+
+
     const [count, setCount] = useState(0)
     let params = useParams();
     if (params.user === "undefined")
@@ -163,7 +219,14 @@ function change_theme() {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        if (response.data != null){
+            for (let i = 0; i < response.data[0].length; i++){
+                console.log(response.data[0][i].id);
+                setGroup((groups) => [...groups, response.data[0][i].id]);
+            }
+        }
         setData12(response.data);
+        setMessNumb(response.data[1]);
       } catch (err) {
         setError12(err.message);
       } finally {
@@ -266,7 +329,7 @@ console.log(data);
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={usernow.balance}/>
+        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
 
   <div className="find_panel">
   <div className="me_under_find">

@@ -8,8 +8,10 @@ import AppLoad from '/src/AppLoad.jsx'
 
 function Find() {
 
-      const [groups, setGroup] = useState([0]);
+  
+  const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
+  const [messNumb, setMessNumb] = useState(null);
 
 useEffect(() => {
 
@@ -20,31 +22,26 @@ useEffect(() => {
     };
 
     socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
+        const dataMess = JSON.parse(event.data);
 
-        console.log(data);
-        if (data.tip === "delete"){
-            document.getElementById(`chatnum${data.chat_id}`).children[0].children[0].children[0].children[2].textContent = data.last_mess;
-            console.log(data);
+        console.log(dataMess);
+        if (dataMess.tip === "delete"){
+            let i_read = true;
+            for (let i = 0; dataMess.if_readed.length > i; i++){
+                console.log(dataMess.if_readed[i]);
+                console.log(data.username);
+                if (dataMess.if_readed[i] === data.username){
+                  console.log("i_read");
+                  i_read = false;
+                }
+            }
+            if (i_read)
+              setMessNumb(prev => prev - 1);
             return;
         }
 
-        if (data.tip === "change"){
-         //   document.getElementById(`mess${data.id}`).children[0].children[0].firstChild.textContent = data.text;
-            document.getElementById(`chatnum${data.chat_id}`).children[0].children[0].children[0].children[2].textContent = data.last_mess;
-            console.log(data);
-            return;
-        }
-        /*setMessage(data.message);
-        const newComponent = {
-            id: data.id,
-            text: data.message,
-            sender: data.sender, // Уникальный идентификатор
-        };
-        setComponents((components) => [...components, newComponent]);*/
-        if (data.tip === "send"){
-            document.getElementById(`chatnum${data.chat_id}`).children[0].children[0].children[0].children[2].textContent = data.message;
-
+        if (dataMess.tip === "send"){
+            setMessNumb(prev => prev + 1);
             return;
         }
 
@@ -248,6 +245,7 @@ axios.defaults.withCredentials = true;
             }
         }
         setData12(response.data);
+        setMessNumb(response.data[1]);
       } catch (err) {
         setError12(err.message);
       } finally {
@@ -280,7 +278,7 @@ axios.defaults.withCredentials = true;
 console.log(lang);
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel">
   <div className="tag_select_panel">

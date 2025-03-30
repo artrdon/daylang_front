@@ -219,11 +219,7 @@ console.log(mess_count);
           alt=""
           style={{ width: 50, height: 50, marginLeft: 10 }}
         />
-        {(() => {
-        if (mess_count > 0) {
-          return <div className="app_message_indicator">{mess_count}</div>;
-        }
-      })()}
+        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button" to="/saved/">

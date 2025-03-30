@@ -10,6 +10,62 @@ import axios from 'axios';
 
 function UpdateOffer() {
 
+    
+  const [groups, setGroup] = useState([0]);
+  const [ws, setWs] = useState(null);
+  const [messNumb, setMessNumb] = useState(null);
+
+useEffect(() => {
+
+    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+
+    socket.onopen = () => {
+        console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+        const dataMess = JSON.parse(event.data);
+
+        console.log(dataMess);
+        if (dataMess.tip === "delete"){
+            let i_read = true;
+            for (let i = 0; dataMess.if_readed.length > i; i++){
+                console.log(dataMess.if_readed[i]);
+                console.log(data.username);
+                if (dataMess.if_readed[i] === data.username){
+                  console.log("i_read");
+                  i_read = false;
+                }
+            }
+            if (i_read)
+              setMessNumb(prev => prev - 1);
+            return;
+        }
+
+        if (dataMess.tip === "send"){
+            setMessNumb(prev => prev + 1);
+            return;
+        }
+
+         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    setWs(socket);
+
+    return () => {
+      socket.close();
+    };
+  }, [groups]);
+
+
     const [count, setCount] = useState(0)
     let params = useParams();
 
@@ -115,7 +171,14 @@ function UpdateOffer() {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        if (response.data != null){
+            for (let i = 0; i < response.data[0].length; i++){
+                console.log(response.data[0][i].id);
+                setGroup((groups) => [...groups, response.data[0][i].id]);
+            }
+        }
         setData12(response.data);
+        setMessNumb(response.data[1]);
       } catch (err) {
         setError12(err.message);
       } finally {
@@ -159,7 +222,7 @@ function UpdateOffer() {
 console.log(data2);
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={data12[1]} photo={data1.photo} balance={data1.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} photo={data1.photo} balance={data1.balance}/>
 
 <UpdateOfferComp name={data2.name} description={data2.description} price={data2.price} id={params.index} language={data2.lang} format={data2.format} target={data2.target} age={data2.age} microphone={data2.microphone} photo={data2.photo}/>
 

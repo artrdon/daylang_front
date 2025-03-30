@@ -34,23 +34,29 @@ const [confirm, setIsVisible] = useState(false);
 
 
   // Функция для переключения видимости элемента
-  const toggleVisibility = (idd) => {
-    if (visibleId === idd) {
+  const toggleVisibility = (id) => {
+    if (visibleId === id) {
+      console.log("sakrij");
       setVisibleId(null); // Если элемент уже видим, скрываем его
     } else {
-      setVisibleId(idd); // Иначе показываем элемент с этим id
+      console.log("show");
+      console.log(id);
+      setVisibleId(null);
+      setVisibleId(id); // Иначе показываем элемент с этим id
     }
+    //console.log(idd);
+    //console.log(visibleId);
   };
-console.log(if_teach);
+//console.log(if_teach);
 
     return (
             <>
 {(() => {
         if (sender === me) {
           return (<>
-              <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", transform: "scale(-1, 1)"   }} id={`mess${id}`}>
+              <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", transform: "scale(-1, 1)", zIndex: 1   }} id={`mess${id}`}  >
                   <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
-                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}}  onClick={() => toggleVisibility(id)}>
+                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}} onClick={() => toggleVisibility(id)}>
                       {int}
                       <div>
                         {(() => {
@@ -73,8 +79,7 @@ console.log(if_teach);
 
                     </pre>
                   </div>
-              </div>
-          {visibleId === id && <div style={{ zIndex: 101, position: "sticky", left: 50 }} className={`sett${id}`} id={`sett${id}`}>
+                  {visibleId === id && <div style={{ zIndex: 101, position: "absolute", left: 30, transform: "scale(-1, 1)", }} className={`sett${id}`} id={`sett${id}`}>
                                             <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, right: 40, top: -50}}>
                                                 <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={() => delet(id)}>
                                                     Delete
@@ -85,11 +90,13 @@ console.log(if_teach);
                                             </div>
                                         </div>
            }
+              </div>
+          
               </>);
         }else{
             if (if_teach) {
                 return (<>
-                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block"}} id={`mess${id}`}>
+                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`}>
                     <Link to={`/t/user/${sender}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
                         <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
                     </Link>
@@ -123,7 +130,7 @@ console.log(if_teach);
                 </>);
             } else{
                 return (<>
-                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block"}} id={`mess${id}`}>
+                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`}>
                     <Link to={`/p/user/${sender}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
                         <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
                     </Link>

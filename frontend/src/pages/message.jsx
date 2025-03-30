@@ -18,6 +18,7 @@ const [messId, setMessId] = useState(null);
 
   const [webmessage, setMessage] = useState('');
   const [ws, setWs] = useState(null);
+  const [messNumb, setMessNumb] = useState(null);
   const [ifBye, setBye] = useState(false);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -49,7 +50,8 @@ const [messId, setMessId] = useState(null);
         {
             if (dataMess.tip === "delete"){
                 document.getElementById(`mess${dataMess.id}`).remove();
-                document.getElementById(`sett${dataMess.id}`).remove();
+                
+               // document.getElementById(`sett${dataMess.id}`).remove();
                 return;
             }
 
@@ -85,7 +87,16 @@ const [messId, setMessId] = useState(null);
                 minute: dataMess.minute, // Уникальный идентификатор
             };
             setComponents((components) => [...components, newComponent]);
+            
 
+        }
+        else {
+          if (dataMess.tip === "delete"){
+              setMessNumb(prev => prev - 1);
+              return;
+          }
+          setMessNumb(prev => prev + 1);
+          
         }
          //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
     };
@@ -346,6 +357,7 @@ useEffect(() => {
             }
         }
         setData12(response.data);
+        setMessNumb(response.data[1]);
       } catch (err) {
         setError12(err.message);
       } finally {
@@ -386,7 +398,7 @@ useEffect(() => {
 
     return (
         <>
-        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
+        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
     <div className="message_find_panel">
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="panel_of_messages">
