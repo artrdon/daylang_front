@@ -53,27 +53,29 @@ console.log(if_teach);
                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}}  onClick={() => toggleVisibility(id)}>
                       {int}
                       <div>
-                        <span style={{ fontSize: 12 }}>{hour}:{minute}</span>
                         {(() => {
                           if (changed === true) {
-                              return <span style={{ fontSize: 12, }}>chan.</span>;
+                              return <span style={{ fontSize: 12, position: "relative", marginRight: 10, bottom: 0, }}>chan.</span>;
                           } else {
-                            return <span style={{ fontSize: 12, }}></span>;
+                            return <span style={{ fontSize: 12, position: "relative",  marginRight: 0, bottom: 0,}}></span>;
                           }
                         })()}
+                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
+                        
                         {(() => {
                           if (readed === true) {
-                              return <span style={{ fontSize: 12 }}>\\</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓✓</span>;
                           } else{
-                              return <span style={{ fontSize: 12 }}>\</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓</span>;
                           }
                         })()}
                       </div>
 
                     </pre>
-                    </div>
-                {visibleId === id && <div style={{ zIndex: 101, position: "absolute", left: 50, transform: "scale(-1, 1)" }} className={`sett${id}`}>
-                                            <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "relative", borderRadius: 20, }}>
+                  </div>
+              </div>
+          {visibleId === id && <div style={{ zIndex: 101, position: "sticky", left: 50 }} className={`sett${id}`} id={`sett${id}`}>
+                                            <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, right: 40, top: -50}}>
                                                 <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={() => delet(id)}>
                                                     Delete
                                                 </button>
@@ -83,7 +85,6 @@ console.log(if_teach);
                                             </div>
                                         </div>
            }
-          </div>
               </>);
         }else{
             if (if_teach) {
@@ -97,19 +98,20 @@ console.log(if_teach);
                       {int}
                       
                       <div>
-                        <span style={{ fontSize: 12 }}>{hour}:{minute}</span>
                         {(() => {
                           if (changed === true) {
-                              return <span style={{ fontSize: 12, }}>chan.</span>;
+                              return <span style={{ fontSize: 12, position: "relative", marginRight: 10, bottom: 0, }}>chan.</span>;
                           } else {
-                            return <span style={{ fontSize: 12, }}></span>;
+                            return <span style={{ fontSize: 12, position: "relative",  marginRight: 0, bottom: 0,}}></span>;
                           }
                         })()}
+                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
+                        
                         {(() => {
                           if (readed === true) {
-                              return <span style={{ fontSize: 12 }}>\\</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓✓</span>;
                           } else{
-                              return <span style={{ fontSize: 12 }}>\</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓</span>;
                           }
                         })()}
                       </div>
@@ -129,19 +131,20 @@ console.log(if_teach);
                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
                       {int}
                       <div>
-                        <span style={{ fontSize: 12 }}>{hour}:{minute}</span>
                         {(() => {
                           if (changed === true) {
-                              return <span style={{ fontSize: 12, }}>chan.</span>;
+                              return <span style={{ fontSize: 12, position: "relative", marginRight: 10, bottom: 0, }}>chan.</span>;
                           } else {
-                            return <span style={{ fontSize: 12, }}></span>;
+                            return <span style={{ fontSize: 12, position: "relative",  marginRight: 0, bottom: 0,}}></span>;
                           }
                         })()}
+                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
+                        
                         {(() => {
                           if (readed === true) {
-                              return <span style={{ fontSize: 12 }}>\\</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓✓</span>;
                           } else{
-                              return <span style={{ fontSize: 12 }}>\</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓</span>;
                           }
                         })()}
                       </div>

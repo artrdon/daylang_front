@@ -49,32 +49,38 @@ const [messId, setMessId] = useState(null);
         {
             if (dataMess.tip === "delete"){
                 document.getElementById(`mess${dataMess.id}`).remove();
+                document.getElementById(`sett${dataMess.id}`).remove();
                 return;
             }
 
             if (dataMess.tip === "change"){
                 console.log(dataMess);
-                console.log(document.getElementById(dataMess.id).children[1].children[0]);
                 if (dataMess.sender === data.username){
                   console.log("my message");
                   document.getElementById(dataMess.id).children[0].children[0].firstChild.textContent = dataMess.text;
-                  document.getElementById(dataMess.id).children[0].children[0].children[0].children[1].innerText = "chan.";
+                  document.getElementById(dataMess.id).children[0].children[0].children[0].children[0].innerText = "chan.";
+                  document.getElementById(dataMess.id).children[0].children[0].children[0].children[0].style.marginRight = "10px";
                   return;
                 }
                 else{
                   console.log("its not my mess");
                   document.getElementById(dataMess.id).children[1].children[0].firstChild.textContent = dataMess.text;
-                  document.getElementById(dataMess.id).children[1].children[0].children[0].children[1].innerText = "chan.";
+                  document.getElementById(dataMess.id).children[1].children[0].children[0].children[0].innerText = "chan.";
+                  document.getElementById(dataMess.id).children[1].children[0].children[0].children[0].style.marginRight = "10px";
                   return;
                 }
                 
             }
             setMessage(dataMess.message);
-            console.log(dataMess);
+            if (String(dataMess.minute).length === 1){
+              dataMess.minute = "0" + String(dataMess.minute);
+            }
             const newComponent = {
                 id: dataMess.id,
                 text: dataMess.message,
                 sender: dataMess.sender,
+                photo: dataMess.photo,
+                senderIsTeacher: dataMess.senderIsTeacher,
                 hour: dataMess.hour,
                 minute: dataMess.minute, // Уникальный идентификатор
             };
@@ -453,6 +459,12 @@ useEffect(() => {
 
     {(() => {
         if (data2.length != undefined) {
+          for (let i = 0; data2.length > i; i++){
+            if (String(data2[i].minute).length === 1){
+              data2[i].minute = "0" + String(data2[i].minute);
+            }
+          }
+          
           return (<>
 
               {data2.map((da) => (
@@ -473,7 +485,7 @@ useEffect(() => {
         }
       })()}
   {components.map((component) => (
-      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} hour={component.hour} minute={component.minute}/>
+      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute}/>
       ))}
 
             </div>
