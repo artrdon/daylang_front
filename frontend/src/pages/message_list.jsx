@@ -55,7 +55,7 @@ useEffect(() => {
         }
         if (dataMess.tip === "send"){
             document.getElementById(`chatnum${dataMess.chat_id}`).children[0].children[0].children[0].children[2].textContent = dataMess.message;
-            document.getElementById(`parent_of_messages`).appendChild(document.getElementById(`chatnum${dataMess.chat_id}`));
+            document.getElementById(`parent_of_messages`).prepend(document.getElementById(`chatnum${dataMess.chat_id}`));
             setMessNumb(prev => prev + 1);
             setComponents(prev => ({
               ...prev,
