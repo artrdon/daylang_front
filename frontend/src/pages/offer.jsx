@@ -86,6 +86,15 @@ function Offer() {
   const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
   const [messNumb, setMessNumb] = useState(null);
+  const [showAllOffers, setShowAllOffers] = useState(false);
+
+  const showRev = () =>{
+    setShowAllOffers(true);
+  }
+
+  const unShowRev = () =>{
+    setShowAllOffers(false);
+  }
 
 useEffect(() => {
 
@@ -642,21 +651,21 @@ console.log(data1);
           <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']}/>
                 ) : null}
 
-        {data3.map((rew) => (
+        {/*data3.map((rew) => (
             rew.number_of_offer === Number(params.id) ? (<div className="offer_review_div_div" key={rew.id}>
           <div className="offer_review_div">
-            <ImageWithFallbackFeedback src={rew.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+            <ImageWithFallbackFeedback src={rew.photo} alt={rew.name} fallbackSrc="/src/static/img/nema.png"/>
             <span className="ime_review">{rew.name}  {rew.last_name}</span>
-            <img src={`/src/static/img/${rew.score}.png`} alt="" className="offer_score_img"/>
+            <img src={`/src/static/img/${rew.score}.png`} alt="score" className="offer_score_img"/>
           </div>
           <p className="offer_review_text">
             {rew.text}
           </p>
         </div>) : null
-))}
-<div style={{ display: "block", paddingBottom: 90, position: "relative", top: 100, border: "1px solid gray", borderBottomLeftRadius: 50, borderBottomRightRadius: 50,  }}>
-    <span style={{ position: "absolute", fontSize: 30, margin: 20, cursor: "pointer"}}>Показать больше</span>
-</div>
+))*/}
+<p style={{ display: "block", padding: 30, position: "relative", top: 100, border: "1px solid gray", borderBottomLeftRadius: 50, borderBottomRightRadius: 50, textAlign: "center" }} onClick={showRev}>
+    <span style={{ position: "relative", fontSize: 30, margin: 20, cursor: "pointer"}}>Показать больше</span>
+</p>
       </div>
 
     </div>
@@ -719,7 +728,26 @@ console.log(data1);
     </div>
   </div>
 </div>
-
+{showAllOffers && <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh"}}>
+                    <div style={{ position: "fixed", zIndex: 1000, background: "black", width: "100vw", height: "100vh", opacity: "30%" }}  onClick={unShowRev}></div>
+                    <div style={{ position: "fixed", zIndex: 1001, margin: "auto", display: "block", width: 500, height: "auto", backgroundColor: "rgb(46, 46, 46)", padding: 50, borderRadius: 10}} >
+                      <p style={{textAlign: "center", fontSize: 50, margin: 30, marginTop: 0}}>{arrLang[lang]['reviews']}</p>
+                      <div style={{overflow: "auto", height: 500}}>
+                      {data3.map((rew) => (
+                                rew.number_of_offer === Number(params.id) ? (<div className="offer_review_div_div" style={{top: "unset"}} key={rew.id}>
+                              <div className="offer_review_div">
+                                <ImageWithFallbackFeedback src={rew.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+                                <span className="ime_review">{rew.name}  {rew.last_name}</span>
+                                <img src={`/src/static/img/${rew.score}.png`} alt="" className="offer_score_img"/>
+                              </div>
+                              <p className="offer_review_text">
+                                {rew.text}
+                              </p>
+                            </div>) : null
+                      ))}
+                      </div>
+                    </div>
+                  </div>}
 
 
 </>

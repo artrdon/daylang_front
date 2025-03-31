@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
 import Calendar from 'react-calendar';
@@ -9,6 +9,17 @@ import MessageChange from '/src/elems/change_mess.jsx'
 import Bye_and_call from '/src/elems/bye_and_call_button.jsx'
 import DoBye from '/src/elems/do_bye.jsx'
 import axios from 'axios';
+
+const ScrollToBottom = () => {
+  const elementRef = useRef(null);
+  
+  useEffect(() => {
+    if (elementRef.current) {
+      elementRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+  return <div ref={elementRef} />;
+};
 
 function Message() {
     let params = useParams();
@@ -73,20 +84,24 @@ const [messId, setMessId] = useState(null);
                 }
                 
             }
-            setMessage(dataMess.message);
-            if (String(dataMess.minute).length === 1){
-              dataMess.minute = "0" + String(dataMess.minute);
+            if (dataMess.tip === "send"){
+                setMessage(dataMess.message);
+                if (String(dataMess.minute).length === 1){
+                  dataMess.minute = "0" + String(dataMess.minute);
+                }
+                const newComponent = {
+                    id: dataMess.id,
+                    text: dataMess.message,
+                    sender: dataMess.sender,
+                    photo: dataMess.photo,
+                    senderIsTeacher: dataMess.senderIsTeacher,
+                    hour: dataMess.hour,
+                    minute: dataMess.minute, // Уникальный идентификатор
+                };
+                setComponents((components) => [...components, newComponent]);
+                return;
             }
-            const newComponent = {
-                id: dataMess.id,
-                text: dataMess.message,
-                sender: dataMess.sender,
-                photo: dataMess.photo,
-                senderIsTeacher: dataMess.senderIsTeacher,
-                hour: dataMess.hour,
-                minute: dataMess.minute, // Уникальный идентификатор
-            };
-            setComponents((components) => [...components, newComponent]);
+            
             
 
         }
@@ -119,6 +134,7 @@ const [messId, setMessId] = useState(null);
   const sendMessage = (gh) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: "send", message: gh, id: params.id, sender: data.username }));
+      //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
     } else {
       console.error('WebSocket is not open');
     }
@@ -482,6 +498,9 @@ useEffect(() => {
               {data2.map((da) => (
                   <Message_comp int={da.text} key={da.id} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
               ))}
+              {data2.length > 0 && (
+                <ScrollToBottom/>
+              )}
               </>);
         }else{
             return (<>
@@ -496,10 +515,16 @@ useEffect(() => {
 
         }
       })()}
-  {components.map((component) => (
+  {components.map((component) => ( 
+    <>
       <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute}/>
-      ))}
-
+      <ScrollToBottom/>
+    </>
+    ))}
+      
+        
+      
+              
             </div>
           </div>
           <div className="inviz_panel_of_writing">

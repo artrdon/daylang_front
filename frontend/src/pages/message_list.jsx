@@ -48,6 +48,7 @@ useEffect(() => {
         }
         if (dataMess.tip === "send"){
             document.getElementById(`chatnum${dataMess.chat_id}`).children[0].children[0].children[0].children[2].textContent = dataMess.message;
+            document.getElementById(`parent_of_messages`).appendChild(document.getElementById(`chatnum${dataMess.chat_id}`));
             setMessNumb(prev => prev + 1);
             return;
         }
@@ -226,7 +227,7 @@ console.log(data1);
 <div className="message_list_find_panel">
   <div style={{ display: "flex", justifyContent: "center" }}>
     <div className="panel_of_messs">
-      <div style={{ height: "100%", overflow: "auto" }}>
+      <div style={{ height: "100%", overflow: "auto" }} id="parent_of_messages">
 
           {(() => {
         if (data1[0].length === 0) {

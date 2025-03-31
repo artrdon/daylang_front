@@ -106,19 +106,19 @@ const [confirm, setIsVisible] = useState(false);
                       
                       <div>
                         {(() => {
-                          if (changed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", marginRight: 10, bottom: 0, }}>chan.</span>;
-                          } else {
-                            return <span style={{ fontSize: 12, position: "relative",  marginRight: 0, bottom: 0,}}></span>;
+                          if (readed === true) {
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>;
+                          } else{
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓ </span>;
                           }
                         })()}
                         <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
                         
                         {(() => {
-                          if (readed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓✓</span>;
-                          } else{
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓</span>;
+                          if (changed === true) {
+                              return <span style={{ fontSize: 12, position: "relative", marginLeft: 10, bottom: 0, }}>chan.</span>;
+                          } else {
+                            return <span style={{ fontSize: 12, position: "relative",  marginLeft: 0, bottom: 0,}}></span>;
                           }
                         })()}
                       </div>
@@ -138,22 +138,23 @@ const [confirm, setIsVisible] = useState(false);
                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
                       {int}
                       <div>
-                        {(() => {
-                          if (changed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", marginRight: 10, bottom: 0, }}>chan.</span>;
-                          } else {
-                            return <span style={{ fontSize: 12, position: "relative",  marginRight: 0, bottom: 0,}}></span>;
-                          }
-                        })()}
-                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
                         
                         {(() => {
                           if (readed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓✓</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>;
                           } else{
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓</span>;
+                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓ </span>;
                           }
                         })()}
+                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
+                        {(() => {
+                          if (changed === true) {
+                              return <span style={{ fontSize: 12, position: "relative", marginLeft: 10, bottom: 0, }}>chan.</span>;
+                          } else {
+                            return <span style={{ fontSize: 12, position: "relative",  marginLeft: 0, bottom: 0,}}></span>;
+                          }
+                        })()}
+                        
                       </div>
 
                     </pre>
