@@ -13,7 +13,7 @@ function Find() {
   const [ws, setWs] = useState(null);
   const [messNumb, setMessNumb] = useState(null);
 
-useEffect(() => {
+useEffect(() => { 
 
     const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
 
