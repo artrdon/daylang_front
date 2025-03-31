@@ -31,7 +31,7 @@ axios.defaults.withCredentials = true;
 //onLoad = () => setData1({ ...settingChange, about_myself: "lol" });
 
  const handleInput = (e) => {
-    setData4({ ...review, text: e.target.innerText });
+    setData4({ ...review, text: e.target.value });
   };
 
 
@@ -164,15 +164,14 @@ axios.defaults.withCredentials = true;
         <br />
         <div className="offer_set_review_div">
           <div>
-            <div
+            <textarea
               id="mess"
-              data-text={feedback}
-              contentEditable="true"
+              maxLength={950}
               className="input_panel"
               style={{ left: "-60px", width: "100%",}}
               value={review.text}
-              onInput={handleInput}
-            />
+              onChange={handleInput}
+            ></textarea>
             <button
               className="sending_button"
               onClick={handleSubmit}

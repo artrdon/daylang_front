@@ -8,6 +8,106 @@ import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
 
+const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  const showMore = () =>{
+    document.querySelector("body").style.overflow = "hidden";
+    setShowAllOffers(true);
+  }
+  // Если текст короче максимальной длины, показываем полностью
+  if (text.length <= maxLength) {
+    return <p className="offer_review_text">{text}</p>;
+  }
+
+
+  // Сокращенный и полный текст
+  const truncatedText = text.slice(0, maxLength) + '...';
+  const displayText = isExpanded ? text : truncatedText;
+
+  return (
+    <div>
+      <p className="offer_review_text" style={{paddingBottom: 0}}>{displayText}</p>
+      <button 
+        onClick={showMore}
+        style={{
+          background: 'none',
+          border: 'none',
+          color: 'white',
+          cursor: 'pointer',
+          paddingLeft: 20,
+          paddingBottom: 20,
+          marginTop: '5px',
+        }}
+      >
+        Показать больше
+      </button>
+    </div>
+  );
+};
+
+const AnimatedExpandableText = ({ text, maxLength = 300 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  if (text.length <= maxLength) {
+    return <div className="description_text">{text}</div>;
+  }
+
+  const truncatedText = text.slice(0, maxLength) + '...';
+  const displayText = isExpanded ? text : truncatedText;
+
+  return (
+    <div>
+      <div className="description_text">{displayText}</div>
+      <button 
+        onClick={() => setIsExpanded(!isExpanded)}
+        style={{
+          background: 'none',
+          border: 'none',
+          color: 'white',
+          cursor: 'pointer',
+          padding: '0',
+          marginTop: '5px',
+          display: "block"
+        }}
+      >
+        {isExpanded ? 'Скрыть' : 'Показать больше'}
+      </button>
+    </div>
+  );
+};
+
+const AnimatedExpandableTextPhone = ({ text, maxLength = 300  }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  if (text.length <= maxLength) {
+    return <div className="description_text" style={{whiteSpace: "pre-wrap", overflowWrap: "anywhere"}}>{text}</div>;
+  }
+
+  const truncatedText = text.slice(0, maxLength) + '...';
+  const displayText = isExpanded ? text : truncatedText;
+
+  return (
+    <div>
+      <div className="description_text" style={{whiteSpace: "pre-wrap", overflowWrap: "anywhere"}}>{displayText}</div>
+      <button 
+        onClick={() => setIsExpanded(!isExpanded)}
+        style={{
+          background: 'none',
+          border: 'none',
+          color: 'white',
+          cursor: 'pointer',
+          padding: '0',
+          marginTop: '5px',
+          display: "block"
+        }}
+      >
+        {isExpanded ? 'Скрыть' : 'Показать больше'}
+      </button>
+    </div>
+  );
+};
+
 function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
 
@@ -613,9 +713,7 @@ console.log(data1);
       </div>
     </div>
     <div className="div_description" id="phone">
-      <div className="description_text" style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}>
-        {data1.description}
-      </div>
+      <AnimatedExpandableTextPhone text={data1.description} />
       <Link to={`/t/user/${data2.username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
@@ -660,9 +758,7 @@ console.log(data1);
                 <span className="ime_review">{rew.name}  {rew.last_name}</span>
                 <img src={`/src/static/img/${rew.score}.png`} alt="score" className="offer_score_img"/>
               </div>
-              <p className="offer_review_text">
-                {rew.text}
-              </p>
+              <ReviewExpandableText setShowAllOffers={setShowAllOffers} text={rew.text}/>
             </div>
           </>
         )}
@@ -673,9 +769,7 @@ console.log(data1);
     </div>
   </div>
   <div className="div_description" id="comp">
-    <div className="description_text">
-      {data1.description}
-    </div>
+    <AnimatedExpandableText text={data1.description} />
     <Link to={`/t/user/${data2.username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
@@ -700,7 +794,7 @@ console.log(data1);
   </Link>
   </div>
 
-  <div className="div_of_offer_div">
+  <div className="div_of_offer_div" style={{marginTop: 200}}>
 
     <div className="offer_div">
         <h3>Возможно вам подойдут</h3>

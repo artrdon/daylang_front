@@ -11,10 +11,10 @@
     width: 47%; height: auto;  left: 0px; z-index: 15; position: relative; top: 700px; margin: 50px; margin-top: 100px;
 }
 .description_text{
-    display: inline-block; font-size: 25px; padding: 0px; white-space: pre-wrap; overflow-wrap: anywhere; margin-bottom: 100px; width: 630px;
+    display: inline-block; font-size: 25px; padding: 0px; white-space: pre-wrap; overflow-wrap: anywhere; margin-bottom: 5px; width: 630px;
 }
 .div_of_offer_div{
-    width: 100%; height: auto;  left: 0px; z-index: 15; position: relative; top: 700px;
+    width: 100%; height: auto;  left: 0px; z-index: 15; position: relative; top: 700px; 
 }
 .offer_div
 {
@@ -75,7 +75,7 @@
     position: absolute;
 }
 .offer_about_author_div{
-    width: 628px; height: 90px; position: relative; border: 1px solid black; background-color: #ededed; z-index: 5; display: flex; align-items: center; border-radius: 5px;
+    width: 628px; height: 90px; position: relative; border: 1px solid black; background-color: #ededed; z-index: 5; display: flex; align-items: center; border-radius: 5px; margin-top: 90px;
 }
 .offer_about_author{
     position: absolute; cursor: pointer; left: 20px;
