@@ -38,7 +38,14 @@ useEffect(() => {
                 }
             }
             if (i_read)
+            {
               setMessNumb(prev => prev - 1);
+              setComponents(prev => ({
+                ...prev,
+                [dataMess.chat_id]: prev[`${dataMess.chat_id}`] - 1
+              })); 
+            }
+              
             return;
         }
 
@@ -50,6 +57,10 @@ useEffect(() => {
             document.getElementById(`chatnum${dataMess.chat_id}`).children[0].children[0].children[0].children[2].textContent = dataMess.message;
             document.getElementById(`parent_of_messages`).appendChild(document.getElementById(`chatnum${dataMess.chat_id}`));
             setMessNumb(prev => prev + 1);
+            setComponents(prev => ({
+              ...prev,
+              [dataMess.chat_id]: prev[`${dataMess.chat_id}`] + 1
+            }));            
             return;
         }
 
@@ -186,18 +197,23 @@ const delete_chat = async (e, idd,) => {
     fetchData();
   }, []);
 
+  const [components, setComponents] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
                 setGroup((groups) => [...groups, response.data[0][i].id]);
             }
         }
         setData1(response.data);
         setMessNumb(response.data[1]);
+        const newComponent = {};
+        for (let i = 0; i < response.data[0].length; i++){
+          newComponent[response.data[0][i].id] = response.data[0][i].unreaded_mess;
+        }
+        setComponents(prev => ({ ...prev, ...newComponent }));
       } catch (err) {
         setError1(err.message);
       } finally {
@@ -218,7 +234,7 @@ const delete_chat = async (e, idd,) => {
                         </> );
   if (error1) return <p>Error: {error}</p>;
 
-console.log(data1);
+console.log(typeof(components['1']), components['1']);
 
     return (
         <>
@@ -271,17 +287,11 @@ console.log(data1);
                             </div>
 
                         </button>
-                        {(() => {
-                            if (da.unreaded_mess != 0) {
-                              return (<>
-                                  <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
-                                        <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
-                                            <span>{da.unreaded_mess}</span>
-                                        </div>
-                                  </button>
-                                  </>);
-                            }
-                          })()}
+                            {components[`${da.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
+                                  <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                                      <span>{components[`${da.id}`]}</span>
+                                  </div>
+                            </button>}
 
                            {visibleId === da.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${da.id}`}>
                                 <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, top: -125 }}>
@@ -320,17 +330,11 @@ console.log(data1);
                                 </div>
 
                             </button>
-                            {(() => {
-                                if (da.unreaded_mess != 0) {
-                                  return (<>
-                                      <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
-                                            <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
-                                                <span>{da.unreaded_mess}</span>
-                                            </div>
-                                      </button>
-                                      </>);
-                                }
-                              })()}
+                            {components[`${da.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
+                                  <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                                      <span>{components[`${da.id}`]}</span>
+                                  </div>
+                            </button>}
 
                                {visibleId === da.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${da.id}`}>
                                     <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", top: -125, borderRadius: 20, }}>
