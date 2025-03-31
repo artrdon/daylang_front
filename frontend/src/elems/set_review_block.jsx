@@ -21,7 +21,7 @@ function SetReviewBlock({set_rew, feedback}) {
     const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [review, setData4] = useState({user: params.username, number_of_offer: params.id, setter: '', score: '', text: ''});
+  const [review, setData4] = useState({user: params.username, offer: params.id, setter: '', score: '', text: ''});
   let sett = [];
 
 axios.defaults.withCredentials = true;

@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import Offer_load from '/src/load_elems/offer_load.jsx'
 import SetReviewBlock from '/src/elems/set_review_block.jsx'
+import UpReviewBlock from '/src/elems/up_review_block.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
@@ -89,10 +90,12 @@ function Offer() {
   const [showAllOffers, setShowAllOffers] = useState(false);
 
   const showRev = () =>{
+    document.querySelector("body").style.overflow = "hidden";
     setShowAllOffers(true);
   }
 
   const unShowRev = () =>{
+    document.querySelector("body").style.overflow = "unset";
     setShowAllOffers(false);
   }
 
@@ -395,7 +398,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/reviews_two/`); //`http://127.0.0.1:8000/reviews/`
+        const response = await axios.get(`http://127.0.0.1:8000/reviews_two/${params.id}/`); //`http://127.0.0.1:8000/reviews/`
         setData3(response.data);
       } catch (err) {
         setError3(err.message);
@@ -633,11 +636,7 @@ console.log(data1);
   </Link>
     </div>
     <div className="margin_of_offer">
-
-
       <div>
-
-
         <h1 style={{ marginBottom: 30, top: 800, position: "absolute" }}>
           {arrLang[lang]['reviews']}{" "}
           <img
@@ -649,25 +648,28 @@ console.log(data1);
         </h1>
         {data1.itsme === false ? (
           <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']}/>
-                ) : null}
+                ) : (
+                  <UpReviewBlock />
+                        )}
 
-        {/*data3.map((rew) => (
-            rew.number_of_offer === Number(params.id) ? (<div className="offer_review_div_div" key={rew.id}>
-          <div className="offer_review_div">
-            <ImageWithFallbackFeedback src={rew.photo} alt={rew.name} fallbackSrc="/src/static/img/nema.png"/>
-            <span className="ime_review">{rew.name}  {rew.last_name}</span>
-            <img src={`/src/static/img/${rew.score}.png`} alt="score" className="offer_score_img"/>
-          </div>
-          <p className="offer_review_text">
-            {rew.text}
-          </p>
-        </div>) : null
-))*/}
+        {data3[1].map((rew) => 
+          <>
+            <div className="offer_review_div_div" key={rew.id}>
+              <div className="offer_review_div">
+                <ImageWithFallbackFeedback src={rew.photo} alt={rew.name} fallbackSrc="/src/static/img/nema.png"/>
+                <span className="ime_review">{rew.name}  {rew.last_name}</span>
+                <img src={`/src/static/img/${rew.score}.png`} alt="score" className="offer_score_img"/>
+              </div>
+              <p className="offer_review_text">
+                {rew.text}
+              </p>
+            </div>
+          </>
+        )}
 <p style={{ display: "block", padding: 30, position: "relative", top: 100, border: "1px solid gray", borderBottomLeftRadius: 50, borderBottomRightRadius: 50, textAlign: "center" }} onClick={showRev}>
     <span style={{ position: "relative", fontSize: 30, margin: 20, cursor: "pointer"}}>Показать больше</span>
 </p>
       </div>
-
     </div>
   </div>
   <div className="div_description" id="comp">
@@ -733,18 +735,20 @@ console.log(data1);
                     <div style={{ position: "fixed", zIndex: 1001, margin: "auto", display: "block", width: 500, height: "auto", backgroundColor: "rgb(46, 46, 46)", padding: 50, borderRadius: 10}} >
                       <p style={{textAlign: "center", fontSize: 50, margin: 30, marginTop: 0}}>{arrLang[lang]['reviews']}</p>
                       <div style={{overflow: "auto", height: 500}}>
-                      {data3.map((rew) => (
-                                rew.number_of_offer === Number(params.id) ? (<div className="offer_review_div_div" style={{top: "unset"}} key={rew.id}>
-                              <div className="offer_review_div">
-                                <ImageWithFallbackFeedback src={rew.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-                                <span className="ime_review">{rew.name}  {rew.last_name}</span>
-                                <img src={`/src/static/img/${rew.score}.png`} alt="" className="offer_score_img"/>
+                      {data3[0].map((rew) => 
+                            <>
+                              <div className="offer_review_div_div" style={{top: "unset"}} key={rew.id}>
+                                <div className="offer_review_div">
+                                  <ImageWithFallbackFeedback src={rew.photo} alt={rew.name} fallbackSrc="/src/static/img/nema.png"/>
+                                  <span className="ime_review">{rew.name}  {rew.last_name}</span>
+                                  <img src={`/src/static/img/${rew.score}.png`} alt="score" className="offer_score_img"/>
+                                </div>
+                                <p className="offer_review_text">
+                                  {rew.text}
+                                </p>
                               </div>
-                              <p className="offer_review_text">
-                                {rew.text}
-                              </p>
-                            </div>) : null
-                      ))}
+                            </>
+                      )}
                       </div>
                     </div>
                   </div>}
