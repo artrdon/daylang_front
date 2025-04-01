@@ -1,13 +1,54 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
-import App from '/src/App.jsx'
-import AppLoad from '/src/AppLoad.jsx'
+import AppMess from '/src/App.jsx'
+import AppMessLoad from '/src/AppLoad.jsx'
 import Message_comp from '/src/elems/message_comp.jsx'
 import axios from 'axios';
 
+function ImageWithFallbackMicroChel({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className='img_of_micro_chel'
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+      style={{ height: 50, width: 50, borderRadius: 30, position: "absolute", bottom: 0, }}
+    />
+  );
+}
+
+
 function ChatCreate() {
     let params = useParams();
+    const now = new Date();
+    const hours = now.getHours();
+    let minutes = now.getMinutes();
+    if (minutes < 10){
+      minutes = "0" + String(minutes);
+    }
 
     const [count, setCount] = useState(0)
     const [wsGroup, setWsGroup] = useState(null);
@@ -57,7 +98,71 @@ function ChatCreate() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
     const [message, setData1] = useState({username: params.username, offer_name: params.offer_name, offer_id: params.id});
+
+    const [data2, setData2] = useState(null);
+    const [loading2, setLoading2] = useState(true);
+    const [error2, setError2] = useState(null);
+
+    const [data3, setData3] = useState(null);
+    const [loading3, setLoading3] = useState(true);
+    const [error3, setError3] = useState(null);
+
+    const [messNumb, setMessNumb] = useState(0);
+    axios.defaults.withCredentials = true;
+
+  
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await axios.get(`http://127.0.0.1:8000/userinfo/${params.username}/`);
+              console.log(response.data);
+              setData(response.data);
+            } catch (err) {
+              setError(err.message);
+            } finally {
+              setLoading(false);
+            }
+      };
+
+      fetchData();
+    }, []);
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await axios.get(`http://127.0.0.1:8000/userinfo/`);
+              console.log(response.data);
+              setData2(response.data);
+            } catch (err) {
+              setError2(err.message);
+            } finally {
+              setLoading2(false);
+            }
+      };
+
+      fetchData();
+    }, []);
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.id}/`);
+              console.log(response.data);
+              setData3(response.data);
+            } catch (err) {
+              setError3(err.message);
+            } finally {
+              setLoading3(false);
+            }
+      };
+
+      fetchData();
+    }, []);
+
     const isSent = useRef(false);
 
     const lang = getCookie('lang');
@@ -147,9 +252,35 @@ useEffect(() => {
 //sendpost();
 
 
+    if (loading) return (
+      <>
+      <AppMessLoad lang={langua}/>
+</>
+
+  );
+    if (error) return <p>Error: {error}</p>;
+
+    if (loading2) return (
+      <>
+      <AppMessLoad lang={langua}/>
+</>
+
+  );
+    if (error2) return <p>Error: {error}</p>;
+
+    if (loading3) return (
+      <>
+      <AppMessLoad lang={langua}/>
+</>
+
+  );
+    if (error3) return <p>Error: {error}</p>;
+
+
+
     return (
         <>
-        <AppLoad lang={langua}/>
+        <AppMess name={data2.first_name} lastname={data2.last_name} username={data2.username} lang={langua} if_teach={data2.i_am_teacher} mess_count={messNumb} photo={data2.photo} balance={data2.balance}/>
 
     <div className="find_panel" style={{ width: "100%", height: "calc(100% - 70px)", }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -163,6 +294,14 @@ useEffect(() => {
               />
             </div>
             <div className="positing_of_micro_chel">
+              <Link to={`/${params.username}/offer/${params.id}/`}>
+                <div style={{ position: "relative", cursor: "pointer", paddingLeft: 90, paddingRight: 80, marginTop: 10 }}>
+                  <ImageWithFallbackMicroChel src={data3.photo} alt="photo_offer" fallbackSrc="/src/static/img/nema.png"/>
+                  <span className="ime" translate="no" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", overflowWrap: "anywhere", width: "calc(100% - 240px)", marginLeft: 10 }}>
+                    {data.first_name} {data.last_name} {params.offer_name}
+                  </span>
+                </div>
+              </Link>
             </div>
           </div>
           <div className="place_of_mess">
@@ -171,45 +310,52 @@ useEffect(() => {
                 style={{
                   display: "block",
                   overflow: "auto",
-                  height: "100%",
+                  height: "calc(100% - 40px)",
                   position: "absolute",
-                  width: "100%",
+                  width: "calc(100% - 40px)",
                   top: 0,
-                  marginTop: 70
+                  marginTop: 70,
+                  padding: 20
                 }}
               >
+                            <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}}>
+                                  <Link to={`/t/user/${params.username}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
+                                      <ImageWithFallback src={data.photo} alt={params.username} fallbackSrc="/src/static/img/nema.png"/>
+                                  </Link>
+                                  <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
+                                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
+                                      jjjj
+                                      <div>
+                                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>
+                                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hours}:{minutes}</span>
+                                      </div>
+                                    </pre>
+                                  </div>
+                            </div>
+
+                            <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}}>
+                                  <Link to={`/t/user/${params.username}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
+                                      <ImageWithFallback src={data.photo} alt={params.username} fallbackSrc="/src/static/img/nema.png"/>
+                                  </Link>
+                                  <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
+                                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
+                                      jjjj
+                                      <div>
+                                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>
+                                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hours}:{minutes}</span>
+                                      </div>
+                                    </pre>
+                                  </div>
+                            </div>
             </div>
           </div>
           <div className="inviz_panel_of_writing">
             <div className="jos_inviz_panel">
               <div className="centering_of_mess_panel">
                 <div className="some_vizible_part">
-                  <button className="delete_mess_button">
-                    <img
-                      src="/src/static/img/delete.png"
-                      alt=""
-                      className="img_delete"
-                    />
-                  </button>
-                  <div
-                    translate="no"
-                    id="mess"
-                    data-text="Message"
-                    contentEditable="true"
-                    className="input_panel"
-                    name="text"
-                    style={{ borderRadius: 0,  }}
-                  />
-                  <div className="clear_and_send_buttons_pos">
-                    <button className="extra_mess_button" >
-                      <img
-                        src="/src/static/img/delete.png"
-                        alt=""
-                        className="img_delete"
-                      />
-                    </button>
-                    <button className="sending_button" onClick={sendpost}>
-                      <img src="/src/static/img/send.png" alt="" className="img_send" />
+                  <div className="clear_and_send_buttons_pos" style={{width: "100%"}}>
+                    <button className="sending_button" onClick={sendpost} style={{width: "calc(100% - 100px)", borderRadius: 20, backgroundColor: "#00c925", border: "2px solid #00db1f"}}>
+                      <span style={{color: "white", fontSize: 30}}>Создать чат</span>
                     </button>
                   </div>
                 </div>
