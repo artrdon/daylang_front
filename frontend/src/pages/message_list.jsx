@@ -26,6 +26,11 @@ useEffect(() => {
         const dataMess = JSON.parse(event.data);
 
         console.log(dataMess);
+        if (dataMess.tip === "delete_chat"){
+            document.getElementById(`chatnum${dataMess.id}`).remove();
+            confirmingF();
+            return;
+        }
         if (dataMess.tip === "delete"){
             document.getElementById(`chatnum${dataMess.chat_id}`).children[0].children[0].children[0].children[2].textContent = dataMess.last_mess;
             console.log(dataMess.if_readed);
@@ -88,7 +93,11 @@ const [confirm, setIsVisible] = useState(false);
 
   // Функция, которая будет вызываться при нажатии на кнопку
   const confirming = () => {
-    setIsVisible(!confirm); // Меняем состояние на противоположное
+    setIsVisible(true);
+  };
+
+  const confirmingF = () => {
+    setIsVisible(false);
   };
 
   // Функция для переключения видимости элемента
@@ -163,8 +172,13 @@ axios.defaults.withCredentials = true;
     langua = lang;
 
 const delete_chat = async (e, idd,) => {
-
-            e.preventDefault();
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ type: "delete_chat", id: idd }));
+    //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+  } else {
+    console.error('WebSocket is not open');
+  }
+        /*e.preventDefault();
 
         try {
             const response = await axios.post(`http://127.0.0.1:8000/delete_chat/${idd}/`, {},  {
@@ -180,8 +194,8 @@ const delete_chat = async (e, idd,) => {
             console.error('There was an error!', error.response.data);
         }
         document.getElementById(`chatnum${idd}`).remove();
-        confirming();
-    }
+        confirming();*/
+}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -315,7 +329,7 @@ const delete_chat = async (e, idd,) => {
                     (() => {
                       if (component.me === true) {
                         return (<>
-                            <div key={component.id} id={`chatnum${component.id}`} style={{maxHeight: 92}}>
+                <div key={component.id} id={`chatnum${component.id}`} style={{maxHeight: 92}}>
                   <Link to={`/message_list/${component.id}/`}>
                     <div className="panel_of_one_mes">
                       <div className="place_of_autor_mes">
@@ -521,7 +535,7 @@ const delete_chat = async (e, idd,) => {
         </div>
         <div style={{ width: "100%", height: "70px"}}>
             <button style={{ width: "50%", height: "100%" }}  onClick={(e) => delete_chat(e, visibleId)}>YES</button>
-            <button style={{ width: "50%", height: "100%" }} onClick={confirming}>NO</button>
+            <button style={{ width: "50%", height: "100%" }} onClick={confirmingF}>NO</button>
         </div>
     </div>
 </div>}
