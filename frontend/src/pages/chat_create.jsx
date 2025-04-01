@@ -93,7 +93,7 @@ useEffect(() => {
       }
       if (dataMess['tip'] === "create_chat")
       {
-          //window.location.replace(`/message_list/${dataMess['id']}/`);
+          window.location.replace(`/message_list/${dataMess['id']}/`);
       }
       //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
   };

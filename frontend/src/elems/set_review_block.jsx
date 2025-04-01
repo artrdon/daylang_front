@@ -23,7 +23,7 @@ function SetReviewBlock({set_rew, feedback}) {
   const [error, setError] = useState(null);
   const [review, setData4] = useState({user: params.username, offer: params.id, setter: '', score: '', text: ''});
   let sett = [];
-
+    const [notScore, setNotScore] = useState(false);
 axios.defaults.withCredentials = true;
 
 
@@ -32,6 +32,7 @@ axios.defaults.withCredentials = true;
 
  const handleInput = (e) => {
     setData4({ ...review, text: e.target.value });
+    setNotScore(false);
   };
 
 
@@ -49,6 +50,10 @@ axios.defaults.withCredentials = true;
             if (response.data === "unauthenticated_ttt")
             {
                 window.location.replace(`/log/`);
+                return;
+            }
+            if (response.data === "not score"){
+                setNotScore(true);
                 return;
             }
 
@@ -181,6 +186,7 @@ axios.defaults.withCredentials = true;
             </button>
           </div>
         </div>
+        {notScore && <p style={{position: "absolute", bottom: 0}}>set score</p>}
       </div>
 
 
