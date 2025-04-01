@@ -652,7 +652,7 @@ console.log(data1);
             )
                 ) : (
           data1.itsme === false ? (
-          <Link to={`/message_list/${data1.chat_id}/${data1.chat_name}/`}>
+          <Link to={`/message_list/${data1.chat_id}/`}>
               <button className="button_under_foto" id="divoffb_button">
                 {arrLang[lang]['message']}
               </button>

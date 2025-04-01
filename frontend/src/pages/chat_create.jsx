@@ -10,6 +10,7 @@ function ChatCreate() {
     let params = useParams();
 
     const [count, setCount] = useState(0)
+    const [wsGroup, setWsGroup] = useState(null);
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -65,39 +66,85 @@ function ChatCreate() {
     langua = lang;
 
 
-useEffect(() => {
+/*useEffect(() => {
     console.log('useEffect executed');
     if (isSent.current) return; // Если запрос уже отправлен, выходим
         isSent.current = true; // Устанавливаем флаг
 
-    const sendpost = async () => {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/create_chat/', message,{
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
-                },
-            });
-            console.log('Response:', response.data);
-            if (response.data === "unauthenticated_ttt")
-            {
-                window.location.replace(`/log/`);
-                return;
-            }
-            if (response.data[0] === "serializer.data")
-            {
-                window.location.replace(`/message_list/${response.data[1]}/${response.data[2]}/`);
-            }
-
-        } catch (error) {
-            console.error('There was an error!', error.response.data);
-        }
-        return 0;
-    };
-
-    sendpost();
+    
   }, []);
+*/
 
+  
+useEffect(() => {
+  const socket = new WebSocket(`ws://127.0.0.1:8000/ws/plus_group/${params.username}/`);
+
+  socket.onopen = () => {
+      console.log('WebSocket connected');
+  };
+
+  socket.onmessage = (event) => {
+      const dataMess = JSON.parse(event.data);
+      console.log(dataMess);
+      if (dataMess === "unauthenticated_ttt")
+      {
+          window.location.replace(`/log/`);
+          return;
+      }
+      if (dataMess['tip'] === "create_chat")
+      {
+          //window.location.replace(`/message_list/${dataMess['id']}/`);
+      }
+      //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+  };
+
+  socket.onclose = () => {
+    console.log('WebSocket disconnected');
+  };
+
+  socket.onerror = (error) => {
+    console.error('WebSocket error:', error);
+  };
+
+  setWsGroup(socket);
+
+  return () => {
+    socket.close();
+  };
+}, []);
+
+  const sendpost = async () => {
+    if (wsGroup && wsGroup.readyState === WebSocket.OPEN) {
+      wsGroup.send(JSON.stringify({ type: "create_chat", message: message }));
+      //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+    } else {
+      console.error('WebSocket is not open');
+    }
+    /*try {
+        const response = await axios.post('http://127.0.0.1:8000/create_chat/', message,{
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+        });
+        console.log('Response:', response.data);
+        if (response.data === "unauthenticated_ttt")
+        {
+            window.location.replace(`/log/`);
+            return;
+        }
+        if (response.data[0] === "serializer.data")
+        {
+            window.location.replace(`/message_list/${response.data[1]}/${response.data[2]}/`);
+        }
+
+    } catch (error) {
+        console.error('There was an error!', error.response.data);
+    }
+    return 0;*/
+};
+
+//sendpost();
 
 
     return (
@@ -161,7 +208,7 @@ useEffect(() => {
                         className="img_delete"
                       />
                     </button>
-                    <button className="sending_button" >
+                    <button className="sending_button" onClick={sendpost}>
                       <img src="/src/static/img/send.png" alt="" className="img_send" />
                     </button>
                   </div>

@@ -9,8 +9,9 @@ import axios from 'axios';
 
 function Message_list() {
 
-  const [groups, setGroup] = useState([0]);
+  const [groups, setGroup] = useState([]);
   const [ws, setWs] = useState(null);
+  const [wsGroup, setWsGroup] = useState(null);
   const [messNumb, setMessNumb] = useState(null);
 
 useEffect(() => {
@@ -81,7 +82,6 @@ useEffect(() => {
       socket.close();
     };
   }, [groups]);
-
 
 const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
 const [confirm, setIsVisible] = useState(false);
@@ -158,6 +158,7 @@ axios.defaults.withCredentials = true;
 
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
+    const [componentGroup, setComponentGroup] = useState([]);
 
     langua = lang;
 
@@ -224,6 +225,57 @@ const delete_chat = async (e, idd,) => {
     fetchData();
   }, []);
 
+  
+  useEffect(() => {
+    if (data === null){
+        return;
+    }
+    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/plus_group/${data.username}/`);
+
+    socket.onopen = () => {
+        console.log('WebSocket connectedG');
+    };
+
+    socket.onmessage = (event) => {
+        const dataMess = JSON.parse(event.data);
+        console.log(dataMess);
+        if (dataMess['tip'] === "create_chat")
+        {
+          const newComponent = {
+            name: dataMess['output']['name'],
+            id: dataMess['output']['id'],
+            me: dataMess['output']['me'],
+            ime: dataMess['output']['ime'],
+            prezime: dataMess['output']['prezime'],
+            photo: dataMess['output']['photo'],
+          };
+          setComponentGroup((componentGroup) => [...componentGroup, newComponent]);
+          setGroup((groups) => [...groups, dataMess['output']['id']]);
+          setComponents(prev => ({
+            ...prev,          // Копируем все существующие компоненты
+            [dataMess['output']['id']]: 0 // Добавляем/обновляем один конкретный компонент
+          }));
+        }
+        //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnectedG');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket errorG:', error);
+    };
+
+    setWsGroup(socket);
+
+    return () => {
+      socket.close();
+    };
+  }, [data]);
+
+
+
   if (loading) return ( <> <AppLoad lang={langua}/>
                             <Message_list_load/>
                         </> );
@@ -234,7 +286,6 @@ const delete_chat = async (e, idd,) => {
                         </> );
   if (error1) return <p>Error: {error}</p>;
 
-console.log(typeof(components['1']), components['1']);
 
     return (
         <>
@@ -259,6 +310,101 @@ console.log(typeof(components['1']), components['1']);
             }
             else{
                 return (<>
+                  {componentGroup.map((component) => ( 
+                    
+                    (() => {
+                      if (component.me === true) {
+                        return (<>
+                            <div key={component.id} id={`chatnum${component.id}`} style={{maxHeight: 92}}>
+                  <Link to={`/message_list/${component.id}/`}>
+                    <div className="panel_of_one_mes">
+                      <div className="place_of_autor_mes">
+                        <img src={component.photo} alt="pupil" className="img_of_autor_mes"/>
+                        <div style={{position: "relative", bottom: 50, left: 10, display: "inline-block", maxWidth: "90%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", }}>
+                          <span className="ime" translate="no" style={{position: "relative", top: 0, fontSize: 20, marginRight: 5}}>
+                            {component.ime} {component.prezime}
+                          </span>
+                        </div>
+                        <div className="last_message">{component.last_mess}</div>
+                      </div>
+                    </div>
+
+                  </Link>
+                  <button style={{ backgroundColor: "#3d3d3d", zIndex: 100, position: "relative", left: "calc(100% - 50px)", borderRadius: "50%", top: -80, border: "1px solid black"}} onClick={() => toggleVisibility(component.id)}>
+                      <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center"}}>
+                          <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 7}}></div>
+                          <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 17}}></div>
+                          <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 27}}></div>
+                      </div>
+
+                  </button>
+                      {components[`${component.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
+                            <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                                <span>{components[`${component.id}`]}</span>
+                            </div>
+                      </button>}
+
+                     {visibleId === component.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${component.id}`}>
+                          <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, top: -125 }}>
+                              <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={confirming}>
+                                  Delete
+                              </button>
+                              <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderBottomRightRadius: 20, borderBottomLeftRadius: 20, }} onClick={() => toggleVisibility(component.id)}>
+                                  Quit
+                              </button>
+                          </div>
+                      </div>}
+                  </div>
+                            </>);
+                      } else{
+                          return (<>
+                            <div key={component.id} id={`chatnum${component.id}`} style={{maxHeight: 92}}>
+                      <Link to={`/message_list/${component.id}/`}>
+                        <div className="panel_of_one_mes">
+                          <div className="place_of_autor_mes">
+                            <img src={component.photo} alt="pupil" className="img_of_autor_mes"/>
+                            <div style={{position: "relative", bottom: 50, left: 10, display: "inline-block", maxWidth: "90%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", }}>
+                              <span className="ime" translate="no" style={{position: "relative", top: 0, fontSize: 20, marginRight: 5}}>
+                                {component.name}
+                              </span>
+                            </div>
+                            <div className="last_message">{component.last_mess}</div>
+                          </div>
+                        </div>
+
+                      </Link>
+                      <button style={{ backgroundColor: "#3d3d3d", zIndex: 100, position: "relative", left: "calc(100% - 50px)", borderRadius: "50%", top: -80, border: "1px solid black"}} onClick={() => toggleVisibility(component.id)}>
+                          <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center"}}>
+                              <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 7}}></div>
+                              <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 17}}></div>
+                              <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 27}}></div>
+                          </div>
+
+                      </button>
+                      {components[`${component.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
+                            <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                                <span>{components[`${component.id}`]}</span>
+                            </div>
+                      </button>}
+
+                         {visibleId === component.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${component.id}`}>
+                              <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", top: -125, borderRadius: 20, }}>
+                                  <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={confirming}>
+                                      Delete
+                                  </button>
+                                  <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderBottomRightRadius: 20, borderBottomLeftRadius: 20, }} onClick={() => toggleVisibility(component.id)}>
+                                      Quit
+                                  </button>
+                              </div>
+                          </div>}
+                      </div>
+                            </>);
+
+                          }
+
+                    })()
+
+                    ))}
                     {data1[0].map((da) => (
 
                         (() => {
@@ -350,8 +496,8 @@ console.log(typeof(components['1']), components['1']);
                                   </>);
 
                                 }
-                          })()
 
+                          })()
 
 
 
