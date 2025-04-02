@@ -248,7 +248,7 @@ var Lang = {
 
     document.querySelector("title").textContent = "Create Offer";
 
-    const [data, setData] = useState({name: '', description: '', price: '', language: 'Other', format: 'Individual', target: 'Exam', age: '5-12', microphone: 'Yes'});
+    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: ''});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -263,11 +263,11 @@ var Lang = {
   const [loading12, setLoading12] = useState(true);
   const [error12, setError12] = useState(null);
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState("none");
 
   const handleFileChange = (e) => {
       setFile(e.target.files[0]);
-
+      setData(prev => ({...prev, photo: e.target.files[0]}) )
      // await handleSubmitPhoto(e);
   };
 
@@ -277,6 +277,8 @@ var Lang = {
       const formData = new FormData();
       formData.append('image', file);
       console.log("zagruzaju photo");
+      console.log(formData);
+      console.log(file);
       try {
           const response = await axios.post('http://127.0.0.1:8000/creatingofferimg/', formData, {
               headers: {
@@ -284,9 +286,9 @@ var Lang = {
                   'X-CSRFToken': csrfToken,
               },
           });
-          /*console.log(response.data);
-          settingChange.photo = response.data;*/
-          console.log(settingChange);
+          console.log(response.data);
+          /*settingChange.photo = response.data;
+          console.log(settingChange);*/
       } catch (error) {
           console.error('Ошибка при загрузке фото:', error);
       }
@@ -340,12 +342,27 @@ var Lang = {
 
 
     const handleSubmit = async (e) => {
-        await handleSubmitPhoto(e);
+        
         e.preventDefault();
+        const formData = new FormData();
+    
+        // Добавляем все поля из data
+        formData.append('name', data.name);
+        formData.append('description', data.description);
+        formData.append('price', data.price);
+        formData.append('language', data.language);
+        formData.append('format', data.format);
+        formData.append('target', data.target);
+        formData.append('age', data.age);
+        formData.append('microphone', data.microphone);
+        formData.append('message', data.message);
+        formData.append('img', file);  // 'img' должно совпадать с именем на бэкенде
+
+        
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/creatingoffer/${data.language}/`, data, {
+            const response = await axios.post(`http://127.0.0.1:8000/creatingoffer/${data.language}/`, formData, {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': csrfToken,
                 },
             });
@@ -409,32 +426,32 @@ var Lang = {
               <span>Language</span>
             </div>
             <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
-              <option id="rus" value="Russian">{Lang[lang]["Russian"]}</option>
-              <option id="eng" value="English">{Lang[lang]["English"]}</option>
-              <option id="srbl" value="Serbian">{Lang[lang]["Serbian"]}</option>
-              <option id="germ" value="Germany">{Lang[lang]["Germany"]}</option>
-              <option id="span" value="Spanish">{Lang[lang]["Spanish"]}</option>
-              <option id="chin" value="Chinese">{Lang[lang]["Chinese"]}</option>
-              <option id="ital" value="Italian">{Lang[lang]["Italian"]}</option>
-              <option id="franc" value="French">{Lang[lang]["French"]}</option>
-              <option id="oth" value="Other">Other</option>
+              <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
+              <option id="eng" value="english">{Lang[lang]["English"]}</option>
+              <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
+              <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
+              <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
+              <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
+              <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
+              <option id="franc" value="french">{Lang[lang]["French"]}</option>
+              <option id="oth" value="other">Other</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
               <span>Format</span>
             </div>
             <select id="formate" className="setting_language_selector" onChange={handleChange} value={data.format} name="format">
-              <option id="ind" value="Individual">Individual</option>
-              <option id="gro" value="Group">Group</option>
+              <option id="ind" value="individual">Individual</option>
+              <option id="gro" value="group">Group</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
               <span>Target</span>
             </div>
             <select id="target" className="setting_language_selector" onChange={handleChange} value={data.target} name="target">
-              <option id="exam" value="Exam">Exam</option>
-              <option id="selfdev" value="Self development">Self development</option>
-              <option id="trav" value="Travelling">Travelling</option>
+              <option id="exam" value="exam">Exam</option>
+              <option id="selfdev" value="self_development">Self development</option>
+              <option id="trav" value="travelling">Travelling</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
@@ -452,8 +469,8 @@ var Lang = {
               <span>I have microphone</span>
             </div>
             <select id="microphone" className="setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
-              <option id="yes" value="Yes">Yes</option>
-              <option id="no" value="No">No</option>
+              <option id="yes" value="yes">Yes</option>
+              <option id="no" value="no">No</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
@@ -465,11 +482,17 @@ var Lang = {
             <div  className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['load_photo']}</span>
             </div>
-            <input accept="image/png" id="icon404873" name="icon" type="file" tabIndex={-1} aria-hidden="true" style={{position: "relative", display: "inline-block", top: 18, left: 0 }}/>
+            <input accept="image/png" id="icon404873" name="icon" type="file" tabIndex={-1} aria-hidden="true" style={{position: "relative", display: "inline-block", top: 18, left: 0 }} onChange={handleFileChange}/>
             <div className="crt_offer_photo_div">
               <img alt="" className="crt_offer_photo" src="/src/static/img/nema.png"/>
             </div>
-              <button style={{width: 200, height: 50,backgroundColor: "gray", margin: 20, fontSize: 30, marginBottom: 100, }} type="submit">
+            
+            <div className="crt_offer_name_of_fields">
+              <span>message</span>
+            </div>
+            <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
+
+              <button style={{width: 570, height: 50, backgroundColor: "#00d472", margin: 20, fontSize: 30, marginBottom: 100, marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10}} type="submit">
                 {arrLang[lang]['save']}
               </button>
 

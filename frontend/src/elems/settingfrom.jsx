@@ -412,41 +412,36 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             )}
 
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                position: "relative",
-                marginTop: 50,
-                marginBottom: 100,
-              }}
-            >
               <button
                 style={{
-                  width: 200,
+                  width: 570,
                   height: 50,
-                  backgroundColor: "gray",
+                  backgroundColor: "#00d472",
                   margin: 20,
-                  fontSize: 30
+                  fontSize: 30,
+                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
+                }}
+                type="submit"
+              >
+                {arrLang[lang]['save']}
+              </button>
+
+              <button
+                style={{
+                  width: 570,
+                  height: 50,
+                  color: "white",
+                  backgroundColor: "red",
+                  margin: 20,
+                  fontSize: 30,
+                  marginBottom: 100,
+                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
                 }}
                 onClick={exit}
               >
                 {arrLang[lang]['exit']}
               </button>
 
-              <button
-                style={{
-                  width: 200,
-                  height: 50,
-                  backgroundColor: "gray",
-                  margin: 20,
-                  fontSize: 30
-                }}
-                type="submit"
-              >
-                {arrLang[lang]['save']}
-              </button>
-              </div>
           </div>
         </div>
       </div>

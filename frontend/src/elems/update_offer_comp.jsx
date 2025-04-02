@@ -23,7 +23,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 
-function UpdateOfferComp({ name, description, price, id, language, format, target, age, microphone, photo}) {
+function UpdateOfferComp({ name, description, price, id, language, format, target, age, microphone, photo, message}) {
 
     const [count, setCount] = useState(0)
     let params = useParams();
@@ -192,7 +192,7 @@ var Lang = {
 
 
 
-    const [data, setData] = useState({name: name, description: description, price: price, language: language, format: format, target: target, age: age, microphone: micr, photo: photo});
+    const [data, setData] = useState({name: name, description: description, price: price, language: language, format: format, target: target, age: age, microphone: micr, photo: photo, message: message});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -248,7 +248,9 @@ var Lang = {
                 },
             });
             console.log('Response:', response.data);
-            location.reload();
+            if (response.data === "serializer.data"){
+                location.reload();
+            }
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -317,32 +319,32 @@ var Lang = {
               <span>language</span>
             </div>
             <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
-              <option id="rus" value="Russian">{Lang[lang]["Russian"]}</option>
-              <option id="eng" value="English">{Lang[lang]["English"]}</option>
-              <option id="srbl" value="Serbian">{Lang[lang]["Serbian"]}</option>
-              <option id="germ" value="Germany">{Lang[lang]["Germany"]}</option>
-              <option id="span" value="Spanish">{Lang[lang]["Spanish"]}</option>
-              <option id="chin" value="Chinese">{Lang[lang]["Chinese"]}</option>
-              <option id="ital" value="Italian">{Lang[lang]["Italian"]}</option>
-              <option id="franc" value="French">{Lang[lang]["French"]}</option>
-              <option id="rus" value="Other">Other</option>
+              <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
+              <option id="eng" value="english">{Lang[lang]["English"]}</option>
+              <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
+              <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
+              <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
+              <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
+              <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
+              <option id="franc" value="french">{Lang[lang]["French"]}</option>
+              <option id="rus" value="other">Other</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
               <span>Format</span>
             </div>
             <select id="formate" className="setting_language_selector" onChange={handleChange} value={data.format} name="format">
-              <option id="ind" value="Individual">Individual</option>
-              <option id="gro" value="Group">Group</option>
+              <option id="ind" value="individual">Individual</option>
+              <option id="gro" value="group">Group</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
               <span>Target</span>
             </div>
             <select id="target" className="setting_language_selector" onChange={handleChange} value={data.target} name="target">
-              <option id="exam" value="Exam">Exam</option>
-              <option id="selfdev" value="Self development">Self development</option>
-              <option id="trav" value="Travelling">Travelling</option>
+              <option id="exam" value="exam">Exam</option>
+              <option id="selfdev" value="self_development">Self development</option>
+              <option id="trav" value="travelling">Travelling</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
@@ -360,8 +362,8 @@ var Lang = {
               <span>I have microphone</span>
             </div>
             <select id="microphone" className="setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
-              <option id="yes" value="Yes">Yes</option>
-              <option id="no" value="No">No</option>
+              <option id="yes" value="yes">Yes</option>
+              <option id="no" value="no">No</option>
             </select>
 
             <div className="crt_offer_name_of_fields">
@@ -401,13 +403,20 @@ var Lang = {
             <div className="crt_offer_photo_div">
               <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
             </div>
+            
+            <div className="crt_offer_name_of_fields">
+              <span>message</span>
+            </div>
+            <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
+
               <button
                 style={{
-                  width: 200,
+                  width: 570,
                   height: 50,
-                  backgroundColor: "gray",
+                  backgroundColor: "#00d472",
                   margin: 20,
-                  fontSize: 30
+                  fontSize: 30,
+                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
                 }}
                 type="submit"
               >
@@ -416,12 +425,14 @@ var Lang = {
 
                 <button
                 style={{
-                  width: 200,
+                  width: 570,
                   height: 50,
-                  backgroundColor: "gray",
+                  color: "white",
+                  backgroundColor: "red",
                   margin: 20,
                   fontSize: 30,
                   marginBottom: 100,
+                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
                 }}
                 onClick={delete_offer}
               >

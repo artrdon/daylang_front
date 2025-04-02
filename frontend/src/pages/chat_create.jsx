@@ -324,7 +324,7 @@ useEffect(() => {
                                   </Link>
                                   <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
                                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
-                                      jjjj
+                                      {data3.message}
                                       <div>
                                         <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>
                                         <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hours}:{minutes}</span>
@@ -335,11 +335,11 @@ useEffect(() => {
 
                             <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}}>
                                   <Link to={`/t/user/${params.username}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
-                                      <ImageWithFallback src={data.photo} alt={params.username} fallbackSrc="/src/static/img/nema.png"/>
+                                      <ImageWithFallback src={"/src/static/img/favicon.png"} alt={params.username} fallbackSrc="/src/static/img/favicon.png"/>
                                   </Link>
                                   <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
                                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
-                                      jjjj
+                                      Все покупки, видео-уроки должны осуществляться здесь. Мы не несем ответсвенность за действия любых лиц, за пределами DayLang.
                                       <div>
                                         <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>
                                         <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hours}:{minutes}</span>
