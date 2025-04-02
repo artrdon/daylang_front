@@ -328,24 +328,9 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             
             <div className="crt_offer_photo_div">
               <ImageWithFallback src={settingChange.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+              <input accept="image" id="icon404873" name="photo" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
+              <label for="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
             </div>
-
-            <input
-              accept="image"
-              id="icon404873"
-              name="photo"
-              type="file"
-
-              onChange={handleFileChange}
-              tabIndex={-1}
-              aria-hidden="true"
-              style={{
-                position: "relative",
-                display: "inline-block",
-                top: -50,
-                left: 115
-              }}
-            />
 
             {if_teacher === false ? (
               null
@@ -388,25 +373,10 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               />
               
               ))}
-              
-            </div>
+              <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
+              <label for="icon404"  style={{position: "relative", display: "flex", top: 70, left: 0, width: "100%", height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
 
-            <input
-              accept="image/jpg"
-              id="icon404873"
-              name="icon"
-              type="file"
-              onChange={handleDegreeLoad}
-              tabIndex={-1}
-              aria-hidden="true"
-              style={{
-                position: "relative",
-                display: "inline-block",
-                top: -220,
-                left: 124
-              }}
-              multiple
-            />
+            </div>
 
               </>
             )}

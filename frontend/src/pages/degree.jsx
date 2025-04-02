@@ -108,11 +108,10 @@ const [data, setData] = useState(null);
   const [loading3, setLoading3] = useState(true);
   const [error3, setError3] = useState(null);
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [scaledButtonId, setScaledButtonId] = useState(null);
 
-  // Функция, которая будет вызываться при нажатии на кнопку
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible); // Меняем состояние на противоположное
+  const toggleVisibility = (id) => {
+      setScaledButtonId(scaledButtonId === id ? null : id);
   };
 
 
@@ -439,23 +438,11 @@ var arrLang = {
     <br />
     <br />
     {data3.map((photo) => (
-            <button className="degree_button" onClick={toggleVisibility} key={photo.id}>
+            <button className="degree_button" onClick={() => toggleVisibility(photo.id)} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
                 <img src={photo.photo} alt="" className="degree_img" />
             </button>
     ))}
-    
-    {isVisible && <div style={{ position: "fixed", top: 0, left: 0, zIndex: 150, width: "100vw", height: "100vh", }}>
-        <button onClick={toggleVisibility} style={{ width: "100vw", height: "100vh", position: "fixed", backgroundColor:"#00000000", zIndex: 150}}>
-           <img src="/src/static/img/creep.png" alt="" style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5}} />
-        </button>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh", zIndex: 151 }}>
-            <img src="/src/static/img/ielts.jpg" alt="" style={{ width: 500, height: "auto", zIndex: 151 }} />
-        </div>
-
-    </div>}
-
-
-  </div>
+    </div>
 </div>
 
 

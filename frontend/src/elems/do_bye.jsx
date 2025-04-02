@@ -24,6 +24,24 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
   
 
 function DoBye({setdate, date, removeDataSetter, am_teach, name_of_offer, price, photo, review_score, description }) {
+    let currentDate = new Date();
+    let year = currentDate.getFullYear();
+
+    let month = currentDate.getMonth() + 1;
+    if (month < 10){
+      month = "0" + String(month);
+    }
+
+    let reg_month = currentDate.getMonth() + 2;
+    if (reg_month < 10){
+      reg_month = "0" + String(reg_month);
+    }
+
+    let day = currentDate.getDate() + 1;
+    if (day < 10){
+      day = "0" + String(day);
+    }
+    console.log(`${year}-${month}-${day}`);
 
     const [count, setCount] = useState(0)
 
@@ -86,7 +104,7 @@ return (
                             </p>
                           </div>
                     </div>
-                    <input type="date" name="" id="" max=""style={{outline: "none", width: "auto", fontSize: 30, display: "block", borderRadius: 5, border: 0, margin: 20}}/>
+                    <input type="date" min={`${year}-${month}-${day}`} max={`${year}-${reg_month}-${day}`} name="" id="" style={{outline: "none", width: "auto", fontSize: 30, display: "block", borderRadius: 5, border: 0, margin: 20}}/>
                     <input type="time" name="" id="" style={{outline: "none", width: "auto", fontSize: 30, display: "block", borderRadius: 5, border: 0, margin: 20}}/>
                     <button type='submit' style={{outline: "none", width: "calc(100% - 40px)", fontSize: 30, display: "block", borderRadius: 5, border: 0, margin: 20, padding: 10}}>Pay {price} ₽</button>
                 </div>

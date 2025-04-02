@@ -248,7 +248,7 @@ var Lang = {
 
     document.querySelector("title").textContent = "Create Offer";
 
-    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: ''});
+    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '', beggin_time_of_work: "8", end_time_of_work: "16", });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -482,9 +482,11 @@ var Lang = {
             <div  className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['load_photo']}</span>
             </div>
-            <input accept="image/png" id="icon404873" name="icon" type="file" tabIndex={-1} aria-hidden="true" style={{position: "relative", display: "inline-block", top: 18, left: 0 }} onChange={handleFileChange}/>
+            
             <div className="crt_offer_photo_div">
               <img alt="" className="crt_offer_photo" src="/src/static/img/nema.png"/>
+              <input accept="image/png" id="icon404873" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
+              <label for="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
             </div>
             
             <div className="crt_offer_name_of_fields">
@@ -492,9 +494,81 @@ var Lang = {
             </div>
             <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
 
-              <button style={{width: 570, height: 50, backgroundColor: "#00d472", margin: 20, fontSize: 30, marginBottom: 100, marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10}} type="submit">
-                {arrLang[lang]['save']}
-              </button>
+            <div className="crt_offer_name_of_fields">
+              <span>work</span>
+            </div>
+            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Mo</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Tu</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>We</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Th</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Fr</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Sa</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Su</button>
+            </div>
+            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
+              <select id="beggin_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5}} name="beggin_time_of_work"  onChange={handleChange} value={data.beggin_time_of_work}>
+                <option id="0hb" value="0">0</option>
+                <option id="1hb" value="1">1</option>
+                <option id="2hb" value="2">2</option>
+                <option id="3hb" value="3">3</option>
+                <option id="4hb" value="4">4</option>
+                <option id="5hb" value="5">5</option>
+                <option id="6hb" value="6">6</option>
+                <option id="7hb" value="7">7</option>
+                <option id="8hb" value="8">8</option>
+                <option id="9hb" value="9">9</option>
+                <option id="10hb" value="10">10</option>
+                <option id="11hb" value="11">11</option>
+                <option id="12hb" value="12">12</option>
+                <option id="13hb" value="13">13</option>
+                <option id="14hb" value="14">14</option>
+                <option id="15hb" value="15">15</option>
+                <option id="16hb" value="16">16</option>
+                <option id="17hb" value="17">17</option>
+                <option id="18hb" value="18">18</option>
+                <option id="19hb" value="19">19</option>
+                <option id="20hb" value="20">20</option>
+                <option id="21hb" value="21">21</option>
+                <option id="22hb" value="22">22</option>
+                <option id="23hb" value="23">23</option>
+              </select>
+              <select id="end_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5}} name="end_time_of_work" onChange={handleChange} value={data.end_time_of_work}>
+                <option id="0he" value="0">0</option>
+                <option id="1he" value="1">1</option>
+                <option id="2he" value="2">2</option>
+                <option id="3he" value="3">3</option>
+                <option id="4he" value="4">4</option>
+                <option id="5he" value="5">5</option>
+                <option id="6he" value="6">6</option>
+                <option id="7he" value="7">7</option>
+                <option id="8he" value="8">8</option>
+                <option id="9he" value="9">9</option>
+                <option id="10he" value="10">10</option>
+                <option id="11he" value="11">11</option>
+                <option id="12he" value="12">12</option>
+                <option id="13he" value="13">13</option>
+                <option id="14he" value="14">14</option>
+                <option id="15he" value="15">15</option>
+                <option id="16he" value="16">16</option>
+                <option id="17he" value="17">17</option>
+                <option id="18he" value="18">18</option>
+                <option id="19he" value="19">19</option>
+                <option id="20he" value="20">20</option>
+                <option id="21he" value="21">21</option>
+                <option id="22he" value="22">22</option>
+                <option id="23he" value="23">23</option>
+              </select>
+            </div>
+            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
+              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>00:30</button>
+              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>01:00</button>
+              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>01:30</button>
+              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>02:00</button>
+            </div>
+            <button style={{width: 570, height: 50, backgroundColor: "#00d472", margin: 20, fontSize: 30, marginBottom: 100, marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10}} type="submit">
+              {arrLang[lang]['save']}
+            </button>
 
           </div>
         </div>
