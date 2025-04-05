@@ -91,16 +91,17 @@ useEffect(() => {
   }, [groups]);
 
 
-    const [count, setCount] = useState(0)
-    let params = useParams();
-    if (params.user === "undefined")
-{
+  const [count, setCount] = useState(0)
+  let params = useParams();
+  if (params.user === "undefined")
+  {
     window.location.replace(`/log/`);
     return;
-}
+  }
 
-    document.querySelector("title").textContent = "Degree";
-const [data, setData] = useState(null);
+  document.querySelector("title").textContent = "Degree";
+  
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

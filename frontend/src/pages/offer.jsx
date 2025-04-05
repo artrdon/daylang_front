@@ -142,19 +142,34 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
   );
 }
 
-function ImageWithFallbackMain({ src, fallbackSrc, alt }) {
+function ImageWithFallbackMain({ src, fallbackSrc, alt, h_or_w }) {
   const [imgSrc, setImgSrc] = useState(src);
+  const [horw, setHorw] = useState(h_or_w); 
+
+  useEffect(() =>{
+    setHorw(h_or_w);
+  }, [h_or_w])
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
 
   const handleError = () => {
     setImgSrc(fallbackSrc);
   };
+  console.log(horw);
 
   return (
     <img
       src={imgSrc}
       alt={alt}
       onError={handleError}
-      style={{ width: "100%", height: "auto", margin: "auto", display: "block" }}
+      style={{ 
+        width: horw === "w" ? "100%" : "auto",
+        height: horw === "h" ? "100%" : "auto",
+        margin: "auto", 
+        display: "block" }}
       id="divoffb_img"
     />
   );
@@ -188,6 +203,12 @@ function Offer() {
   const [ws, setWs] = useState(null);
   const [messNumb, setMessNumb] = useState(null);
   const [showAllOffers, setShowAllOffers] = useState(false);
+  const [showPhotoBig, setShowPhotoBig] = useState(false);
+
+  const toggleVisibility = () => {
+      setShowPhotoBig(!showPhotoBig);
+  };
+
 
   const showRev = () =>{
     document.querySelector("body").style.overflow = "hidden";
@@ -324,6 +345,15 @@ function change_theme() {
   const [error7, setError7] = useState(null);
 
   const [favor, setData6] = useState({username: params.username, id: params.id});
+  const [photoArray, setPhotoArray] = useState([]);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const nextPhoto = () =>{
+      setPhotoIndex(prev => prev + 1);
+  }
+  const previosPhoto = () =>{
+      setPhotoIndex(prev => prev - 1);
+  }
 
 
 axios.defaults.withCredentials = true;
@@ -427,7 +457,9 @@ const save_to_fav = async (e) => {
     }
 
 
-
+   
+    // Use like:
+    
 
 // up post and down get request
 
@@ -464,11 +496,43 @@ const save_to_fav = async (e) => {
 
     fetchData();
   }, []);
+
+    const getMeta = (url, cb) => {
+      const img = new Image();
+      img.onload = () => cb(null, img);
+      img.onerror = (err) => cb(err);
+      img.src = url;
+    };
     useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.id}/`);
         setData1(response.data);
+              // Обрабатываем первое фото
+      const firstPhotoMeta = await new Promise(resolve => {
+        getMeta(response.data[0].photo, (err, img) => {
+          resolve({
+            photo: response.data[0].photo,
+            h_or_w: img.naturalWidth >= img.naturalHeight ? "w" : "h"
+          });
+        });
+      });
+
+      // Обрабатываем остальные фото
+      const otherPhotosMeta = await Promise.all(
+        response.data[1].map(item => new Promise(resolve => {
+          getMeta(item.photo, (err, img) => {
+            resolve({
+              photo: item.photo,  // Исправлено: было response.data[0].photo
+              h_or_w: img.naturalWidth >= img.naturalHeight ? "w" : "h"
+            });
+          });
+        }))
+      );
+
+      // Объединяем результаты
+      setPhotoArray([firstPhotoMeta, ...otherPhotosMeta]);
+    //    setPhotoArray(photos);
       } catch (err) {
         setError1(err.message);
       } finally {
@@ -618,30 +682,36 @@ const save_to_fav = async (e) => {
   if (error12) return <p>Error: {error}</p>;
 
 
-    document.querySelector("title").textContent = `${data1.name}`;
-    document.querySelector("meta[name='description']").content = `${data1.description}`;
+    document.querySelector("title").textContent = `${data1[0].name}`;
+    document.querySelector("meta[name='description']").content = `${data1[0].description}`;
     if (data1 != null){
         isfav = data1.isFav;
     }
-
-console.log(data1);
+console.log(photoArray[photoIndex]);
+console.log(photoArray[photoIndex].photo);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel">
   <div className="div_of_foto_and_button" id="divoffb">
-    <div className="foto_main" style={{display: "flex", justifyContent: "center", alignItem : "center"}}>
-        <ImageWithFallbackMain src={data1.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-        <div style={{ position: "absolute", right: 0, zIndex: 11 }}>
-          <img src="/src/static/img/next_photo.png" alt="" style={{width: 50, height: 50}}/>
-        </div>
+    <div className="foto_main" style={{display: "flex", justifyContent: "center", alignItem : "center"}} onClick={() => toggleVisibility()}>
+        <ImageWithFallbackMain src={photoArray[photoIndex].photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png" h_or_w={`${photoArray[photoIndex].h_or_w}`}/>
+
+        
     </div>
+    {photoArray.length > (photoIndex + 1) && 
+          <button style={{ position: "absolute", right: 0, zIndex: 11, top: "calc(50% - 25px)", backgroundColor:"#00000000", width: 50, height: 50 }} onClick={nextPhoto}>
+            <img src="/src/static/img/next_photo.png" alt="next" style={{width: "100%", height: "100%"}}/>
+          </button>}
+        {photoIndex > 0 && 
+          <button style={{ position: "absolute", left: 0, zIndex: 11, top: "calc(50% - 25px)", backgroundColor:"#00000000", width: 50, height: 50 , transform: "rotate(180deg)" }} onClick={previosPhoto}>
+            <img src="/src/static/img/next_photo.png" alt="prev" style={{width: "100%", height: "100%"}}/>
+          </button>}
 
-
-    {data1.pisal === false ? (
-          data1.itsme === false ? (
-          <Link to={`/create_chat/${params.username}/${data1.name}/${params.id}/`}>
+    {data1[0].pisal === false ? (
+          data1[0].itsme === false ? (
+          <Link to={`/create_chat/${params.username}/${data1[0].name}/${params.id}/`}>
               <button className="button_under_foto" id="divoffb_button">
                 {arrLang[lang]['message']}
               </button>
@@ -654,8 +724,8 @@ console.log(data1);
             </Link>
             )
                 ) : (
-          data1.itsme === false ? (
-          <Link to={`/message_list/${data1.chat_id}/`}>
+          data1[0].itsme === false ? (
+          <Link to={`/message_list/${data1[0].chat_id}/`}>
               <button className="button_under_foto" id="divoffb_button">
                 {arrLang[lang]['message']}
               </button>
@@ -673,11 +743,11 @@ console.log(data1);
   <div className="review_div">
     <div className="margin_of_offer">
       <h1>
-        <span style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere", height: 75, display: "block" }}>{data1.name}</span>
+        <span style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere", height: 75, display: "block" }}>{data1[0].name}</span>
       </h1>
       <div className="offer_price_div">
         <div className="offer_price">
-          {data1.price} ₽
+          {data1[0].price} ₽
         </div>
         <button onClick={save_to_fav} className="offer_save_to_fav_button">
 
@@ -701,22 +771,22 @@ console.log(data1);
 
           <div style={{ width:"100%", height: 400, marginTop: 50, }}>
               <li style={{margin: 20}}>
-                  <span>Есть микрофон?</span> <span>{data1.microphone}</span>
+                  <span>Есть микрофон?</span> <span>{data1[0].microphone}</span>
               </li>
               <li style={{margin: 20}}>
-                  <span>Цели:</span> <span>{data1.target}</span>
+                  <span>Цели:</span> <span>{data1[0].target}</span>
               </li>
               <li style={{margin: 20}}>
-                  <span>Возраст:</span> <span>{data1.age}</span>
+                  <span>Возраст:</span> <span>{data1[0].age}</span>
               </li>
               <li style={{margin: 20}}>
-                  <span>Формат:</span> <span>{data1.format}</span>
+                  <span>Формат:</span> <span>{data1[0].format}</span>
               </li>
           </div>
       </div>
     </div>
     <div className="div_description" id="phone">
-      <AnimatedExpandableTextPhone text={data1.description} />
+      <AnimatedExpandableTextPhone text={data1[0].description} />
       <Link to={`/t/user/${data2.username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
@@ -745,9 +815,9 @@ console.log(data1);
             alt=""
             style={{ width: 30, height: 30 }}
           />{" "}
-          {data1.review}
+          {data1[0].review}
         </h1>
-        {data1.itsme === false ? (
+        {data1[0].itsme === false ? (
           <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']}/>
                 ) : (
                   <UpReviewBlock />
@@ -772,7 +842,7 @@ console.log(data1);
     </div>
   </div>
   <div className="div_description" id="comp">
-    <AnimatedExpandableText text={data1.description} />
+    <AnimatedExpandableText text={data1[0].description} />
     <Link to={`/t/user/${data2.username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
@@ -851,6 +921,22 @@ console.log(data1);
                   </div>}
 
 
+{showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
+  <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
+      
+          <button className="degree_button" style={{ transform: 'scale(4)', transition: 'transform 0.3s ease', zIndex: 11}}>
+              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" />
+          </button>
+          {photoArray.length > (photoIndex + 1) && 
+            <button style={{ position: "fixed", right: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 }} onClick={nextPhoto}>
+              <img src="/src/static/img/next_photo.png" alt="prevBig" style={{width: "100%", height: "100%"}}/>
+            </button>}
+          {photoIndex > 0 && 
+            <button style={{ position: "fixed", left: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 , transform: "rotate(180deg)" }} onClick={previosPhoto}>
+              <img src="/src/static/img/next_photo.png" alt="nextBig" style={{width: "100%", height: "100%"}}/>
+            </button>}
+          
+  </div>}
 </>
 
   )
