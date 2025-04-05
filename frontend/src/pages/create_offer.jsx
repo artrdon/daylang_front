@@ -248,7 +248,7 @@ var Lang = {
 
     document.querySelector("title").textContent = "Create Offer";
 
-    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '', beggin_time_of_work: "8", end_time_of_work: "16", });
+    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '', beggin_time_of_work: "8", end_time_of_work: "16", workday: ''});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -264,6 +264,16 @@ var Lang = {
   const [error12, setError12] = useState(null);
 
   const [file, setFile] = useState("none");
+  const [components, setComponents] = useState([]);
+
+  const AddTimeToBye = () =>{
+    const newComponent = {
+      time: document.getElementById("input_time_to_a").value,
+      price: data.price,
+    };
+    setComponents((components) => [...components, newComponent]);
+    return;
+  }
 
   const handleFileChange = (e) => {
       setFile(e.target.files[0]);
@@ -336,9 +346,13 @@ var Lang = {
 
 
     const handleChange = (e) => {
-            setData({ ...data, [e.target.name]: e.target.value });
-        };
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
 
+
+    const ChangeWorkDay = (e) => {
+        setData({ ...data, ['workday']: e.target.name });
+    };
 
 
     const handleSubmit = async (e) => {
@@ -405,7 +419,6 @@ var Lang = {
 
 <div className="ctr_offer_find_panel">
   <div style={{ display: "flex", justifyContent: "center" }}>
-     <form onSubmit={handleSubmit}>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="crt_offer_gray_thing">
           <div className="crt_offer_blank">
@@ -498,16 +511,16 @@ var Lang = {
               <span>work</span>
             </div>
             <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Mo</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Tu</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>We</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Th</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Fr</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Sa</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>Su</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Monday">Mo</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Tuesday">Tu</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Wednesday">We</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Thirsday">Th</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Friday">Fr</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Saturday">Sa</button>
+              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Sunday">Su</button>
             </div>
             <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
-              <select id="beggin_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5}} name="beggin_time_of_work"  onChange={handleChange} value={data.beggin_time_of_work}>
+              <select id="beggin_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} name="beggin_time_of_work"  onChange={handleChange} value={data.beggin_time_of_work}>
                 <option id="0hb" value="0">0</option>
                 <option id="1hb" value="1">1</option>
                 <option id="2hb" value="2">2</option>
@@ -533,7 +546,7 @@ var Lang = {
                 <option id="22hb" value="22">22</option>
                 <option id="23hb" value="23">23</option>
               </select>
-              <select id="end_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5}} name="end_time_of_work" onChange={handleChange} value={data.end_time_of_work}>
+              <select id="end_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} name="end_time_of_work" onChange={handleChange} value={data.end_time_of_work}>
                 <option id="0he" value="0">0</option>
                 <option id="1he" value="1">1</option>
                 <option id="2he" value="2">2</option>
@@ -566,14 +579,38 @@ var Lang = {
               <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>01:30</button>
               <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>02:00</button>
             </div>
-            <button style={{width: 570, height: 50, backgroundColor: "#00d472", margin: 20, fontSize: 30, marginBottom: 100, marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10}} type="submit">
+            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
+              {/*<select id="end_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} name="end_time_of_work" onChange={handleChange} value={data.end_time_of_work}>
+                <option id="10min" value="10">10</option>
+                <option id="20min" value="20">20</option>
+                <option id="30min" value="30">30</option>
+                <option id="40min" value="40">40</option>
+                <option id="50min" value="50">50</option>
+                <option id="60min" value="60">60</option>
+                <option id="90min" value="90">90</option>
+                <option id="120min" value="120">120</option>
+              </select>*/}
+              <input type="time" name="" id="input_time_to_a" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} step="1800"/>
+              <button style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={AddTimeToBye}>Add</button>
+            </div>
+            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
+                {components.map((component) => ( 
+                  <>
+                      <button style={{width: "calc(100%/6)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5, padding: 10}} onClick={ChangeWorkDay} name="Monday">
+                        <span>{component.time}</span>
+                        <div>{component.price} ₽</div>
+                      </button>
+                  </>
+                  ))}
+              
+            </div>
+            <button style={{width: 570, height: 50, backgroundColor: "#00d472", margin: 20, fontSize: 30, marginBottom: 100, marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10}} onClick={handleSubmit}>
               {arrLang[lang]['save']}
             </button>
 
           </div>
         </div>
       </div>
-    </form>
   </div>
 </div>
 

@@ -128,7 +128,7 @@ function Type_offer({ lang }) {
             {data.map((data) => (
 
 
-                <Link to={`/finded/${data.type}/`} key={data.id}>
+        <Link to={`/finded/${data.type}/`} key={data.id}>
           <div className="div_of_service" >
             <img src={data.lang_flag} alt="" style={{height: 100,width: 160,position: "absolute", zIndex: 10, top: 50, left: 20 }}/>
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -137,7 +137,7 @@ function Type_offer({ lang }) {
               </p>
             </div>
             <img src="/src/static/img/bluefon.png" alt="" className="service_img" />
-            <div className="count_of_offers">{data.number_of_offers}</div>
+            <p className="count_of_offers">{data.number_of_offers}</p>
           </div>
         </Link>
 

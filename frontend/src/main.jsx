@@ -23,6 +23,7 @@ import Log from '/src/pages/log.jsx'
 import CreateOffer from '/src/pages/create_offer.jsx'
 import UpdateOffer from '/src/pages/update_offer.jsx'
 import ChatCreate from '/src/pages/chat_create.jsx'
+import MyLessons from '/src/pages/my_lessons.jsx'
 import App from './App.jsx'
 import Call from '/src/pages/call.jsx'
 import Finded_deep from './pages/finded_deep.jsx'
@@ -55,6 +56,7 @@ createRoot(document.querySelector('body')).render(
                 <Route path="/about_us/" element={<About />}/>
                 <Route path="/privacy/" element={<Confident />}/>
                 <Route path="/:username/offer/:id/" element={<Offer />}/>
+                <Route path='/my_lessons/' element={<MyLessons />} />
                 <Route path="/call/" element={<Call />}/>
                 <Route path="*" element={<NotFound />} />
             </Routes>

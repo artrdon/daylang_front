@@ -619,6 +619,7 @@ const save_to_fav = async (e) => {
 
 
     document.querySelector("title").textContent = `${data1.name}`;
+    document.querySelector("meta[name='description']").content = `${data1.description}`;
     if (data1 != null){
         isfav = data1.isFav;
     }
@@ -799,7 +800,7 @@ console.log(data1);
     <div className="offer_div">
         <h3>Возможно вам подойдут</h3>
         {data5.map((dat) => (
-      <a href={`/${dat.chel}/offer/${dat.id}/`} key={dat.id}>
+      <a href={`/${dat.chel}/offer/${dat.id}/`} key={dat.id} target='_blank'>
       <div className="offer_of_lang" id={dat.id}>
         <div className="first_sloj">
           <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>

@@ -496,11 +496,14 @@ useEffect(() => {
           return (<>
 
               {data2.map((da) => (
+                <>
                   <Message_comp int={da.text} key={da.id} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
+                  {(() => {if (da.i_read){
+                    return <ScrollToBottom />;
+                  }})()}
+                  
+                </>
               ))}
-              {data2.length > 0 && (
-                <ScrollToBottom/>
-              )}
               </>);
         }else{
             return (<>

@@ -457,7 +457,7 @@ var arrLang = {
 
 
 {data1.map((dat) => (
-    <Link to={`/${data.username}/offer/${dat.id}/`} key={dat.id}>
+    <Link to={`/${data.username}/offer/${dat.id}/`} key={dat.id} target='_blank'>
       <div className="offer_of_lang" id={dat.id}>
         <div className="first_sloj">
           <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>

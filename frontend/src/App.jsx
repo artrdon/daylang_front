@@ -248,6 +248,14 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
         />
         <span className="text_in_panel" id="not_for_fon" key="about">{arrLang[lang]['find']}</span>
       </Link>
+      <Link className="navig_panel_button" to="/saved/">
+        <img
+          src="/src/static/img/srce.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+      </Link>
       <Link className="navig_panel_button" to="/message_list/">
         <img
           src="/src/static/img/messagebutwhite.png"
@@ -260,14 +268,19 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
 
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
-      <Link className="navig_panel_button" to="/saved/">
+      <Link className="navig_panel_button" to="/my_lessons/">
         <img
-          src="/src/static/img/srce.png"
+          src="/src/static/img/messagebutwhite.png"
           alt=""
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+        
+
+        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
+      
       {username === undefined ? (
               <a className="navig_panel_button" href={`/log/`} id="only_for_fon">
                 <img

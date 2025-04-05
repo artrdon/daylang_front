@@ -311,7 +311,7 @@ function change_theme() {
       <>
        <AppLoad lang={langua}/>
 
-<div className="finded_panel" style={{ width: "100%", display: "flex", justifyContent: "center", left: "unset", backgroundColor: "#00000000"}}>
+{/*<div className="finded_panel" style={{ width: "100%", display: "flex", justifyContent: "center", left: "unset", backgroundColor: "#00000000"}}>
   <div className="sborishe_chelov">
       <div className="offer_of_lang_finded">
         <div style={{ width: "100%", height: "100%", position: "relative" }}>
@@ -336,7 +336,7 @@ function change_theme() {
         </div>
       </div>
   </div>
-</div>
+</div>*/}
 
 </>
 
@@ -371,7 +371,7 @@ function change_theme() {
                 
                 {data1.map((data) => (
 
-                    <Link to={`/${data.chel}/offer/${data.id}/`} key={data.id}>
+                    <Link to={`/${data.chel}/offer/${data.id}/`} key={data.id} target='_blank'>
                       <div className="offer_of_lang_finded">
                         <div style={{ width: "100%", height: "100%", position: "relative" }}>
                           <h1 className="finded_name">{data.name}</h1>

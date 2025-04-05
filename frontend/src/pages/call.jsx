@@ -78,7 +78,41 @@ function Call() {
           video: true,
           audio: true
         });
+        console.log(stream);
+        if (localVideoRef.current) {
+          localVideoRef.current.srcObject = stream;
+          setLocalStream(stream);
 
+          stream.getTracks().forEach(track => {
+            pcRef.current.addTrack(track, stream);
+          });
+        }
+      } catch (error) {
+        console.error('Error accessing media devices:', error);
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: true
+        });
+        console.log(stream);
+        if (localVideoRef.current) {
+          localVideoRef.current.srcObject = stream;
+          setLocalStream(stream);
+
+          stream.getTracks().forEach(track => {
+            pcRef.current.addTrack(track, stream);
+          });
+        }
+      }
+    };
+
+    /*
+    const getDisplay = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: true
+        });
+        console.log(stream);
         if (localVideoRef.current) {
           localVideoRef.current.srcObject = stream;
           setLocalStream(stream);
@@ -91,7 +125,7 @@ function Call() {
         console.error('Error accessing media devices:', error);
       }
     };
-
+*/
     initWebSocket();
     initPeerConnection();
     getMedia();
@@ -170,7 +204,7 @@ function Call() {
     }
     setIsCallStarted(false);
   };
-
+    let a = 0;
     const change = () => {
         if (a === 0) {
             document.getElementById("mainVideo").style.width = "30%";
@@ -209,6 +243,8 @@ function Call() {
 //transition: transform .2s;
     }
 
+    //createOffer();
+
     return (
         <>
         <video style={{ width:"100%", height:"100%", position: "absolute", bottom: 0, right: 0, backgroundColor: "black", zIndex: 0,}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
@@ -222,7 +258,7 @@ function Call() {
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%"}} >
+            <button style={{ backgroundColor: "red", borderRadius: "50%"}}>
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
             </button>
 

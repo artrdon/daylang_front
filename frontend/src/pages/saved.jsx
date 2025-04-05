@@ -247,7 +247,7 @@ console.log(data1);
             else{
                 return (<>
                     {data1.map((data) => (
-                         <Link  to={`/${data.chel}/offer/${data.id}/`} key={data.id}>
+                         <Link  to={`/${data.chel}/offer/${data.id}/`} key={data.id} target='_blank'>
                           <div className="offer_of_lang_finded">
                             <div style={{ width: "100%", height: "100%", position: "relative" }}>
                               <h1 className="finded_name">{data.name}</h1>

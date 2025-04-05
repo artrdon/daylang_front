@@ -109,9 +109,11 @@ const [data, setData] = useState(null);
   const [error3, setError3] = useState(null);
 
   const [scaledButtonId, setScaledButtonId] = useState(null);
+  const [showPhotoBig, setShowPhotoBig] = useState(false);
 
   const toggleVisibility = (id) => {
       setScaledButtonId(scaledButtonId === id ? null : id);
+      setShowPhotoBig(!showPhotoBig);
   };
 
 
@@ -438,7 +440,7 @@ var arrLang = {
     <br />
     <br />
     {data3.map((photo) => (
-            <button className="degree_button" onClick={() => toggleVisibility(photo.id)} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
+            <button className="degree_button" onClick={() => toggleVisibility(`${photo.id}kkk`)} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
                 <img src={photo.photo} alt="" className="degree_img" />
             </button>
     ))}
@@ -451,7 +453,15 @@ var arrLang = {
 </div>
 
 
+{showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
+  <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility(`${photo.id}kkk`)} ></div>
+  {data3.map((photo) => (
 
+            <button className="degree_button" onClick={() => toggleVisibility(`${photo.id}kkk`)} key={`${photo.id}kkk`} style={{ transform: scaledButtonId === `${photo.id}kkk` ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease', zIndex: 11}}>
+                <img src={photo.photo} alt={`degree${photo.id}`} className="degree_img" />
+            </button>
+    ))}
+</div>}
 
 </>
 
