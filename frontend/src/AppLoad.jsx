@@ -103,7 +103,7 @@ function AppLoad({ lang }) {
         position: "absolute"
       }}
     >
-      <Link to="/">
+      <Link >
         <div className="name_of_comp" translate="no">
           DayLang
         </div>
@@ -142,7 +142,7 @@ function AppLoad({ lang }) {
   </div>
   <div className="navig_panel">
     <div className="app_navig_panel_razdel">
-      <Link className="navig_panel_button" to="/">
+      <Link className="navig_panel_button">
         <img
           src="/src/static/img/search.png"
           alt=""
@@ -150,7 +150,15 @@ function AppLoad({ lang }) {
         />
         <span className="text_in_panel" id="not_for_fon" key="about">{arrLang[lang]['find']}</span>
       </Link>
-      <Link className="navig_panel_button" to="/message_list/">
+      <Link className="navig_panel_button">
+        <img
+          src="/src/static/img/srce.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+      </Link>
+      <Link className="navig_panel_button">
         <img
           src="/src/static/img/messagebutwhite.png"
           alt=""
@@ -159,13 +167,14 @@ function AppLoad({ lang }) {
 
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
-      <Link className="navig_panel_button" to="/saved/">
+      <Link className="navig_panel_button">
         <img
-          src="/src/static/img/srce.png"
+          src="/src/static/img/messagebutwhite.png"
           alt=""
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
 
               <a className="navig_panel_button" id="only_for_fon">
@@ -178,7 +187,7 @@ function AppLoad({ lang }) {
 
     </div>
     <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">
-      <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
+      <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/setting.png"
           alt=""
@@ -186,7 +195,7 @@ function AppLoad({ lang }) {
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
       </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to="/message_list/support/">
+      <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/support.png"
           alt=""
@@ -194,7 +203,7 @@ function AppLoad({ lang }) {
         />
         <span className="text_in_panel">{arrLang[lang]['support']}</span>
       </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
+      <Link className="navig_panel_button" id="not_for_fon">
         <img src="/src/static/img/dj.png" alt="" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
       </Link>

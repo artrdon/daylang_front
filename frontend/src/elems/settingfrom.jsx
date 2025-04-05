@@ -388,6 +388,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                   height: 50,
                   backgroundColor: "#00d472",
                   margin: 20,
+                  marginTop: 70,
                   fontSize: 30,
                   marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
                 }}

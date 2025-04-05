@@ -131,7 +131,7 @@ var arrLang = {
         position: "absolute"
       }}
     >
-      <Link to="/">
+      <Link>
         <div className="name_of_comp" translate="no">
           DayLang
         </div>
@@ -169,7 +169,7 @@ var arrLang = {
   </div>
   <div className="message_navig_panel">
     <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}>
-      <Link className="navig_panel_button" to="/">
+      <Link className="navig_panel_button">
         <img
           src="/src/static/img/search.png"
           alt=""
@@ -177,7 +177,15 @@ var arrLang = {
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['find']}</span>
       </Link>
-      <Link className="navig_panel_button" to="/message_list/">
+      <Link className="navig_panel_button">
+        <img
+          src="/src/static/img/srce.png"
+          alt=""
+          style={{ width: 50, height: 50, marginLeft: 10 }}
+        />
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+      </Link>
+      <Link className="navig_panel_button">
         <img
           src="/src/static/img/messagebutwhite.png"
           alt=""
@@ -186,13 +194,14 @@ var arrLang = {
 
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
-      <Link className="navig_panel_button" to="/saved/">
+      <Link className="navig_panel_button" >
         <img
-          src="/src/static/img/srce.png"
+          src="/src/static/img/messagebutwhite.png"
           alt=""
           style={{ width: 50, height: 50, marginLeft: 10 }}
         />
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button" id="only_for_fon">
         <img
@@ -203,7 +212,7 @@ var arrLang = {
       </Link>
     </div>
     <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">
-      <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
+      <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/setting.png"
           alt=""
@@ -211,7 +220,7 @@ var arrLang = {
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
       </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to="/message_list/support/">
+      <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/support.png"
           alt=""
@@ -219,7 +228,7 @@ var arrLang = {
         />
         <span className="text_in_panel">{arrLang[lang]['support']}</span>
       </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
+      <Link className="navig_panel_button" id="not_for_fon">
         <img src="/src/static/img/dj.png" alt="" style={{ width: 50, height: 50, marginLeft: 10 }} />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
       </Link>

@@ -209,27 +209,37 @@ console.log(mess_count);
         <img
           src="/src/static/img/search.png"
           alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['find']}</span>
-      </Link>
-      <Link className="navig_panel_button" to="/message_list/">
-        <img
-          src="/src/static/img/messagebutwhite.png"
-          alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
-        />
-        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button" to="/saved/">
         <img
           src="/src/static/img/srce.png"
           alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
       </Link>
+      <Link className="navig_panel_button" to="/message_list/">
+        <img
+          src="/src/static/img/messagebutwhite.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
+      </Link>
+      <Link className="navig_panel_button" to="/my_lessons/">
+        <img
+          src="/src/static/img/messagebutwhite.png"
+          alt=""
+          className="app_navig_panel_img on_desktop_panel"
+        />
+        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
+      </Link>
+      
       <Link className="navig_panel_button" to={`/user/${username}/`} id="only_for_fon">
         <img
           src={photo}
@@ -243,7 +253,7 @@ console.log(mess_count);
         <img
           src="/src/static/img/setting.png"
           alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
       </Link>
@@ -251,12 +261,12 @@ console.log(mess_count);
         <img
           src="/src/static/img/support.png"
           alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['support']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
-        <img src="/src/static/img/dj.png" alt="" style={{ width: 50, height: 50, marginLeft: 10 }} />
+        <img src="/src/static/img/dj.png" alt="" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
       </Link>
       <Cookie />
