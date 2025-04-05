@@ -146,7 +146,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
       
 
      // await handleSubmitPhoto(e);
-  };;
+  };
     
 
 
@@ -367,7 +367,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                   top: 0,
                   display: "inline-block",
                   margin: 10,
-                }}
+                }} 
                 src={photo.photo}
                 key={photo.id}
               />

@@ -264,6 +264,7 @@ var Lang = {
   const [error12, setError12] = useState(null);
 
   const [file, setFile] = useState("none");
+  const [photosFile, setPhotosFile] = useState([]);
   const [components, setComponents] = useState([]);
 
   const AddTimeToBye = () =>{
@@ -274,6 +275,17 @@ var Lang = {
     setComponents((components) => [...components, newComponent]);
     return;
   }
+
+  const handlPhotosLoad = (e) => {
+    setPhotosFile([]);
+    for (let i = 0; i < e.target.files.length; i++){
+      setPhotosFile((components) => [...components, e.target.files[i]]);
+      console.log(e.target.files[i]);
+    }
+    
+
+   // await handleSubmitPhoto(e);
+};
 
   const handleFileChange = (e) => {
       setFile(e.target.files[0]);
@@ -359,6 +371,10 @@ var Lang = {
         
         e.preventDefault();
         const formData = new FormData();
+        const photosMuliple = new FormData();
+        for (let i = 0; photosFile.length > i; i++){
+          photosMuliple.append(`photo${i}`, photosFile[i]);
+        }
     
         // Добавляем все поля из data
         formData.append('name', data.name);
@@ -380,9 +396,18 @@ var Lang = {
                     'X-CSRFToken': csrfToken,
                 },
             });
+            
             console.log('Response:', response.data);
             if (response.data === "serializer.data"){
-                location.reload();
+              const response1 = await axios.post(`http://127.0.0.1:8000/change_offer_photos_load/`, photosMuliple, {
+                  headers: {
+                      'Content-Type': 'multipart/form-data',
+                      'X-CSRFToken': csrfToken,
+                  },
+              });
+              location.reload();
+              
+                
             }
 
         } catch (error) {
@@ -502,6 +527,15 @@ var Lang = {
               <label for="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
             </div>
             
+            
+            <div className="crt_offer_photo_div">
+              
+
+
+              <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handlPhotosLoad} multiple hidden/>
+              <label for="icon404"  style={{position: "relative", display: "flex", top: 70, left: 0, width: "100%", height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+            </div>
+
             <div className="crt_offer_name_of_fields">
               <span>message</span>
             </div>

@@ -633,7 +633,9 @@ console.log(data1);
   <div className="div_of_foto_and_button" id="divoffb">
     <div className="foto_main" style={{display: "flex", justifyContent: "center", alignItem : "center"}}>
         <ImageWithFallbackMain src={data1.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-
+        <div style={{ position: "absolute", right: 0, zIndex: 11 }}>
+          <img src="/src/static/img/next_photo.png" alt="" style={{width: 50, height: 50}}/>
+        </div>
     </div>
 
 

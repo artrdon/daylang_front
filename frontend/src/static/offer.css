@@ -1,5 +1,5 @@
 .div_of_foto_and_button{
-    height: auto; width: 47%; position: absolute;top: 40px; left: 50px; 
+    height: auto; width: 630px; position: absolute;top: 40px; left: 50px; 
 }
 .foto_main{
     width: auto; aspect-ratio: 1/1; max-height: 630px; background-color: gray;
@@ -126,6 +126,9 @@
         max-width: 20vw;
     }
     .offer_about_author_div{
+        width: 36vw;
+    }
+    .div_of_foto_and_button{
         width: 36vw;
     }
     .foto_main{

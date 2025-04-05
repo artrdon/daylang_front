@@ -28,8 +28,17 @@ function Degree() {
 
     
   const [groups, setGroup] = useState([0]);
+  const [photoArray, setPhotoArray] = useState([]);
   const [ws, setWs] = useState(null);
   const [messNumb, setMessNumb] = useState(null);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const nextPhoto = () =>{
+      setPhotoIndex(prev => prev + 1);
+  }
+  const previosPhoto = () =>{
+      setPhotoIndex(prev => prev - 1);
+  }
 
 useEffect(() => {
 
@@ -111,11 +120,11 @@ const [data, setData] = useState(null);
   const [scaledButtonId, setScaledButtonId] = useState(null);
   const [showPhotoBig, setShowPhotoBig] = useState(false);
 
-  const toggleVisibility = (id) => {
-      setScaledButtonId(scaledButtonId === id ? null : id);
+  const toggleVisibility = () => {
       setShowPhotoBig(!showPhotoBig);
   };
 
+  
 
 axios.defaults.withCredentials = true;
 
@@ -274,6 +283,8 @@ var arrLang = {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/get_degree_load/${params.user}/`);
         setData3(response.data);
+        console.log(response.data);
+        setPhotoArray((photoArray) => [...photoArray, response.data]);
       } catch (err) {
         setError3(err.message);
       } finally {
@@ -355,6 +366,10 @@ var arrLang = {
 
   );
   if (error12) return <p>Error: {error}</p>;
+
+  console.log(photoArray);
+  console.log(photoArray[0].length);
+  
 
 
     return (
@@ -440,7 +455,7 @@ var arrLang = {
     <br />
     <br />
     {data3.map((photo) => (
-            <button className="degree_button" onClick={() => toggleVisibility(`${photo.id}kkk`)} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
+            <button className="degree_button" onClick={() => toggleVisibility()} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
                 <img src={photo.photo} alt="" className="degree_img" />
             </button>
     ))}
@@ -454,14 +469,21 @@ var arrLang = {
 
 
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
-  <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility(`${photo.id}kkk`)} ></div>
-  {data3.map((photo) => (
-
-            <button className="degree_button" onClick={() => toggleVisibility(`${photo.id}kkk`)} key={`${photo.id}kkk`} style={{ transform: scaledButtonId === `${photo.id}kkk` ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease', zIndex: 11}}>
-                <img src={photo.photo} alt={`degree${photo.id}`} className="degree_img" />
-            </button>
-    ))}
-</div>}
+  <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
+      
+          <button className="degree_button" style={{ transform: 'scale(4)', transition: 'transform 0.3s ease', zIndex: 11}}>
+              <img src={photoArray[0][photoIndex].photo} alt={`degreephotoBig`} className="degree_img" />
+          </button>
+          {photoArray[0].length > (photoIndex + 1) && 
+            <div style={{ position: "fixed", right: 0, zIndex: 11 }} onClick={nextPhoto}>
+              <img src="/src/static/img/next_photo.png" alt="" style={{width: 100, height: 100}}/>
+            </div>}
+          {photoIndex > 0 && 
+            <div style={{ position: "fixed", left: 0, zIndex: 11 }} onClick={previosPhoto}>
+              <img src="/src/static/img/next_photo.png" alt="" style={{width: 100, height: 100, transform: "rotate(180deg)"}}/>
+            </div>}
+          
+  </div>}
 
 </>
 
