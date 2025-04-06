@@ -14,6 +14,24 @@ import Settings from '/src/pages/settings.jsx'
 import About from '/src/pages/about_us.jsx'
 import NotFound from '/src/pages/notfound.jsx'*/
 import axios from 'axios';
+import Docks from '/src/elems/docks.jsx'
+
+function ImageWithFallback({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="avatar"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
 
 
 function AppMessLoad({ lang }) {
@@ -131,7 +149,7 @@ var arrLang = {
         position: "absolute"
       }}
     >
-      <Link>
+      <Link >
         <div className="name_of_comp" translate="no">
           DayLang
         </div>
@@ -148,7 +166,7 @@ var arrLang = {
       {theme === "dark" ? (
           <img
             src="/src/static/img/moon.png"
-            alt=""
+            alt="dark"
             className="change_theme_button_img"
             id="theme_img"
           />
@@ -156,15 +174,16 @@ var arrLang = {
               (
               <img
                 src="/src/static/img/sunce.png"
-                alt=""
+                alt="light"
                 className="change_theme_button_img"
                 id="theme_img"
               />
                 )
                 }
     </button>
+      <p style={{ position: "absolute", right: 130, top: 25, fontSize: 25 }}>₽</p>
       <div className="my_account_panel">
-        <img src="/src/static/img/nema.png" alt="pupil" className="avatar" />
+        <ImageWithFallback src="/src/static/img/nema.png" alt='nema' />
       </div>
   </div>
   <div className="message_navig_panel">
@@ -172,41 +191,40 @@ var arrLang = {
       <Link className="navig_panel_button">
         <img
           src="/src/static/img/search.png"
-          alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          alt="search"
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['find']}</span>
       </Link>
       <Link className="navig_panel_button">
         <img
           src="/src/static/img/srce.png"
-          alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          alt="saved"
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
       </Link>
       <Link className="navig_panel_button">
         <img
           src="/src/static/img/messagebutwhite.png"
-          alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          alt="mess"
+          className="app_navig_panel_img on_desktop_panel"
         />
-
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
-      <Link className="navig_panel_button" >
+      <Link className="navig_panel_button">
         <img
-          src="/src/static/img/messagebutwhite.png"
-          alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          src="/src/static/img/my_lessons.png"
+          alt="my lesson"
+          className="app_navig_panel_img on_desktop_panel"
         />
-
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
+      
       <Link className="navig_panel_button" id="only_for_fon">
         <img
-          src="/src/static/img/giga.jpg"
-          alt=""
+          src='/src/static/img/nema.png'
+          alt="username"
           className="avatar"
         />
       </Link>
@@ -215,23 +233,24 @@ var arrLang = {
       <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/setting.png"
-          alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          alt="settings"
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/support.png"
-          alt=""
-          style={{ width: 50, height: 50, marginLeft: 10 }}
+          alt="support"
+          className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['support']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon">
-        <img src="/src/static/img/dj.png" alt="" style={{ width: 50, height: 50, marginLeft: 10 }} />
+        <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
       </Link>
+      <Docks />
     </div>
   </div>
 

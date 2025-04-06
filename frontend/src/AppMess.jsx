@@ -135,7 +135,7 @@ var arrLang = {
       }
 
     }
-console.log(mess_count);
+//console.log(mess_count);
 
   return (
       <>
@@ -167,7 +167,7 @@ console.log(mess_count);
       {theme === "dark" ? (
           <img
             src="/src/static/img/moon.png"
-            alt=""
+            alt="dark"
             className="change_theme_button_img"
             id="theme_img"
           />
@@ -175,7 +175,7 @@ console.log(mess_count);
               (
               <img
                 src="/src/static/img/sunce.png"
-                alt=""
+                alt="light"
                 className="change_theme_button_img"
                 id="theme_img"
               />
@@ -190,14 +190,14 @@ console.log(mess_count);
     {if_teach === true ? (
           <Link to={`/t/user/${username}/`}>
       <div className="my_account_panel">
-        <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+        <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
       </div>
     </Link>
                 ) :
               (
               <Link to={`/p/user/${username}/`}>
       <div className="my_account_panel">
-        <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+        <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
       </div>
     </Link>
                 )
@@ -208,7 +208,7 @@ console.log(mess_count);
       <Link className="navig_panel_button" to="/">
         <img
           src="/src/static/img/search.png"
-          alt=""
+          alt="search"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['find']}</span>
@@ -216,7 +216,7 @@ console.log(mess_count);
       <Link className="navig_panel_button" to="/saved/">
         <img
           src="/src/static/img/srce.png"
-          alt=""
+          alt="saved"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
@@ -224,7 +224,7 @@ console.log(mess_count);
       <Link className="navig_panel_button" to="/message_list/">
         <img
           src="/src/static/img/messagebutwhite.png"
-          alt=""
+          alt="mess"
           className="app_navig_panel_img on_desktop_panel"
         />
         {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
@@ -232,8 +232,8 @@ console.log(mess_count);
       </Link>
       <Link className="navig_panel_button" to="/my_lessons/">
         <img
-          src="/src/static/img/messagebutwhite.png"
-          alt=""
+          src="/src/static/img/my_lessons.png"
+          alt="my lesson"
           className="app_navig_panel_img on_desktop_panel"
         />
         {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
@@ -243,7 +243,7 @@ console.log(mess_count);
       <Link className="navig_panel_button" to={`/user/${username}/`} id="only_for_fon">
         <img
           src={photo}
-          alt=""
+          alt={username}
           className="avatar"
         />
       </Link>
@@ -252,7 +252,7 @@ console.log(mess_count);
       <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
         <img
           src="/src/static/img/setting.png"
-          alt=""
+          alt="settings"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
@@ -260,13 +260,13 @@ console.log(mess_count);
       <Link className="navig_panel_button" id="not_for_fon" to="/message_list/support/">
         <img
           src="/src/static/img/support.png"
-          alt=""
+          alt="support"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['support']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
-        <img src="/src/static/img/dj.png" alt="" className="app_navig_panel_img on_desktop_panel" />
+        <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
       </Link>
       <Cookie />

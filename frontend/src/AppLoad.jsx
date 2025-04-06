@@ -13,6 +13,7 @@ import Offers_on_main from '/src/pages/offers_main.jsx'
 import Settings from '/src/pages/settings.jsx'
 import About from '/src/pages/about_us.jsx'
 import NotFound from '/src/pages/notfound.jsx'*/
+import Docks from '/src/elems/docks.jsx'
 import axios from 'axios';
 
 
@@ -103,11 +104,9 @@ function AppLoad({ lang }) {
         position: "absolute"
       }}
     >
-      <Link >
         <div className="name_of_comp" translate="no">
           DayLang
         </div>
-      </Link>
     </div>
     {/*<div className="search_all_pos">
       <div id="search_all">
@@ -116,12 +115,12 @@ function AppLoad({ lang }) {
           <input type="text" name="Find" id="Finding" placeholder="Find" className="search_input_field"/>
       </div>
   </div>*/}
-    <button className="change_theme_button">
+    <button className="change_theme_button" >
 
       {theme === "dark" ? (
           <img
             src="/src/static/img/moon.png"
-            alt=""
+            alt="dark"
             className="change_theme_button_img"
             id="theme_img"
           />
@@ -129,23 +128,24 @@ function AppLoad({ lang }) {
               (
               <img
                 src="/src/static/img/sunce.png"
-                alt=""
+                alt="light"
                 className="change_theme_button_img"
                 id="theme_img"
               />
                 )
                 }
     </button>
-              <div className="my_account_panel">
-                <img src="/src/static/img/nema.png" alt="pupil" className="avatar" />
-              </div>
+          <p style={{ position: "absolute", right: 130, top: 25, fontSize: 25 }}>₽</p>
+          <div className="my_account_panel">
+            <img src="/src/static/img/nema.png" alt='user' className='avatar'/>
+          </div>
   </div>
   <div className="navig_panel">
     <div className="app_navig_panel_razdel">
       <Link className="navig_panel_button">
         <img
           src="/src/static/img/search.png"
-          alt=""
+          alt="main"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon" key="about">{arrLang[lang]['find']}</span>
@@ -153,7 +153,7 @@ function AppLoad({ lang }) {
       <Link className="navig_panel_button">
         <img
           src="/src/static/img/srce.png"
-          alt=""
+          alt="saved"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
@@ -161,36 +161,40 @@ function AppLoad({ lang }) {
       <Link className="navig_panel_button">
         <img
           src="/src/static/img/messagebutwhite.png"
-          alt=""
+          alt="message"
           className="app_navig_panel_img on_desktop_panel"
         />
+        
+
 
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button">
         <img
-          src="/src/static/img/messagebutwhite.png"
-          alt=""
+          src="/src/static/img/my_lessons.png"
+          alt="my lessons"
           className="app_navig_panel_img on_desktop_panel"
         />
+        
 
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
+
+        <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
-
-              <a className="navig_panel_button" id="only_for_fon">
-                <img
-                  src="/src/static/img/giga.jpg"
-                  alt=""
-                  className="avatar_in_panel"
-                />
-              </a>
+      
+      <a className="navig_panel_button"id="only_for_fon">
+        <img
+          src="/src/static/img/nema.png"
+          alt="nema"
+          className="avatar_in_panel"
+        />
+      </a>
 
     </div>
     <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">
       <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/setting.png"
-          alt=""
+          alt="settings"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
@@ -198,15 +202,16 @@ function AppLoad({ lang }) {
       <Link className="navig_panel_button" id="not_for_fon">
         <img
           src="/src/static/img/support.png"
-          alt=""
+          alt="support"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['support']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon">
-        <img src="/src/static/img/dj.png" alt="" className="app_navig_panel_img on_desktop_panel" />
+        <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
       </Link>
+      <Docks />
     </div>
   </div>
 

@@ -187,7 +187,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       {theme === "dark" ? (
           <img
             src="/src/static/img/moon.png"
-            alt=""
+            alt="dark"
             className="change_theme_button_img"
             id="theme_img"
           />
@@ -195,7 +195,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
               (
               <img
                 src="/src/static/img/sunce.png"
-                alt=""
+                alt="light"
                 className="change_theme_button_img"
                 id="theme_img"
               />
@@ -211,7 +211,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
           {username === undefined ? (
           <Link to={`/log/`}>
               <div className="my_account_panel" style={{ right: 40 }}>
-                <img src="/src/static/img/nema.png" alt="pupil" className="avatar" />
+                <img src="/src/static/img/nema.png" alt="log" className="avatar" />
                 <span className="ime_i" translate="no" style={{ top: 15, fontSize: 20 }}>
                   Login
                 </span>
@@ -222,14 +222,14 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
               if_teach === true ? (
           <Link to={`/t/user/${username}/`}>
               <div className="my_account_panel">
-                <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+                <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
               </div>
             </Link>
                 ) :
               (
               <Link to={`/p/user/${username}/`}>
                   <div className="my_account_panel">
-                    <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+                    <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
                   </div>
                 </Link>
                 )
@@ -243,7 +243,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       <Link className="navig_panel_button" to="/">
         <img
           src="/src/static/img/search.png"
-          alt=""
+          alt="main"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon" key="about">{arrLang[lang]['find']}</span>
@@ -251,7 +251,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       <Link className="navig_panel_button" to="/saved/">
         <img
           src="/src/static/img/srce.png"
-          alt=""
+          alt="saved"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
@@ -259,7 +259,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       <Link className="navig_panel_button" to="/message_list/">
         <img
           src="/src/static/img/messagebutwhite.png"
-          alt=""
+          alt="message"
           className="app_navig_panel_img on_desktop_panel"
         />
         
@@ -270,22 +270,22 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       </Link>
       <Link className="navig_panel_button" to="/my_lessons/">
         <img
-          src="/src/static/img/messagebutwhite.png"
-          alt=""
+          src="/src/static/img/my_lessons.png"
+          alt="my lessons"
           className="app_navig_panel_img on_desktop_panel"
         />
         
 
         {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
 
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
+        <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
       
       {username === undefined ? (
               <a className="navig_panel_button" href={`/log/`} id="only_for_fon">
                 <img
                   src="/src/static/img/nema.png"
-                  alt=""
+                  alt="nema"
                   className="avatar_in_panel"
                 />
               </a>
@@ -293,12 +293,12 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
               (
               if_teach === true ? (
               <a className="navig_panel_button" href={`/t/user/${username}/`} id="only_for_fon">
-                <ImageWithFallbackPanel src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+                <ImageWithFallbackPanel src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
               </a>
                 ) :
               (
               <a className="navig_panel_button" href={`/p/user/${username}/`} id="only_for_fon">
-                <ImageWithFallbackPanel src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+                <ImageWithFallbackPanel src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
               </a>
                 )
                 )
@@ -311,7 +311,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
         <img
           src="/src/static/img/setting.png"
-          alt=""
+          alt="settings"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
@@ -319,13 +319,13 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       <Link className="navig_panel_button" id="not_for_fon" to="/message_list/support/">
         <img
           src="/src/static/img/support.png"
-          alt=""
+          alt="support"
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel">{arrLang[lang]['support']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
-        <img src="/src/static/img/dj.png" alt="" className="app_navig_panel_img on_desktop_panel" />
+        <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
       </Link>
       <Cookie />

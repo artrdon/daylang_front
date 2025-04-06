@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import Offer_load from '/src/load_elems/offer_load.jsx'
 import SetReviewBlock from '/src/elems/set_review_block.jsx'
 import UpReviewBlock from '/src/elems/up_review_block.jsx'
+import Vozmozno_vam from '../elems/vozmozno_vam_podojdut';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
@@ -11,6 +12,19 @@ import axios from 'axios';
 const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
+  useEffect(() => {
+    const blockDangerousLinks = (e) => {
+      const dangerousLink = e.target.closest('a[href^="javascript:"]');
+      if (dangerousLink) {
+        e.preventDefault();
+        dangerousLink.href = '#blocked';
+        console.warn('Заблокирована опасная ссылка:', dangerousLink);
+      }
+    };
+  
+    document.addEventListener('click', blockDangerousLinks, true);
+    return () => document.removeEventListener('click', blockDangerousLinks, true);
+  }, []);
   const showMore = () =>{
     document.querySelector("body").style.overflow = "hidden";
     setShowAllOffers(true);
@@ -118,23 +132,6 @@ function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
   return (
     <img
       className="img_of_autor_mes"
-      src={imgSrc}
-      alt={alt}
-      onError={handleError}
-    />
-  );
-}
-
-function ImageWithFallback({ src, fallbackSrc, alt, }) {
-  const [imgSrc, setImgSrc] = useState(src);
-
-  const handleError = () => {
-    setImgSrc(fallbackSrc);
-  };
-
-  return (
-    <img
-      className="offer_image"
       src={imgSrc}
       alt={alt}
       onError={handleError}
@@ -574,22 +571,6 @@ const save_to_fav = async (e) => {
     fetchData();
   }, []);
 
-
-    useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/creatingoffer/');
-        setData5(response.data);
-      } catch (err) {
-        setError5(err.message);
-      } finally {
-        setLoading5(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -652,16 +633,6 @@ const save_to_fav = async (e) => {
 
   );
   if (error3) return <p>Error: {error}</p>;
-
-  if (loading5) return (
-      <>
-      <AppLoad lang={langua}/>
-      <Offer_load/>
-
-</>
-
-  );
-  if (error5) return <p>Error: {error}</p>;
 
     if (loading7) return (
       <>
@@ -871,29 +842,8 @@ console.log(photoArray[photoIndex].photo);
 
     <div className="offer_div">
         <h3>Возможно вам подойдут</h3>
-        {data5.map((dat) => (
-      <a href={`/${dat.chel}/offer/${dat.id}/`} key={dat.id} target='_blank'>
-      <div className="offer_of_lang" id={dat.id}>
-        <div className="first_sloj">
-          <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-          <div className="feedback_review_down_block">
-            <h1 className="name_of_offer" >
-              {dat.name}
-            </h1>
-            <div className="block_of_price_and_status">
-              <p className="price_and_status feedback_review_price_text"  >
-                {dat.price} ₽
-              </p>
-            </div>
-            <div className="block_of_review">
-              <img src="/src/static/img/11.png" alt="" className="img_of_review" />
-              <h1 className="header_of_review"> {dat.review}</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-      ))}
+        <Vozmozno_vam/>
+        
     </div>
   </div>
 </div>
