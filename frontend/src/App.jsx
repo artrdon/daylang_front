@@ -56,6 +56,15 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 function App({ name, lastname, username, lang, if_teach, mess_count, photo, balance }) {
   const [count, setCount] = useState(0)
 
+  
+  if (window.trustedTypes?.createPolicy) {
+    trustedTypes.createPolicy('defaults', {
+        createHTML: (html) => html.replace(/<iframe[^>]*onload\s*=[^>]+>/gi, ''),
+        createScriptURL: url => url.replace(/javascript:/gi, 'blocked:')
+    });
+}
+
+
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;

@@ -29,23 +29,14 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
 
     const csrfToken = getCookie('csrftoken');
 
+    const [confirm, setIsVisible] = useState(false);
 const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
-const [confirm, setIsVisible] = useState(false);
+
 
 
   // Функция для переключения видимости элемента
   const toggleVisibility = (id) => {
-    if (visibleId === id) {
-      console.log("sakrij");
-      setVisibleId(null); // Если элемент уже видим, скрываем его
-    } else {
-      console.log("show");
-      console.log(id);
-      setVisibleId(null);
-      setVisibleId(id); // Иначе показываем элемент с этим id
-    }
-    //console.log(idd);
-    //console.log(visibleId);
+    setVisibleId(prevId => prevId === id ? null : id);
   };
 //console.log(if_teach);
 
@@ -54,7 +45,7 @@ const [confirm, setIsVisible] = useState(false);
 {(() => {
         if (sender === me) {
           return (<>
-              <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", transform: "scale(-1, 1)", zIndex: 1   }} id={`mess${id}`}  >
+              <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", transform: "scale(-1, 1)", zIndex: 1   }} id={`mess${id}`} >
                   <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
                     <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}} onClick={() => toggleVisibility(id)}>
                       {int}
@@ -96,7 +87,7 @@ const [confirm, setIsVisible] = useState(false);
         }else{
             if (if_teach) {
                 return (<>
-                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`}>
+                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`} >
                     <Link to={`/t/user/${sender}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
                         <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
                     </Link>
@@ -130,7 +121,7 @@ const [confirm, setIsVisible] = useState(false);
                 </>);
             } else{
                 return (<>
-                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`}>
+                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`} >
                     <Link to={`/p/user/${sender}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
                         <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
                     </Link>

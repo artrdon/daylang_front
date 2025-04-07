@@ -218,7 +218,7 @@ var arrLang = {
           alt="my lesson"
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
+        <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
       
       <Link className="navig_panel_button" id="only_for_fon">

@@ -12,7 +12,18 @@ import axios from 'axios';
 const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
-  useEffect(() => {
+  if (window.trustedTypes && window.trustedTypes.createPolicy) {
+    trustedTypes.createPolicy('default', {
+      createScriptURL: url => {
+        if (url.toLowerCase().startsWith('javascript:')) {
+          console.error('Blocked dangerous URL:', url);
+          return 'about:blank';
+        }
+        return url;
+      }
+    });
+  }
+  /*useEffect(() => {
     const blockDangerousLinks = (e) => {
       const dangerousLink = e.target.closest('a[href^="javascript:"]');
       if (dangerousLink) {
@@ -24,7 +35,7 @@ const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
   
     document.addEventListener('click', blockDangerousLinks, true);
     return () => document.removeEventListener('click', blockDangerousLinks, true);
-  }, []);
+  }, []);*/
   const showMore = () =>{
     document.querySelector("body").style.overflow = "hidden";
     setShowAllOffers(true);
@@ -660,6 +671,8 @@ const save_to_fav = async (e) => {
     }
 console.log(photoArray[photoIndex]);
 console.log(photoArray[photoIndex].photo);
+
+
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -875,7 +888,7 @@ console.log(photoArray[photoIndex].photo);
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
           <button className="degree_button" style={{ transform: 'scale(4)', transition: 'transform 0.3s ease', zIndex: 11}}>
-              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" />
+              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: photoArray[photoIndex].h_or_w === "w" ? "10vw" : "auto", height: photoArray[photoIndex].h_or_w === "h" ? "20vh" : "auto"}} />
           </button>
           {photoArray.length > (photoIndex + 1) && 
             <button style={{ position: "fixed", right: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 }} onClick={nextPhoto}>

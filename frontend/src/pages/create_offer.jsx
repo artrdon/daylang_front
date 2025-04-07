@@ -366,15 +366,42 @@ var Lang = {
         setData({ ...data, ['workday']: e.target.name });
     };
 
+    
+    const handleSubmit1 = async (e) => {
+        
+      e.preventDefault();
+      let resp = await handleSubmit(e);
+      const photosMuliple = new FormData();
+      for (let i = 0; photosFile.length > i; i++){
+        photosMuliple.append(`photo${i}`, photosFile[i]);
+      }
+      
+      try {
+          const response = await axios.post(`http://127.0.0.1:8000/change_offer_photos_load/`, photosMuliple, {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+                  'X-CSRFToken': csrfToken,
+              },
+          });
+          
+          console.log('Response:', response.data);
+          if (response.data === "serializer.data"){
+           // location.reload();
+            console.log(resp);
+          }
+      } catch (error) {
+          console.error('There was an error!', error.response.data);
+      }
+
+  };
+
+
 
     const handleSubmit = async (e) => {
         
         e.preventDefault();
+        
         const formData = new FormData();
-        const photosMuliple = new FormData();
-        for (let i = 0; photosFile.length > i; i++){
-          photosMuliple.append(`photo${i}`, photosFile[i]);
-        }
     
         // Добавляем все поля из data
         formData.append('name', data.name);
@@ -398,17 +425,6 @@ var Lang = {
             });
             
             console.log('Response:', response.data);
-            if (response.data === "serializer.data"){
-              const response1 = await axios.post(`http://127.0.0.1:8000/change_offer_photos_load/`, photosMuliple, {
-                  headers: {
-                      'Content-Type': 'multipart/form-data',
-                      'X-CSRFToken': csrfToken,
-                  },
-              });
-              location.reload();
-              
-                
-            }
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -638,7 +654,7 @@ var Lang = {
                   ))}
               
             </div>
-            <button style={{width: 570, height: 50, backgroundColor: "#00d472", margin: 20, fontSize: 30, marginBottom: 100, marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10}} onClick={handleSubmit}>
+            <button style={{width: 570, height: 50, backgroundColor: "#00d472", margin: 20, fontSize: 30, marginBottom: 100, marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10}} onClick={handleSubmit1}>
               {arrLang[lang]['save']}
             </button>
 

@@ -119,7 +119,7 @@
         }
     </script>
     <script>
-        if (window.trustedTypes && window.trustedTypes.createPolicy) {
+       /* if (window.trustedTypes && window.trustedTypes.createPolicy) {
           trustedTypes.createPolicy('default', {
             createScriptURL: url => {
               if (url.toLowerCase().startsWith('javascript:')) {
@@ -129,19 +129,37 @@
               return url;
             }
           });
-        }
+        }*/
+        /*if (window.trustedTypes?.createPolicy) {
+            trustedTypes.createPolicy('default', {
+                createHTML: (html) => html.replace(/<iframe[^>]*onload\s*=[^>]+>/gi, ''),
+                createScriptURL: url => url.replace(/javascript:/gi, 'blocked:')
+            });
+        }*/
 
         function blockDangerousLinks(e) {
             const dangerousLink = e.target.closest('a[href^="javascript:"]');
             if (dangerousLink) {
-                e.preventDefault();
+                console.log(dangerousLink)
+                e.preventDefault(); //<a href="javascript:alert()">click to trigger javascript</a>
                 dangerousLink.href = '#blocked';
                 console.warn('Заблокирована опасная ссылка:', dangerousLink);
             }
+            /*const dangerousIframe = e.target.closest('iframe[onload]');
+            console.log(dangerousIframe);
+            if (dangerousIframe) { //<iframe onload='alert``'>
+                console.log("zzzzzzzzzzzzzzzzzzzzzzzzzz")
+                e.preventDefault();
+                dangerousIframe.onload = '#blocked';
+                console.warn('Заблокирована опасная ссылка:', dangerousIframe);
+            }
+            else{
+                console.log("nothing");
+            }*/
         };
     
         document.addEventListener('click', blockDangerousLinks, true);
-        return () => document.removeEventListener('click', blockDangerousLinks, true);
+        //return () => document.removeEventListener('click', blockDangerousLinks, true);
         </script>
     <link rel="stylesheet" href="src/static/find.css">
     <link rel="stylesheet" href="src/static/finded.css">

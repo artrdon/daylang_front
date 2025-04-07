@@ -335,19 +335,12 @@ useEffect(() => {
             try {
                 const response = await axios.get(`http://127.0.0.1:8000/getmessagelist/${params.id}/`);
                 setData2(response.data);
-                /*console.log(1);
-                console.log(response.data);
-                console.log(2);*/
                 if (response.data != null)
                 {
-                   // console.log(3);
                     if (response.data.length === undefined){
-                        /*console.log(4);
-                        console.log("lolpre");*/
                         setData4(response.data.chat_name);
                     }
                     else{
-                        //console.log(response.data);
                         setData4(response.data[0].chat_name);
                     }
                 }
@@ -497,9 +490,9 @@ useEffect(() => {
 
               {data2.map((da) => (
                 <>
-                  <Message_comp int={da.text} key={da.id} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
+                  <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
                   {(() => {if (da.i_read){
-                    return <ScrollToBottom />;
+                    return <ScrollToBottom key={`keyscroll${da.id}`} />;
                   }})()}
                   
                 </>
