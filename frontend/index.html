@@ -159,6 +159,30 @@
         };
     
         document.addEventListener('click', blockDangerousLinks, true);
+
+        
+        function blockDangerousIframes(e) {
+            /*const dangerousLink = e.target.closest('a[href^="javascript:"]');
+            if (dangerousLink) {
+                console.log(dangerousLink)
+                e.preventDefault(); //<a href="javascript:alert()">click to trigger javascript</a>
+                dangerousLink.href = '#blocked';
+                console.warn('Заблокирована опасная ссылка:', dangerousLink);
+            }*/
+            const dangerousIframe = e.target.closest('iframe[onload]');
+            console.log(dangerousIframe);
+            if (dangerousIframe) { //<iframe onload='alert``'>
+                console.log("zzzzzzzzzzzzzzzzzzzzzzzzzz")
+                e.preventDefault();
+                dangerousIframe.onload = '#blocked';
+                console.warn('Заблокирована опасная iframe:', dangerousIframe);
+            }
+            else{
+                console.log("nothing");
+            }
+        };
+    
+        document.addEventListener('load', blockDangerousIframes, true);
         //return () => document.removeEventListener('click', blockDangerousLinks, true);
         </script>
     <link rel="stylesheet" href="src/static/find.css">
