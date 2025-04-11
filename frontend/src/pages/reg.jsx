@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import Log from '/src/pages/log.jsx'
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
+import KEY from '/captcha.js';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
@@ -278,7 +279,7 @@ function Reg() {
             />
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey="6LdGfPgqAAAAAPx1WfbRE6TeQ8gM5KX6tgDheJoH" onChange={onChange}/>
+            <ReCAPTCHA sitekey={KEY} onChange={onChange}/>
           </div>
         </form>
       </div>

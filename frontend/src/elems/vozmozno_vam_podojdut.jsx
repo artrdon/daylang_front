@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -33,7 +35,7 @@ function Vozmozno_vam() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/creatingoffer/');
+        const response = await axios.get(`${APIURL}/creatingoffer/`);
         setData(response.data);
       } catch (err) {
         setError(err.message);

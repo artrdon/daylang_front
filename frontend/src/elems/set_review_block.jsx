@@ -3,6 +3,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import App from '/src/App.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 function SetReviewBlock({set_rew, feedback}) {
@@ -40,7 +42,7 @@ axios.defaults.withCredentials = true;
 
             e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/reviews/', review, {
+            const response = await axios.post(`${APIURL}/reviews/`, review, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

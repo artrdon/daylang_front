@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 function Type_offer({ lang }) {
 
@@ -93,7 +95,7 @@ function Type_offer({ lang }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/lol/');
+        const response = await axios.get(`${APIURL}/lol/`);
         setData(response.data);
       } catch (err) {
         setError(err.message);

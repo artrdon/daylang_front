@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import App from '/src/App.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -175,7 +177,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
         formData.append('image', file);
         console.log("zagruzaju photo");
         try {
-            const response = await axios.post('http://127.0.0.1:8000/change_avatar/', formData, {
+            const response = await axios.post(`${APIURL}/change_avatar/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': csrfToken,
@@ -202,7 +204,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
       
       console.log("zagruzaju photo");
       try {
-          const response = await axios.post('http://127.0.0.1:8000/degree_load/', formData, {
+          const response = await axios.post(`${APIURL}/degree_load/`, formData, {
               headers: {
                   'Content-Type': 'multipart/form-data',
                   'X-CSRFToken': csrfToken,
@@ -230,7 +232,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
         try {
             await handleSubmitPhoto(e);
             await handleSubmitDegreePhoto(e);
-            const response = await axios.post('http://127.0.0.1:8000/usersettings/', settingChange, {
+            const response = await axios.post(`${APIURL}/usersettings/`, settingChange, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -249,7 +251,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     const exit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/logout/', {
+            const response = await axios.post(`${APIURL}/logout/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

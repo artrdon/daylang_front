@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import Message from '/src/pages/message.jsx'
 import Calendar from 'react-calendar';
-
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -60,7 +61,7 @@ function DoBye({setdate, date, removeDataSetter, am_teach, name_of_offer, price,
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/bye/`, data, {
+            const response = await axios.post(`${APIURL}/bye/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

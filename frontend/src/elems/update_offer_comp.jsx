@@ -3,6 +3,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import App from '/src/App.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -213,7 +215,7 @@ var Lang = {
         formData.append('image', file);
         //console.log("zagruzaju photo");
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/change_offer_photo/${params.index}/`, formData, {
+            const response = await axios.post(`${APIURL}/change_offer_photo/${params.index}/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': csrfToken,
@@ -241,7 +243,7 @@ var Lang = {
         e.preventDefault();
         try {
             await handleSubmitPhoto(e);
-            const response = await axios.post(`http://127.0.0.1:8000/updatingoffer/${id}/`, data, {
+            const response = await axios.post(`${APIURL}/updatingoffer/${id}/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -261,7 +263,7 @@ var Lang = {
     const delete_offer = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/deletingoffer/${id}/`, data, {
+            const response = await axios.post(`${APIURL}/deletingoffer/${id}/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

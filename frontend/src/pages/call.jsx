@@ -18,7 +18,7 @@ function Call() {
 
   useEffect(() => {
     const initWebSocket = () => {
-      wsRef.current = new WebSocket(`${WSAPIURL}/ws/videochat/1/`);
+      wsRef.current = new WebSocket(`ws://api.daylang.ru/ws/videochat/1/`);
 
         wsRef.current.onopen = () => {
         console.log('WebSocket connected');
