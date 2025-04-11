@@ -6,6 +6,8 @@ import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 function Message_list() {
 
@@ -16,7 +18,7 @@ function Message_list() {
 
 useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -181,7 +183,7 @@ const delete_chat = async (e, idd,) => {
         /*e.preventDefault();
 
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/delete_chat/${idd}/`, {},  {
+            const response = await axios.post(`${APIURL}/delete_chat/${idd}/`, {},  {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -200,7 +202,7 @@ const delete_chat = async (e, idd,) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -216,7 +218,7 @@ const delete_chat = async (e, idd,) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 setGroup((groups) => [...groups, response.data[0][i].id]);
@@ -244,7 +246,7 @@ const delete_chat = async (e, idd,) => {
     if (data === null){
         return;
     }
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/plus_group/${data.username}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/plus_group/${data.username}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connectedG');

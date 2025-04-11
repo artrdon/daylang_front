@@ -9,6 +9,8 @@ import MessageChange from '/src/elems/change_mess.jsx'
 import Bye_and_call from '/src/elems/bye_and_call_button.jsx'
 import DoBye from '/src/elems/do_bye.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 const ScrollToBottom = () => {
   const elementRef = useRef(null);
@@ -47,7 +49,7 @@ const [messId, setMessId] = useState(null);
 
   useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -268,7 +270,7 @@ const messChange = (idd) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+                const response = await axios.get(`${APIURL}/userinfo/`);
                 setData(response.data);
             } catch (err) {
                 setError(err.message);
@@ -283,7 +285,7 @@ const messChange = (idd) => {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await axios.get(`http://127.0.0.1:8000/offerinfo_bychat/${params.id}/`);
+              const response = await axios.get(`${APIURL}/offerinfobychat/${params.id}/`);
               setData3(response.data);
           } catch (err) {
               setError3(err.message);
@@ -333,7 +335,7 @@ const add_smile = (par) => {
 useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/getmessagelist/${params.id}/`);
+                const response = await axios.get(`${APIURL}/getmessaglist/${params.id}/`);
                 setData2(response.data);
                 if (response.data != null)
                 {
@@ -358,7 +360,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);

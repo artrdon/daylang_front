@@ -212,6 +212,15 @@ function Offer() {
   const [messNumb, setMessNumb] = useState(null);
   const [showAllOffers, setShowAllOffers] = useState(false);
   const [showPhotoBig, setShowPhotoBig] = useState(false);
+  const [screen, setScreen] = useState(null);
+
+  useEffect(() => {
+    if (window.innerWidth > window.innerHeight) {
+      setScreen(true);
+    } else {
+      setScreen(false);
+    }
+  }, [window.innerWidth, window.innerHeight]);
 
   const toggleVisibility = () => {
       setShowPhotoBig(!showPhotoBig);
@@ -887,9 +896,9 @@ console.log(photoArray[photoIndex].photo);
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
-          <button className="degree_button" style={{ transform: 'scale(4)', transition: 'transform 0.3s ease', zIndex: 11}}>
-              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: photoArray[photoIndex].h_or_w === "w" ? "10vw" : "auto", height: photoArray[photoIndex].h_or_w === "h" ? "20vh" : "auto"}} />
-          </button>
+          <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center"}} onClick={() => toggleVisibility()}>
+              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: photoArray[photoIndex].h_or_w === "w" ? "100%" : "auto", height: photoArray[photoIndex].h_or_w === "h" ? "100%" : "auto"}} />
+          </div>
           {photoArray.length > (photoIndex + 1) && 
             <button style={{ position: "fixed", right: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 }} onClick={nextPhoto}>
               <img src="/src/static/img/next_photo.png" alt="prevBig" style={{width: "100%", height: "100%"}}/>

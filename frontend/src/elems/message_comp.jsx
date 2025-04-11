@@ -30,24 +30,40 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
     const csrfToken = getCookie('csrftoken');
 
     const [confirm, setIsVisible] = useState(false);
-const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
 
 
 
   // Функция для переключения видимости элемента
-  const toggleVisibility = (id) => {
+  const toggleVisibility = (e, id) => {
     setVisibleId(prevId => prevId === id ? null : id);
+    setPosition({ x: e.clientX, y: e.clientY });
   };
 //console.log(if_teach);
 
     return (
+      
             <>
+            <div
+          style={{
+            position: 'absolute',
+            /*left: `${position.x-373.5}px`,*/
+            top: `${position.y-152}px`,
+            width: '50px',
+            height: '50px',
+            background: 'red',
+            borderRadius: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 10000 // Центрирует элемент относительно клика
+          }}
+        />
 {(() => {
         if (sender === me) {
           return (<>
               <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", transform: "scale(-1, 1)", zIndex: 1   }} id={`mess${id}`} >
                   <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
-                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}} onClick={() => toggleVisibility(id)}>
+                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}} onClick={(e) => toggleVisibility(e, id)}>
                       {int}
                       <div>
                         {(() => {
@@ -70,7 +86,8 @@ const [visibleId, setVisibleId] = useState(null); // Состояние для �
 
                     </pre>
                   </div>
-                  {visibleId === id && <div style={{ zIndex: 101, position: "absolute", left: 30, transform: "scale(-1, 1)", }} className={`sett${id}`} id={`sett${id}`}>
+                  
+                  {/*visibleId === id && <div style={{ zIndex: 101, position: "absolute", left: 30, transform: "scale(-1, 1)", }} className={`sett${id}`} id={`sett${id}`}>
                                             <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, right: 40, top: -50}}>
                                                 <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={() => delet(id)}>
                                                     Delete
@@ -80,7 +97,7 @@ const [visibleId, setVisibleId] = useState(null); // Состояние для �
                                                 </button>
                                             </div>
                                         </div>
-           }
+           */}
               </div>
           
               </>);

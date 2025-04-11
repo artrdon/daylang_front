@@ -172,13 +172,10 @@
             const dangerousIframe = e.target.closest('iframe[onload]');
             console.log(dangerousIframe);
             if (dangerousIframe) { //<iframe onload='alert``'>
-                console.log("zzzzzzzzzzzzzzzzzzzzzzzzzz")
+                //console.log("zzzzzzzzzzzzzzzzzzzzzzzzzz")
                 e.preventDefault();
                 dangerousIframe.onload = '#blocked';
                 console.warn('Заблокирована опасная iframe:', dangerousIframe);
-            }
-            else{
-                console.log("nothing");
             }
         };
     
@@ -192,6 +189,7 @@
     <link rel="stylesheet" href="src/static/offer.css">
     <link rel="stylesheet" href="src/static/me.css">
     <link rel="stylesheet" href="src/static/srt_offer.css">
+    
   <!--  <link rel="stylesheet" href="src/static/regtimer.css">-->
     <link rel="icon" type="image/png" href="src/static/img/favicon.png">
     <title>Find</title>

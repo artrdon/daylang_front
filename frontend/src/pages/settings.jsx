@@ -6,6 +6,8 @@ import SettingsForm from '/src/elems/settingfrom.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
 import Settings_load from '/src/load_elems/settings_load.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 function Settings() {
@@ -17,7 +19,7 @@ function Settings() {
 
 useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -144,7 +146,7 @@ function change_theme() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData(response.data);
         if (response.data === 'unauthenticated_ttt')
             window.location.replace('/log/');
@@ -161,7 +163,7 @@ function change_theme() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/usersettings/');
+        const response = await axios.get(`${APIURL}/usersettings/`);
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -176,7 +178,7 @@ function change_theme() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/degree_load/');
+        const response = await axios.get(`${APIURL}/degree_load/`);
         setData2(response.data);
       } catch (err) {
         setError2(err.message);
@@ -191,7 +193,7 @@ function change_theme() {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);

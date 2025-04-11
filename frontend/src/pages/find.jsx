@@ -5,6 +5,8 @@ import Finded from '/src/pages/finded.jsx'
 import Type_offer from '/src/elems/offer_type.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 function Find() {
 
@@ -15,7 +17,7 @@ function Find() {
 
 useEffect(() => { 
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -221,7 +223,7 @@ axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -237,7 +239,7 @@ axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);

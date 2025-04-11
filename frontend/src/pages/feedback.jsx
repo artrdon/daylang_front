@@ -6,6 +6,8 @@ import AppLoad from '/src/AppLoad.jsx'
 import Feedback_load from '/src/load_elems/feedback_load.jsx'
 import Feedback_pup from '/src/pages/feedback_pup.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 function ImageWithFallbackAvatar({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -52,7 +54,7 @@ function Feedback() {
 
 useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -234,7 +236,7 @@ var arrLang = {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/usersettings/${params.user}/`);
+        const response = await axios.get(`${APIURL}/usersettings/${params.user}/`);
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -251,7 +253,7 @@ var arrLang = {
       useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/userinfo/${params.user}/`);
+        const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
         if (response.data.i_am_teacher === false)
         {
             window.location.replace(`/p/user/${params.user}/`)
@@ -274,7 +276,7 @@ var arrLang = {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/userinfo/`);
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData2(response.data);
       } catch (err) {
         setError2(err.message);
@@ -290,7 +292,7 @@ var arrLang = {
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/reviewsmy/${params.user}/`);
+        const response = await axios.get(`${APIURL}/reviewsmy/${params.user}/`);
         setData3(response.data);
       } catch (err) {
         setError3(err.message);
@@ -305,7 +307,7 @@ useEffect(() => {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/reviews/${params.user}/`);
+        const response = await axios.get(`${APIURL}/reviews/${params.user}/`);
         setData4(response.data);
       } catch (err) {
         setError4(err.message);
@@ -321,7 +323,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);

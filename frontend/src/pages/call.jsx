@@ -1,11 +1,7 @@
 import { useState, useEffect, state, handleChange, handleSubmit, setStat, useRef }  from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
-import React, { Component } from 'react'
-import Reg from '/src/pages/reg.jsx'
-import axios from 'axios';
-import io from 'socket.io-client';
-import SimplePeer from 'simple-peer';
+import React from 'react'
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 
@@ -22,7 +18,7 @@ function Call() {
 
   useEffect(() => {
     const initWebSocket = () => {
-      wsRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/videochat/1/`);
+      wsRef.current = new WebSocket(`${WSAPIURL}/ws/videochat/1/`);
 
         wsRef.current.onopen = () => {
         console.log('WebSocket connected');

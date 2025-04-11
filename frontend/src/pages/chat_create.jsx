@@ -3,8 +3,9 @@ import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
 import AppMess from '/src/App.jsx'
 import AppMessLoad from '/src/AppLoad.jsx'
-import Message_comp from '/src/elems/message_comp.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 function ImageWithFallbackMicroChel({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -116,7 +117,7 @@ function ChatCreate() {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await axios.get(`http://127.0.0.1:8000/userinfo/${params.username}/`);
+              const response = await axios.get(`${APIURL}/userinfo/${params.username}/`);
               console.log(response.data);
               setData(response.data);
             } catch (err) {
@@ -133,7 +134,7 @@ function ChatCreate() {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await axios.get(`http://127.0.0.1:8000/userinfo/`);
+              const response = await axios.get(`${APIURL}/userinfo/`);
               console.log(response.data);
               setData2(response.data);
             } catch (err) {
@@ -150,7 +151,7 @@ function ChatCreate() {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.id}/`);
+              const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
               console.log(response.data);
               setData3(response.data);
             } catch (err) {
@@ -182,7 +183,7 @@ function ChatCreate() {
 
   
 useEffect(() => {
-  const socket = new WebSocket(`ws://127.0.0.1:8000/ws/plus_group/${params.username}/`);
+  const socket = new WebSocket(`${WSAPIURL}/ws/plus_group/${params.username}/`);
 
   socket.onopen = () => {
       console.log('WebSocket connected');
@@ -226,7 +227,7 @@ useEffect(() => {
       console.error('WebSocket is not open');
     }
     /*try {
-        const response = await axios.post('http://127.0.0.1:8000/create_chat/', message,{
+        const response = await axios.post('${APIURL}/create_chat/', message,{
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,

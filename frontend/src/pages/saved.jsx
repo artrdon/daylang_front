@@ -4,6 +4,8 @@ import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -34,7 +36,7 @@ function Saved() {
 
 useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -147,7 +149,7 @@ function change_theme() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -162,7 +164,7 @@ function change_theme() {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/get_fav/');
+        const response = await axios.get(`${APIURL}/get_fav/`);
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -177,7 +179,7 @@ function change_theme() {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);

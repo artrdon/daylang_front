@@ -5,6 +5,8 @@ import React, { Component } from 'react'
 import Reg from '/src/pages/reg.jsx'
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 
@@ -85,7 +87,7 @@ function Log() {
         try {
             if (captcha != null)
             {
-                const response = await axios.post('http://127.0.0.1:8000/log/', data, {
+                const response = await axios.post(`${APIURL}/log/`, data, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -98,7 +100,7 @@ function Log() {
                 }*/
                     if (response.data != 'username or password is incorrect'){
                       setConf(true);
-                      const to_email = await axios.post(`http://127.0.0.1:8000/email/${response.data}`, data, {
+                      const to_email = await axios.post(`${APIURL}/email/${response.data}`, data, {
                           headers: {
                               'Content-Type': 'application/json',
                               'X-CSRFToken': csrfToken,
@@ -119,7 +121,7 @@ function Log() {
         try {
             if (captcha != null)
             {
-                const response = await axios.post(`http://127.0.0.1:8000/confirm/`, data1, {
+                const response = await axios.post(`${APIURL}/confirm/`, data1, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,

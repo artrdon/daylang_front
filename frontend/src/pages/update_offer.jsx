@@ -6,6 +6,8 @@ import AppLoad from '/src/AppLoad.jsx'
 import UpdateOfferComp from '/src/elems/update_offer_comp.jsx'
 import Create_offer_load from '/src/load_elems/create_offer_load.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 
 function UpdateOffer() {
@@ -17,7 +19,7 @@ function UpdateOffer() {
 
 useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -137,7 +139,7 @@ useEffect(() => {
       useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -153,7 +155,7 @@ useEffect(() => {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.index}/`);
+        const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.index}/`);
         setData2(response.data);
 
       } catch (err) {
@@ -170,7 +172,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);
