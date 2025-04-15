@@ -26,14 +26,14 @@ useEffect(() => {
     socket.onmessage = (event) => {
         const dataMess = JSON.parse(event.data);
 
-        console.log(dataMess);
+        //console.log(dataMess);
         if (dataMess.tip === "delete"){
             let i_read = true;
             for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
+                //console.log(dataMess.if_readed[i]);
+                //console.log(data.username);
                 if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
+                  //console.log("i_read");
                   i_read = false;
                 }
             }
@@ -242,7 +242,7 @@ axios.defaults.withCredentials = true;
         const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
+                //console.log(response.data[0][i].id);
                 setGroup((groups) => [...groups, response.data[0][i].id]);
             }
         }
@@ -277,19 +277,19 @@ axios.defaults.withCredentials = true;
   );
   if (error12) return <p>Error: {error}</p>;
 
-console.log(lang);
+//console.log(lang);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel">
   <div className="tag_select_panel">
-    <h1 style={{ width: "auto", marginLeft: 30 }}>{arrLang[lang]['teacher']}</h1>
-    <p style={{width: "auto", margin: 30, overflowWrap: "anywhere", marginTop: 10, fontSize: 20}}>
+    <h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
+    <p className='find_page_teacher_description'>
       {arrLang[lang]['teacher_description']}
     </p>
-    <div style={{margin: 20,marginBottom: 50,width: "calc(100% - 40px)", height: "auto"}}>
-      <div style={{overflow: "hidden", width: "100%", height: "100%", overflowWrap: "anywhere" }}>
+    <div className='find_page_div_over_offer_types'>
+      <div className='find_page_div_of_offer_types'>
 
 
         <Type_offer lang={lang}/>

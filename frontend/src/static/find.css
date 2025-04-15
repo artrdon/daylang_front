@@ -14,6 +14,18 @@
 #nobblol{
     display: none;
 }
+.find_page_teacher{
+    width: auto; margin-left: 30px;
+}
+.find_page_teacher_description{
+    width: auto; margin: 30px; overflow-wrap: anywhere; margin-top: 10px; font-size: 20px;
+}
+.find_page_div_over_offer_types{
+    margin: 20px; margin-bottom: 50px; width: calc(100% - 40px); height: auto;
+}
+.find_page_div_of_offer_types{
+    overflow: hidden; width: 100%; height: 100%; overflow-wrap: anywhere;
+}
 .app_policy_text_color{
     color: black;
 }
@@ -91,10 +103,10 @@
     position: relative; display: inline-block; margin: 10px;
 }
 .service_img{
-    height: 300px; width: 200px; display: inline; border-radius: 4px; filter: brightness(95%);
+    height: auto; width: 200px; aspect-ratio: 2/3; display: inline; border-radius: 4px; filter: brightness(95%);
 }
 .count_of_offers{
-    height: 50px; width: 130px; background-color: rgb(235, 235, 235); position: absolute; bottom: 15px; left: 35px; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 30px; color: black;
+    height: auto; width: 130px; aspect-ratio: 13/5; background-color: rgb(235, 235, 235); position: absolute; bottom: 15px; left: 35px; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 30px; color: black;
 }
 .services_types{
     height: 200px; width: 170px; display: inline-block;
@@ -198,9 +210,10 @@
     cursor: pointer;
 }
 .tag_select_panel{
-    width: calc(100% - 50px);
+    width: calc(100% - 100px);
     top: 10px; 
     margin-left: 50px;
+    margin-right: 50px;
     position: relative;
 }
 .clear_mes_butt{
@@ -598,6 +611,14 @@ a{
 
 @media only screen and (max-width: 1100px)
 {
+    .count_of_offers{
+        width: calc(100% - 6vw);
+        left: 3vw;
+        font-size: 3vw;
+    }
+    .service_img{
+        height: auto; width: calc(((100vw - 140px)/4) - 20px); aspect-ratio: 2/3;
+    }
     .app_message_indicator{
         left: 38vw; top: 20px;
     }
@@ -732,6 +753,13 @@ a{
     }
 }
 
+@media only screen and (max-width: 900px)
+{
+    .service_img{
+        width: calc(((100vw - 140px)/3) - 20px);
+    }
+}
+
 @media only screen and (max-width: 800px)
 {
     .search_all_pos{
@@ -775,7 +803,20 @@ a{
         width: 43px;
         left: 100px;
     }
-
+    .tag_select_panel {
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100%;
+    }
+    .service_img{
+        width: calc(((100vw - 40px)/3) - 20px);
+    }
+    .find_page_div_over_offer_types{
+        width: 100%;
+    }
+    .count_of_offers{
+        font-size: 4vw;
+    }
     
 }
 
@@ -823,11 +864,60 @@ a{
 }
 
 
+@media only screen and (max-width: 600px)
+{
+    .service_img{
+        width: calc(((100vw - 40px)/2) - 20px);
+    }
+    .find_page_div_over_offer_types{
+        width: calc(100% - 20px);
+    }
+    .count_of_offers{
+        font-size: 6vw;
+        width: calc(100% - 12vw);
+        left: 6vw;
+    }
+}
 
 @media only screen and (max-width: 525px)
 {
-    
-    
+    .navig_panel{
+        height: 12vw;
+    }
+    .app_navig_panel_img {
+        width: 9vw;
+        height: 9vw;
+    }
+    .avatar_in_panel{
+        width: 9vw;
+        height: 9vw;
+    }
+    .find_page_teacher {
+        margin-left: 3vw;
+        font-size: 9vw;
+    }
+    .find_page_teacher_description {
+        margin: 3vw;
+        margin-top: 10px;
+        font-size: 5vw;
+    }
+    .div_of_service {
+        margin: 1vw;
+    }
+    .service_img{
+        width: calc(((100vw - 4vw)/2) - 2vw);
+        border-radius: 1vw;
+    }
+    .find_page_div_over_offer_types{
+        width: calc(100% - 4vw);
+        margin: 2vw;
+    }
+    .count_of_offers{
+        font-size: 6vw;
+        width: calc(100% - 12vw);
+        left: 6vw;
+        border-radius: 1vw;
+    }
     .navig_panel_button{
         display: inline-block;
         background-color: #ebebeb00;
