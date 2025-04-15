@@ -12,30 +12,6 @@ import axios from 'axios';
 const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
-  if (window.trustedTypes && window.trustedTypes.createPolicy) {
-    trustedTypes.createPolicy('default', {
-      createScriptURL: url => {
-        if (url.toLowerCase().startsWith('javascript:')) {
-          console.error('Blocked dangerous URL:', url);
-          return 'about:blank';
-        }
-        return url;
-      }
-    });
-  }
-  /*useEffect(() => {
-    const blockDangerousLinks = (e) => {
-      const dangerousLink = e.target.closest('a[href^="javascript:"]');
-      if (dangerousLink) {
-        e.preventDefault();
-        dangerousLink.href = '#blocked';
-        console.warn('Заблокирована опасная ссылка:', dangerousLink);
-      }
-    };
-  
-    document.addEventListener('click', blockDangerousLinks, true);
-    return () => document.removeEventListener('click', blockDangerousLinks, true);
-  }, []);*/
   const showMore = () =>{
     document.querySelector("body").style.overflow = "hidden";
     setShowAllOffers(true);
@@ -166,7 +142,6 @@ function ImageWithFallbackMain({ src, fallbackSrc, alt, h_or_w }) {
   const handleError = () => {
     setImgSrc(fallbackSrc);
   };
-  console.log(horw);
 
   return (
     <img
@@ -248,14 +223,10 @@ useEffect(() => {
     socket.onmessage = (event) => {
         const dataMess = JSON.parse(event.data);
 
-        console.log(dataMess);
         if (dataMess.tip === "delete"){
             let i_read = true;
             for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
                 if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
                   i_read = false;
                 }
             }
@@ -269,7 +240,6 @@ useEffect(() => {
             return;
         }
 
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
     };
 
     socket.onclose = () => {
@@ -296,7 +266,6 @@ useEffect(() => {
 
 
 const theme = getCookie('theme');
-//console.log(getCookie('theme'));
 
 
 if (getCookie('theme') === "dark"){
@@ -449,7 +418,6 @@ const save_to_fav = async (e) => {
                     'X-CSRFToken': csrfToken,
                 },
             });
-            console.log('Response:', response.data);
             if (response.data === "unauthenticated_ttt")
             {
                 window.location.replace(`/log/`);
@@ -597,7 +565,6 @@ const save_to_fav = async (e) => {
         const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
                 setGroup((groups) => [...groups, response.data[0][i].id]);
             }
         }
@@ -678,8 +645,6 @@ const save_to_fav = async (e) => {
     if (data1 != null){
         isfav = data1.isFav;
     }
-console.log(photoArray[photoIndex]);
-console.log(photoArray[photoIndex].photo);
 
 
     return (
@@ -869,11 +834,11 @@ console.log(photoArray[photoIndex].photo);
     </div>
   </div>
 </div>
-{showAllOffers && <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh"}}>
-                    <div style={{ position: "fixed", zIndex: 1000, background: "black", width: "100vw", height: "100vh", opacity: "30%" }}  onClick={unShowRev}></div>
-                    <div style={{ position: "fixed", zIndex: 1001, margin: "auto", display: "block", width: 500, height: "auto", backgroundColor: "rgb(46, 46, 46)", padding: 50, borderRadius: 10}} >
-                      <p style={{textAlign: "center", fontSize: 50, margin: 30, marginTop: 0}}>{arrLang[lang]['reviews']}</p>
-                      <div style={{overflow: "auto", height: 500}}>
+{showAllOffers && <div className="offer_review_modal-container">
+                    <div className="offer_review_modal-backdrop" onClick={unShowRev}></div>
+                    <div className="offer_review_modal-content">
+                      <p className="offer_review_modal-title">{arrLang[lang]['reviews']}</p>
+                      <div className="offer_review_reviews-scroll-container">
                       {data3[0].map((rew) => 
                             <>
                               <div className="offer_review_div_div" style={{top: "unset"}} key={rew.id}>

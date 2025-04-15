@@ -1,0 +1,11 @@
+.top_panel_under_topbanner{
+    width: 17%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    left: 20px;
+    position: absolute;
+}
+.top_panel_balance{
+    position: absolute; right: 130px; top: 25px; font-size: 25px;
+}

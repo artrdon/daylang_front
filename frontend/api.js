@@ -1,2 +1,2 @@
-const APIURL = "http://api.daylang.ru";
+const APIURL = "http://127.0.0.1:8000";
 export default APIURL

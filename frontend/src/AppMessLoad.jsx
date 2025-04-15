@@ -139,16 +139,7 @@ var arrLang = {
   return (
       <>
   <div className="message_top_banner">
-    <div
-      style={{
-        width: "17%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        left: 20,
-        position: "absolute"
-      }}
-    >
+    <div className='top_panel_under_topbanner'>
       <Link >
         <div className="name_of_comp" translate="no">
           DayLang

@@ -168,16 +168,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
   return (
       <>
   <div className="top_banner">
-    <div
-      style={{
-        width: "17%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        left: 20,
-        position: "absolute"
-      }}
-    >
+    <div className='top_panel_under_topbanner'>
       <Link to="/">
         <div className="name_of_comp" translate="no">
           DayLang
@@ -213,7 +204,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
     </button>
       {(() => {
         if (if_teach) {
-          return <p style={{ position: "absolute", right: 130, top: 25, fontSize: 25 }}>{balance}₽</p>;
+          return <p className='top_panel_balance' >{balance}₽</p>;
         }
       })()}
 

@@ -1,3 +1,49 @@
+.offer_review_modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  /* Backdrop styles */
+  .offer_review_modal-backdrop {
+    position: fixed;
+    z-index: 1000;
+    background: black;
+    width: 100vw;
+    height: 100vh;
+    opacity: 30%;
+  }
+  
+  /* Modal content styles */
+  .offer_review_modal-content {
+    position: fixed;
+    z-index: 1001;
+    margin: auto;
+    display: block;
+    width: 500px;
+    height: auto;
+    background-color: rgb(46, 46, 46);
+    padding: 50px;
+    border-radius: 10px;
+  }
+  
+  /* Title styles */
+  .offer_review_modal-title {
+    text-align: center;
+    font-size: 50px;
+    margin: 30px;
+    margin-top: 0;
+  }
+  
+  /* Reviews scroll container */
+  .offer_review_reviews-scroll-container {
+    overflow: auto;
+    height: 500px;
+  }
+
+
 .div_of_foto_and_button{
     height: auto; width: 630px; position: absolute;top: 40px; left: 50px; 
 }
