@@ -331,13 +331,13 @@ const delete_chat = async (e, idd,) => {
                     (() => {
                       if (component.me === true) {
                         return (<>
-                <div key={component.id} id={`chatnum${component.id}`} style={{maxHeight: 92}}>
+                <div key={component.id} id={`chatnum${component.id}`} className='message_list_chat_num'>
                   <Link to={`/message_list/${component.id}/`}>
                     <div className="panel_of_one_mes">
                       <div className="place_of_autor_mes">
                         <img src={component.photo} alt="pupil" className="img_of_autor_mes"/>
-                        <div style={{position: "relative", bottom: 50, left: 10, display: "inline-block", maxWidth: "90%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", }}>
-                          <span className="ime" translate="no" style={{position: "relative", top: 0, fontSize: 20, marginRight: 5}}>
+                        <div className='message_list_name_of_group'>
+                          <span className="ime message_list_span_of_mess" translate="no">
                             {component.ime} {component.prezime}
                           </span>
                         </div>
@@ -346,26 +346,26 @@ const delete_chat = async (e, idd,) => {
                     </div>
 
                   </Link>
-                  <button style={{ backgroundColor: "#3d3d3d", zIndex: 100, position: "relative", left: "calc(100% - 50px)", borderRadius: "50%", top: -80, border: "1px solid black"}} onClick={() => toggleVisibility(component.id)}>
-                      <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center"}}>
-                          <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 7}}></div>
-                          <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 17}}></div>
-                          <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 27}}></div>
+                  <button className='message_list_chat_panel_more_button' onClick={() => toggleVisibility(component.id)}>
+                      <div className='message_list_chat_panel_more_button_div_of_points'>
+                          <div className='message_list_chat_panel_more_button_points_one'></div>
+                          <div className='message_list_chat_panel_more_button_points_two'></div>
+                          <div className='message_list_chat_panel_more_button_points_three'></div>
                       </div>
 
                   </button>
-                      {components[`${component.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
-                            <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                      {components[`${component.id}`] > 0 && <button className='message_list_unreaded_messages'>
+                            <div className='message_list_unreaded_messages_div'>
                                 <span>{components[`${component.id}`]}</span>
                             </div>
                       </button>}
 
-                     {visibleId === component.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${component.id}`}>
-                          <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, top: -125 }}>
-                              <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={confirming}>
+                     {visibleId === component.id && <div className={`message_list_chat_delete_panel sett${component.id}`}>
+                          <div className='message_list_chat_delete_panel_div'>
+                              <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
                                   Delete
                               </button>
-                              <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderBottomRightRadius: 20, borderBottomLeftRadius: 20, }} onClick={() => toggleVisibility(component.id)}>
+                              <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(component.id)}>
                                   Quit
                               </button>
                           </div>
@@ -374,13 +374,13 @@ const delete_chat = async (e, idd,) => {
                             </>);
                       } else{
                           return (<>
-                            <div key={component.id} id={`chatnum${component.id}`} style={{maxHeight: 92}}>
+                            <div key={component.id} id={`chatnum${component.id}`} className='message_list_chat_num'>
                       <Link to={`/message_list/${component.id}/`}>
                         <div className="panel_of_one_mes">
                           <div className="place_of_autor_mes">
                             <img src={component.photo} alt="pupil" className="img_of_autor_mes"/>
-                            <div style={{position: "relative", bottom: 50, left: 10, display: "inline-block", maxWidth: "90%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", }}>
-                              <span className="ime" translate="no" style={{position: "relative", top: 0, fontSize: 20, marginRight: 5}}>
+                            <div className='message_list_name_of_group'>
+                              <span className="ime message_list_span_of_mess" translate="no">
                                 {component.name}
                               </span>
                             </div>
@@ -389,26 +389,26 @@ const delete_chat = async (e, idd,) => {
                         </div>
 
                       </Link>
-                      <button style={{ backgroundColor: "#3d3d3d", zIndex: 100, position: "relative", left: "calc(100% - 50px)", borderRadius: "50%", top: -80, border: "1px solid black"}} onClick={() => toggleVisibility(component.id)}>
-                          <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center"}}>
-                              <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 7}}></div>
-                              <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 17}}></div>
-                              <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 27}}></div>
+                      <button className='message_list_chat_panel_more_button' onClick={() => toggleVisibility(component.id)}>
+                          <div className='message_list_chat_panel_more_button_div_of_points'>
+                              <div className='message_list_chat_panel_more_button_points_one'></div>
+                              <div className='message_list_chat_panel_more_button_points_two'></div>
+                              <div className='message_list_chat_panel_more_button_points_three'></div>
                           </div>
 
                       </button>
-                      {components[`${component.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
-                            <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                      {components[`${component.id}`] > 0 && <button className='message_list_unreaded_messages'>
+                            <div className='message_list_unreaded_messages_div'>
                                 <span>{components[`${component.id}`]}</span>
                             </div>
                       </button>}
 
-                         {visibleId === component.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${component.id}`}>
-                              <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", top: -125, borderRadius: 20, }}>
-                                  <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={confirming}>
+                         {visibleId === component.id && <div className={`message_list_chat_delete_panel sett${component.id}`}>
+                              <div className='message_list_chat_delete_panel_div'>
+                                  <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
                                       Delete
                                   </button>
-                                  <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderBottomRightRadius: 20, borderBottomLeftRadius: 20, }} onClick={() => toggleVisibility(component.id)}>
+                                  <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(component.id)}>
                                       Quit
                                   </button>
                               </div>
@@ -426,13 +426,13 @@ const delete_chat = async (e, idd,) => {
                         (() => {
                             if (da.me === true) {
                               return (<>
-                                  <div key={da.id} id={`chatnum${da.id}`} style={{maxHeight: 92}}>
+                                  <div key={da.id} id={`chatnum${da.id}`} className='message_list_chat_num'>
                         <Link to={`/message_list/${da.id}/`}>
                           <div className="panel_of_one_mes">
                             <div className="place_of_autor_mes">
                               <img src={da.photo} alt="pupil" className="img_of_autor_mes"/>
-                              <div style={{position: "relative", bottom: 50, left: 10, display: "inline-block", maxWidth: "90%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", }}>
-                                <span className="ime" translate="no" style={{position: "relative", top: 0, fontSize: 20, marginRight: 5}}>
+                              <div className='message_list_name_of_group'>
+                                <span className="ime message_list_span_of_mess" translate="no">
                                   {da.ime} {da.prezime}
                                 </span>
                               </div>
@@ -441,26 +441,26 @@ const delete_chat = async (e, idd,) => {
                           </div>
 
                         </Link>
-                        <button style={{ backgroundColor: "#3d3d3d", zIndex: 100, position: "relative", left: "calc(100% - 50px)", borderRadius: "50%", top: -80, border: "1px solid black"}} onClick={() => toggleVisibility(da.id)}>
-                            <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center"}}>
-                                <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 7}}></div>
-                                <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 17}}></div>
-                                <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 27}}></div>
+                        <button className='message_list_chat_panel_more_button' onClick={() => toggleVisibility(da.id)}>
+                            <div className='message_list_chat_panel_more_button_div_of_points'>
+                                <div className='message_list_chat_panel_more_button_points_one'></div>
+                                <div className='message_list_chat_panel_more_button_points_two'></div>
+                                <div className='message_list_chat_panel_more_button_points_three'></div>
                             </div>
 
                         </button>
-                            {components[`${da.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
-                                  <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                            {components[`${da.id}`] > 0 && <button className='message_list_unreaded_messages'>
+                                  <div className='message_list_unreaded_messages_div'>
                                       <span>{components[`${da.id}`]}</span>
                                   </div>
                             </button>}
 
-                           {visibleId === da.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${da.id}`}>
-                                <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, top: -125 }}>
-                                    <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={confirming}>
+                           {visibleId === da.id && <div className={`message_list_chat_delete_panel sett${da.id}`}>
+                                <div className='message_list_chat_delete_panel_div'>
+                                    <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
                                         Delete
                                     </button>
-                                    <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderBottomRightRadius: 20, borderBottomLeftRadius: 20, }} onClick={() => toggleVisibility(da.id)}>
+                                    <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(da.id)}>
                                         Quit
                                     </button>
                                 </div>
@@ -469,13 +469,13 @@ const delete_chat = async (e, idd,) => {
                                   </>);
                             } else{
                                 return (<>
-                                  <div key={da.id} id={`chatnum${da.id}`} style={{maxHeight: 92}}>
+                                  <div key={da.id} id={`chatnum${da.id}`} className='message_list_chat_num'>
                             <Link to={`/message_list/${da.id}/`}>
                               <div className="panel_of_one_mes">
                                 <div className="place_of_autor_mes">
                                   <img src={da.photo} alt="pupil" className="img_of_autor_mes"/>
-                                  <div style={{position: "relative", bottom: 50, left: 10, display: "inline-block", maxWidth: "90%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", }}>
-                                    <span className="ime" translate="no" style={{position: "relative", top: 0, fontSize: 20, marginRight: 5}}>
+                                  <div className='message_list_name_of_group'>
+                                    <span className="ime message_list_span_of_mess" translate="no">
                                       {da.name}
                                     </span>
                                   </div>
@@ -484,26 +484,26 @@ const delete_chat = async (e, idd,) => {
                               </div>
 
                             </Link>
-                            <button style={{ backgroundColor: "#3d3d3d", zIndex: 100, position: "relative", left: "calc(100% - 50px)", borderRadius: "50%", top: -80, border: "1px solid black"}} onClick={() => toggleVisibility(da.id)}>
-                                <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center"}}>
-                                    <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 7}}></div>
-                                    <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 17}}></div>
-                                    <div style={{ width: 7, height: 7,  backgroundColor: "#afafaf", position: "absolute", borderRadius: "50%", top: 27}}></div>
+                            <button className='message_list_chat_panel_more_button' onClick={() => toggleVisibility(da.id)}>
+                                <div className='message_list_chat_panel_more_button_div_of_points'>
+                                    <div className='message_list_chat_panel_more_button_points_one'></div>
+                                    <div className='message_list_chat_panel_more_button_points_two'></div>
+                                    <div className='message_list_chat_panel_more_button_points_three'></div>
                                 </div>
 
                             </button>
-                            {components[`${da.id}`] > 0 && <button style={{ backgroundColor: "black", zIndex: 100, position: "relative", left: "calc(100% - 150px)", borderRadius: "50%", top: -95, border: "1px solid black"}}>
-                                  <div style={{ width: 40, height: 40, display: "flex", justifyContent: "center", color: "white"}}>
+                            {components[`${da.id}`] > 0 && <button className='message_list_unreaded_messages'>
+                                  <div className='message_list_unreaded_messages_div'>
                                       <span>{components[`${da.id}`]}</span>
                                   </div>
                             </button>}
 
-                               {visibleId === da.id && <div style={{ zIndex: 101, position: "absolute", right: 50 }} className={`sett${da.id}`}>
-                                    <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", top: -125, borderRadius: 20, }}>
-                                        <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={confirming}>
+                               {visibleId === da.id && <div className={`message_list_chat_delete_panel sett${da.id}`}>
+                                    <div className='message_list_chat_delete_panel_div'>
+                                        <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
                                             Delete
                                         </button>
-                                        <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderBottomRightRadius: 20, borderBottomLeftRadius: 20, }} onClick={() => toggleVisibility(da.id)}>
+                                        <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(da.id)}>
                                             Quit
                                         </button>
                                     </div>
@@ -529,15 +529,15 @@ const delete_chat = async (e, idd,) => {
   </div>
 </div>
 
-{confirm && <div style={{ display: "flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center" }}>
-    <img src="/src/static/img/creep.png" alt="" style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000}} />
-    <div style={{ width: 600, height: "auto", backgroundColor: "#2e2e2e", position: "relative", top: -124, borderRadius: 20,  zIndex: 1001}}>
-        <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+{confirm && <div className='message_list_delete_chat'>
+    <img src="/src/static/img/creep.png" alt="areusure" className='message_list_delete_chat_dark'/>
+    <div className='message_list_delete_chat_panel'>
+        <div className='message_list_delete_chat_panel_up'>
             <h3 id="form-title">Are you serious want to delete the chat</h3>
         </div>
-        <div style={{ width: "100%", height: "70px"}}>
-            <button style={{ width: "50%", height: "100%" }}  onClick={(e) => delete_chat(e, visibleId)}>YES</button>
-            <button style={{ width: "50%", height: "100%" }} onClick={confirmingF}>NO</button>
+        <div className='message_list_delete_chat_panel_button_panel'>
+            <button className='message_list_delete_chat_panel_button' onClick={(e) => delete_chat(e, visibleId)}>YES</button>
+            <button className='message_list_delete_chat_panel_button' onClick={confirmingF}>NO</button>
         </div>
     </div>
 </div>}

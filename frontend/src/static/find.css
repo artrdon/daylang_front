@@ -938,13 +938,22 @@ a{
     }
     .name_of_comp{
         position: static;
-        font-size: 30px;
+        font-size: 5.714vw;
         top: 10px;
+    }
+    .change_theme_button_img {
+        height: 5.714vw;
+        width: 5.714vw;
+    }
+    .change_theme_button{
+        height: 5.714vw;
+        width: 5.714vw;
     }
     .top_banner{
         display: flex;
         justify-content: left;
         align-items: center;
+        height: 13.333vw;
     }
     .tag_select_panel{
         top: 0px;
@@ -988,9 +997,6 @@ a{
 }*/
 @media only screen and (max-width: 460px)
 {
-    .change_theme_button{
-        left: 80vw;
-    }
     .img_of_review{
         width: 6.525vw;
         height: 6.525vw;

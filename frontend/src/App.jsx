@@ -339,7 +339,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
     </div>
   </div>
 
-  {showOtherInNav && <ShowNavInMob show={showNav} lang={lang} myphoto={photo}/>}
+  {showOtherInNav && <ShowNavInMob show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username}/>}
 
 </>
 
