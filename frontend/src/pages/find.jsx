@@ -67,7 +67,6 @@ useEffect(() => {
 
 
 
-    const [count, setCount] = useState(0)
 
     document.querySelector("title").textContent = "DayLang";
 
@@ -277,7 +276,6 @@ axios.defaults.withCredentials = true;
   );
   if (error12) return <p>Error: {error}</p>;
 
-//console.log(lang);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -299,6 +297,7 @@ axios.defaults.withCredentials = true;
   </div>
   <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 </div>
+
 
 
 </>

@@ -15,6 +15,7 @@ import About from '/src/pages/about_us.jsx'
 import NotFound from '/src/pages/notfound.jsx'*/
 import Cookie from '/src/elems/cookie.jsx'
 import Docks from '/src/elems/docks.jsx'
+import ShowNavInMob from '/src/elems/show_nav_in_mob.jsx'
 import axios from 'axios';
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -54,7 +55,19 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 
 
 function App({ name, lastname, username, lang, if_teach, mess_count, photo, balance }) {
-  const [count, setCount] = useState(0)
+
+
+  const [showOtherInNav, setshowOtherInNav] = useState(false);
+
+  const showNav = () =>{
+    if (showOtherInNav)
+    {
+      setshowOtherInNav(false);
+    }
+    else{
+      setshowOtherInNav(true);
+    }
+  }
 
   
   if (window.trustedTypes?.createPolicy) {
@@ -103,7 +116,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
         }
     }
 
-    var arrLang = {
+    const arrLang = {
       'English': {
           'find': "Find",
           'messages': 'Messages',
@@ -282,29 +295,22 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
       </Link>
       
       {username === undefined ? (
-              <a className="navig_panel_button" href={`/log/`} id="only_for_fon">
-                <img
-                  src="/src/static/img/nema.png"
-                  alt="nema"
-                  className="avatar_in_panel"
-                />
-              </a>
-                ) :
-              (
-              if_teach === true ? (
-              <a className="navig_panel_button" href={`/t/user/${username}/`} id="only_for_fon">
-                <ImageWithFallbackPanel src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
-              </a>
-                ) :
-              (
-              <a className="navig_panel_button" href={`/p/user/${username}/`} id="only_for_fon">
-                <ImageWithFallbackPanel src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
-              </a>
-                )
-                )
+          <a className="navig_panel_button" href={`/log/`} id="only_for_fon">
+            <img
+              src="/src/static/img/nema.png"
+              alt="nema"
+              className="avatar_in_panel"
+            />
+          </a>
+            ) :
+          (
+            <button className="navig_panel_button" id="only_for_fon" onClick={showNav}>
+              <ImageWithFallbackPanel src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+            </button>
+          )
 
 
-                }
+      }
 
     </div>
     <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">
@@ -333,7 +339,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
     </div>
   </div>
 
-
+  {showOtherInNav && <ShowNavInMob show={showNav} lang={lang} myphoto={photo}/>}
 
 </>
 

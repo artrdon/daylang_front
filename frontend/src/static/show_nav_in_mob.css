@@ -1,0 +1,21 @@
+.show_nav_in_mob_nav_panel_botton{
+    height: 50px;
+    width: calc(100% - 40px);
+    color: rgb(54, 54, 54);
+    background-color: #ebebeb00;
+    font-size: 30px;
+    justify-content: left;
+    align-items: center;
+    display: flex;
+    margin: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.show_nav_in_mob_nav_panel_img{
+    margin: 0;
+}
+.show_nav_in_mob_button_text_color{
+    color: white;
+    margin: 20px;
+    font-size: 25px;
+}

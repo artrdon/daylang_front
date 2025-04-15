@@ -895,11 +895,13 @@ a{
     .find_page_teacher {
         margin-left: 3vw;
         font-size: 9vw;
+        width: calc(100% - 5vw);
     }
     .find_page_teacher_description {
         margin: 3vw;
         margin-top: 10px;
         font-size: 5vw;
+        width: calc(100% - 6vw);
     }
     .div_of_service {
         margin: 1vw;
