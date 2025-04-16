@@ -285,7 +285,7 @@ const messChange = (idd) => {
     useEffect(() => {
       const fetchData = async () => {
           try {
-              const response = await axios.get(`${APIURL}/offerinfobychat/${params.id}/`);
+              const response = await axios.get(`${APIURL}/offerinfo_bychat/${params.id}/`);
               setData3(response.data);
           } catch (err) {
               setError3(err.message);
@@ -335,7 +335,7 @@ const add_smile = (par) => {
 useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${APIURL}/getmessaglist/${params.id}/`);
+                const response = await axios.get(`${APIURL}/getmessagelist/${params.id}/`);
                 setData2(response.data);
                 if (response.data != null)
                 {
@@ -417,8 +417,8 @@ useEffect(() => {
             <div className="goback_but" onClick={goback}>
               <img
                 src="/src/static/img/gobackblack.png"
-                alt=""
-                style={{ height: 50, width: 70, marginTop: 10 }}
+                alt="toback"
+                className='message_goback_img'
               />
             </div>
             <div className="positing_of_micro_chel">
@@ -428,7 +428,7 @@ useEffect(() => {
             return (<>
 
             <Link to={`/${data2[0].offerer}/offer/${data2[0].offer_id}/`}>
-                <div style={{ position: "relative", cursor: "pointer", paddingLeft: 90, paddingRight: 80, marginTop: 10}}>
+                <div className='message_chat_info_div'>
                   <img
                     src={data2[0].photo_of_offer}
                     alt="pupil"
@@ -436,12 +436,12 @@ useEffect(() => {
                   />
                   {/*(() => {
                       if (data12[0][params.id].me === true) {
-                          return (<> <span className="ime" translate="no" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", overflowWrap: "anywhere", width: "calc(100% - 240px)", marginLeft: 10 }}>
+                          return (<> <span className="ime message_chat_name" translate="no">
                                         {data12[0][params.id].ime} {data12[0][params.id].prezime}
                                     </span> </>)
 
                       } else{
-                          return (<> <span className="ime" translate="no" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", overflowWrap: "anywhere", width: "calc(100% - 240px)", marginLeft: 10 }}>
+                          return (<> <span className="ime message_chat_name" translate="no">
                                         {name_of_chat}
                                     </span> </>)
 
@@ -458,13 +458,13 @@ useEffect(() => {
         return (<>
 
          <Link to={`/${data2.offerer}/offer/${data2.offer_id}/`}>
-                <div style={{ position: "relative", cursor: "pointer", paddingLeft: 90, paddingRight: 80, marginTop: 10 }}>
+                <div className='message_chat_info_div'>
                   <img
                     src={data2.photo}
                     alt="pupil"
                     className="img_of_micro_chel"
                   />
-                  <span className="ime" translate="no" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", overflowWrap: "anywhere", width: "calc(100% - 240px)", marginLeft: 10 }}>
+                  <span className="ime message_chat_name" translate="no">
                     {name_of_chat}
                   </span>
                 </div>

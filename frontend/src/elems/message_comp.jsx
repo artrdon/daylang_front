@@ -14,7 +14,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
       src={imgSrc}
       alt={alt}
       onError={handleError}
-      style={{ height: 50, width: 50, borderRadius: 30, position: "absolute", bottom: 0, }}
+      className='message_comp_img_of_sender'
     />
   );
 }
@@ -45,10 +45,10 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
     return (
       
             <>
-            <div
+            {/*<div
           style={{
             position: 'absolute',
-            /*left: `${position.x-373.5}px`,*/
+            /*left: `${position.x-373.5}px`,
             top: `${position.y-152}px`,
             width: '50px',
             height: '50px',
@@ -57,29 +57,29 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
             transform: 'translate(-50%, -50%)',
             zIndex: 10000 // Центрирует элемент относительно клика
           }}
-        />
+        />*/}
 {(() => {
         if (sender === me) {
           return (<>
-              <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", transform: "scale(-1, 1)", zIndex: 1   }} id={`mess${id}`} >
-                  <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
-                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(76 88 167)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -50,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer", transform: "scale(-1, 1)"}} onClick={(e) => toggleVisibility(e, id)}>
+              <div className='message_comp_my_message' id={`mess${id}`} >
+                  <div className='message_comp_my_message_div'>
+                    <pre className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
                       {int}
                       <div>
                         {(() => {
                           if (changed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", marginRight: 10, bottom: 0, }}>chan.</span>;
+                              return <span className='message_comp_my_message_inside_chan'>chan.</span>;
                           } else {
-                            return <span style={{ fontSize: 12, position: "relative",  marginRight: 0, bottom: 0,}}></span>;
+                              return <span className='message_comp_my_message_inside_not_chan'></span>;
                           }
                         })()}
-                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
+                        <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
                         
                         {(() => {
                           if (readed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓✓</span>;
+                              return <span className='message_comp_my_message_inside_readed'> ✓✓</span>;
                           } else{
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}> ✓</span>;
+                              return <span className='message_comp_my_message_inside_readed'> ✓</span>;
                           }
                         })()}
                       </div>
@@ -87,46 +87,57 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                     </pre>
                   </div>
                   
-                  {/*visibleId === id && <div style={{ zIndex: 101, position: "absolute", left: 30, transform: "scale(-1, 1)", }} className={`sett${id}`} id={`sett${id}`}>
-                                            <div style={{ width: 100, height: "auto", backgroundColor: "#2e2e2e", zIndex: 101, position: "absolute", borderRadius: 20, right: 40, top: -50}}>
-                                                <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderTopRightRadius: 20, borderTopLeftRadius: 20,}} onClick={() => delet(id)}>
+                  {visibleId === id && <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
+                                            <div className='message_comp_delete_panel_div'>
+                                                <button className='message_comp_delete_panel_div_delete' onClick={() => delet(id)}>
                                                     Delete
                                                 </button>
-                                                <button style={{ width: "100%", height: 50, backgroundColor: "#00000000", color: "white", border: "1px solid black", borderBottomRightRadius: 20, borderBottomLeftRadius: 20, }} onClick={() => click(id)}>
+                                                <button className='message_comp_delete_panel_div_edit' onClick={() => click(id)}>
                                                     Edit
                                                 </button>
                                             </div>
                                         </div>
-           */}
+                  }
               </div>
           
               </>);
         }else{
-            if (if_teach) {
-                return (<>
-                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`} >
-                    <Link to={`/t/user/${sender}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
-                        <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
-                    </Link>
-                  <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
-                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
+          return (<>
+              <div className='message_comp_not_my_message' id={`mess${id}`} >
+                  {if_teach === true ?
+                    (
+                      <Link to={`/t/user/${sender}/`} className='message_comp_link_to_sender'>
+                          <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
+                      </Link>
+                    )
+                    :
+                    (
+                      <Link to={`/p/user/${sender}/`} className='message_comp_link_to_sender'>
+                          <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
+                      </Link>
+                    )
+                  
+                  }
+                    
+                  <div className='message_comp_my_message_div'>
+                    <pre className='message_comp_not_my_message_inside_pre' onClick={() => toggleVisibility(id)}>
                       {int}
                       
                       <div>
                         {(() => {
                           if (readed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>;
+                              return <span className='message_comp_my_message_inside_readed'>✓✓ </span>;
                           } else{
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓ </span>;
+                              return <span className='message_comp_my_message_inside_readed'>✓ </span>;
                           }
                         })()}
-                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
+                        <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
                         
                         {(() => {
                           if (changed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", marginLeft: 10, bottom: 0, }}>chan.</span>;
+                              return <span className='message_comp_my_message_inside_chan'>chan.</span>;
                           } else {
-                            return <span style={{ fontSize: 12, position: "relative",  marginLeft: 0, bottom: 0,}}></span>;
+                              return <span className='message_comp_my_message_inside_not_chan'></span>;
                           }
                         })()}
                       </div>
@@ -135,47 +146,8 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                     </pre>
                     </div>
             </div>
-                </>);
-            } else{
-                return (<>
-                <div style={{marginTop: 40, marginBottom: 20, position: "relative", display: "block", zIndex: 1}} id={`mess${id}`} >
-                    <Link to={`/p/user/${sender}/`} style={{ display: "block", width: 50, height: 50, position: "absolute" }}>
-                        <ImageWithFallback src={photo} alt={sender} fallbackSrc="/src/static/img/nema.png"/>
-                    </Link>
-                  <div style={{ maxWidth: "50%", position: "relative", left: 70, top: "-20px", borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
-                    <pre style={{ fontSize: 18,position: "relative", padding: 10, backgroundColor: "rgb(120 120 120)", color: "white", display: "inline-block", whiteSpace: "pre-wrap", overflowWrap: "anywhere", borderRadius: 10, left: -10,MozUserSelect: "none", KhtmlUserSelect: "none", WebkitUserSelect: "none", userSelect: "none", cursor: "pointer"}}  onClick={() => toggleVisibility(id)}>
-                      {int}
-                      <div>
-                        
-                        {(() => {
-                          if (readed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓✓ </span>;
-                          } else{
-                              return <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>✓ </span>;
-                          }
-                        })()}
-                        <span style={{ fontSize: 12, position: "relative", right: 0, bottom: 0, }}>{hour}:{minute}</span>
-                        {(() => {
-                          if (changed === true) {
-                              return <span style={{ fontSize: 12, position: "relative", marginLeft: 10, bottom: 0, }}>chan.</span>;
-                          } else {
-                            return <span style={{ fontSize: 12, position: "relative",  marginLeft: 0, bottom: 0,}}></span>;
-                          }
-                        })()}
-                        
-                      </div>
-
-                    </pre>
-                    </div>
-            </div>
-                </>);
-
-
-            }
-
-
-
-
+          </>);
+                
             }
       })()}
 

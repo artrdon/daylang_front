@@ -12,8 +12,8 @@ return (
 
     {(() => {
         if (!am_teach) {
-          return (<>  <div style={{  zIndex: 101, position: "absolute", right: 0, marginTop: 5, width: 80, height: 60 }} onClick={() => bye()}>
-                        <img src={"/src/static/img/korzina.png"} alt={"Call_Bye"} style={{height: 60, paddingLeft: 10}}/>
+          return (<>  <div className='message_korzina' onClick={() => bye()}>
+                        <img src={"/src/static/img/korzina.png"} alt={"Call_Bye"} className='message_korzina_img'/>
                       </div> </>)
         }
       })()}
@@ -21,8 +21,8 @@ return (
 
     {(() => {
         if (am_teach) {
-          return (<>  <div style={{  zIndex: 101, position: "absolute", right: 0, marginTop: 10, width: 80, height: 60 }}>
-                        <img src={"/src/static/img/call.png"} alt={"Call_Bye"} style={{height: 50, paddingLeft: 15}}/>
+          return (<>  <div className='message_call'>
+                        <img src={"/src/static/img/call.png"} alt={"Call_Bye"} className='message_call_img'/>
                       </div> </>)
         }
       })()}

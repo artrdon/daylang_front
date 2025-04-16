@@ -1,3 +1,76 @@
+.message_korzina{
+    z-index: 101; position: absolute; right: 0px; margin-top: 5px; width: 80px; height: 60px;
+}
+.message_korzina_img{
+    height: 60px; padding-left: 10px;
+}
+.message_call{
+    z-index: 101; position: absolute; right: 0px; margin-top: 10px; width: 80px; height: 60px;
+}
+.message_call_img{
+    height: 50px; padding-left: 15px;
+}
+.message_goback_img{
+    height: 50px; width: 70px; margin-top: 10px;
+}
+.message_chat_info_div{
+    position: relative; cursor: pointer; padding-left: 90px; padding-right: 80px; margin-top: 10px;
+}
+.message_chat_name{
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; width: calc(100% - 240px); margin-left: 10px;
+}
+.message_comp_my_message{
+    margin-top: 40px; margin-bottom: 20px; position: relative; display: block; transform: scale(-1, 1); z-index: 1;
+}
+.message_comp_my_message_div{
+    max-width: calc(100% - 100px); position: relative; border-radius: 10px;
+}
+.message_comp_my_message_inside_pre{
+    font-size: 18px; position: relative; padding: 10px; background-color: rgb(76 88 167); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer; transform: scale(-1, 1);
+}
+.message_comp_my_message_inside_readed{
+    font-size: 12px; position: relative; right: 0px; bottom: 0px;
+}
+.message_comp_my_message_inside_chan{
+    font-size: 12px; position: relative; margin-right: 10px; bottom: 0px;
+}
+.message_comp_my_message_inside_not_chan{
+    font-size: 12px; position: relative; margin-right: 0px; bottom: 0px;
+}
+.message_comp_link_to_sender{
+    display: block; width: 50px; height: 50px; position: absolute;
+}
+.message_comp_img_of_sender{
+    height: 50px; width: 50px; border-radius: 30px; position: absolute; bottom: 0px;
+}
+.message_comp_not_my_message{
+    margin-top: 40px; margin-bottom: 20px; position: relative; display: block; z-index: 1
+}
+.message_comp_not_my_message_inside_pre{
+    font-size: 18px; position: relative; padding: 10px; background-color: rgb(120 120 120); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; left: 60px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer;
+}
+.message_comp_not_my_message{
+    margin-top: 40px; margin-bottom: 20px; position: relative; display: block; z-index: 1
+}
+.message_comp_message_inside_chan{
+    font-size: 12px; position: relative; margin-left: 10px; bottom: 0px;
+}
+.message_comp_message_inside_not_chan{
+    font-size: 12px; position: relative; margin-left: 0px; bottom: 0px;
+}
+.message_comp_delete_panel{
+    z-index: 101; position: absolute; left: 30px; transform: scale(-1, 1);
+}
+.message_comp_delete_panel_div{
+    width: 100px; height: auto; background-color: #2e2e2e; z-index: 101; position: absolute; border-radius: 20px; right: 40px; top: -50px;
+}
+.message_comp_delete_panel_div_delete{
+    width: 100%; height: 50px; background-color: #00000000; color: white; border: 1px solid black; border-top-right-radius: 20px; border-top-left-radius: 20px;
+}
+.message_comp_delete_panel_div_edit{
+    width: 100%; height: 50px; background-color: #00000000; color: white; border: 1px solid black; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;
+}
+
 .message_finded_name {
     position: absolute;
     color: black;
@@ -47,7 +120,7 @@
     width: 50px; 
     height: 50px; 
     background-color: #949494; 
-    border-right: 2px solid black; 
+    border: 2px solid gray;
     position: absolute; 
     bottom: 0px; 
     left: 50px; 
@@ -61,8 +134,7 @@
     position: absolute; 
     right: 100px; 
     display: inline-block; 
-    border-left: 2px solid black; 
-    border-right: 2px solid black; 
+    border: 2px solid gray;
     outline: none;
 }
 
@@ -159,7 +231,7 @@
     font-size: 20px; padding: 10.5px; width: calc(100% - 300px); background-color: #949494; min-height: 25px; bottom: 0px; left: 100px; position: absolute; outline: none; display: inline-block; color: white; max-height: 100px; overflow: auto; border-radius: 5px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border: 2px solid gray;
 }
 .sending_button{
-    width: 70px; height: 50px; background-color: #949494;  position: absolute; right: 30px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; display: inline-block; outline: none;
+    width: 70px; height: 50px; background-color: #949494;  position: absolute; right: 30px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; display: inline-block; outline: none; border: 2px solid gray;
 }
 
 .clear_and_send_buttons_pos{
@@ -210,19 +282,19 @@ div *::-webkit-scrollbar-thumb {
     }
     .input_panel{
         background-color: #191919;
-        border: 2px solid gray;
+        border-color: gray;
     }
     .delete_mess_button{
         background-color: #191919;
-        border: 2px solid gray;
+        border-color: gray;
     }
     .extra_mess_button{
         background-color: #191919;
-        border: 2px solid gray;
+        border-color: gray;
     }
     .sending_button{
         background-color: #191919;
-        border: 2px solid gray;
+        border-color: gray;
     }
     .goback_but{
         filter: unset;
@@ -235,13 +307,14 @@ div *::-webkit-scrollbar-thumb {
         width: 100%;
     }
 }
-@media only screen and (max-width: 900px)
+@media only screen and (max-width: 1100px)
 {
     .panel_of_header{
         border-top-right-radius: 0px;
         border-top-left-radius: 0px;
     }
     .panel_of_messages{
+        border: 0px;
         top: 0px;
         border-radius: 0px;
         width: 100%;
@@ -262,11 +335,51 @@ div *::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 525px)
 {
+    .goback_but{
+        margin-left: 1.9047vw;
+    }
+    .message_goback_img{
+        height: 9.5238vw;
+        width: 13.333vw;
+        margin-top: 1.9047vw;
+    }
+    .message_call{
+        width: 15.238vw;
+        height: 11.4285vw;
+        margin-top: 1.9047vw;
+    }
+    .message_call_img{
+        height: 9.5238vw;
+        padding-left: 2.8571vw;
+    }
+    .img_of_micro_chel{
+        width: 9.5238vw;
+        height: 9.5238vw;
+        border-radius: 50%;
+    }
+    .message_chat_info_div {
+        padding-left: 17.1428vw;
+        padding-right: 15.238vw;
+        margin-top: 1.9047vw;
+    }
+    .positing_of_micro_chel {
+        height: 13.333vw;
+    }
+    .message_mess_block {
+        margin-top: 13.333vw;
+        padding: 1.9047vw;
+        height: calc(100vh - 34.4761vw);
+        width: calc(100% - 3.8095vw);
+    }
     .jos_inviz_panel{
-        bottom: 20px;
+        bottom: 3.8095vw;
+        min-height: 5vw;
     }
     .delete_mess_button{
+        border: 0.3809vw solid;
         left: 0px;
+        width: 9.526vw;
+        height: 9.526vw;
     }
 
     .panel_of_messages{
@@ -282,20 +395,79 @@ div *::-webkit-scrollbar-thumb {
         top: 0px;
     }
     .panel_of_header{
+        height: 13.333vw;
         border-top-right-radius: 0px;
         border-top-left-radius: 0px;
     }
     .input_panel{
-        width: calc(100% - 200px);
-        left: 50px;
+        border: 0.3809vw solid;
+        width: calc(100% - 38.095vw);
+        padding: 2vw;
+        font-size: 3.8095vw;
+        min-height: calc(4.763vw - 0.3809vw);
+        max-height: 19.047vw;
+        left: 9.523vw;
     }
     .sending_button{
+        border: 0.3809vw solid;
         right: 0px;
+        min-height: 9.526vw;
+        height: 9.526vw;
+        width: 14.097vw;
     }
     .clear_and_send_buttons_pos {
         right: 0px;
     }
     .extra_mess_button{
-        right: 70px;
+        border: 0.3809vw solid;
+        right: 13.733vw;
+        min-height: 9.526vw;
+        height: 9.526vw;
+        width: 10.24vw;
+    }
+    .some_vizible_part{
+        min-height: 9.526vw;
+    }
+    .img_delete{
+        width: 4.382vw;
+        height: 4.764vw;
+    }
+    .img_send{
+        height: 5.717vw;
+        width: 5.717vw;
+    }
+    .message_comp_my_message_inside_pre {
+        font-size: 3.4285vw;
+        padding: 1.9047vw;
+        border-radius: 1.9047vw;
+    }
+    .message_comp_my_message_inside_not_chan {
+        font-size: 2.2857vw;
+    }
+    .message_comp_my_message_inside_readed {
+        font-size: 2.2857vw;
+    }
+    .message_comp_my_message_div {
+        max-width: calc(100% - 19.047vw);
+        border-radius: 1.9047vw;
+    }
+    .message_comp_link_to_sender{
+        width: 9.5238vw; height: 9.5238vw;
+    }
+    .message_comp_img_of_sender{
+        height: 9.5238vw; width: 9.5238vw; border-radius: 5.7142vw;
+    }
+    .message_comp_not_my_message_inside_pre {
+        font-size: 3.4285vw;
+        padding: 1.9047vw;
+        border-radius: 1.9047vw;
+        left: 11.4285vw;
+    }
+    .message_comp_my_message_inside_chan {
+        font-size: 2.2857vw;
+        margin-right: 1.9047vw;
+    }
+    .inviz_panel_of_writing {
+        height: 17.1428vw;
     }
 }
