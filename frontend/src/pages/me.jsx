@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import My_load from '/src/load_elems/me_load.jsx'
+import Degree from './degree_opy.jsx';
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
@@ -32,6 +33,19 @@ function Me() {
   const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
   const [messNumb, setMessNumb] = useState(null);
+  const [showDegree, setShowDegree] = useState(false);
+  const showDeg = () =>{
+    setShowDegree(true);
+  }
+  const showMain = () =>{
+    setShowDegree(false);
+  }
+  const showRev = () =>{
+    setShowDegree(true);
+  }
+  const showOffer = () =>{
+    setShowDegree(false);
+  }
 
 useEffect(() => {
 
@@ -128,23 +142,6 @@ useEffect(() => {
           document.querySelector('body').className = "light_theme";
   }
   
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
-
 
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
@@ -354,18 +351,18 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
 
 <div id="main_page" style={{ display: "block" }}>
   <div className="page_of_type">
-     <Link to={`/t/user/${data.username}/`}>
-    <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
+     
+    <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }} onClick={showMain}>
       <div className="me_div_of_button me_selected" >
         <span className="me_span_of_button" >
           <span className="me_span_of_button_text">{arrLang[lang]['main']}</span>
         </span>
       </div>
     </button>
-    </Link>
-    <Link to={`/t/user/${data.username}/degree`}>
+    
     <button
       style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
+      onClick={showDeg}
     >
       <div className="me_div_of_button">
         <span className="me_span_of_button" >
@@ -373,7 +370,6 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
         </span>
       </div>
     </button>
-    </Link>
 
     <Link to={`/t/user/${data.username}/feedback`}>
     <button
@@ -398,9 +394,10 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
     </button>
     </Link>
   </div>
-  <div className="me_description_offer" >
+  {!showDegree && <div className="me_description_offer" >
 {data1.about_myself}
-  </div>
+  </div>}
+  {showDegree && <Degree />}
 </div>
 
 

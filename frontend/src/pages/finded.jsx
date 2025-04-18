@@ -5,6 +5,7 @@ import Offer from '/src/pages/offer.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
+import DeepSearchComp from '../elems/deep_search_component.jsx';
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
@@ -86,66 +87,66 @@ useEffect(() => {
     };
   }, [groups]);
 
-  
-  var arrLang = {
-    'English': {
-        'create_offer': 'Create offer',
-        'name': 'Name',
-        'description': 'Description',
-        'price': "Price",
-        'load_photo': 'Load photo',
-        'save': 'Save',
-    },
-    'Русский': {
-        'create_offer': 'Создать предложение',
-        'name': 'Название',
-        'description': 'Описание',
-        'price': "Цена",
-        'load_photo': 'Загрузить фото',
-        'save': 'Сохранить',
-    },
-    'Srpski': {
-        'create_offer': 'Napravite predlog',
-        'name': 'Naziv',
-        'description': 'Opis',
-        'price': "Cena",
-        'load_photo': 'Otpremite fotografiju',
-        'save': 'Sačuvaj',
-    },
-    'Српски': {
-        'create_offer': 'Направите предлог',
-        'name': 'Назив',
-        'description': 'Опис',
-        'price': "Цена",
-        'load_photo': 'Отпремите фотографију',
-        'save': 'Сачувај',
-    },
-    'Deutsch': {
-        'create_offer': 'Angebot erstellen',
-        'name': 'Titel',
-        'description': 'Beschreibung',
-        'price': "Preis",
-        'load_photo': 'Foto laden',
-        'save': 'Speichern',
-    },
-    'Español': {
-        'create_offer': 'Crear oferta',
-        'name': 'Nombre',
-        'description': 'Descripción',
-        'price': "Precio",
-        'load_photo': 'Cargar foto',
-        'save': 'Guardar',
-    },
-    'عربي': {
-        'create_offer': 'إنشاء عرض',
-        'name': 'العنوان',
-        'description': 'الوصف',
-        'price': "السعر",
-        'load_photo': 'تحميل الصورة',
-        'save': 'حفظ',
-    }
+    
+    const arrLang = {
+      'English': {
+          'create_offer': 'Create offer',
+          'name': 'Name',
+          'description': 'Description',
+          'price': "Price",
+          'load_photo': 'Load photo',
+          'save': 'Save',
+      },
+      'Русский': {
+          'create_offer': 'Создать предложение',
+          'name': 'Название',
+          'description': 'Описание',
+          'price': "Цена",
+          'load_photo': 'Загрузить фото',
+          'save': 'Сохранить',
+      },
+      'Srpski': {
+          'create_offer': 'Napravite predlog',
+          'name': 'Naziv',
+          'description': 'Opis',
+          'price': "Cena",
+          'load_photo': 'Otpremite fotografiju',
+          'save': 'Sačuvaj',
+      },
+      'Српски': {
+          'create_offer': 'Направите предлог',
+          'name': 'Назив',
+          'description': 'Опис',
+          'price': "Цена",
+          'load_photo': 'Отпремите фотографију',
+          'save': 'Сачувај',
+      },
+      'Deutsch': {
+          'create_offer': 'Angebot erstellen',
+          'name': 'Titel',
+          'description': 'Beschreibung',
+          'price': "Preis",
+          'load_photo': 'Foto laden',
+          'save': 'Speichern',
+      },
+      'Español': {
+          'create_offer': 'Crear oferta',
+          'name': 'Nombre',
+          'description': 'Descripción',
+          'price': "Precio",
+          'load_photo': 'Cargar foto',
+          'save': 'Guardar',
+      },
+      'عربي': {
+          'create_offer': 'إنشاء عرض',
+          'name': 'العنوان',
+          'description': 'الوصف',
+          'price': "السعر",
+          'load_photo': 'تحميل الصورة',
+          'save': 'حفظ',
+      }
 
-  }
+    }
 
 
     const [search, setSearch] = useState(false);
@@ -157,56 +158,56 @@ useEffect(() => {
     }
     
     document.querySelector("title").textContent = "Offers";
-    let params = useParams();
+    const params = useParams();
 
     const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const [data1, setData1] = useState(null);
-  const [loading1, setLoading1] = useState(true);
-  const [error1, setError1] = useState(null);
+    const [loading1, setLoading1] = useState(true);
+    const [error1, setError1] = useState(null);
 
 
-axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
 
-const theme = getCookie('theme');
-//console.log(getCookie('theme'));
+    const theme = getCookie('theme');
+    //console.log(getCookie('theme'));
 
 
-if (getCookie('theme') === "dark"){
-  if (document.querySelector('body') != null)
-      document.querySelector('body').className = "dark_theme";
-}
-else{
-  if (document.querySelector('body') != null)
-      document.querySelector('body').className = "light_theme";
-}
+    if (getCookie('theme') === "dark"){
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "dark_theme";
+    }
+    else{
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "light_theme";
+    }
 
 
-function change_theme() {
-  if (document.querySelector('body').className === "dark_theme")
-  {
+    function change_theme() {
+      if (document.querySelector('body').className === "dark_theme")
+      {
 
-      document.querySelector('body').className = "light_theme";
-      document.cookie = "theme=light; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-  }
-  else
-  {
-      document.querySelector('body').className = "dark_theme";
-      document.cookie = "theme=dark; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-  }
-}
+          document.querySelector('body').className = "light_theme";
+          document.cookie = "theme=light; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+      }
+      else
+      {
+          document.querySelector('body').className = "dark_theme";
+          document.cookie = "theme=dark; path=/;max-age=31556926";
+          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+      }
+    }
 
 
     const lang = getCookie('lang');
@@ -214,98 +215,89 @@ function change_theme() {
 
     langua = lang;
 
-  const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
+    const [data12, setData12] = useState(null);
+    const [loading12, setLoading12] = useState(true);
+    const [error12, setError12] = useState(null);
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        setData(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
     useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/creatingoffer/${params.language}/`);
-        setData1(response.data);
-      } catch (err) {
-        setError1(err.message);
-      } finally {
-        setLoading1(false);
-      }
-    };
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${APIURL}/userinfo/`);
+          setData(response.data);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchData();
-  }, []);
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${APIURL}/creatingoffer/${params.language}/`);
+          setData1(response.data);
+        } catch (err) {
+          setError1(err.message);
+        } finally {
+          setLoading1(false);
+        }
+      };
+
+      fetchData();
+    }, []);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
-                setGroup((groups) => [...groups, response.data[0][i].id]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${APIURL}/getchatlist/`);
+          if (response.data != null){
+              for (let i = 0; i < response.data[0].length; i++){
+                  console.log(response.data[0][i].id);
+                  setGroup((groups) => [...groups, response.data[0][i].id]);
+              }
+          }
+          setData12(response.data);
+          setMessNumb(response.data[1]);
+        } catch (err) {
+          setError12(err.message);
+        } finally {
+          setLoading12(false);
+        }
+      };
+
+      fetchData();
+    }, []);
+
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${APIURL}/creatingoffer/${data.language}/`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+            });
+            console.log('Response:', response.data);
+            if (response.data === "serializer.data"){
+                location.reload();
             }
+
+        } catch (error) {
+            console.error('There was an error!', error.response.data);
         }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
-      }
+
     };
 
-    fetchData();
-  }, []);
 
-  const [data2, setData2] = useState({price_min: 0, price_max: 1000, format: 'individual', target: 'exam', age: '5-12', microphone: 'yes'});
-  const handleChange = (e) => {
-    setData2({ ...data2, [e.target.name]: e.target.value });
-};
-
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.post(`${APIURL}/creatingoffer/${data.language}/`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-        });
-        console.log('Response:', response.data);
-        if (response.data === "serializer.data"){
-            location.reload();
-        }
-
-    } catch (error) {
-        console.error('There was an error!', error.response.data);
-    }
-
-};
-
-
-  if (loading) return (
-      <>
-      <AppLoad lang={langua}/>
-</>
-
-  );
+  if (loading) return (<AppLoad lang={langua}/>);
   if (error) return <p>Error: {error}</p>;
 
 
@@ -353,7 +345,6 @@ function change_theme() {
   );
   if (error12) return <p>Error: {error}</p>;
 
-  console.log(data1);
   return (
       <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -403,10 +394,11 @@ function change_theme() {
         }
       })()}
 
-
+<div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
   </div>
 </div>
-{search && <div style={{ display: "flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center", }}>
+{search && <DeepSearchComp closeSearch={closeSearch} />}
+{/*search && <div style={{ display: "flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center", }}>
     <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}} onClick={closeSearch}></div>
     <div style={{ width: 600, height: "auto", backgroundColor: "#2e2e2e", position: "fixed", top: 150, borderRadius: 5,  zIndex: 1001}}>
         <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
@@ -473,7 +465,7 @@ function change_theme() {
             </a>
         </div>
     </div>
-</div>}
+</div>*/}
 
 
 </>

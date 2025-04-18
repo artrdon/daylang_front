@@ -69,60 +69,9 @@ function Degree_load() {
 
     return (
         <>
-<div className="find_panel">
-  <div className="me_under_find">
-    <img src="/src/static/img/nema.png" alt="" className="me_avatar"/>
-    <div className="me_name_surname_panel">
-      <span className="me_name" translate="no" >
-      </span>
 
-    </div>
-
-  </div>
-
-<div id="main_page" style={{ display: "block" }}>
-  <div className="page_of_type">
-    <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['main']}</span>
-        </span>
-      </div>
-    </button>
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button  me_selected">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['degree']}</span>
-        </span>
-      </div>
-    </button>
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['feedback']}</span>
-        </span>
-      </div>
-    </button>
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['offers']}</span>
-        </span>
-      </div>
-    </button>
-  </div>
   <div className="me_description_offer" >
   </div>
-</div>
-
-
-</div>
 
 
 

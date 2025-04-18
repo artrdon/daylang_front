@@ -193,8 +193,8 @@ div *::-webkit-scrollbar-thumb {
         margin: 0px;
     }
     .saved_finded_panel{
-        width: calc(100vw - 370px);
-        margin: 20px;
+        width: calc(100vw - 10px);
+        margin: 5px;
     }
     .panel_of_messs{
         width: 100%;
@@ -213,6 +213,9 @@ div *::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 525px)
 {
+    .saved_finded_panel {
+        top: 13.3333vw;
+    }
     .panel_of_one_mes{
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;

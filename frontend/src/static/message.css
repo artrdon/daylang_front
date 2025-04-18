@@ -470,4 +470,27 @@ div *::-webkit-scrollbar-thumb {
     .inviz_panel_of_writing {
         height: 17.1428vw;
     }
+    .message_comp_delete_panel_div {
+        width: 19.0476vw;
+        border-radius: 3.8095vw;
+        right: 7.6190vw;
+        top: -9.5238vw;
+    }
+    .message_comp_delete_panel_div_delete {
+        font-size: 4vw;
+        height: 9.5238vw;
+        border: 0.1904vw solid black;
+        border-top-right-radius: 3.8095vw;
+        border-top-left-radius: 3.8095vw;
+    }
+    .message_comp_delete_panel_div_edit {
+        font-size: 4vw;
+        height: 9.5238vw;
+        border: 0.1904vw solid black;
+        border-bottom-right-radius: 3.8095vw;
+        border-bottom-left-radius: 3.8095vw;
+    }
+    .message_comp_delete_panel {
+        left: 5.7142vw;
+    }
 }

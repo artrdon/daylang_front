@@ -85,7 +85,7 @@ function ShowNavInMob({show, lang, myphoto, ifteach, username}) {
 
 return (
     <>
-    <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={show} ></div>
+    <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 1000, position: "fixed"}} onClick={show} ></div>
     <div style={{ backgroundColor: "#242424", width: "100vw", height: "80%", position: "fixed", bottom: 0, zIndex: 1000, }}>
         <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
                 {ifteach === true ? 
