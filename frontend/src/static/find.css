@@ -21,6 +21,29 @@
 #only_for_fon{
     display: none;
 }
+.horizontal-scroll-container {
+    width: 100%;
+    white-space: nowrap; 
+    -webkit-overflow-scrolling: touch; 
+}
+
+.horizontal-scroll-content {
+    display: inline-block; 
+    overflow: auto;
+    div *::-webkit-scrollbar {
+        height: 0px;
+        width: 10px;
+    }
+    *::-webkit-scrollbar-track,
+    div *::-webkit-scrollbar-track {
+        background: rgb(70, 70, 70);
+    }
+    *::-webkit-scrollbar-thumb,
+    div *::-webkit-scrollbar-thumb {
+        background-color: rgb(153, 153, 153);
+        border: 0px solid rgb(70, 70, 70);;
+    }
+}
 #searchtel{
     border: 0px;
 }
@@ -344,6 +367,7 @@
     height: auto; 
     padding: 20px;
     margin-left: 35px;
+    white-space: normal;
 }
 .telef_search{
     display: none;

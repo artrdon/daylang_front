@@ -247,7 +247,7 @@
 
 
 div *::-webkit-scrollbar {
-    height: 12px;
+    height: 0px;
     width: 3px;
 }
 *::-webkit-scrollbar-track,
@@ -259,7 +259,6 @@ div *::-webkit-scrollbar-thumb {
     background-color: rgb(105, 105, 105);
     border: 0px solid rgb(70, 70, 70);;
 }
-
 
 .dark_theme{
     .message_finded_name {

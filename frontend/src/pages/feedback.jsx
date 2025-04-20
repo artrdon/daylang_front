@@ -433,8 +433,8 @@ useEffect(() => {
 
   </div>
 
-<div id="feedback_page" >
-  <div className="page_of_type">
+<div id="feedback_page"  className='horizontal-scroll-container'>
+  <div className="page_of_type horizontal-scroll-content">
      <Link to={`/t/user/${data.username}/`}>
     <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
       <div className="me_div_of_button">

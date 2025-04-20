@@ -325,7 +325,7 @@ function change_theme() {
   );
   if (error12) return <p>Error: {error}</p>;
 
-console.log(data);
+//console.log(data);
 
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
@@ -356,8 +356,8 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
 
   </div>
 
-<div id="main_page" style={{ display: "block" }}>
-  <div className="page_of_type">
+<div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
+  <div className="page_of_type horizontal-scroll-content">
      <Link to={`/p/user/${data.username}/`}>
     <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
       <div className="me_div_of_button me_selected" >

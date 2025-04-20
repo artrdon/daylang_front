@@ -349,9 +349,9 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
 
   </div>
 
-<div id="main_page" style={{ display: "block" }}>
-  <div className="page_of_type">
-  <Link to={`/t/user/${data.username}/degree`}>
+<div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
+  <div className="page_of_type horizontal-scroll-content" >
+  <Link to={`/t/user/${data.username}/degree`} >
     <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
         <div className="me_div_of_button me_selected" >
           <span className="me_span_of_button" >
@@ -362,7 +362,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
   </Link>
     
     
-    <Link to={`/t/user/${data.username}/degree`}>
+    <Link to={`/t/user/${data.username}/degree`} >
       <button
         style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
       >
@@ -375,7 +375,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
     </Link>
     
 
-    <Link to={`/t/user/${data.username}/feedback`}>
+    <Link to={`/t/user/${data.username}/feedback`} >
     <button
       style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
     >
@@ -386,7 +386,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
       </div>
     </button>
     </Link>
-    <Link to={`/t/user/${data.username}/offers`}>
+    <Link to={`/t/user/${data.username}/offers`} >
     <button
       style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
     >
