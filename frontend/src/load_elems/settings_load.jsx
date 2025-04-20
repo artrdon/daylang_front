@@ -148,15 +148,8 @@ function Settings_load() {
             >
               <span>{arrLang[lang]['language']}</span>
             </div>
-            <select id="languages" className="setting_language_selector" defaultValue={arrLang[lang]['language']} name="language">
-              <option id="rus">Русский</option>
-              <option id="eng">English</option>
-              <option id="srbc">Српски</option>
-              <option id="srbl">Srpski</option>
-              <option id="germ">Deutsch</option>
-              <option id="span">Español</option>
-              <option id="arab">عربي</option>
-            </select>
+            <div id="languages" className="setting_language_selector">
+            </div>
             <div
               style={{
                 width: 570,
@@ -169,13 +162,8 @@ function Settings_load() {
             >
               <span>{arrLang[lang]['name']}</span>
             </div>
-            <input
-              maxLength={30}
-              placeholder={arrLang[lang]['name']}
-              name="name"
-              type="text"
-              className="input_field_name"
-            />
+            <div className="input_field_name">
+            </div>
             <div
               style={{
                 width: 570,
@@ -188,13 +176,7 @@ function Settings_load() {
             >
               <span>{arrLang[lang]['last_name']}</span>
             </div>
-            <input
-              maxLength={30}
-              placeholder={arrLang[lang]['last_name']}
-              type="text"
-              name="surname"
-              className="input_field_name"
-            />
+            <div className="input_field_name"></div>
             <div
               style={{
                 width: 570,
@@ -207,13 +189,9 @@ function Settings_load() {
             >
               <span>{arrLang[lang]['about_myself']}</span>
             </div>
-            <textarea
-              maxLength={700}
-              placeholder={arrLang[lang]['about_myself']}
-              name="about_myself"
-              id=""
+            <div
               className="input_field_description"
-            />
+            ></div>
             <div
               style={{
                 width: 570,
@@ -289,14 +267,10 @@ function Settings_load() {
             >
               <span>{arrLang[lang]['about_my_degree']}</span>
             </div>
-            <textarea
-              maxLength={300}
-              placeholder={arrLang[lang]['about_my_degree']}
-              name="about_my_degree"
-              id=""
+            <div
               className="input_field_description"
               style={{ height: 200 }}
-            />
+            ></div>
             <div
               style={{
                 width: 570,

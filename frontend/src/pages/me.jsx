@@ -351,25 +351,29 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
 
 <div id="main_page" style={{ display: "block" }}>
   <div className="page_of_type">
-     
-    <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }} onClick={showMain}>
-      <div className="me_div_of_button me_selected" >
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['main']}</span>
-        </span>
-      </div>
-    </button>
+  <Link to={`/t/user/${data.username}/degree`}>
+    <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
+        <div className="me_div_of_button me_selected" >
+          <span className="me_span_of_button" >
+            <span className="me_span_of_button_text">{arrLang[lang]['main']}</span>
+          </span>
+        </div>
+      </button>
+  </Link>
     
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-      onClick={showDeg}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['degree']}</span>
-        </span>
-      </div>
-    </button>
+    
+    <Link to={`/t/user/${data.username}/degree`}>
+      <button
+        style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
+      >
+        <div className="me_div_of_button">
+          <span className="me_span_of_button" >
+            <span className="me_span_of_button_text">{arrLang[lang]['degree']}</span>
+          </span>
+        </div>
+      </button>
+    </Link>
+    
 
     <Link to={`/t/user/${data.username}/feedback`}>
     <button
@@ -394,14 +398,12 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
     </button>
     </Link>
   </div>
-  {!showDegree && <div className="me_description_offer" >
-{data1.about_myself}
-  </div>}
-  {showDegree && <Degree />}
+  <div className="me_description_offer" >
+    {data1.about_myself}
+  </div>
+  </div>
 </div>
 
-
-</div>
 
 
 </>

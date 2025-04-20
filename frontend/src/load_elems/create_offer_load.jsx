@@ -40,13 +40,7 @@ function Create_offer_load() {
             >
               <span>Name</span>
             </div>
-            <input
-              maxLength={40}
-              placeholder="Name"
-              name="name"
-              type="text"
-              className="input_field_name"
-            />
+            <div className="input_field_name"></div>
 
             <div
               style={{
@@ -60,13 +54,7 @@ function Create_offer_load() {
             >
               <span>Description</span>
             </div>
-            <textarea
-              maxLength={700}
-              placeholder="Description"
-              name="description"
-              id=""
-              className="input_field_description"
-            />
+            <div className="input_field_description"></div>
 
             <div
               style={{
@@ -80,15 +68,7 @@ function Create_offer_load() {
             >
               <span>Price</span>
             </div>
-            <input
-              maxLength={30}
-              placeholder="Price"
-              name="price"
-              type="number"
-              min="0"
-              max="1000000"
-              className="input_field_name"
-            />
+            <div className="input_field_name"></div>
 
 
             <div

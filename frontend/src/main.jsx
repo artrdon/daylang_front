@@ -27,6 +27,7 @@ import MyLessons from '/src/pages/my_lessons.jsx'
 import App from './App.jsx'
 import Call from '/src/pages/call.jsx'
 import Finded_deep from './pages/finded_deep.jsx'
+import pers from '/src/static/docks/pryvacy.pdf'
 
 createRoot(document.querySelector('body')).render(
     <StrictMode>
@@ -54,7 +55,6 @@ createRoot(document.querySelector('body')).render(
                 <Route path="/message_list/:id/" element={<Message />}/>
                 <Route path="/settings/" element={<Settings />}/>
                 <Route path="/about_us/" element={<About />}/>
-                <Route path="/privacy/" element={<Confident />}/>
                 <Route path="/:username/offer/:id/" element={<Offer />}/>
                 <Route path='/my_lessons/' element={<MyLessons />} />
                 <Route path="/call/" element={<Call />}/>

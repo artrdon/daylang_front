@@ -5,6 +5,19 @@
     -moz-user-select: none;
     -ms-user-select: none;*/
 }
+/*.loading_element {
+    animation: changeColor 2s infinite;
+    width: 100%;
+    height: 100%;
+  }
+  @keyframes changeColor {
+    0% {
+      background-color: red;
+    }
+    100% {
+      background-color: blue;
+    }
+  }*/
 #only_for_fon{
     display: none;
 }

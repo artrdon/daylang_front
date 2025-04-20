@@ -370,8 +370,8 @@ var arrLang = {
   );
   if (error12) return <p>Error: {error}</p>;
 
-  console.log(photoArray);
-  console.log(photoArray[0].length);
+  /*console.log(photoArray);
+  console.log(photoArray[0].length);*/
   
 
 
