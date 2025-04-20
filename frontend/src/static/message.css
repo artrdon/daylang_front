@@ -119,7 +119,7 @@
     border-bottom-left-radius: 20px;
     width: 50px; 
     height: 50px; 
-    background-color: #949494; 
+    background-color: #f8f8f8; 
     border: 2px solid gray;
     position: absolute; 
     bottom: 0px; 
@@ -130,7 +130,7 @@
 .extra_mess_button{
     width: 55px; 
     height: 50px; 
-    background-color: #949494; 
+    background-color: #f8f8f8; 
     position: absolute; 
     right: 100px; 
     display: inline-block; 
@@ -228,20 +228,20 @@
     background-color: #81242400; width: 800px; min-height: 50px; border-radius: 20px; box-shadow: 0px 0px 0px #5c5c5c;
 }
 .input_panel{
-    font-size: 20px; padding: 10.5px; width: calc(100% - 300px); background-color: #949494; min-height: 25px; bottom: 0px; left: 100px; position: absolute; outline: none; display: inline-block; color: white; max-height: 100px; overflow: auto; border-radius: 5px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border: 2px solid gray;
+    font-size: 20px; padding: 10.5px; width: calc(100% - 300px); background-color: #f8f8f8; min-height: 25px; bottom: 0px; left: 100px; position: absolute; outline: none; display: inline-block; color: rgb(0, 0, 0); max-height: 100px; overflow: auto; border-radius: 5px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border: 2px solid gray;
 }
 .sending_button{
-    width: 70px; height: 50px; background-color: #949494;  position: absolute; right: 30px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; display: inline-block; outline: none; border: 2px solid gray;
+    width: 70px; height: 50px; background-color: #f8f8f8;  position: absolute; right: 30px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; display: inline-block; outline: none; border: 2px solid gray;
 }
 
 .clear_and_send_buttons_pos{
     position: absolute; right: 20px;
 }
 .img_delete{
-    height: 25px; width: 23px;
+    height: 25px; width: 23px; filter: brightness(20%);
 }
 .img_send{
-    height: 30px; width: 30px;
+    height: 30px; width: 30px; filter: brightness(20%);
 }
 /*place of writing message*/
 
@@ -261,6 +261,12 @@ div *::-webkit-scrollbar-thumb {
 }
 
 .dark_theme{
+    .img_delete{
+        filter: brightness(100%);
+    }
+    .img_send{
+        filter: brightness(100%);
+    }
     .message_finded_name {
         color: white;
     }
@@ -280,6 +286,7 @@ div *::-webkit-scrollbar-thumb {
         background-color: rgb(22, 22, 22);
     }
     .input_panel{
+        color: white;
         background-color: #191919;
         border-color: gray;
     }
@@ -400,10 +407,10 @@ div *::-webkit-scrollbar-thumb {
     }
     .input_panel{
         border: 0.3809vw solid;
-        width: calc(100% - 38.095vw);
+        width: calc(100% - 38vw);
         padding: 2vw;
         font-size: 3.8095vw;
-        min-height: calc(4.763vw - 0.3809vw);
+        min-height: 5vw;
         max-height: 19.047vw;
         left: 9.523vw;
     }

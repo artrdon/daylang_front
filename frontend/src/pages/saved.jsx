@@ -226,7 +226,7 @@ function change_theme() {
   );
   if (error12) return <p>Error: {error}</p>;
 
-console.log(data1);
+//console.log(data1);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -256,8 +256,8 @@ console.log(data1);
                               <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
                                <img src="/src/static/img/srcered.png" alt="" className="src_img" />
                                 <div className="part_with_text">
-                                <p className="finded_price" style={{color: "rgb(0, 184, 0)" }}>{data.price} ₽</p>
-                                <p className="finded_online_status">online</p>
+                                <p className="finded_price">{data.price} ₽</p>
+                                {/*<p className="finded_online_status">online</p>*/}
                                 <div className="finded_review">
                                   <img src="/src/static/img/11.png" alt="" className="img_review" />
                                   <h1 className="review_text"> {data.review}</h1>

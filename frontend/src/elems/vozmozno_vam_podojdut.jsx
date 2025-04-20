@@ -50,17 +50,7 @@ function Vozmozno_vam() {
 
 
 
-  if (loading) return (<>
-      <div className="div_of_service">
-            <img  alt="" style={{height: 100,width: 160,position: "absolute", zIndex: 10, top: 50, left: 20 }}/>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <p style={{ position: "absolute", fontSize: 25, zIndex: 10, fontWeight: 600, top: 170, color: "white" }}>
-
-              </p>
-            </div>
-            <img src="/src/static/img/bluefon.png" alt="" className="service_img" />
-            <div className="count_of_offers"></div>
-          </div>
+  if (loading) return (<><div></div>
 
       </>);
   if (error) return <p>Error: {error}</p>;

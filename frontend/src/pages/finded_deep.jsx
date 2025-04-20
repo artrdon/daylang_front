@@ -365,8 +365,8 @@ function change_theme() {
                               <img src="/src/static/img/srcered.png" alt="" className="src_img" />
                             )}
                           <div className="part_with_text">
-                            <p className="finded_price" style={{color: "rgb(0, 184, 0)" }}>{data.price} ₽</p>
-                            <p className="finded_online_status">online</p>
+                            <p className="finded_price">{data.price} ₽</p>
+                            {/*<p className="finded_online_status">online</p>*/}
                             <div className="finded_review">
                               <img src="/src/static/img/11.png" alt="" className="img_review" />
                               <h1 className="review_text"> {data.review}</h1>
