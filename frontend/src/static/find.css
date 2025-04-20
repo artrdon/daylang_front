@@ -229,6 +229,9 @@
     margin-right: 50px;
     position: relative;
 }
+.under_crt_offer_blank{
+    width: 570px; margin-left: auto; margin-right: auto; position: relative; font-size: 20px;
+}
 .clear_mes_butt{
     border-top-left-radius: 20px; 
     border-bottom-left-radius: 20px; 
@@ -825,7 +828,7 @@ a{
         width: calc(((100vw - 40px)/3) - 20px);
     }
     .find_page_div_over_offer_types{
-        width: 100%;
+        width: calc(100% - 40px);
     }
     .count_of_offers{
         font-size: 4vw;
@@ -889,6 +892,9 @@ a{
         font-size: 6vw;
         width: calc(100% - 12vw);
         left: 6vw;
+    }
+    .under_crt_offer_blank {
+        width: 100%;
     }
 }
 
@@ -992,6 +998,9 @@ a{
     }
     .name_of_offer{
         width: calc(100% - 20px);
+    }
+    .under_crt_offer_blank {
+        font-size: 3.8095vw;
     }
 }
 

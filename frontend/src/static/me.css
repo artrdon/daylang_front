@@ -126,9 +126,9 @@
 }
 @media only screen and (max-width: 900px)
 {
-    .crt_offer_blank{
+    /*.crt_offer_blank{
         margin-bottom: 100px;
-    }
+    }*/
     .me_description_offer{
         width: calc(100% - 100px);
         padding-bottom: 100px;

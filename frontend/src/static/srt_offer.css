@@ -80,6 +80,7 @@
         width: 100%;
     }
 }
+
 @media only screen and (max-width: 700px)
 {
     .input_field_name{
@@ -97,6 +98,18 @@
     }
     .setting_language_selector{
         width: calc(78.573% + 20px);
+    }
+}
+@media only screen and (max-width: 525px) {
+    .ctr_offer_find_panel {
+        top: 13.3333vw;
+    }
+    .crt_offer_gray_thing {
+        border: 0.3809vw solid #444444;
+        
+        border-radius: 0.9523vw;
+        margin-top: 5.7142vw;
+        margin-bottom: 5.7142vw;
     }
 }
 @media only screen and (max-width: 380px)

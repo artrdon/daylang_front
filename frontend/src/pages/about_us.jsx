@@ -178,7 +178,7 @@ function change_theme() {
   );
   if (error12) return <p>Error: {error}</p>;
 
-console.log(data);
+//console.log(data);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -188,7 +188,7 @@ console.log(data);
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div className="crt_offer_gray_thing">
         <div className="crt_offer_blank">
-          <div style={{ width: 570, marginLeft: "auto", marginRight: "auto", position: "relative", fontSize: 20 }}>
+          <div className='under_crt_offer_blank'>
             <span translate="no">ООО "ДЭЙЛЭНГ"</span>
             <span style={{ display: "block" }} translate="no">
               ИНН: 218283626, ОГРН: 6232322727237
