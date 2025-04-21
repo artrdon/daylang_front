@@ -214,7 +214,7 @@ function change_theme() {
 </>
 
   );
-  if (error1) return <p>Error: {error}</p>;
+  if (error1) return <p>Error: {error1}</p>;
 
 
 
@@ -224,7 +224,7 @@ function change_theme() {
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
 //console.log(data1);
     return (

@@ -91,13 +91,13 @@ function Log_reset() {
             if (captcha != null)
             {
                 setConf(true);
-                    const to_email = await axios.post(`${WSAPIURL}/email/${data.email}`, data, {
+                    const to_email = await axios.post(`${APIURL}/email/${data.email}`, data, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': csrfToken,
                         },
                     });
-                    console.log('Response:', response.data);
+                    console.log('Response:', to_email.data);
                 
             }
 
@@ -111,7 +111,7 @@ function Log_reset() {
         try {
             //if (captcha != null)
             //{
-                const response = await axios.post(`${WSAPIURL}/forgot_password/`, data1, {
+                const response = await axios.post(`${APIURL}/forgot_password/`, data1, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -134,19 +134,20 @@ function Log_reset() {
         try {
             //if (captcha != null)
             //{
-                const response = await axios.post(`${WSAPIURL}/forgot_password_reset/`, data, {
+                const response = await axios.post(`${APIURL}/forgot_password_reset/`, data, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
                     },
                 });
+                console.log('Response:', response.data);
                 if (response.data["if"] === "yes"){
                     window.location.replace('/log/');
                 }
                 if (response.data["if"] === "passwords are different"){
                     setPassDiff(true);
                 }
-                console.log('Response:', response.data);
+                
           //  }
 
         } catch (error) {

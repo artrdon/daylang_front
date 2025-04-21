@@ -324,7 +324,7 @@ function change_theme() {
 </>
 
   );
-  if (error1) return <p>Error: {error}</p>;
+  if (error1) return <p>Error: {error1}</p>;
 
   if (loading12) return (
       <>
@@ -332,9 +332,9 @@ function change_theme() {
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
-  console.log(data1);
+ // console.log(data1);
   return (
       <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>

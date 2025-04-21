@@ -267,7 +267,7 @@ useEffect(() => {
 </>
 
   );
-    if (error2) return <p>Error: {error}</p>;
+    if (error2) return <p>Error: {error2}</p>;
 
     if (loading3) return (
       <>
@@ -275,7 +275,7 @@ useEffect(() => {
 </>
 
   );
-    if (error3) return <p>Error: {error}</p>;
+    if (error3) return <p>Error: {error3}</p>;
 
 
 

@@ -11,59 +11,9 @@ import WSAPIURL from '/wsapi.js';
 function Find() {
 
   
-  const [groups, setGroup] = useState([0]);
+  const [groups, setGroup] = useState([]);
   const [ws, setWs] = useState(null);
   const [messNumb, setMessNumb] = useState(null);
-
-useEffect(() => { 
-
-    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-
-        //console.log(dataMess);
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                //console.log(dataMess.if_readed[i]);
-                //console.log(data.username);
-                if (dataMess.if_readed[i] === data.username){
-                  //console.log("i_read");
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              setMessNumb(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
-            return;
-        }
-
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
 
 
 
@@ -241,7 +191,9 @@ axios.defaults.withCredentials = true;
         const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
-                //console.log(response.data[0][i].id);
+                console.log(response.data[0]);
+                console.log(response.data[0].length);
+                console.log(response.data[0][i].id);
                 setGroup((groups) => [...groups, response.data[0][i].id]);
             }
         }
@@ -256,6 +208,54 @@ axios.defaults.withCredentials = true;
 
     fetchData();
   }, []);
+
+
+  useEffect(() => { 
+
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
+
+    socket.onopen = () => {
+        console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+        const dataMess = JSON.parse(event.data);
+
+        if (dataMess.tip === "delete"){
+            let i_read = true;
+            for (let i = 0; dataMess.if_readed.length > i; i++){
+                if (dataMess.if_readed[i] === data.username){
+                  i_read = false;
+                }
+            }
+            if (i_read)
+              setMessNumb(prev => prev - 1);
+            return;
+        }
+
+        if (dataMess.tip === "send"){
+            setMessNumb(prev => prev + 1);
+            return;
+        }
+
+         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    setWs(socket);
+
+    return () => {
+      socket.close();
+    };
+  }, [groups]);
+
 
 
 
@@ -274,7 +274,7 @@ axios.defaults.withCredentials = true;
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
     return (
         <>

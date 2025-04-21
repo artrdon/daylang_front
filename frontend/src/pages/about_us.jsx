@@ -176,7 +176,7 @@ function change_theme() {
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
 //console.log(data);
     return (

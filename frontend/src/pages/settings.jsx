@@ -230,7 +230,7 @@ function change_theme() {
 </>
 
   );
-  if (error1) return <p>Error: {error}</p>;
+  if (error1) return <p>Error: {error1}</p>;
 
   if (loading2) return (
     <>
@@ -239,7 +239,7 @@ function change_theme() {
 </>
 
 );
-if (error2) return <p>Error: {error}</p>;
+if (error2) return <p>Error: {error2}</p>;
 
 
   if (loading12) return (
@@ -249,7 +249,7 @@ if (error2) return <p>Error: {error}</p>;
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
   document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | Настройки`;
 

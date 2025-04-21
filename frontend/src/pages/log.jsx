@@ -98,7 +98,7 @@ function Log() {
                     document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
                     window.location.replace('/'); // Нет возможности вернуться
 
-                }*/
+                }*/console.log(response.data);
                     if (response.data != 'username or password is incorrect'){
                       setConf(true);
                       const to_email = await axios.post(`${APIURL}/email/${response.data}`, data, {
@@ -107,7 +107,7 @@ function Log() {
                               'X-CSRFToken': csrfToken,
                           },
                       });
-                      console.log('Response:', response.data);
+                      console.log('Response:', to_email.data);
   
                   }
             }

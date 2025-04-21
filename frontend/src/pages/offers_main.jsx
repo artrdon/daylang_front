@@ -340,7 +340,7 @@ var arrLang = {
 </>
 
   );
-  if (error1) return <p>Error: {error}</p>;
+  if (error1) return <p>Error: {error1}</p>;
 
 
   if (loading2) return (
@@ -350,7 +350,7 @@ var arrLang = {
 </>
 
   );
-  if (error2) return <p>Error: {error}</p>;
+  if (error2) return <p>Error: {error2}</p>;
 
 
   if (loading3) return (
@@ -360,7 +360,7 @@ var arrLang = {
 </>
 
   );
-  if (error3) return <p>Error: {error}</p>;
+  if (error3) return <p>Error: {error3}</p>;
 
   if (loading12) return (
       <>
@@ -369,7 +369,7 @@ var arrLang = {
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
   document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | ${arrLang[lang]['offers']}`;
 

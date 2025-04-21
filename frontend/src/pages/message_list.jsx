@@ -300,7 +300,7 @@ const delete_chat = async (e, idd,) => {
   if (loading1) return ( <> <AppLoad lang={langua}/>
                             <Message_list_load/>
                         </> );
-  if (error1) return <p>Error: {error}</p>;
+  if (error1) return <p>Error: {error1}</p>;
 
 
     return (

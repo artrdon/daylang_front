@@ -297,7 +297,7 @@ useEffect(() => {
 </>
 
   );
-  if (error1) return <p>Error: {error}</p>;
+  if (error1) return <p>Error: {error1}</p>;
 
 
   if (loading2) return (
@@ -307,7 +307,7 @@ useEffect(() => {
 </>
 
   );
-  if (error2) return <p>Error: {error}</p>;
+  if (error2) return <p>Error: {error2}</p>;
 
   if (loading12) return (
       <>
@@ -316,7 +316,7 @@ useEffect(() => {
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
 //console.log(data1.i_am_teacher);
 

@@ -393,7 +393,7 @@ useEffect(() => {
 </>
 
   );
-    if (error2) return <p>Error: {error}</p>;
+    if (error2) return <p>Error: {error2}</p>;
 
 
   if (loading12) return (
@@ -402,7 +402,7 @@ useEffect(() => {
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
 //console.log(data2);
 

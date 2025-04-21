@@ -582,7 +582,7 @@ const save_to_fav = async (e) => {
 </>
 
   );
-  if (error1) return <p>Error: {error}</p>;
+  if (error1) return <p>Error: {error1}</p>;
 
   if (loading2) return (
       <>
@@ -592,7 +592,7 @@ const save_to_fav = async (e) => {
 </>
 
   );
-  if (error2) return <p>Error: {error}</p>;
+  if (error2) return <p>Error: {error2}</p>;
 
 
   if (loading3) return (
@@ -603,7 +603,7 @@ const save_to_fav = async (e) => {
 </>
 
   );
-  if (error3) return <p>Error: {error}</p>;
+  if (error3) return <p>Error: {error3}</p>;
 
     if (loading7) return (
       <>
@@ -612,7 +612,7 @@ const save_to_fav = async (e) => {
 </>
 
   );
-  if (error7) return <p>Error: {error}</p>;
+  if (error7) return <p>Error: {error7}</p>;
 
   if (loading12) return (
       <>
@@ -621,7 +621,7 @@ const save_to_fav = async (e) => {
 </>
 
   );
-  if (error12) return <p>Error: {error}</p>;
+  if (error12) return <p>Error: {error12}</p>;
 
 
     document.querySelector("title").textContent = `${data1[0].name}`;
