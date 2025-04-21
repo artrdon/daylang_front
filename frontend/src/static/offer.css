@@ -1,3 +1,13 @@
+.offer_page_show_more_button{
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    padding: 0px;
+    margin-top: 5px;
+    display: block;
+}
+
 .offer_review_modal-container {
     display: flex;
     justify-content: center;
@@ -143,6 +153,9 @@
 /*feedback moment*/
 
 .dark_theme{
+    .offer_page_show_more_button{
+        color: white;
+    }
     .offer_save_to_fav_button{
         filter: brightness(100%);
     }

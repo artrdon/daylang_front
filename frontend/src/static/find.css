@@ -124,7 +124,7 @@
   }
 }
 .app_message_indicator{
-    position: absolute; left: 50px; top: 90px; background-color: gray; font-size: 20px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%;
+    position: absolute; left: 50px; top: 150px; background-color: gray; font-size: 20px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%;
 }
 .app_navig_panel_razdel{
     border-bottom: 1px solid rgb(138, 138, 138);
@@ -660,7 +660,7 @@ a{
         height: auto; width: calc(((100vw - 140px)/4) - 20px); aspect-ratio: 2/3;
     }
     .app_message_indicator{
-        left: 38vw; top: 20px;
+        left: 50vw; top: 20px;
     }
     .saved_finded_panel{
         width: calc(100% - 6px);
@@ -924,6 +924,9 @@ a{
 
 @media only screen and (max-width: 525px)
 {
+    .app_message_indicator{
+        top: 3.8095vw; font-size: 3.8095vw; width: 4.7619vw; height: 4.7619vw; border-radius: 50%;
+    }
     .navig_panel{
         height: 12vw;
     }

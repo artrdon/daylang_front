@@ -62,15 +62,7 @@ const AnimatedExpandableText = ({ text, maxLength = 300 }) => {
       <div className="description_text">{displayText}</div>
       <button 
         onClick={() => setIsExpanded(!isExpanded)}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: 'white',
-          cursor: 'pointer',
-          padding: '0',
-          marginTop: '5px',
-          display: "block"
-        }}
+        className='offer_page_show_more_button'
       >
         {isExpanded ? 'Скрыть' : 'Показать больше'}
       </button>
@@ -93,15 +85,7 @@ const AnimatedExpandableTextPhone = ({ text, maxLength = 300  }) => {
       <div className="description_text" style={{whiteSpace: "pre-wrap", overflowWrap: "anywhere"}}>{displayText}</div>
       <button 
         onClick={() => setIsExpanded(!isExpanded)}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: 'white',
-          cursor: 'pointer',
-          padding: '0',
-          marginTop: '5px',
-          display: "block"
-        }}
+        className='offer_page_show_more_button'
       >
         {isExpanded ? 'Скрыть' : 'Показать больше'}
       </button>
