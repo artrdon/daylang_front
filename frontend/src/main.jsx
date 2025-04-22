@@ -28,12 +28,15 @@ import App from './App.jsx'
 import Call from '/src/pages/call.jsx'
 import Finded_deep from './pages/finded_deep.jsx'
 import pers from '/src/static/docks/pryvacy.pdf'
+import CallbackHandler from './pages/yandex_call_back.jsx'
 
 createRoot(document.querySelector('body')).render(
     <StrictMode>
         <BrowserRouter>
 
             <Routes>
+                <Route path="/auth/yandex/callback" element={<CallbackHandler />} />
+
                 <Route path="/" element={<Find />}/>
                 <Route path="/user/undefined/" element={<Log />}/>
                 <Route path="/log/" element={<Log />}/>

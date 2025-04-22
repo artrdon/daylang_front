@@ -141,6 +141,14 @@ function Log() {
         }
     };
 
+      const handleYandexLogin = () => {
+          const clientId = '4fc7bce46ef14fcf9ee912093e44fa1c';
+          const redirectUri = encodeURIComponent('http://localhost:5173/auth/yandex/callback');
+          const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
+          window.location.href = url;
+      };
+
+
     return (
         <>
 
@@ -192,6 +200,9 @@ function Log() {
           <div className="d-flex justify-content-center mt-3 login_container">
             <ReCAPTCHA sitekey={KEY} onChange={onChange} style={{ width: 180 }}/>
           </div>
+          <button onClick={handleYandexLogin}>
+            Войти через Яндекс
+        </button>
         </form>
 {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
       </div>

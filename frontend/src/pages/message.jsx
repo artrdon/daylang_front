@@ -407,7 +407,7 @@ useEffect(() => {
   );
   if (error12) return <p>Error: {error12}</p>;
 
-console.log(infoForHeader);
+//console.log(infoForHeader);
 
     return (
         <>
@@ -491,17 +491,18 @@ console.log(infoForHeader);
           }
           
           return (<>
-
+            <div style={{display: "flex", flexDirection: "column-reverse"}}>
               {data2.map((da) => (
                 <>
-                  <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
+                <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
                   {(() => {if (da.i_read){
                     return <ScrollToBottom key={`keyscroll${da.id}`} />;
                   }})()}
-                  
                 </>
               ))}
+            </div>
               </>);
+            
         }else{
             return (<>
                 <div style={{ display: "flex", justifyContent: "center", }}>

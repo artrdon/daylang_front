@@ -3,10 +3,6 @@ import React from 'react'
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
-
-
-//const socket = io('ws://127.0.0.1:8000/socket.io'); // Определите socket
-
 function Call() {
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
@@ -240,6 +236,42 @@ function Call() {
     }
 
     //createOffer();
+    
+    const getMedia = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: '100vw',
+            height: '100vh'
+          },
+          audio: true
+        });
+        console.log(stream);
+        if (localVideoRef.current) {
+          localVideoRef.current.srcObject = stream;
+          setLocalStream(stream);
+
+          stream.getTracks().forEach(track => {
+            pcRef.current.addTrack(track, stream);
+          });
+        }
+      } catch (error) {
+        console.error('Error accessing media devices:', error);
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: true
+        });
+        console.log(stream);
+        if (localVideoRef.current) {
+          localVideoRef.current.srcObject = stream;
+          setLocalStream(stream);
+
+          stream.getTracks().forEach(track => {
+            pcRef.current.addTrack(track, stream);
+          });
+        }
+      }
+    };
 
     return (
         <>
@@ -254,7 +286,7 @@ function Call() {
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%"}}>
+            <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={getMedia}>
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
             </button>
 
