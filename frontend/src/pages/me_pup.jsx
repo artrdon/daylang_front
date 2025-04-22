@@ -161,7 +161,7 @@ function change_theme() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${WSAPIURL}/usersettings/${params.user}/`);
+        const response = await axios.get(`${APIURL}/usersettings/${params.user}/`);
         setData1(response.data);
       } catch (err) {
         setError1(err.message);
@@ -179,7 +179,7 @@ function change_theme() {
       useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${WSAPIURL}/userinfo/${params.user}/`);
+        const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
         if (response.data.i_am_teacher === true)
         {
             window.location.replace(`/t/user/${params.user}/`)
@@ -203,7 +203,7 @@ function change_theme() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${WSAPIURL}/userinfo/`);
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData2(response.data);
       } catch (err) {
         setError2(err.message);
@@ -219,7 +219,7 @@ function change_theme() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${WSAPIURL}/getchatlist/`);
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);
@@ -304,7 +304,7 @@ function change_theme() {
 </>
 
   );
-  if (error1) return <p>Error: {error1}</p>;
+  if (error1) return <p>Error1: {error1}</p>;
 
 
   if (loading2) return (
@@ -314,7 +314,7 @@ function change_theme() {
 </>
 
   );
-  if (error2) return <p>Error: {error2}</p>;
+  if (error2) return <p>Error2: {error2}</p>;
 
   if (loading12) return (
       <>
@@ -323,7 +323,7 @@ function change_theme() {
 </>
 
   );
-  if (error12) return <p>Error: {error12}</p>;
+  if (error12) return <p>Error12: {error12}</p>;
 
 //console.log(data);
 

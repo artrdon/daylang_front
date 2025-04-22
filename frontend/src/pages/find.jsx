@@ -191,9 +191,6 @@ axios.defaults.withCredentials = true;
         const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0]);
-                console.log(response.data[0].length);
-                console.log(response.data[0][i].id);
                 setGroup((groups) => [...groups, response.data[0][i].id]);
             }
         }

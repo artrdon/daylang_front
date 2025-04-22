@@ -30,7 +30,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
     const csrfToken = getCookie('csrftoken');
 
     const [confirm, setIsVisible] = useState(false);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [position, setPosition] = useState({ y: 0 });
     const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
 
 
@@ -38,26 +38,51 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
   // Функция для переключения видимости элемента
   const toggleVisibility = (e, id) => {
     setVisibleId(prevId => prevId === id ? null : id);
-    setPosition({ x: e.clientX, y: e.clientY });
+    setPosition({ y: e.clientY });
+    console.log(e.clientY);
   };
+  const unToggleVisibility = () =>{
+    setVisibleId(null);
+  }
+  const DELunToggleVisibility = (id) =>{
+    delet(id);
+    setVisibleId(null);
+  }
+  const EDunToggleVisibility = (id) =>{
+    click(id)
+    setVisibleId(null);
+  }
 //console.log(if_teach);
 
     return (
       
             <>
-            {/*<div
+            { visibleId != null && 
+            <>
+            <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}} onClick={unToggleVisibility}/>
+            <div
           style={{
-            position: 'absolute',
-            /*left: `${position.x-373.5}px`,
-            top: `${position.y-152}px`,
+            position: 'fixed',
+            left: `60vw`,
+            top: `${position.y}px`,
             width: '50px',
             height: '50px',
-            background: 'red',
-            borderRadius: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 10000 // Центрирует элемент относительно клика
+            zIndex: 10000,
+            transform: "scale(-1, 1)", // Центрирует элемент относительно клика
           }}
-        />*/}
+        >
+          <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
+                                            <div className='message_comp_delete_panel_div'>
+                                                <button className='message_comp_delete_panel_div_delete' onClick={() => DELunToggleVisibility(id)}>
+                                                    Delete
+                                                </button>
+                                                <button className='message_comp_delete_panel_div_edit' onClick={() => EDunToggleVisibility(id)}>
+                                                    Edit
+                                                </button>
+                                            </div>
+                                        </div>
+        </div>
+        </>}
 {(() => {
         if (sender === me) {
           return (<>
@@ -87,7 +112,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                     </pre>
                   </div>
                   
-                  {visibleId === id && <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
+                  {/*visibleId === id && <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
                                             <div className='message_comp_delete_panel_div'>
                                                 <button className='message_comp_delete_panel_div_delete' onClick={() => delet(id)}>
                                                     Delete
@@ -97,7 +122,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                                                 </button>
                                             </div>
                                         </div>
-                  }
+                  */}
               </div>
           
               </>);
