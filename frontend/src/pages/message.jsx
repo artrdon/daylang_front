@@ -24,7 +24,7 @@ const ScrollToBottom = () => {
 };
 
 function Message() {
-    let params = useParams();
+  const params = useParams();
 
 const [text, setText] = useState(null);
 const [messId, setMessId] = useState(null);
@@ -40,6 +40,7 @@ const [messId, setMessId] = useState(null);
   const [data3, setData3] = useState(null);
   const [loading3, setLoading3] = useState(true);
   const [error3, setError3] = useState(null);
+  const [infoForHeader, setHeader] = useState(null);
 
 
   // Функция, которая будет вызываться при нажатии на кнопку
@@ -170,7 +171,6 @@ const messChange = (idd) => {
     }
 }
 
-    const [count, setCount] = useState(0)
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -365,6 +365,9 @@ useEffect(() => {
             for (let i = 0; i < response.data[0].length; i++){
                 console.log(response.data[0][i].id);
                 setGroup((groups) => [...groups, response.data[0][i].id]);
+                if (response.data[0][i].id == params.id){
+                  setHeader(response.data[0][i]);
+                }
             }
         }
         setData12(response.data);
@@ -404,8 +407,7 @@ useEffect(() => {
   );
   if (error12) return <p>Error: {error12}</p>;
 
-//console.log(data2);
-
+console.log(infoForHeader);
 
     return (
         <>
@@ -434,10 +436,10 @@ useEffect(() => {
                     alt="pupil"
                     className="img_of_micro_chel"
                   />
-                  {/*(() => {
-                      if (data12[0][params.id].me === true) {
+                  {(() => {
+                      if (infoForHeader.me === true) {
                           return (<> <span className="ime message_chat_name" translate="no">
-                                        {data12[0][params.id].ime} {data12[0][params.id].prezime}
+                                        {infoForHeader.ime} {infoForHeader.prezime}
                                     </span> </>)
 
                       } else{
@@ -448,7 +450,7 @@ useEffect(() => {
                       }
 
 
-                      })()*/}
+                      })()}
 
                 </div>
             </Link>
