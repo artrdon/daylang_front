@@ -326,13 +326,11 @@ function Call() {
         <video style={{ width:"100%", height:"100%", position: "absolute", bottom: 0, right: 0, backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
         <video style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>
         <button style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, zIndex: 5, backgroundColor: "#00000000"}} onClick={change}></button>
-        <div className="parent_panel_call">
-
-        </div>
+        
         <div className="panel_call" style={{zIndex: 10, width: "100%", left:0}}>
-            {/*<button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 75, marginLeft: 75, }} onClick={createOffer}>
+            <button style={{ backgroundColor: "red", borderRadius: "50%",}} onClick={createOffer}>
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
-            </button>*/}
+            </button>
 
             <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={getMedia}>
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
