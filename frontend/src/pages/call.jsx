@@ -329,7 +329,7 @@ function Call() {
         <div className="parent_panel_call">
 
         </div>
-        <div className="panel_call">
+        <div className="panel_call" style={{zIndex: 10, width: "100%", left:0}}>
             {/*<button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 75, marginLeft: 75, }} onClick={createOffer}>
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
             </button>*/}
@@ -342,7 +342,7 @@ function Call() {
                 <div>screen</div>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 75, marginLeft: 75, }} onClick={endCall}>
+            <button style={{ backgroundColor: "red", borderRadius: "50%",}} onClick={endCall}>
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
             </button>
 
