@@ -8,6 +8,7 @@ import NotFoundSave from '/src/elems/not_found_save.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import FindedAndSavedOffers from '/src/elems/finded_and_saved_offers.jsx'
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -353,31 +354,10 @@ function change_theme() {
             return (<>
                 
                 {data1.map((data) => (
+                      
+                      <FindedAndSavedOffers chel={data.chel} id={data.id} name={data.name} photo={data.photo} isFav={data.isFav} review={data.review} price={data.price} description={data.description} key={data.id}/>
+  
 
-                    <Link to={`/${data.chel}/offer/${data.id}/`} key={data.id} target='_blank'>
-                      <div className="offer_of_lang_finded">
-                        <div style={{ width: "100%", height: "100%", position: "relative" }}>
-                          <h1 className="finded_name">{data.name}</h1>
-                          <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-                            {data.isFav === false ? (
-                              <img src="/src/static/img/srce.png" alt="" className="src_img" />
-                            ) : (
-                              <img src="/src/static/img/srcered.png" alt="" className="src_img" />
-                            )}
-                          <div className="part_with_text">
-                            <p className="finded_price">{data.price} ₽</p>
-                            {/*<p className="finded_online_status">online</p>*/}
-                            <div className="finded_review">
-                              <img src="/src/static/img/11.png" alt="" className="img_review" />
-                              <h1 className="review_text"> {data.review}</h1>
-                            </div>
-                            <div className="description_lol">
-                              {data.description}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
                     ))}
                 </>)
 

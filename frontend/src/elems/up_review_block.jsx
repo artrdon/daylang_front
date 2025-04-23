@@ -7,7 +7,6 @@ import axios from 'axios';
 
 function UpReviewBlock() {
 
-    const [count, setCount] = useState(0)
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;

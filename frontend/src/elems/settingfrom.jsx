@@ -29,7 +29,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo }) {
 
-    const [count, setCount] = useState(0)
+
      function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);

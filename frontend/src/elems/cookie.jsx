@@ -4,7 +4,6 @@ import Message from '/src/pages/message.jsx'
 
 function Cookie() {
 
-    const [count, setCount] = useState(0)
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);

@@ -4,7 +4,6 @@ import Message from '/src/pages/message.jsx'
 
 function Bye_and_call({bye, am_teach}) {
 
-    const [count, setCount] = useState(0)
 
 
 return (

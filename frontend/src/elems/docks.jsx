@@ -5,8 +5,6 @@ import Message from '/src/pages/message.jsx'
 
 function Docks() {
 
-    const [count, setCount] = useState(0)
-
 
 return (
     <>

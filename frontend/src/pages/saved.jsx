@@ -6,6 +6,7 @@ import NotFoundSave from '/src/elems/not_found_save.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import FindedAndSavedOffers from '/src/elems/finded_and_saved_offers.jsx'
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -226,7 +227,7 @@ function change_theme() {
   );
   if (error12) return <p>Error: {error12}</p>;
 
-//console.log(data1);
+console.log(data1[0].isFav);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -249,26 +250,8 @@ function change_theme() {
             else{
                 return (<>
                     {data1.map((data) => (
-                         <Link  to={`/${data.chel}/offer/${data.id}/`} key={data.id} target='_blank'>
-                          <div className="offer_of_lang_finded">
-                            <div style={{ width: "100%", height: "100%", position: "relative" }}>
-                              <h1 className="finded_name">{data.name}</h1>
-                              <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-                               <img src="/src/static/img/srcered.png" alt="" className="src_img" />
-                                <div className="part_with_text">
-                                <p className="finded_price">{data.price} ₽</p>
-                                {/*<p className="finded_online_status">online</p>*/}
-                                <div className="finded_review">
-                                  <img src="/src/static/img/11.png" alt="" className="img_review" />
-                                  <h1 className="review_text"> {data.review}</h1>
-                                </div>
-                                <div className="description_lol">
-                                  {data.description}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
+                        <FindedAndSavedOffers chel={data.chel} id={data.id} name={data.name} photo={data.photo} isFav={data.isFav} review={data.review} price={data.price} description={data.description} key={data.id}/>
+  
                         ))}
                     </>)
                 }

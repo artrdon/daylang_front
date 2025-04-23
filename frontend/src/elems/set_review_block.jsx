@@ -9,7 +9,6 @@ import WSAPIURL from '/wsapi.js';
 
 function SetReviewBlock({set_rew, feedback}) {
 
-    const [count, setCount] = useState(0)
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;

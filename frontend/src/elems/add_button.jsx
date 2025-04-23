@@ -5,7 +5,6 @@ import Message from '/src/pages/message.jsx'
 
 function Add_button() {
 
-    const [count, setCount] = useState(0)
 
 
 return (

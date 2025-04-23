@@ -739,7 +739,7 @@ const save_to_fav = async (e) => {
             </span>
             {(() => {
                 if (data7.real_man === true) {
-                  return <img src="/src/static/img/confirmed.png" alt="" className="offer_me_real_pers" />;
+                  return <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />;
                 }
               })()}
           </div>

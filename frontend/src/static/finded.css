@@ -58,7 +58,7 @@
     display: block; right: 0px; font-size: 30px; position: relative; color: black;
 }
 .finded_review{
-    position: absolute; left: 600px; top: 0px;  filter: hue-rotate(340deg);
+    position: absolute; right: 40px; top: 80px;  filter: hue-rotate(340deg);
 }
 .img_review{
     width: 30px; height: 30px; display: inline-block;
@@ -161,12 +161,17 @@
 }
 
 
-@media only screen and (max-width: 1500px)
+@media only screen and (max-width: 1400px)
 {
-
+    .offer_of_lang_finded{
+        width: calc(100% - 20px);
+    }
+    .offer_of_lang_finded_sort_panel{
+        width: calc(100% - 20px);
+    }
 }
 
-@media only screen and (max-width: 900px)
+@media only screen and (max-width: 1100px)
 {
     .finded_img{
         height: auto;
@@ -207,8 +212,8 @@
         left: 25%;
     }
     .finded_review{
-        left: 57vw;
-        top: 3vw;
+        right: 9vw;
+        top: 6vw;
     }
     .finded_price{
         font-size: 4vw;
@@ -259,8 +264,8 @@
         margin-top: -1vw;
     }
     .finded_review{
-        left: 57vw;
-        top: -2vw;
+        right: 5vw;
+        top: 7vw;
     }
     .description_lol{
         top: 7vw;
@@ -275,8 +280,8 @@
         margin-top: -1vw;
     }
     .finded_review{
-        left: 57vw;
-        top: -2vw;
+        right: 5vw;
+        top: 8vw;
     }
     .description_lol{
         top: 4vw;

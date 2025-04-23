@@ -44,7 +44,6 @@ function DoBye({setdate, date, removeDataSetter, am_teach, name_of_offer, price,
     }
     console.log(`${year}-${month}-${day}`);
 
-    const [count, setCount] = useState(0)
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);

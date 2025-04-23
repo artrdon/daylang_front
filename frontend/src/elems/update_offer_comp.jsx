@@ -27,7 +27,6 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function UpdateOfferComp({ name, description, price, id, language, format, target, age, microphone, photo, message}) {
 
-    const [count, setCount] = useState(0)
     let params = useParams();
 
     function getCookie(name) {
