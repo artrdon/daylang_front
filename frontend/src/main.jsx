@@ -44,7 +44,7 @@ createRoot(document.querySelector('body')).render(
                 <Route path="/reg/" element={<Reg />}/>
                 <Route path="/create_offer/" element={<CreateOffer />}/>
                 <Route path="/update_offer/:username/:index/" element={<UpdateOffer />}/>
-                <Route path="/create_chat/:username/:offer_name/:id/" element={<ChatCreate />}/>
+                <Route path="/create_chat/:username/:id/" element={<ChatCreate />}/>
                 <Route path="/finded/:language/" element={<Finded />}/>
                 <Route path="/finded/:language/:format/:target/:age/:microphone/:min/:max/" element={<Finded_deep />}/>
                 <Route path="/t/user/:user/" element={<Me />}/>

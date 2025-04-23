@@ -653,7 +653,7 @@ const save_to_fav = async (e) => {
 
     {data1[0].pisal === false ? (
           data1[0].itsme === false ? (
-          <Link to={`/create_chat/${params.username}/${data1[0].name}/${params.id}/`}>
+          <Link to={`/create_chat/${params.username}/${params.id}/`}>
               <button className="button_under_foto" id="divoffb_button">
                 {arrLang[lang]['message']}
               </button>

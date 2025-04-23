@@ -1,3 +1,14 @@
+.create_chat_button{
+    height: 50px;
+    position: absolute;
+    right: 30px;
+    display: inline-block;
+    outline: none;
+    width: calc(100% - 100px); border-radius: 20px; background-color: #00c925; border: 2px solid #00db1f
+}
+.create_chat_button_text{
+    color: white; font-size: 30px;
+}
 .message_korzina{
     z-index: 101; position: absolute; right: 0px; margin-top: 5px; width: 80px; height: 60px;
 }
@@ -341,6 +352,17 @@ div *::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 525px)
 {
+    .create_chat_button{
+        height: 9.5238vw;
+        position: absolute;
+        right: 5.7142vw;
+        display: inline-block;
+        outline: none;
+        width: calc(100% - 11.4285vw); border-radius: 3.8095vw; background-color: #00c925; border: 0.3809vw solid #00db1f
+    }
+    .create_chat_button_text{
+        color: white; font-size: 5.7142vw;
+    }
     .goback_but{
         margin-left: 1.9047vw;
     }
