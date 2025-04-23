@@ -11,20 +11,26 @@ function Call() {
   const pcRef = useRef(null);
   const wsRef = useRef(null);
   const [isCallStarted, setIsCallStarted] = useState(false);
+  const [components, setComponents] = useState([]);
 
   useEffect(() => {
     const initWebSocket = () => {
       wsRef.current = new WebSocket(`${WSAPIURL}/ws/videochat/1/`);
 
-        wsRef.current.onopen = () => {
-        console.log('WebSocket connected');
-    }
+      wsRef.current.onopen = () => {
+          console.log('WebSocket connected');
+      }
 
       wsRef.current.onmessage = async (event) => {
         const data = JSON.parse(event.data);
 
         if (data.type === 'new_offer') {
-          await handleOffer(data.offer);
+          const newComponent = {
+              type: data.type,
+              offer: data.offer,
+          };
+          setComponents((components) => [...components, newComponent]);
+          //await handleOffer(data.offer);
         } else if (data.type === 'new_answer') {
           await handleAnswer(data.answer);
         } else if (data.type === 'new_ice_candidate') {
@@ -95,6 +101,7 @@ function Call() {
           });
         }
       }
+      createOffer();
     };
 
     /*
@@ -273,25 +280,70 @@ function Call() {
       }
     };
 
+    
+    const getScreenMedia = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: true
+        });
+        console.log(stream);
+        if (localVideoRef.current) {
+          localVideoRef.current.srcObject = stream;
+          setLocalStream(stream);
+
+          stream.getTracks().forEach(track => {
+            pcRef.current.addTrack(track, stream);
+          });
+        }
+      } catch (error) {
+        console.error('Error accessing media devices:', error);
+        
+      }
+    };
+
+    function getConnectedDevices(type, callback) {
+      navigator.mediaDevices.enumerateDevices()
+          .then(devices => {
+              const filtered = devices.filter(device => device.kind === type);
+              callback(filtered);
+          });
+  }
+  
+  getConnectedDevices('videoinput', cameras => console.log('Cameras found', cameras));
+
     return (
         <>
-        <video style={{ width:"100%", height:"100%", position: "absolute", bottom: 0, right: 0, backgroundColor: "black", zIndex: 0,}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
-        <video style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1,}} ref={localVideoRef} autoPlay muted playsInline id="myVideo"></video>
+          {components.map((component) => ( 
+            <>
+            <div style={{position: "absolute", zIndex: 1}}>
+              <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 75, marginLeft: 75, }} onClick={() => handleOffer(component.offer)}>
+                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
+              </button>
+            </div>
+            </>
+            ))}
+        <video style={{ width:"100%", height:"100%", position: "absolute", bottom: 0, right: 0, backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
+        <video style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>
         <button style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, zIndex: 5, backgroundColor: "#00000000"}} onClick={change}></button>
         <div className="parent_panel_call">
 
         </div>
         <div className="panel_call">
-            <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 115, marginLeft: 115, }} onClick={createOffer}>
-                <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
-            </button>
+            {/*<button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 75, marginLeft: 75, }} onClick={createOffer}>
+                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
+            </button>*/}
 
             <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={getMedia}>
-                <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
+                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 115, marginLeft: 115, }} onClick={endCall}>
-                <img src="/src/static/img/desline.png" alt="" style={{ width: 80, height: 80,  }}/>
+            <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={getScreenMedia}>
+                <div>screen</div>
+            </button>
+
+            <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 75, marginLeft: 75, }} onClick={endCall}>
+                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
             </button>
 
         </div>
