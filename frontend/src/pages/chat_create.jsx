@@ -319,7 +319,7 @@ useEffect(() => {
                     <pre className='message_comp_not_my_message_inside_pre'>
                       {data3.message}
                       <div>
-                        <span className='message_comp_my_message_inside_readed'>✓✓ </span>;
+                        <span className='message_comp_my_message_inside_readed'>✓✓ </span>
                         <span className='message_comp_my_message_inside_readed'>{hours}:{minutes}</span>
                         <span className='message_comp_my_message_inside_not_chan'></span>
                       </div>
@@ -334,7 +334,7 @@ useEffect(() => {
                     <pre className='message_comp_not_my_message_inside_pre'>
                       Все покупки, видео-уроки должны осуществляться здесь. Мы не несем ответсвенность за действия любых лиц, за пределами DayLang.
                       <div>
-                        <span className='message_comp_my_message_inside_readed'>✓✓ </span>;
+                        <span className='message_comp_my_message_inside_readed'>✓✓ </span>
                         <span className='message_comp_my_message_inside_readed'>{hours}:{minutes}</span>
                         <span className='message_comp_my_message_inside_not_chan'></span>
                       </div>

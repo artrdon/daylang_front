@@ -4,6 +4,24 @@ import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
 function Call() {
+
+
+ function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
+if (getCookie('theme') === "dark"){
+    if (document.querySelector('body') != null)
+        document.querySelector('body').className = "dark_theme";
+}
+else{
+    if (document.querySelector('body') != null)
+        document.querySelector('body').className = "light_theme";
+}
+
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
   const localVideoRef = useRef(null);
@@ -12,6 +30,8 @@ function Call() {
   const wsRef = useRef(null);
   const [isCallStarted, setIsCallStarted] = useState(false);
   const [components, setComponents] = useState([]);
+  const [selectCam, setSelectCam] = useState(false);
+  const [listOfDevices, setListOfDevices] = useState([]);
 
   useEffect(() => {
     const initWebSocket = () => {
@@ -70,6 +90,24 @@ function Call() {
       pcRef.current = pc;
     };
 
+    function getConnectedDevices(type) {
+      navigator.mediaDevices.enumerateDevices()
+          .then(devices => {
+              const filtered = devices.filter(device => device.kind === type);
+              if (filtered.length === 1){
+                getMedia();
+              }
+              else{
+                let arr = [];
+                for (let i = 0; i < filtered.length; i++){
+                  console.log(filtered[i]);
+                  arr.unshift(filtered[i]);
+                }
+                setListOfDevices(arr);
+                setSelectCam(true);
+              }
+          });
+  }
     const getMedia = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -101,7 +139,7 @@ function Call() {
           });
         }
       }
-      createOffer();
+      createOffer();setSelectCam(false);
     };
 
     /*
@@ -127,7 +165,7 @@ function Call() {
 */
     initWebSocket();
     initPeerConnection();
-    getMedia();
+    getConnectedDevices('videoinput')
 
     return () => {
       if (wsRef.current) {
@@ -158,7 +196,7 @@ function Call() {
     }
   };
 
-  const handleOffer = async (offer) => {
+  const handleOffer = async (e, offer) => {
     try {
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(offer));
 
@@ -169,7 +207,7 @@ function Call() {
         type: 'new_answer',
         answer: answer
       }));
-
+      e.target.parentElement.remove()
       setIsCallStarted(true);
     } catch (error) {
       console.error('Error handling offer:', error);
@@ -203,51 +241,48 @@ function Call() {
     }
     setIsCallStarted(false);
   };
-    let a = 0;
-    const change = () => {
-        if (a === 0) {
-            document.getElementById("mainVideo").style.width = "30%";
-            document.getElementById("mainVideo").style.height = "30%";
-            document.getElementById("mainVideo").style.bottom = 0;
-            document.getElementById("mainVideo").style.right = 0;
-            document.getElementById("mainVideo").style.zIndex = 1;
 
+  const getMedia = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: '100vw',
+          height: '100vh'
+        },
+        audio: true
+      });
+      if (localVideoRef.current) {
+        localVideoRef.current.srcObject = stream;
+        setLocalStream(stream);
 
-            document.getElementById("myVideo").style.width = "100%";
-            document.getElementById("myVideo").style.height = "100%";
-            document.getElementById("myVideo").style.bottom = 0;
-            document.getElementById("myVideo").style.right = 0;
-            document.getElementById("myVideo").style.zIndex = 0;
-            a = 1;
-            return 0;
-        }
+        stream.getTracks().forEach(track => {
+          pcRef.current.addTrack(track, stream);
+        });
+      }setSelectCam(false);
+    } catch (error) {
+      console.error('Error accessing media devices:', error);
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+        audio: true
+      });
+      if (localVideoRef.current) {
+        localVideoRef.current.srcObject = stream;
+        setLocalStream(stream);
 
-        if (a === 1) {
-            document.getElementById("myVideo").style.width = "30%";
-            document.getElementById("myVideo").style.height = "30%";
-            document.getElementById("myVideo").style.bottom = 0;
-            document.getElementById("myVideo").style.right = 0;
-            document.getElementById("myVideo").style.zIndex = 1;
+        stream.getTracks().forEach(track => {
+          pcRef.current.addTrack(track, stream);
+        });
+      }
+    }setSelectCam(false);
+  };
 
-
-            document.getElementById("mainVideo").style.width = "100%";
-            document.getElementById("mainVideo").style.height = "100%";
-            document.getElementById("mainVideo").style.bottom = 0;
-            document.getElementById("mainVideo").style.right = 0;
-            document.getElementById("mainVideo").style.zIndex = 0;
-            a = 0;
-            return 0;
-        }
-
-//transition: transform .2s;
-    }
-
-    //createOffer();
     
-    const getMedia = async () => {
+    const getExactMedia = async (i) => {
       try {
+        console.log(navigator.mediaDevices);
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
+            deviceId: { exact: i },
             width: '100vw',
             height: '100vh'
           },
@@ -262,6 +297,8 @@ function Call() {
             pcRef.current.addTrack(track, stream);
           });
         }
+        createOffer();
+        setSelectCam(false);
       } catch (error) {
         console.error('Error accessing media devices:', error);
         const stream = await navigator.mediaDevices.getDisplayMedia({
@@ -277,7 +314,10 @@ function Call() {
             pcRef.current.addTrack(track, stream);
           });
         }
+        createOffer();
+        setSelectCam(false);
       }
+
     };
 
     
@@ -300,51 +340,85 @@ function Call() {
         console.error('Error accessing media devices:', error);
         
       }
+      
     };
 
-    function getConnectedDevices(type, callback) {
+    function getConnectedDevices(type) {
       navigator.mediaDevices.enumerateDevices()
           .then(devices => {
               const filtered = devices.filter(device => device.kind === type);
-              callback(filtered);
+              if (filtered.length === 1){
+                getMedia();
+              }
+              else{
+                let arr = [];
+                for (let i = 0; i < filtered.length; i++){
+                  console.log(filtered[i]);
+                  arr.unshift(filtered[i]);
+                }
+                setListOfDevices(arr);
+                setSelectCam(true);
+              }
           });
   }
   
-  getConnectedDevices('videoinput', cameras => console.log('Cameras found', cameras));
+  //getConnectedDevices('videoinput', cameras => console.log('Cameras found', cameras));
 
     return (
         <>
           {components.map((component) => ( 
             <>
-            <div style={{position: "absolute", zIndex: 1}}>
-              <button style={{ backgroundColor: "red", borderRadius: "50%", marginRight: 75, marginLeft: 75, }} onClick={() => handleOffer(component.offer)}>
+            <div style={{position: "relative", zIndex: 1, width: 300, height: 80, backgroundColor: "gray"}}>
+            wants to join room
+              <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={(e) => handleOffer(e, component.offer)}>
+                
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
               </button>
             </div>
             </>
             ))}
-        <video style={{ width:"100%", height:"100%", position: "absolute", bottom: 0, right: 0, backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
-        <video style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>
-        <button style={{ width:"30%", height:"30%", position: "absolute", bottom: 0, right: 0, zIndex: 5, backgroundColor: "#00000000"}} onClick={change}></button>
-        
-        <div className="panel_call" style={{zIndex: 10, width: "100%", left:0}}>
-            <button style={{ backgroundColor: "red", borderRadius: "50%",}} onClick={createOffer}>
-                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
+        <video style={{ width:"80%", height:"80%", position: "relative", backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)", marginRight: "auto", marginLeft: "auto", display: "block"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
+        <video style={{ width: "20%", height:"20%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>
+        <div style={{ position: 'absolute', right: 0, top: 0, width: "10%", backgroundColor: "gray"}}>
+                        
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={() => getConnectedDevices('videoinput')}>
+                <div>camera</div>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={getMedia}>
-                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
-            </button>
-
-            <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={getScreenMedia}>
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={getScreenMedia}>
                 <div>screen</div>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%",}} onClick={endCall}>
-                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={endCall}>
+                <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 40, height: 40,  }}/>
             </button>
-
         </div>
+            
+        {selectCam && 
+        <>
+        <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}}/>
+        <div style={{position: "fixed", width: "100vw", height: "100vh", top: 0, left: 0, zIndex: 1001}}>
+          <div style={{width: 600, height: 400, backgroundColor: '#272727', display: "block", position: "relative", margin: "auto", zIndex: 1, marginTop: 'calc(50vh - 200px)', borderRadius: 20, border: "2px solid gray", padding: 20}}>
+            <div style={{height: 60, textAlign: 'center', fontSize: 40}}>
+                choose camera
+            </div>
+            <div style={{height: "calc(100% - 70px)", padding: 5, borderRadius: 10, backgroundColor: "#404040"}}>
+              {listOfDevices.map((component) => ( 
+                <>
+                  <div style={{width: 150, height: 200, backgroundColor: "rgb(32 32 32)", color: 'white', borderRadius: 10, cursor: "pointer"}} onClick={() => getExactMedia(component.deviceId)} key={component.deviceId}>
+                    <img src="/src/static/img/camera.png" alt="" style={{display: "inline", width: '100%', height: 'auto', borderTopLeftRadius: 10, borderTopRightRadius:10}}/>
+                    <p style={{textAlign: "center", overflowWrap: 'anywhere', whiteSpace: "nowrap", overflow: 'hidden', textOverflow: 'ellipsis',}}>{component.label}</p>
+                  </div>
+                </>
+                ))}
+            </div>
+            
+            
+          </div>
+        </div>
+        
+        </>}
+
         </>
 
   )
