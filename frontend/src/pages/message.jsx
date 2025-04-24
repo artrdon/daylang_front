@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import AppMess from '/src/AppMess.jsx'
 import AppMessLoad from '/src/AppMessLoad.jsx'
@@ -14,6 +15,7 @@ import WSAPIURL from '/wsapi.js';
 
 const ScrollToBottom = () => {
   const elementRef = useRef(null);
+
   
   useEffect(() => {
     if (elementRef.current) {
@@ -25,6 +27,7 @@ const ScrollToBottom = () => {
 
 function Message() {
   const params = useParams();
+  const navigate = useNavigate();
 
 const [text, setText] = useState(null);
 const [messId, setMessId] = useState(null);
@@ -104,7 +107,26 @@ const [messId, setMessId] = useState(null);
                 setComponents((components) => [...components, newComponent]);
                 return;
             }
-            
+            if (dataMess.tip === "sendvid"){
+              //setMessage(dataMess.message);
+              if (String(dataMess.minute).length === 1){
+                dataMess.minute = "0" + String(dataMess.minute);
+              }
+              const newComponent = {
+                  //id: dataMess.id,
+                  tip: dataMess.tip,
+                  text: "join to video room",
+                  sender: dataMess.sender,
+                  photo: dataMess.photo,
+                  senderIsTeacher: dataMess.senderIsTeacher,
+                  hour: dataMess.hour,
+                  minute: dataMess.minute, 
+                  link: dataMess.link, 
+              };
+              setComponents((components) => [...components, newComponent]);
+              navigate(newComponent.link);
+              return;
+          }
             
 
         }
@@ -133,6 +155,15 @@ const [messId, setMessId] = useState(null);
       socket.close();
     };
   }, [groups]);
+
+  const sendVideoRoom = () => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: "sendvid", link: '/call/', id: params.id, sender: data.username  }));
+      //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+    } else {
+      console.error('WebSocket is not open');
+    }
+  };
 
   const sendMessage = (gh) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
@@ -476,7 +507,7 @@ useEffect(() => {
       })()}
 
             </div>
-            <Bye_and_call bye={ByeButton} am_teach={data.i_am_teacher} />
+            <Bye_and_call bye={ByeButton} am_teach={data.i_am_teacher} call={sendVideoRoom}/>
           </div>
           <div className="place_of_mess">
               <div id="mesfield" className="message_mess_block" >
@@ -494,7 +525,7 @@ useEffect(() => {
             <div style={{display: "flex", flexDirection: "column-reverse"}}>
               {data2.map((da) => (
                 <>
-                <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute}/>
+                <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link}/>
                   {(() => {if (da.i_read){
                     return <ScrollToBottom key={`keyscroll${da.id}`} />;
                   }})()}
@@ -503,26 +534,22 @@ useEffect(() => {
             </div>
               </>);
             
-        }else{
-            return (<>
-                <div style={{ display: "flex", justifyContent: "center", }}>
-                    <div style={{ display: "flex", justifyContent: "center", backgroundColor: "gray", height: 200, width:300, borderRadius: 20 }}>
-                        <p style={{ color: "black", marginTop: 30, fontWeight: "bold", fontSize: 20, marginLeft: 20, marginRight: 20, textAlign: "center" }}>There are no messages here yet</p>
-
-                    </div>
-                </div>
-
-              </>);
-
         }
       })()}
   {components.map((component) => ( 
     <>
-      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute}/>
+      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute} tip={component.tip} link={component.link}/>
       <ScrollToBottom/>
     </>
     ))}
       
+      { (data2.length === undefined && components.length === 0) && <div style={{ display: "flex", justifyContent: "center", }}>
+                    <div style={{ display: "flex", justifyContent: "center", backgroundColor: "gray", height: 200, width:300, borderRadius: 20 }}>
+                        <p style={{ color: "black", marginTop: 30, fontWeight: "bold", fontSize: 20, marginLeft: 20, marginRight: 20, textAlign: "center" }}>
+                          There are no messages here yet
+                        </p>
+                    </div>
+                </div>}
         
       
               

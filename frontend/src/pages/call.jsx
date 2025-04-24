@@ -32,6 +32,16 @@ else{
   const [components, setComponents] = useState([]);
   const [selectCam, setSelectCam] = useState(false);
   const [listOfDevices, setListOfDevices] = useState([]);
+  const [showPupils, setShowPupils] = useState(true);
+  const [sound, setSound] = useState(true);
+
+  const chanSound = () =>{
+    setSound(!sound);
+  }
+
+  const funShowPup = () => {
+    setShowPupils(!showPupils);
+  }
 
   useEffect(() => {
     const initWebSocket = () => {
@@ -377,8 +387,22 @@ else{
             </div>
             </>
             ))}
+        <div style={{ position: 'absolute', left: 0, top: 0, width: "10%", backgroundColor: "gray"}}>
+            
+            {/*<button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={() => getConnectedDevices('videoinput')}>
+                <div>camera</div>
+            </button>
+
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={getScreenMedia}>
+                <div>screen</div>
+            </button>*/}
+
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={funShowPup}>
+                <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 40, height: 40,  }}/>
+            </button>
+        </div>
         <video style={{ width:"80%", height:"80%", position: "relative", backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)", marginRight: "auto", marginLeft: "auto", display: "block"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
-        <video style={{ width: "20%", height:"20%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>
+        {showPupils && <video style={{ width: "20%", height:"20%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>}
         <div style={{ position: 'absolute', right: 0, top: 0, width: "10%", backgroundColor: "gray"}}>
                         
             <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={() => getConnectedDevices('videoinput')}>
@@ -392,6 +416,14 @@ else{
             <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={endCall}>
                 <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 40, height: 40,  }}/>
             </button>
+               
+            {sound && <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanSound}>
+                <div>sound on</div>
+            </button>}
+
+            {!sound && <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanSound}>
+                <div>sound off</div>
+            </button>}
         </div>
             
         {selectCam && 
