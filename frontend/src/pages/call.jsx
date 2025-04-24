@@ -13,14 +13,14 @@ function Call() {
 }
 
 
-if (getCookie('theme') === "dark"){
+  if (getCookie('theme') === "dark"){
     if (document.querySelector('body') != null)
         document.querySelector('body').className = "dark_theme";
-}
-else{
+  }
+  else{
     if (document.querySelector('body') != null)
         document.querySelector('body').className = "light_theme";
-}
+  }
 
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
@@ -30,12 +30,18 @@ else{
   const wsRef = useRef(null);
   const [isCallStarted, setIsCallStarted] = useState(false);
   const [components, setComponents] = useState([]);
+  const [users, setUsers] = useState([]);
   const [selectCam, setSelectCam] = useState(false);
   const [listOfDevices, setListOfDevices] = useState([]);
   const [showPupils, setShowPupils] = useState(true);
   const [sound, setSound] = useState(true);
+  const [showUsers, setShowUsers] = useState(false);
 
-  const chanSound = () =>{
+  const chanShowUsers = () => {
+    setShowUsers(!showUsers);
+  }
+
+  const chanSound = () => {
     setSound(!sound);
   }
 
@@ -55,7 +61,11 @@ else{
         const data = JSON.parse(event.data);
 
         if (data.type === 'new_offer') {
+          console.log(data);
           const newComponent = {
+              first_name: data.first_name,
+              last_name: data.last_name,
+              photo: data.photo,
               type: data.type,
               offer: data.offer,
           };
@@ -206,7 +216,7 @@ else{
     }
   };
 
-  const handleOffer = async (e, offer) => {
+  const handleOffer = async (e, offer, first_name, last_name, photo) => {
     try {
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(offer));
 
@@ -218,6 +228,12 @@ else{
         answer: answer
       }));
       e.target.parentElement.remove()
+      const newComponent = {
+        name: first_name,
+        prez: last_name,
+        pho: photo, 
+      };
+      setUsers((users) => [...users, newComponent]);
       setIsCallStarted(true);
     } catch (error) {
       console.error('Error handling offer:', error);
@@ -373,32 +389,42 @@ else{
   }
   
   //getConnectedDevices('videoinput', cameras => console.log('Cameras found', cameras));
+  useEffect(() => {
+    console.log(users);
+  }, [users])
 
     return (
         <>
+        <div style={{position: "absolute"}}>
           {components.map((component) => ( 
             <>
             <div style={{position: "relative", zIndex: 1, width: 300, height: 80, backgroundColor: "gray"}}>
-            wants to join room
-              <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={(e) => handleOffer(e, component.offer)}>
+              {component.first_name} {component.last_name} wants to join room
+              <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={(e) => handleOffer(e, component.offer, component.first_name, component.last_name, component.photo)}>
                 
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
               </button>
             </div>
             </>
-            ))}
+          ))}
+        </div>
+          
         <div style={{ position: 'absolute', left: 0, top: 0, width: "10%", backgroundColor: "gray"}}>
             
             {/*<button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={() => getConnectedDevices('videoinput')}>
                 <div>camera</div>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={getScreenMedia}>
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanShowUsers}>
                 <div>screen</div>
             </button>*/}
 
             <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={funShowPup}>
                 <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 40, height: 40,  }}/>
+            </button>
+
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanShowUsers}>
+                <div>show list of users</div>
             </button>
         </div>
         <video style={{ width:"80%", height:"80%", position: "relative", backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)", marginRight: "auto", marginLeft: "auto", display: "block"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
@@ -438,7 +464,7 @@ else{
               {listOfDevices.map((component) => ( 
                 <>
                   <div style={{width: 150, height: 200, backgroundColor: "rgb(32 32 32)", color: 'white', borderRadius: 10, cursor: "pointer"}} onClick={() => getExactMedia(component.deviceId)} key={component.deviceId}>
-                    <img src="/src/static/img/camera.png" alt="" style={{display: "inline", width: '100%', height: 'auto', borderTopLeftRadius: 10, borderTopRightRadius:10}}/>
+                    <img src="/src/static/img/camera.png" alt="camera" style={{display: "inline", width: '100%', height: 'auto', borderTopLeftRadius: 10, borderTopRightRadius:10}}/>
                     <p style={{textAlign: "center", overflowWrap: 'anywhere', whiteSpace: "nowrap", overflow: 'hidden', textOverflow: 'ellipsis',}}>{component.label}</p>
                   </div>
                 </>
@@ -450,6 +476,35 @@ else{
         </div>
         
         </>}
+        
+        {showUsers &&
+          <>
+          <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}}/>
+          <div style={{position: "fixed", width: "100vw", height: "100vh", top: 0, left: 0, zIndex: 1001}}>
+            <div style={{width: 300, height: 400, backgroundColor: '#272727', display: "block", position: "relative", zIndex: 1, borderRadius: 20, border: "2px solid gray", padding: 20}}>
+            <button style={{height: 50, backgroundColor: 'transparent', display: "inline-block",}} onClick={chanShowUsers}>
+              <img src="/src/static/img/gobackblack.png" alt="goback" className='message_goback_img' style={{marginTop: 0}}/>
+            </button>
+              <div style={{height: 60, textAlign: 'center', fontSize: 30, width: "calc(100% - 110px)", display: 'inline-block', position: "absolute"}}>
+                
+                <p>users</p>
+              </div>
+              <div style={{height: "calc(100% - 70px)", padding: 5, borderRadius: 10, backgroundColor: "#404040"}}>
+                {users.map((component) => ( 
+                  <>
+                    <div style={{width: '100%', height: 80, backgroundColor: "rgb(32 32 32)", color: 'white', borderRadius: 10, cursor: "pointer", marginBottom: 5}} >
+                      <img src={component.pho} alt="avatar" style={{display: "inline", width: 'auto', height: '100%', borderTopLeftRadius: 10, borderBottomLeftRadius: 10}}/>
+                      <p style={{textAlign: "center", overflowWrap: 'anywhere', whiteSpace: "nowrap", overflow: 'hidden', textOverflow: 'ellipsis', display: "inline-block", position: "absolute", padding: 10}}>{component.name} {component.prez}</p>
+                    </div>
+                  </>
+                  ))}
+              </div>
+              
+              
+            </div>
+          </div>
+          </>
+        }
 
         </>
 
