@@ -61,8 +61,8 @@ function Call() {
         const data = JSON.parse(event.data);
 
         if (data.type === 'new_offer') {
-          console.log(data);
           const newComponent = {
+              username: data.username,
               first_name: data.first_name,
               last_name: data.last_name,
               photo: data.photo,
@@ -72,9 +72,14 @@ function Call() {
           setComponents((components) => [...components, newComponent]);
           //await handleOffer(data.offer);
         } else if (data.type === 'new_answer') {
+          console.log("answer: ", data.answer);
           await handleAnswer(data.answer);
         } else if (data.type === 'new_ice_candidate') {
           await handleNewICECandidate(data.candidate);
+        } else if (data.type === 'clozed') {
+          remoteVideoRef.current.srcObject = null;
+          console.log(data.first_name, data.last_name, "was left");
+          setUsers((prevComponents) => prevComponents.filter((comp) => comp.username !== data.username));
         }
       };
 
@@ -120,7 +125,6 @@ function Call() {
               else{
                 let arr = [];
                 for (let i = 0; i < filtered.length; i++){
-                  console.log(filtered[i]);
                   arr.unshift(filtered[i]);
                 }
                 setListOfDevices(arr);
@@ -216,7 +220,14 @@ function Call() {
     }
   };
 
-  const handleOffer = async (e, offer, first_name, last_name, photo) => {
+  window.addEventListener('beforeunload', () => {
+    wsRef.current.send(JSON.stringify({
+      type: 'clozed',
+      offer: 'clozed'
+    }));
+  });
+
+  const handleOffer = async (e, offer, first_name, last_name, photo, username) => {
     try {
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(offer));
 
@@ -227,8 +238,9 @@ function Call() {
         type: 'new_answer',
         answer: answer
       }));
-      e.target.parentElement.remove()
+      setComponents((prevComponents) => prevComponents.filter((comp) => comp.username !== username));
       const newComponent = {
+        username: username,
         name: first_name,
         prez: last_name,
         pho: photo, 
@@ -265,6 +277,11 @@ function Call() {
         ]
       });
     }
+    wsRef.current.send(JSON.stringify({
+      type: 'clozed',
+      offer: 'clozed'
+    }));
+    window.close();
     setIsCallStarted(false);
   };
 
@@ -379,7 +396,6 @@ function Call() {
               else{
                 let arr = [];
                 for (let i = 0; i < filtered.length; i++){
-                  console.log(filtered[i]);
                   arr.unshift(filtered[i]);
                 }
                 setListOfDevices(arr);
@@ -390,8 +406,11 @@ function Call() {
   
   //getConnectedDevices('videoinput', cameras => console.log('Cameras found', cameras));
   useEffect(() => {
-    console.log(users);
-  }, [users])
+    if (showPupils && localVideoRef.current && localStream) {
+      localVideoRef.current.srcObject = localStream;
+    }
+  }, [showPupils, localStream]);
+
 
     return (
         <>
@@ -400,7 +419,7 @@ function Call() {
             <>
             <div style={{position: "relative", zIndex: 1, width: 300, height: 80, backgroundColor: "gray"}}>
               {component.first_name} {component.last_name} wants to join room
-              <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={(e) => handleOffer(e, component.offer, component.first_name, component.last_name, component.photo)}>
+              <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={(e) => handleOffer(e, component.offer, component.first_name, component.last_name, component.photo, component.username)}>
                 
                 <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
               </button>
@@ -426,8 +445,9 @@ function Call() {
             <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanShowUsers}>
                 <div>show list of users</div>
             </button>
+
         </div>
-        <video style={{ width:"80%", height:"80%", position: "relative", backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)", marginRight: "auto", marginLeft: "auto", display: "block"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
+        <video style={{ width:"80vw", height:"80vh", position: "relative", backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)", marginRight: "auto", marginLeft: "auto", display: "block"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
         {showPupils && <video style={{ width: "20%", height:"20%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>}
         <div style={{ position: 'absolute', right: 0, top: 0, width: "10%", backgroundColor: "gray"}}>
                         

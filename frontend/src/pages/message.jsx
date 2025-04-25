@@ -124,7 +124,7 @@ const [messId, setMessId] = useState(null);
                   link: dataMess.link, 
               };
               setComponents((components) => [...components, newComponent]);
-              navigate(newComponent.link);
+              window.open(newComponent.link, '_blank'); 
               return;
           }
             
