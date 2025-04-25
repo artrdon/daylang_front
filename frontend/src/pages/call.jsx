@@ -219,13 +219,31 @@ function Call() {
       console.error('Error creating offer:', error);
     }
   };
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (wsRef.current?.readyState === WebSocket.OPEN) {
+        wsRef.current.send(JSON.stringify({
+          type: 'closed',
+          offer: 'closed'
+        }));
+      }
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    // Очистка при размонтировании
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
+  /*
   window.addEventListener('beforeunload', () => {
     wsRef.current.send(JSON.stringify({
       type: 'clozed',
       offer: 'clozed'
     }));
-  });
+  });*/
 
   const handleOffer = async (e, offer, first_name, last_name, photo, username) => {
     try {
