@@ -219,31 +219,42 @@ function Call() {
       console.error('Error creating offer:', error);
     }
   };
+
+  // запрет перезагрузки
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (wsRef.current?.readyState === WebSocket.OPEN) {
-        wsRef.current.send(JSON.stringify({
-          type: 'closed',
-          offer: 'closed'
-        }));
+    const handleKeyDown = (e) => {
+      if (
+        (e.ctrlKey && e.key === 'r') || // Ctrl+R
+        (e.metaKey && e.key === 'r') || // Cmd+R (Mac)
+        e.key === 'F5'                  // F5
+      ) {
+        e.preventDefault();
+        alert('Пожалуйста, используйте кнопку "Завершить звонк" для выхода!');
       }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = ''; // Обязательно для работы в современных браузерах
+      return 'Вы уверены, что хотите покинуть страницу? Звонок будет прерван!';
     };
   
     window.addEventListener('beforeunload', handleBeforeUnload);
   
-    // Очистка при размонтировании
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
 
-  /*
-  window.addEventListener('beforeunload', () => {
-    wsRef.current.send(JSON.stringify({
-      type: 'clozed',
-      offer: 'clozed'
-    }));
-  });*/
+  // конец запрета
 
   const handleOffer = async (e, offer, first_name, last_name, photo, username) => {
     try {
