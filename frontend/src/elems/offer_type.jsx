@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
@@ -88,27 +89,13 @@ function Type_offer({ lang }) {
 
     }
 
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/lol/`);
-        setData(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
-
+  const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
+    queryKey: ['lol'], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/lol/`);
+      return response.data; // Возвращаем только данные
+    },
+  });
 
   if (loading) return (<>
       <div className="div_of_service">

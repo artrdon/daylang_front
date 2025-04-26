@@ -513,12 +513,12 @@ function Call() {
             <div style={{height: 60, textAlign: 'center', fontSize: 40}}>
                 choose camera
             </div>
-            <div style={{height: "calc(100% - 70px)", padding: 5, borderRadius: 10, backgroundColor: "#404040"}}>
+            <div style={{height: "calc(100% - 70px)", padding: 5, borderRadius: 10, backgroundColor: "#404040", overflow: "auto"}}>
               {listOfDevices.map((component) => ( 
                 <>
-                  <div style={{width: 150, height: 200, backgroundColor: "rgb(32 32 32)", color: 'white', borderRadius: 10, cursor: "pointer"}} onClick={() => getExactMedia(component.deviceId)} key={component.deviceId}>
+                  <div style={{width: 150, height: 200, backgroundColor: "rgb(32 32 32)", color: 'white', borderRadius: 10, cursor: "pointer", display: "inline-block", margin: 5}} onClick={() => getExactMedia(component.deviceId)} key={component.deviceId}>
                     <img src="/src/static/img/camera.png" alt="camera" style={{display: "inline", width: '100%', height: 'auto', borderTopLeftRadius: 10, borderTopRightRadius:10}}/>
-                    <p style={{textAlign: "center", overflowWrap: 'anywhere', whiteSpace: "nowrap", overflow: 'hidden', textOverflow: 'ellipsis',}}>{component.label}</p>
+                    <p style={{textAlign: "center", overflowWrap: 'anywhere', whiteSpace: "nowrap", overflow: 'hidden', textOverflow: 'ellipsis', padding: 10}}>{component.label}</p>
                   </div>
                 </>
                 ))}
@@ -542,7 +542,7 @@ function Call() {
                 
                 <p>users</p>
               </div>
-              <div style={{height: "calc(100% - 70px)", padding: 5, borderRadius: 10, backgroundColor: "#404040"}}>
+              <div style={{height: "calc(100% - 70px)", padding: 5, borderRadius: 10, backgroundColor: "#404040", overflow: "auto"}}>
                 {users.map((component) => ( 
                   <>
                     <div style={{width: '100%', height: 80, backgroundColor: "rgb(32 32 32)", color: 'white', borderRadius: 10, cursor: "pointer", marginBottom: 5}} >

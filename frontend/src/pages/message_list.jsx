@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
 import Message from '/src/pages/message.jsx'
 import Message_list_load from '/src/load_elems/messlistload.jsx'
 import App from '/src/App.jsx'
@@ -151,18 +152,8 @@ function change_theme() {
 
     const csrfToken = getCookie('csrftoken');
 
-    const [count, setCount] = useState(0)
 
     document.querySelector("title").textContent = "Messages";
-
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-
-    const [data1, setData1] = useState(null);
-    const [loading1, setLoading1] = useState(true);
-    const [error1, setError1] = useState(null);
 
 axios.defaults.withCredentials = true;
 
@@ -199,23 +190,46 @@ const delete_chat = async (e, idd,) => {
         confirming();*/
 }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        setData(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchData();
-  }, []);
+const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
+  queryKey: ['userinfo'], // Уникальный ключ запроса
+  queryFn: async () => {
+    const response = await axios.get(`${APIURL}/userinfo/`);
+    return response.data; // Возвращаем только данные
+  },
+  // Опциональные параметры:
+  retry: 2, // Количество попыток повтора при ошибке
+  staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+  refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+});
+
 
   const [components, setComponents] = useState({});
-  useEffect(() => {
+
+  const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
+
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
+      }
+      setMessNumb(response.data[1]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+
+ /* useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${APIURL}/getchatlist/`);
@@ -239,11 +253,11 @@ const delete_chat = async (e, idd,) => {
     };
 
     fetchData();
-  }, []);
+  }, []);*/
 
   
   useEffect(() => {
-    if (data === null){
+    if (data === null || data === undefined){
         return;
     }
     const socket = new WebSocket(`${WSAPIURL}/ws/plus_group/${data.username}/`);
@@ -295,17 +309,18 @@ const delete_chat = async (e, idd,) => {
   if (loading) return ( <> <AppLoad lang={langua}/>
                             <Message_list_load/>
                         </> );
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Error: {errorDetails}</p>;
 
   if (loading1) return ( <> <AppLoad lang={langua}/>
                             <Message_list_load/>
                         </> );
-  if (error1) return <p>Error: {error1}</p>;
-
+  if (error1) return <p>Error: {errorDetails1}</p>;
+console.log(data);
+console.log(data1);
 
     return (
         <>
-        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data1[1]} photo={data.photo} balance={data.balance}/>
 
 <div className="message_list_find_panel">
   <div style={{ display: "flex", justifyContent: "center" }}>

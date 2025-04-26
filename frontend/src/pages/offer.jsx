@@ -285,37 +285,31 @@ function change_theme() {
     const csrfToken = getCookie('csrftoken');
 
     const [count, setCount] = useState(0)
-    let params = useParams();
+    const params = useParams();
 
     document.querySelector("title").textContent = "Offer";
     let isfav = null;
 
-    const [data, setData] = useState(null);
+  /*const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-
-    const [data1, setData1] = useState(null);
+*/
+  const [data1, setData1] = useState(null);
   const [loading1, setLoading1] = useState(true);
   const [error1, setError1] = useState(null);
 
-    const [data2, setData2] = useState(null);
+  /*const [data2, setData2] = useState(null);
   const [loading2, setLoading2] = useState(true);
   const [error2, setError2] = useState(null);
 
 
-    const [data3, setData3] = useState(null);
+  const [data3, setData3] = useState(null);
   const [loading3, setLoading3] = useState(true);
   const [error3, setError3] = useState(null);
-
-
-    const [data5, setData5] = useState(null);
-  const [loading5, setLoading5] = useState(true);
-  const [error5, setError5] = useState(null);
-
-      const [data7, setData7] = useState(null);
+*/
+ /* const [data7, setData7] = useState(null);
   const [loading7, setLoading7] = useState(true);
-  const [error7, setError7] = useState(null);
+  const [error7, setError7] = useState(null);*/
 
   const [favor, setData6] = useState({username: params.username, id: params.id});
   const [photoArray, setPhotoArray] = useState([]);
@@ -435,46 +429,137 @@ const save_to_fav = async (e) => {
 
 // up post and down get request
 
-  const [data12, setData12] = useState(null);
+ /* const [data12, setData12] = useState(null);
   const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
+  const [error12, setError12] = useState(null);*/
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        setData(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const { data, loading, error } = useQuery({
+    queryKey: ['userinfo'], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+  
+  const { data: data2, loading2, error2 } = useQuery({
+    queryKey: [`userinfo_author`, params.username], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/${params.username}/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+    
+  const { data: data7, loading7, error7 } = useQuery({
+    queryKey: [`user_settings_author`, params.username], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/usersettings/${params.username}/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+    
+  const { data: data3, loading3, error3 } = useQuery({
+    queryKey: [`reviews`, params.id], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/reviews_two/${params.id}/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+
+  const getMeta = (url, cb) => {
+    const img = new Image();
+    img.onload = () => cb(null, img);
+    img.onerror = (err) => cb(err);
+    img.src = url;
+  };
+  /*const { data: data1, loading1, error1 } = useQuery({
+    queryKey: ['offer', params.username, params.id],
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
+      const responseData = response.data;
+      
+      // Обработка изображений с обработкой ошибок
+      const processImage = (url) => new Promise(resolve => {
+        getMeta(url, (err, img) => {
+          if (err) {
+            console.error('Error loading image:', url, err);
+            resolve({
+              photo: url,
+              h_or_w: 'w' // fallback значение
+            });
+          } else {
+            resolve({
+              photo: url,
+              h_or_w: img.naturalWidth >= img.naturalHeight ? "w" : "h"
+            });
+          }
+        });
+      });
+  
+      // Обрабатываем все фото
+      const [firstPhotoMeta, ...otherPhotosMeta] = await Promise.all([
+        processImage(responseData[0].photo),
+        ...responseData[1].map(item => processImage(item.photo))
+      ]);
+  
+      // Возвращаем все данные вместе
+      return {
+        originalData: responseData,
+        photos: [firstPhotoMeta, ...otherPhotosMeta]
+      };
+    },
+    retry: 2,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      // Устанавливаем фото только после успешного запроса
+      setPhotoArray(data.photos);
+    }
+  });*/
+  
+
+  const { data: data12, loading12, error12 } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
+
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
       }
-    };
+      setMessNumb(response.data[1]);
+      return response.data[1]; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/usersettings/${params.username}/`);
-        setData7(response.data);
-      } catch (err) {
-        setError7(err.message);
-      } finally {
-        setLoading7(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-    const getMeta = (url, cb) => {
-      const img = new Image();
-      img.onload = () => cb(null, img);
-      img.onerror = (err) => cb(err);
-      img.src = url;
-    };
+  
     useEffect(() => {
     const fetchData = async () => {
       try {
@@ -515,57 +600,8 @@ const save_to_fav = async (e) => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/${params.username}/`);
-        setData2(response.data);
-      } catch (err) {
-        setError2(err.message);
-      } finally {
-        setLoading2(false);
-      }
-    };
+  
 
-    fetchData();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/reviews_two/${params.id}/`); //`${APIURL}/reviews/`
-        setData3(response.data);
-      } catch (err) {
-        setError3(err.message);
-      } finally {
-        setLoading3(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
 
   if (loading) return (
@@ -632,11 +668,11 @@ const save_to_fav = async (e) => {
     if (data1 != null){
         isfav = data1.isFav;
     }
-
+    
 
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel">
   <div className="div_of_foto_and_button" id="divoffb">
