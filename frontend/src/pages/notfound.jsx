@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
@@ -65,10 +66,6 @@ useEffect(() => {
   }, [groups]);
 
 
-    const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   document.querySelector("title").textContent = `404`;
 
 axios.defaults.withCredentials = true;
@@ -95,68 +92,47 @@ else{
 }
 
 
-function change_theme() {
-  if (document.querySelector('body').className === "dark_theme")
-  {
-
-      document.querySelector('body').className = "light_theme";
-      document.cookie = "theme=light; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-  }
-  else
-  {
-      document.querySelector('body').className = "dark_theme";
-      document.cookie = "theme=dark; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-  }
-}
-
-
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
 
     langua = lang;
 
-  const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
+    const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
+      queryKey: ['userinfo'], // Уникальный ключ запроса
+      queryFn: async () => {
         const response = await axios.get(`${APIURL}/userinfo/`);
-        setData(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+  
+ 
+  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
+
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
       }
-    };
+      setMessNumb(response.data[1]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
-    fetchData();
-  }, []);
-
-    useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   if (loading) return  ( <> <AppLoad lang={langua}/> </> );
   if (error) return <p>Error: {error}</p>;
@@ -171,7 +147,7 @@ function change_theme() {
 
 return (
     <>
-    <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+    <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel" style={{ width: "100%", height: "calc(100% - 140px)" }}>
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", width: "100%", position: "absolute",  }}>

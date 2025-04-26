@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
 import AppMess from '/src/AppMess.jsx'
 import AppMessLoad from '/src/AppMessLoad.jsx'
 import axios from 'axios';
@@ -102,10 +103,6 @@ function ChatCreate() {
 
     const [message, setData1] = useState({username: params.username, offer_name: params.offer_name, offer_id: params.id});
 
-    const [data2, setData2] = useState(null);
-    const [loading2, setLoading2] = useState(true);
-    const [error2, setError2] = useState(null);
-
     const [data3, setData3] = useState(null);
     const [loading3, setLoading3] = useState(true);
     const [error3, setError3] = useState(null);
@@ -130,21 +127,19 @@ function ChatCreate() {
     }, []);
 
 
-    useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const response = await axios.get(`${APIURL}/userinfo/`);
-              setData2(response.data);
-            } catch (err) {
-              setError2(err.message);
-            } finally {
-              setLoading2(false);
-            }
-      };
 
-      fetchData();
-    }, []);
-
+    const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
+      queryKey: ['userinfo'], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${APIURL}/userinfo/`);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+  
 
     useEffect(() => {
       const fetchData = async () => {
@@ -160,6 +155,30 @@ function ChatCreate() {
 
       fetchData();
     }, []);
+
+    
+    const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
+      queryKey: [`getchatlist`], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${APIURL}/getchatlist/`);
+  
+        if (response.data != null){
+            let group = [];
+            for (let i = 0; i < response.data[0].length; i++){
+                //setGroup((groups) => [...groups, response.data[0][i].id]);
+                group.unshift(response.data[0][i].id);
+            }
+            setGroup(group);
+        }
+        setMessNumb(response.data[1]);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+  
 
     const isSent = useRef(false);
 
@@ -281,10 +300,19 @@ useEffect(() => {
     if (error3) return <p>Error: {error3}</p>;
 
 
+    if (loading12) return (
+      <>
+      <AppMessLoad lang={langua}/>
+</>
+
+  );
+    if (error12) return <p>Error: {error12}</p>;
+
+
 
     return (
         <>
-        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
  
     <div className="message_find_panel">
       <div style={{ display: "flex", justifyContent: "center" }}>

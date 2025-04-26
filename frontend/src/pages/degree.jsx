@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
+import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import Degree_load from '/src/load_elems/degree_load.jsx'
@@ -92,9 +93,7 @@ useEffect(() => {
     };
   }, [groups]);
 
-
-  const [count, setCount] = useState(0)
-  let params = useParams();
+  const params = useParams();
   if (params.user === "undefined")
   {
     window.location.replace(`/log/`);
@@ -102,23 +101,6 @@ useEffect(() => {
   }
 
   document.querySelector("title").textContent = "Degree";
-  
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const [data1, setData1] = useState(null);
-  const [loading1, setLoading1] = useState(true);
-  const [error1, setError1] = useState(null);
-
-
-  const [usernow, setData2] = useState(null);
-  const [loading2, setLoading2] = useState(true);
-  const [error2, setError2] = useState(null);
-
-  const [data3, setData3] = useState(null);
-  const [loading3, setLoading3] = useState(true);
-  const [error3, setError3] = useState(null);
 
   const [scaledButtonId, setScaledButtonId] = useState(null);
   const [showPhotoBig, setShowPhotoBig] = useState(false);
@@ -150,23 +132,6 @@ if (getCookie('theme') === "dark"){
 else{
   if (document.querySelector('body') != null)
       document.querySelector('body').className = "light_theme";
-}
-
-
-function change_theme() {
-  if (document.querySelector('body').className === "dark_theme")
-  {
-
-      document.querySelector('body').className = "light_theme";
-      document.cookie = "theme=light; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-  }
-  else
-  {
-      document.querySelector('body').className = "dark_theme";
-      document.cookie = "theme=dark; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-  }
 }
 
     const lang = getCookie('lang');
@@ -221,105 +186,91 @@ var arrLang = {
     }
 
 
-  const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
+    const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+      queryKey: ['usersettings', params.user], // Уникальный ключ запроса
+      queryFn: async () => {
         const response = await axios.get(`${APIURL}/usersettings/${params.user}/`);
-        setData1(response.data);
-      } catch (err) {
-        setError1(err.message);
-      } finally {
-        setLoading1(false);
-      }
-    };
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
 
-    fetchData();
-  }, []);
 
 //if (data1 != null && data1.i_am_teacher === true)
 
-      useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
-        if (response.data.i_am_teacher === false)
-        {
-            window.location.replace(`/p/user/${params.user}/`)
-        }
-        setData(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+
+const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
+  queryKey: ['userinfo', params.user], // Уникальный ключ запроса
+  queryFn: async () => {
+    const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
+    if (response.data.i_am_teacher === false)
+    {
+        window.location.replace(`/p/user/${params.user}/`)
+    }
+    return response.data; // Возвращаем только данные
+  },
+  // Опциональные параметры:
+  retry: 2, // Количество попыток повтора при ошибке
+  staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+  refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+});
+
+
+
+
+
+
+  const { data: usernow, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
+    queryKey: ['userinfo'], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+
+  
+  const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
+    queryKey: ['get_degree_load', params.user], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/get_degree_load/${params.user}/`);
+      setPhotoArray((photoArray) => [...photoArray, response.data]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+ 
+  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
+
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
       }
-    };
-
-    fetchData();
-  }, []);
-
-
-
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        setData2(response.data);
-      } catch (err) {
-        setError2(err.message);
-      } finally {
-        setLoading2(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/get_degree_load/${params.user}/`);
-        setData3(response.data);
-        console.log(response.data);
-        setPhotoArray((photoArray) => [...photoArray, response.data]);
-      } catch (err) {
-        setError3(err.message);
-      } finally {
-        setLoading3(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
   if (loading) return (
       <>
@@ -377,17 +328,14 @@ var arrLang = {
 
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
+  <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={usernow.balance}/>
 
 <div className="find_panel">
   <div className="me_under_find">
     <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
     <div className="me_name_surname_panel">
       <span className="me_name" translate="no" >
-        {data.first_name}
-      </span>
-      <span className="me_surname" translate="no">
-        {data.last_name}
+        {data.first_name} {data.last_name}
       </span>
       {(() => {
         if (data.real_man === true) {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import Create_offer_load from '/src/load_elems/create_offer_load.jsx'
@@ -253,16 +254,7 @@ var Lang = {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-
-    const [data1, setData1] = useState(null);
-    const [loading1, setLoading1] = useState(true);
-    const [error1, setError1] = useState(null);
-
     axios.defaults.withCredentials = true;
-
-  const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
 
   const [file, setFile] = useState("none");
   const [photosFile, setPhotosFile] = useState([]);
@@ -318,43 +310,43 @@ var Lang = {
   };
 
 
-      useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        setData1(response.data);
-      } catch (err) {
-        setError1(err.message);
-      } finally {
-        setLoading1(false);
+
+
+  const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+    queryKey: ['userinfo'], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+
+ 
+  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
+
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
       }
-    };
-
-    fetchData();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+      setMessNumb(response.data[1]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
 
 
@@ -456,7 +448,7 @@ var Lang = {
 
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} photo={data1.photo} balance={data1.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={data12[1]} photo={data1.photo} balance={data1.balance}/>
 
 
 <div className="ctr_offer_find_panel">

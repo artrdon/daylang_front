@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
+import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import Feedback_pup_load from '/src/load_elems/feedback_pup_load.jsx'
@@ -102,8 +103,7 @@ useEffect(() => {
   }, [groups]);
 
 
-    const [count, setCount] = useState(0)
-    let params = useParams();
+    const params = useParams();
     if (params.user === "undefined")
 {
     window.location.replace(`/log/`);
@@ -120,12 +120,6 @@ const [data, setData] = useState(null);
 const [data1, setData1] = useState(null);
   const [loading1, setLoading1] = useState(true);
   const [error1, setError1] = useState(null);
-
-
-  const [usernow, setData2] = useState(null);
-  const [loading2, setLoading2] = useState(true);
-  const [error2, setError2] = useState(null);
-
 
     const [data3, setData3] = useState(null);
   const [loading3, setLoading3] = useState(true);
@@ -227,10 +221,6 @@ var arrLang = {
     }
 
 
-  const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -266,20 +256,19 @@ var arrLang = {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        setData2(response.data);
-      } catch (err) {
-        setError2(err.message);
-      } finally {
-        setLoading2(false);
-      }
-    };
 
-    fetchData();
-  }, []);
+
+  const { data: usernow, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
+    queryKey: ['userinfo'], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
 
 useEffect(() => {
@@ -312,28 +301,29 @@ useEffect(() => {
     fetchData();
   }, []);
 
+ 
+  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
       }
-    };
+      setMessNumb(response.data[1]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
-    fetchData();
-  }, []);
 
   if (loading) return (
       <>
@@ -396,9 +386,9 @@ useEffect(() => {
 
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
+<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={usernow.balance}/>
 
-              <div className="find_panel">
+<div className="find_panel">
   <div className="me_under_find">
     <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
     <div className="me_name_surname_panel">

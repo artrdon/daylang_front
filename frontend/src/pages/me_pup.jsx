@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
+import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import My_pup_load from '/src/load_elems/me_pup_load.jsx'
@@ -84,8 +85,7 @@ useEffect(() => {
   }, [groups]);
 
 
-    const [count, setCount] = useState(0)
-    let params = useParams();
+    const params = useParams();
     if (params.user === "undefined")
 {
     window.location.replace(`/log/`);
@@ -101,11 +101,6 @@ useEffect(() => {
   const [error1, setError1] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-
-  const [usernow, setData2] = useState(null);
-  const [loading2, setLoading2] = useState(true);
-  const [error2, setError2] = useState(null);
 
 axios.defaults.withCredentials = true;
 
@@ -154,10 +149,6 @@ function change_theme() {
     langua = lang;
 
 
-  const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -199,44 +190,41 @@ function change_theme() {
 
 
 
+  const { data: usernow, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
+    queryKey: ['userinfo'], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        setData2(response.data);
-      } catch (err) {
-        setError2(err.message);
-      } finally {
-        setLoading2(false);
+
+ 
+  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
+
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
       }
-    };
-
-    fetchData();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+      setMessNumb(response.data[1]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
 
     var arrLang = {
@@ -330,7 +318,7 @@ function change_theme() {
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
+        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={usernow.balance}/>
 
   <div className="find_panel">
   <div className="me_under_find">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
+import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import UpdateOfferComp from '/src/elems/update_offer_comp.jsx'
@@ -113,12 +114,6 @@ useEffect(() => {
 
     document.querySelector("title").textContent = "Update Offer";
 
-
-    const [data1, setData1] = useState(null);
-    const [loading1, setLoading1] = useState(true);
-    const [error1, setError1] = useState(null);
-
-
     const [data2, setData2] = useState(null);
     const [loading2, setLoading2] = useState(true);
     const [error2, setError2] = useState(null);
@@ -131,26 +126,22 @@ useEffect(() => {
 
     langua = lang;
 
-  const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);
 
 
-      useEffect(() => {
-    const fetchData = async () => {
-      try {
+    const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+      queryKey: ['userinfo'], // Уникальный ключ запроса
+      queryFn: async () => {
         const response = await axios.get(`${APIURL}/userinfo/`);
-        setData1(response.data);
-      } catch (err) {
-        setError1(err.message);
-      } finally {
-        setLoading1(false);
-      }
-    };
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
 
-    fetchData();
-  }, []);
-
+    
+  
 
     useEffect(() => {
     const fetchData = async () => {
@@ -168,28 +159,28 @@ useEffect(() => {
     fetchData();
 
   }, []);
+ 
+  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                console.log(response.data[0][i].id);
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData12(response.data);
-        setMessNumb(response.data[1]);
-      } catch (err) {
-        setError12(err.message);
-      } finally {
-        setLoading12(false);
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
       }
-    };
-
-    fetchData();
-  }, []);
+      setMessNumb(response.data[1]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
 
 
@@ -221,10 +212,9 @@ useEffect(() => {
   );
   if (error12) return <p>Error: {error12}</p>;
 
-//console.log(data2);
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} photo={data1.photo} balance={data1.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={data12[1]} photo={data1.photo} balance={data1.balance}/>
 
 <UpdateOfferComp name={data2.name} description={data2.description} price={data2.price} id={params.index} language={data2.lang} format={data2.format} target={data2.target} age={data2.age} microphone={data2.microphone} photo={data2.photo} message={data2.message}/>
 
