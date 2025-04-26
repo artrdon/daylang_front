@@ -1,9 +1,12 @@
 import { useState, useEffect, state, handleChange, handleSubmit, setStat, useRef }  from 'react'
+import { useParams } from "react-router";
 import React from 'react'
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
 function Call() {
+
+  const params = useParams();
 
 
  function getCookie(name) {
@@ -51,7 +54,7 @@ function Call() {
 
   useEffect(() => {
     const initWebSocket = () => {
-      wsRef.current = new WebSocket(`${WSAPIURL}/ws/videochat/1/`);
+      wsRef.current = new WebSocket(`${WSAPIURL}/ws/videochat/${params.id}/`);
 
       wsRef.current.onopen = () => {
           console.log('WebSocket connected');
@@ -256,6 +259,7 @@ function Call() {
 
   // конец запрета
 
+  
   const handleOffer = async (e, offer, first_name, last_name, photo, username) => {
     try {
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(offer));

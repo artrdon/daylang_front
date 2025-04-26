@@ -60,7 +60,7 @@ createRoot(document.querySelector('body')).render(
                 <Route path="/about_us/" element={<About />}/>
                 <Route path="/:username/offer/:id/" element={<Offer />}/>
                 <Route path='/my_lessons/' element={<MyLessons />} />
-                <Route path="/call/" element={<Call />}/>
+                <Route path="/call/:id/" element={<Call />}/>
                 <Route path="*" element={<NotFound />} />
             </Routes>
 

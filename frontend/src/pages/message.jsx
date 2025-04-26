@@ -122,9 +122,10 @@ const [messId, setMessId] = useState(null);
                   hour: dataMess.hour,
                   minute: dataMess.minute, 
                   link: dataMess.link, 
+                  call_id: dataMess.call_id,
               };
               setComponents((components) => [...components, newComponent]);
-              window.open(newComponent.link, '_blank'); 
+              window.open(`${newComponent.link}${call_id}`, '_blank'); 
               return;
           }
             
@@ -525,7 +526,7 @@ useEffect(() => {
             <div style={{display: "flex", flexDirection: "column-reverse"}}>
               {data2.map((da) => (
                 <>
-                <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link}/>
+                <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link} call_id={da.call_id}/>
                   {(() => {if (da.i_read){
                     return <ScrollToBottom key={`keyscroll${da.id}`} />;
                   }})()}
@@ -538,7 +539,7 @@ useEffect(() => {
       })()}
   {components.map((component) => ( 
     <>
-      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute} tip={component.tip} link={component.link}/>
+      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute} tip={component.tip} link={component.link} call_id={component.call_id}/>
       <ScrollToBottom/>
     </>
     ))}

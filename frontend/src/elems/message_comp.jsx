@@ -19,7 +19,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
   );
 }
 
-function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_teach, changed, hour, minute, tip, link }) {
+function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_teach, changed, hour, minute, tip, link, call_id }) {
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -89,7 +89,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
               <div className='message_comp_my_message' id={`mess${id}`} >
                   <div className='message_comp_my_message_div'>
                     <pre className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
-                      {int}{tip === "sendvid" && <Link to={link} target='_blank'>join</Link>}
+                      {int}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
                       <div>
                         {(() => {
                           if (changed === true) {
@@ -146,7 +146,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                     
                   <div className='message_comp_my_message_div'>
                     <pre className='message_comp_not_my_message_inside_pre' onClick={() => toggleVisibility(id)}>
-                      {int}{tip === "sendvid" && <Link to={link} target='_blank'>join</Link>}
+                      {int}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
                       
                       <div>
                         {(() => {
