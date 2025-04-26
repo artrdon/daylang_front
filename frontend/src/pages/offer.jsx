@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
+import { useQuery } from '@tanstack/react-query';
 import Offer_load from '/src/load_elems/offer_load.jsx'
 import SetReviewBlock from '/src/elems/set_review_block.jsx'
 import UpReviewBlock from '/src/elems/up_review_block.jsx'
@@ -8,6 +9,8 @@ import Vozmozno_vam from '../elems/vozmozno_vam_podojdut';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
+import APIURL from '/api.js'
+import WSAPIURL from '/wsapi.js';
 
 const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -198,7 +201,7 @@ function Offer() {
 
 useEffect(() => {
 
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/some_path/${groups.join(',')}/`);
+    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -396,7 +399,7 @@ const save_to_fav = async (e) => {
 
             e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/save_to_fav/', favor, {
+            const response = await axios.post(`${APIURL}/save_to_fav/`, favor, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -439,7 +442,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/userinfo/');
+        const response = await axios.get(`${APIURL}/userinfo/`);
         setData(response.data);
       } catch (err) {
         setError(err.message);
@@ -454,7 +457,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/usersettings/${params.username}/`);
+        const response = await axios.get(`${APIURL}/usersettings/${params.username}/`);
         setData7(response.data);
       } catch (err) {
         setError7(err.message);
@@ -475,7 +478,7 @@ const save_to_fav = async (e) => {
     useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/gettingoffer/${params.username}/${params.id}/`);
+        const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
         setData1(response.data);
               // Обрабатываем первое фото
       const firstPhotoMeta = await new Promise(resolve => {
@@ -515,7 +518,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/userinfo/${params.username}/`);
+        const response = await axios.get(`${APIURL}/userinfo/${params.username}/`);
         setData2(response.data);
       } catch (err) {
         setError2(err.message);
@@ -531,7 +534,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/reviews_two/${params.id}/`); //`http://127.0.0.1:8000/reviews/`
+        const response = await axios.get(`${APIURL}/reviews_two/${params.id}/`); //`${APIURL}/reviews/`
         setData3(response.data);
       } catch (err) {
         setError3(err.message);
@@ -546,7 +549,7 @@ const save_to_fav = async (e) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/getchatlist/');
+        const response = await axios.get(`${APIURL}/getchatlist/`);
         if (response.data != null){
             for (let i = 0; i < response.data[0].length; i++){
                 setGroup((groups) => [...groups, response.data[0][i].id]);
