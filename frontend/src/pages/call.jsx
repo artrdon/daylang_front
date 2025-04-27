@@ -38,14 +38,22 @@ function Call() {
   const [listOfDevices, setListOfDevices] = useState([]);
   const [showPupils, setShowPupils] = useState(true);
   const [sound, setSound] = useState(true);
+  const [microphone, setMicrophone] = useState(true);
   const [showUsers, setShowUsers] = useState(false);
+  const [roomExist, setRoomExist] = useState(false);
+  const [exitPermissionDenied, setExitPermissionDenied] = useState(false);
 
   const chanShowUsers = () => {
     setShowUsers(!showUsers);
   }
 
   const chanSound = () => {
+    document.getElementById('mainVideo').muted = sound;
     setSound(!sound);
+  }
+
+  const chanMicrophone = () => {
+    setMicrophone(!microphone);
   }
 
   const funShowPup = () => {
@@ -62,9 +70,10 @@ function Call() {
 
       wsRef.current.onmessage = async (event) => {
         const data = JSON.parse(event.data);
+        console.log(data);
 
         if (data.type === 'new_offer') {
-          const newComponent = {
+          /*const newComponent = {
               username: data.username,
               first_name: data.first_name,
               last_name: data.last_name,
@@ -72,8 +81,8 @@ function Call() {
               type: data.type,
               offer: data.offer,
           };
-          setComponents((components) => [...components, newComponent]);
-          //await handleOffer(data.offer);
+          setComponents((components) => [...components, newComponent]);*/
+          await handleOffer(data.offer, data.first_name, data.last_name, data.photo, data.username);
         } else if (data.type === 'new_answer') {
           console.log("answer: ", data.answer);
           await handleAnswer(data.answer);
@@ -86,8 +95,18 @@ function Call() {
         }
       };
 
-      wsRef.current.onclose = () => {
-        console.log('WebSocket disconnected');
+      wsRef.current.onerror = (event) => {
+        console.log('WebSocket error', event);
+      };
+
+      wsRef.current.onclose = (event) => {
+        console.log('WebSocket disconnected', event);
+        if (event.code === 4000) {
+          setRoomExist(true);
+        }
+        else if (event.code === 4003) {
+          setExitPermissionDenied(true);
+        }
       };
     };
 
@@ -260,7 +279,7 @@ function Call() {
   // конец запрета
 
   
-  const handleOffer = async (e, offer, first_name, last_name, photo, username) => {
+  const handleOffer = async (offer, first_name, last_name, photo, username) => {
     try {
       await pcRef.current.setRemoteDescription(new RTCSessionDescription(offer));
 
@@ -445,23 +464,25 @@ function Call() {
   }, [showPupils, localStream]);
 
 
+  if (roomExist){
     return (
-        <>
-        <div style={{position: "absolute"}}>
-          {components.map((component) => ( 
-            <>
-            <div style={{position: "relative", zIndex: 1, width: 300, height: 80, backgroundColor: "gray"}}>
-              {component.first_name} {component.last_name} wants to join room
-              <button style={{ backgroundColor: "red", borderRadius: "50%"}} onClick={(e) => handleOffer(e, component.offer, component.first_name, component.last_name, component.photo, component.username)}>
-                
-                <img src="/src/static/img/desline.png" alt="" style={{ width: 40, height: 40,  }}/>
-              </button>
-            </div>
-            </>
-          ))}
-        </div>
-          
-        <div style={{ position: 'absolute', left: 0, top: 0, width: "10%", backgroundColor: "gray"}}>
+      <>
+      <div>room does not exist</div>
+      </>
+    )
+  }
+
+  if (exitPermissionDenied){
+    return (
+      <>
+      <div>permission denied</div>
+      </>
+    )
+  }
+
+    return (
+        <>          
+        <div style={{ position: 'absolute', left: 0, top: 0, width: "10%", backgroundColor: "gray", height: "80vh"}}>
             
             {/*<button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={() => getConnectedDevices('videoinput')}>
                 <div>camera</div>
@@ -471,38 +492,47 @@ function Call() {
                 <div>screen</div>
             </button>*/}
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={funShowPup}>
-                <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 40, height: 40,  }}/>
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={funShowPup} title='скрыть камеры снизу'>
+                <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 60, height: 60,  }}/>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanShowUsers}>
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={chanShowUsers} title='список пользователей'>
                 <div>show list of users</div>
             </button>
 
         </div>
         <video style={{ width:"80vw", height:"80vh", position: "relative", backgroundColor: "black", zIndex: 0, transform: "scale(-1, 1)", marginRight: "auto", marginLeft: "auto", display: "block"}} ref={remoteVideoRef} autoPlay playsInline id="mainVideo"></video>
-        {showPupils && <video style={{ width: "20%", height:"20%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline id="myVideo"></video>}
-        <div style={{ position: 'absolute', right: 0, top: 0, width: "10%", backgroundColor: "gray"}}>
+        {showPupils && <video style={{ width: "20%", height:"20%", position: "absolute", bottom: 0, right: 0, backgroundColor: "gray", zIndex: 1, transform: "scale(-1, 1)"}} ref={localVideoRef} autoPlay playsInline muted id="myVideo"></video>}
+        <div style={{ position: 'absolute', right: 0, top: 0, width: "10%", backgroundColor: "gray", height: "80vh"}}>
                         
-            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={() => getConnectedDevices('videoinput')}>
-                <div>camera</div>
+            <button style={{ backgroundColor: "transparent", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={() => getConnectedDevices('videoinput')} title='запись с камеры'>
+                <img src="/src/static/img/camera.png" alt="camera" style={{ width: 60, height: 60, borderRadius: "50%" }}/>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={getScreenMedia}>
+            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={getScreenMedia} title='запись экрана'>
                 <div>screen</div>
             </button>
 
-            <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={endCall}>
-                <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 40, height: 40,  }}/>
+            <button style={{ backgroundColor: "transparent", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={endCall} title='завершить звонок'>
+                <img src="/src/static/img/desline.png" alt="endcall" style={{ width: 60, height: 60,  }}/>
             </button>
                
-            {sound && <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanSound}>
-                <div>sound on</div>
+            {sound && <button style={{ backgroundColor: "transparent", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={chanSound} title='звук включен'>
+                <img src="/src/static/img/volumeon.png" alt="volumeon" style={{ width: 60, height: 60, borderRadius: "50%" }}/>
             </button>}
 
-            {!sound && <button style={{ backgroundColor: "red", borderRadius: "50%", display: 'block', marginBottom: "10%"}} onClick={chanSound}>
-                <div>sound off</div>
+            {!sound && <button style={{ backgroundColor: "transparent", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={chanSound} title='звук выключен'>
+                <img src="/src/static/img/volumeoff.png" alt="volumeoff" style={{ width: 60, height: 60, borderRadius: "50%" }}/>
             </button>}
+
+            {microphone && <button style={{ backgroundColor: "transparent", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={chanMicrophone} title='микрофон включен'>
+                <img src="/src/static/img/microphoneon.png" alt="microphoneon" style={{ width: 60, height: 60, borderRadius: "50%" }}/>
+            </button>}
+
+            {!microphone && <button style={{ backgroundColor: "transparent", borderRadius: "50%", display: 'block', marginBottom: "10%", marginRight: "auto", marginLeft: "auto", marginTop: "20%"}} onClick={chanMicrophone} title='микрофон выключен'>
+                <img src="/src/static/img/microphoneoff.png" alt="microphoneoff" style={{ width: 60, height: 60, borderRadius: "50%" }}/>
+            </button>}
+
         </div>
             
         {selectCam && 
@@ -535,7 +565,7 @@ function Call() {
           <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}}/>
           <div style={{position: "fixed", width: "100vw", height: "100vh", top: 0, left: 0, zIndex: 1001}}>
             <div style={{width: 300, height: 400, backgroundColor: '#272727', display: "block", position: "relative", zIndex: 1, borderRadius: 20, border: "2px solid gray", padding: 20}}>
-            <button style={{height: 50, backgroundColor: 'transparent', display: "inline-block",}} onClick={chanShowUsers}>
+            <button style={{height: 50, backgroundColor: 'transparent', display: "inline-block",}} onClick={chanShowUsers} title='скрыть список пользователей'>
               <img src="/src/static/img/gobackblack.png" alt="goback" className='message_goback_img' style={{marginTop: 0}}/>
             </button>
               <div style={{height: 60, textAlign: 'center', fontSize: 30, width: "calc(100% - 110px)", display: 'inline-block', position: "absolute"}}>
