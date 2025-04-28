@@ -8,6 +8,7 @@ import Degree_load from '/src/load_elems/degree_load.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -33,7 +34,13 @@ function Degree() {
   const [groups, setGroup] = useState([0]);
   const [photoArray, setPhotoArray] = useState([]);
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
+    
+    
   const [photoIndex, setPhotoIndex] = useState(0);
 
   const nextPhoto = () =>{
@@ -42,56 +49,6 @@ function Degree() {
   const previosPhoto = () =>{
       setPhotoIndex(prev => prev - 1);
   }
-
-useEffect(() => {
-
-    const socket = new WebSocket(`${APIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-
-        console.log(dataMess);
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
-                if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              setMessNumb(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
-            return;
-        }
-
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
 
   const params = useParams();
   if (params.user === "undefined")
@@ -250,31 +207,10 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
   });
 
- 
-  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
-    queryKey: [`getchatlist`], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
-
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
-      }
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
 
   if (loading) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Degree_load/>
 </>
 
@@ -284,7 +220,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Degree_load/>
 </>
 
@@ -294,7 +230,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Degree_load/>
 </>
 
@@ -305,30 +241,17 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading3) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Degree_load/>
 </>
 
   );
   if (error3) return <p>Error: {error3}</p>;
 
-  if (loading12) return (
-      <>
-      <AppLoad lang={langua}/>
-      <Degree_load/>
-</>
-
-  );
-  if (error12) return <p>Error: {error12}</p>;
-
-  /*console.log(photoArray);
-  console.log(photoArray[0].length);*/
-  
-
 
     return (
         <>
-  <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={usernow.balance}/>
+  <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
 
 <div className="find_panel">
   <div className="me_under_find">
@@ -346,9 +269,9 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     </div>
     {(() => {
         if (data.username === usernow.username) {
-          return (<> <a href="/settings/" className="me_setting_ref">
+          return (<> <Link to="/settings/" className="me_setting_ref">
                         <img src="/src/static/img/setting.png" alt="" className="me_setting_img"/>
-                     </a> </>)
+                     </Link> </>)
         }
       })()}
 

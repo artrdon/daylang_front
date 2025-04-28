@@ -9,7 +9,7 @@ import Add_button from '/src/elems/add_button.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
-
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function ImageWithFallbackAvatar({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -52,65 +52,18 @@ function Offers_on_main() {
     
   const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
-
-useEffect(() => {
-
-    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-
-        console.log(dataMess);
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
-                if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              setMessNumb(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
-            return;
-        }
-
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
-
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
 
     const params = useParams();
     if (params.user === "undefined")
-{
-    window.location.replace(`/log/`);
-    return;
-}
+    {
+        window.location.replace(`/log/`);
+        return;
+    }
 
     document.querySelector("title").textContent = "My offers";
 
@@ -137,22 +90,6 @@ else{
       document.querySelector('body').className = "light_theme";
 }
 
-
-function change_theme() {
-  if (document.querySelector('body').className === "dark_theme")
-  {
-
-      document.querySelector('body').className = "light_theme";
-      document.cookie = "theme=light; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-  }
-  else
-  {
-      document.querySelector('body').className = "dark_theme";
-      document.cookie = "theme=dark; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-  }
-}
 
 
     const lang = getCookie('lang');
@@ -267,33 +204,11 @@ var arrLang = {
     refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
   });
 
-  
-  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
-    queryKey: [`getchatlist`], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
-
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
-      }
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
-
 
 
   if (loading) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offers_main_load/>
 </>
 
@@ -303,7 +218,7 @@ var arrLang = {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offers_main_load/>
 </>
 
@@ -313,7 +228,7 @@ var arrLang = {
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offers_main_load/>
 </>
 
@@ -323,27 +238,18 @@ var arrLang = {
 
   if (loading3) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offers_main_load/>
 </>
 
   );
   if (error3) return <p>Error: {error3}</p>;
 
-  if (loading12) return (
-      <>
-      <AppLoad lang={langua}/>
-      <Offers_main_load/>
-</>
-
-  );
-  if (error12) return <p>Error: {error12}</p>;
-
   document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | ${arrLang[lang]['offers']}`;
 
     return (
         <>
-<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={usernow.balance}/>
+<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={usernow.balance}/>
 
 
 <div className="find_panel">
@@ -362,9 +268,9 @@ var arrLang = {
     </div>
     {(() => {
         if (data.username === usernow.username) {
-          return (<> <a href="/settings/" className="me_setting_ref">
+          return (<> <Link to="/settings/" className="me_setting_ref">
                         <img src="/src/static/img/setting.png" alt="" className="me_setting_img"/>
-                     </a> </>)
+                     </Link> </>)
         }
       })()}
 

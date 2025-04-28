@@ -6,6 +6,7 @@ import Message_list_load from '/src/load_elems/messlistload.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
@@ -15,7 +16,12 @@ function Message_list() {
   const [groups, setGroup] = useState([]);
   const [ws, setWs] = useState(null);
   const [wsGroup, setWsGroup] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
+  
 
 useEffect(() => {
 
@@ -27,8 +33,7 @@ useEffect(() => {
 
     socket.onmessage = (event) => {
         const dataMess = JSON.parse(event.data);
-
-        console.log(dataMess);
+        
         if (dataMess.tip === "delete_chat"){
             document.getElementById(`chatnum${dataMess.id}`).remove();
             confirmingF();
@@ -36,13 +41,9 @@ useEffect(() => {
         }
         if (dataMess.tip === "delete"){
             document.getElementById(`chatnum${dataMess.chat_id}`).children[0].children[0].children[0].children[2].textContent = dataMess.last_mess;
-            console.log(dataMess.if_readed);
             let i_read = true;
             for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
                 if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
                   i_read = false;
                 }
             }
@@ -133,22 +134,6 @@ else{
 }
 
 
-function change_theme() {
-    if (document.querySelector('body').className === "dark_theme")
-    {
-
-        document.querySelector('body').className = "light_theme";
-        document.cookie = "theme=light; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-    }
-    else
-    {
-        document.querySelector('body').className = "dark_theme";
-        document.cookie = "theme=dark; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-    }
-}
-
 
     const csrfToken = getCookie('csrftoken');
 
@@ -205,56 +190,6 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
 
   const [components, setComponents] = useState({});
-
-  const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
-    queryKey: [`getchatlist`], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
-
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
-      }
-      setMessNumb(response.data[1]);
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
-
-
- /* useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        if (response.data != null){
-            for (let i = 0; i < response.data[0].length; i++){
-                setGroup((groups) => [...groups, response.data[0][i].id]);
-            }
-        }
-        setData1(response.data);
-        setMessNumb(response.data[1]);
-        const newComponent = {};
-        for (let i = 0; i < response.data[0].length; i++){
-          newComponent[response.data[0][i].id] = response.data[0][i].unreaded_mess;
-        }
-        setComponents(prev => ({ ...prev, ...newComponent }));
-      } catch (err) {
-        setError1(err.message);
-      } finally {
-        setLoading1(false);
-      }
-    };
-
-    fetchData();
-  }, []);*/
-
   
   useEffect(() => {
     if (data === null || data === undefined){
@@ -268,7 +203,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
     socket.onmessage = (event) => {
         const dataMess = JSON.parse(event.data);
-        console.log(dataMess);
+
         if (dataMess['tip'] === "create_chat")
         {
           const newComponent = {
@@ -304,22 +239,44 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     };
   }, [data]);
 
+  const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+    queryKey: [`getchatlist`], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/getchatlist/`);
+
+      if (response.data != null){
+          let group = [];
+          for (let i = 0; i < response.data[0].length; i++){
+              //setGroup((groups) => [...groups, response.data[0][i].id]);
+              group.unshift(response.data[0][i].id);
+          }
+          setGroup(group);
+      }
+      setMessNumb(response.data[1]);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
 
-  if (loading) return ( <> <AppLoad lang={langua}/>
+
+  if (loading) return ( <> <AppLoad lang={langua} messNumb={messNumb}/>
                             <Message_list_load/>
                         </> );
   if (error) return <p>Error: {errorDetails}</p>;
 
-  if (loading1) return ( <> <AppLoad lang={langua}/>
-                            <Message_list_load/>
-                        </> );
+  if (loading1) return ( <> <AppLoad lang={langua} messNumb={messNumb}/>
+      <Message_list_load/>
+  </> );
   if (error1) return <p>Error: {errorDetails1}</p>;
 
 
     return (
         <>
-        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data1[1]} photo={data.photo} balance={data.balance}/>
+        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="message_list_find_panel">
   <div style={{ display: "flex", justifyContent: "center" }}>

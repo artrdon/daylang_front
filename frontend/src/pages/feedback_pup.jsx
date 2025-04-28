@@ -8,6 +8,8 @@ import Feedback_pup_load from '/src/load_elems/feedback_pup_load.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import { useWebSocket } from '../once/web_socket_provider.jsx';
+
 
 function ImageWithFallbackAvatar({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -50,85 +52,21 @@ function Feedback_pup() {
     
   const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
-
-useEffect(() => {
-
-    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-
-        console.log(dataMess);
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
-                if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              setMessNumb(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
-            return;
-        }
-
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
-
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
 
     const params = useParams();
     if (params.user === "undefined")
-{
-    window.location.replace(`/log/`);
-    return;
-}
+    {
+        window.location.replace(`/log/`);
+        return;
+    }
 
     document.querySelector("title").textContent = "Feedback";
 
-const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-
-const [data1, setData1] = useState(null);
-  const [loading1, setLoading1] = useState(true);
-  const [error1, setError1] = useState(null);
-
-    const [data3, setData3] = useState(null);
-  const [loading3, setLoading3] = useState(true);
-  const [error3, setError3] = useState(null);
-
-
-    const [data4, setData4] = useState(null);
-  const [loading4, setLoading4] = useState(true);
-  const [error4, setError4] = useState(null);
 
 axios.defaults.withCredentials = true;
 
@@ -139,10 +77,6 @@ function getCookie(name) {
 }
 
 
-const theme = getCookie('theme');
-//console.log(getCookie('theme'));
-
-
 if (getCookie('theme') === "dark"){
   if (document.querySelector('body') != null)
       document.querySelector('body').className = "dark_theme";
@@ -150,23 +84,6 @@ if (getCookie('theme') === "dark"){
 else{
   if (document.querySelector('body') != null)
       document.querySelector('body').className = "light_theme";
-}
-
-
-function change_theme() {
-  if (document.querySelector('body').className === "dark_theme")
-  {
-
-      document.querySelector('body').className = "light_theme";
-      document.cookie = "theme=light; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-  }
-  else
-  {
-      document.querySelector('body').className = "dark_theme";
-      document.cookie = "theme=dark; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-  }
 }
 
     const lang = getCookie('lang');
@@ -221,40 +138,35 @@ var arrLang = {
     }
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
-        setData(response.data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
+    queryKey: [`userinfo_author`, params.user], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
+      if (response.data.i_am_teacher === true)
+      {
+          window.location.replace(`/t/user/${params.user}/`)
       }
-    };
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
-    fetchData();
-  }, []);
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/usersettings/${params.user}/`);
-        if (response.data.i_am_teacher === true)
-        {
-            window.location.replace(`/t/user/${params.user}/feedback/`)
-        }
-        setData1(response.data);
-      } catch (err) {
-        setError1(err.message);
-      } finally {
-        setLoading1(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+    queryKey: [`usersettings`, params.user], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
+      return response.data; // Возвращаем только данные
+    },
+  
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
 
 
 
@@ -271,51 +183,11 @@ var arrLang = {
   });
 
 
-useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/reviewsmy/${params.user}/`);
-        setData3(response.data);
-      } catch (err) {
-        setError3(err.message);
-      } finally {
-        setLoading3(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-    useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/reviews/${params.user}/`);
-        setData4(response.data);
-      } catch (err) {
-        setError4(err.message);
-      } finally {
-        setLoading4(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
- 
-  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
-    queryKey: [`getchatlist`], // Уникальный ключ запроса
+  
+  const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
+    queryKey: ['reviewsmy', params.user], // Уникальный ключ запроса
     queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
-
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
-      }
-      setMessNumb(response.data[1]);
+      const response = await axios.get(`${APIURL}/reviewsmy/${params.user}/`);
       return response.data; // Возвращаем только данные
     },
     // Опциональные параметры:
@@ -324,10 +196,22 @@ useEffect(() => {
     refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
   });
 
+  const { data: data4, isLoading: loading4, isError: error4, error: errorDetails4 } = useQuery({
+    queryKey: ['reviews', params.user], // Уникальный ключ запроса
+    queryFn: async () => {
+      const response = await axios.get(`${APIURL}/reviews/${params.user}/`);
+      return response.data; // Возвращаем только данные
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+ 
 
   if (loading) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Feedback_pup_load/>
 </>
 
@@ -337,7 +221,7 @@ useEffect(() => {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Feedback_pup_load/>
 </>
 
@@ -347,7 +231,7 @@ useEffect(() => {
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Feedback_pup_load/>
 </>
 
@@ -357,7 +241,7 @@ useEffect(() => {
 
   if (loading3) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Feedback_pup_load/>
 </>
 
@@ -366,37 +250,25 @@ useEffect(() => {
 
   if (loading4) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Feedback_pup_load/>
 </>
 
   );
   if (error4) return <p>Error: {error4}</p>;
 
-  if (loading12) return (
-      <>
-      <AppLoad lang={langua}/>
-      <Feedback_pup_load/>
-</>
-
-  );
-  if (error12) return <p>Error: {error12}</p>;
-
   document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | ${arrLang[lang]['feedback']}`;
 
     return (
         <>
-<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={data12[1]} photo={usernow.photo} balance={usernow.balance}/>
+<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
 
 <div className="find_panel">
   <div className="me_under_find">
     <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
     <div className="me_name_surname_panel">
-      <span className="me_name" translate="no" >
-        {data.first_name}
-      </span>
-      <span className="me_surname" translate="no">
-        {data.last_name}
+    <span className="me_name" translate="no" >
+        {data.first_name} {data.last_name}
       </span>
       {(() => {
         if (data.real_man === true) {
@@ -407,9 +279,9 @@ useEffect(() => {
     </div>
     {(() => {
         if (data.username === usernow.username) {
-          return (<> <a href="/settings/" className="me_setting_ref">
+          return (<> <Link to="/settings/" className="me_setting_ref">
                         <img src="/src/static/img/setting.png" alt="" className="me_setting_img"/>
-                     </a> </>)
+                     </Link> </>)
         }
       })()}
 

@@ -13,6 +13,7 @@ import DoBye from '/src/elems/do_bye.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 const ScrollToBottom = () => {
   const elementRef = useRef(null);
@@ -35,9 +36,14 @@ const [messId, setMessId] = useState(null);
 
   const [webmessage, setMessage] = useState('');
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
-  const [ifBye, setBye] = useState(false);
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
 
+
+  const [ifBye, setBye] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [changeMess, setMessChanger] = useState(false);
   const [groups, setGroup] = useState([]);
@@ -395,7 +401,7 @@ const add_smile = (par) => {
 
     if (loading) return (
       <>
-      <AppMessLoad lang={langua}/>
+      <AppMessLoad lang={langua} messNumb={messNumb}/>
 </>
 
   );
@@ -403,7 +409,7 @@ const add_smile = (par) => {
 
     if (loading2) return (
       <>
-      <AppMessLoad lang={langua}/>
+      <AppMessLoad lang={langua} messNumb={messNumb}/>
 </>
 
   );
@@ -412,20 +418,15 @@ const add_smile = (par) => {
 
   if (loading12) return (
       <>
-      <AppMessLoad lang={langua}/>
+      <AppMessLoad lang={langua} messNumb={messNumb}/>
 </>
 
   );
   if (error12) return <p>Error: {error12}</p>;
 
-console.log("data12:", data12);
-console.log("infoForHeader:", infoForHeader);
-console.log("name_of_chat:", name_of_chat);
-console.log("data2:", data2);
-
     return (
         <>
-        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
+        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
     <div className="message_find_panel">
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="panel_of_messages">

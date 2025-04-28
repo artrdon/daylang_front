@@ -11,6 +11,7 @@ import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -171,10 +172,15 @@ function Offer() {
     
   const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
   const [showAllOffers, setShowAllOffers] = useState(false);
   const [showPhotoBig, setShowPhotoBig] = useState(false);
   const [screen, setScreen] = useState(null);
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
+
 
   useEffect(() => {
     if (window.innerWidth > window.innerHeight) {
@@ -199,117 +205,36 @@ function Offer() {
     setShowAllOffers(false);
   }
 
-useEffect(() => {
-
-    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                if (dataMess.if_readed[i] === data.username){
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              setMessNumb(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
-            return;
-        }
-
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
-
-
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
-}
+  }
 
 
-const theme = getCookie('theme');
+  const theme = getCookie('theme');
 
 
-if (getCookie('theme') === "dark"){
-    if (document.querySelector('body') != null)
-        document.querySelector('body').className = "dark_theme";
-}
-else{
-    if (document.querySelector('body') != null)
-        document.querySelector('body').className = "light_theme";
-}
+  if (getCookie('theme') === "dark"){
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "dark_theme";
+  }
+  else{
+      if (document.querySelector('body') != null)
+          document.querySelector('body').className = "light_theme";
+  }
 
 
-function change_theme() {
-    if (document.querySelector('body').className === "dark_theme")
-    {
+  const csrfToken = getCookie('csrftoken');
 
-        document.querySelector('body').className = "light_theme";
-        document.cookie = "theme=light; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-    }
-    else
-    {
-        document.querySelector('body').className = "dark_theme";
-        document.cookie = "theme=dark; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-    }
-}
+  const params = useParams();
 
+  document.querySelector("title").textContent = "Offer";
+  let isfav = null;
 
-    const csrfToken = getCookie('csrftoken');
-
-    const [count, setCount] = useState(0)
-    const params = useParams();
-
-    document.querySelector("title").textContent = "Offer";
-    let isfav = null;
-
-  /*const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-*/
   const [data1, setData1] = useState(null);
   const [loading1, setLoading1] = useState(true);
   const [error1, setError1] = useState(null);
-
-  /*const [data2, setData2] = useState(null);
-  const [loading2, setLoading2] = useState(true);
-  const [error2, setError2] = useState(null);
-
-
-  const [data3, setData3] = useState(null);
-  const [loading3, setLoading3] = useState(true);
-  const [error3, setError3] = useState(null);
-*/
- /* const [data7, setData7] = useState(null);
-  const [loading7, setLoading7] = useState(true);
-  const [error7, setError7] = useState(null);*/
 
   const [favor, setData6] = useState({username: params.username, id: params.id});
   const [photoArray, setPhotoArray] = useState([]);
@@ -385,10 +310,6 @@ axios.defaults.withCredentials = true;
     }
 
 
-
-//const para = { username: {params.username}, id: {params.id}};
-
-
 const save_to_fav = async (e) => {
 
             e.preventDefault();
@@ -421,17 +342,6 @@ const save_to_fav = async (e) => {
             return 0;
         }
     }
-
-
-   
-    // Use like:
-    
-
-// up post and down get request
-
- /* const [data12, setData12] = useState(null);
-  const [loading12, setLoading12] = useState(true);
-  const [error12, setError12] = useState(null);*/
 
   const { data, loading, error } = useQuery({
     queryKey: ['userinfo'], // Уникальный ключ запроса
@@ -491,74 +401,6 @@ const save_to_fav = async (e) => {
     img.onerror = (err) => cb(err);
     img.src = url;
   };
-  /*const { data: data1, loading1, error1 } = useQuery({
-    queryKey: ['offer', params.username, params.id],
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
-      const responseData = response.data;
-      
-      // Обработка изображений с обработкой ошибок
-      const processImage = (url) => new Promise(resolve => {
-        getMeta(url, (err, img) => {
-          if (err) {
-            console.error('Error loading image:', url, err);
-            resolve({
-              photo: url,
-              h_or_w: 'w' // fallback значение
-            });
-          } else {
-            resolve({
-              photo: url,
-              h_or_w: img.naturalWidth >= img.naturalHeight ? "w" : "h"
-            });
-          }
-        });
-      });
-  
-      // Обрабатываем все фото
-      const [firstPhotoMeta, ...otherPhotosMeta] = await Promise.all([
-        processImage(responseData[0].photo),
-        ...responseData[1].map(item => processImage(item.photo))
-      ]);
-  
-      // Возвращаем все данные вместе
-      return {
-        originalData: responseData,
-        photos: [firstPhotoMeta, ...otherPhotosMeta]
-      };
-    },
-    retry: 2,
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
-    onSuccess: (data) => {
-      // Устанавливаем фото только после успешного запроса
-      setPhotoArray(data.photos);
-    }
-  });*/
-  
-
-  const { data: data12, loading12, error12 } = useQuery({
-    queryKey: [`getchatlist`], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
-
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
-      }
-      setMessNumb(response.data[1]);
-      return response.data[1]; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
-
   
     useEffect(() => {
     const fetchData = async () => {
@@ -606,7 +448,7 @@ const save_to_fav = async (e) => {
 
   if (loading) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offer_load/>
 </>
 
@@ -615,7 +457,7 @@ const save_to_fav = async (e) => {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offer_load/>
 
 </>
@@ -625,7 +467,7 @@ const save_to_fav = async (e) => {
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offer_load/>
 
 </>
@@ -636,7 +478,7 @@ const save_to_fav = async (e) => {
 
   if (loading3) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offer_load/>
 
 </>
@@ -646,21 +488,12 @@ const save_to_fav = async (e) => {
 
     if (loading7) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Offer_load/>
 </>
 
   );
   if (error7) return <p>Error: {error7}</p>;
-
-  if (loading12) return (
-      <>
-      <AppLoad lang={langua}/>
-      <Offer_load/>
-</>
-
-  );
-  if (error12) return <p>Error: {error12}</p>;
 
 
     document.querySelector("title").textContent = `${data1[0].name}`;
@@ -672,7 +505,7 @@ const save_to_fav = async (e) => {
 
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel">
   <div className="div_of_foto_and_button" id="divoffb">

@@ -17,7 +17,7 @@ import Docks from '/src/elems/docks.jsx'
 import axios from 'axios';
 
 
-function AppLoad({ lang }) {
+function AppLoad({ lang, messNumb }) {
   const [count, setCount] = useState(0)
 
 
@@ -157,7 +157,7 @@ function AppLoad({ lang }) {
         />
         
 
-
+        {messNumb > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button">
@@ -168,7 +168,7 @@ function AppLoad({ lang }) {
         />
         
 
-
+        {messNumb > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
         <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
       

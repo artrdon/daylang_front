@@ -7,66 +7,19 @@ import Create_offer_load from '/src/load_elems/create_offer_load.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
 function CreateOffer() {
     
   const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
 
-useEffect(() => {
-
-    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-
-        console.log(dataMess);
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
-                if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              setMessNumb(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
-            return;
-        }
-
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
-
-
-    const [count, setCount] = useState(0)
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -87,24 +40,6 @@ useEffect(() => {
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "light_theme";
   }
-  
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
-
 
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
@@ -324,32 +259,6 @@ var Lang = {
     refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
   });
 
-
- 
-  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
-    queryKey: [`getchatlist`], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
-
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
-      }
-      setMessNumb(response.data[1]);
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
-
-
-
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
@@ -430,25 +339,16 @@ var Lang = {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua}/>
+      <AppLoad lang={langua} messNumb={messNumb}/>
       <Create_offer_load/>
 </>
 
   );
   if (error1) return <p>Error: {error1}</p>;
 
-  if (loading12) return (
-      <>
-      <AppLoad lang={langua}/>
-      <Create_offer_load/>
-</>
-
-  );
-  if (error12) return <p>Error: {error12}</p>;
-
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={data12[1]} photo={data1.photo} balance={data1.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} photo={data1.photo} balance={data1.balance}/>
 
 
 <div className="ctr_offer_find_panel">

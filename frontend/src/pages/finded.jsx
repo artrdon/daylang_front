@@ -11,65 +11,19 @@ import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import FindedAndSavedOffers from '/src/elems/finded_and_saved_offers.jsx'
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function Finded() {
 
     
   const [groups, setGroup] = useState([0]);
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
 
-useEffect(() => {
-
-    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-
-        console.log(dataMess);
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                console.log(dataMess.if_readed[i]);
-                console.log(data.username);
-                if (dataMess.if_readed[i] === data.username){
-                  console.log("i_read");
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              setMessNumb(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
-            return;
-        }
-
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
-
-    
     const arrLang = {
       'English': {
           'create_offer': 'Create offer',
@@ -214,32 +168,6 @@ useEffect(() => {
       staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
-  
-
-    const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
-      queryKey: [`getchatlist`], // Уникальный ключ запроса
-      queryFn: async () => {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-  
-        if (response.data != null){
-            let group = [];
-            for (let i = 0; i < response.data[0].length; i++){
-                //setGroup((groups) => [...groups, response.data[0][i].id]);
-                group.unshift(response.data[0][i].id);
-            }
-            setGroup(group);
-        }
-        setMessNumb(response.data[1]);
-        return response.data; // Возвращаем только данные
-      },
-      // Опциональные параметры:
-      retry: 2, // Количество попыток повтора при ошибке
-      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-    });
-  
-    
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -262,13 +190,13 @@ useEffect(() => {
     };
 
 
-  if (loading) return (<AppLoad lang={langua}/>);
+  if (loading) return (<AppLoad lang={langua} messNumb={messNumb}/>);
   if (error) return <p>Error: {error}</p>;
 
 
   if (loading1) return (
       <>
-       <AppLoad lang={langua}/>
+       <AppLoad lang={langua} messNumb={messNumb}/>
 
 {/*<div className="finded_panel" style={{ width: "100%", display: "flex", justifyContent: "center", left: "unset", backgroundColor: "#00000000"}}>
   <div className="sborishe_chelov">
@@ -302,16 +230,9 @@ useEffect(() => {
   );
   if (error1) return <p>Error: {error1}</p>;
 
-  if (loading12) return (
-      <>
-      <AppLoad lang={langua}/>
-</>
-
-  );
-  if (error12) return <p>Error: {error12}</p>;
   return (
       <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="saved_finded_panel">
   <div className="sborishe_chelov">

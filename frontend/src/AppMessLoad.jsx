@@ -34,7 +34,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 }
 
 
-function AppMessLoad({ lang }) {
+function AppMessLoad({ lang, messNumb }) {
   const [count, setCount] = useState(0)
 
   function getCookie(name) {
@@ -201,6 +201,7 @@ var arrLang = {
           alt="mess"
           className="app_navig_panel_img on_desktop_panel"
         />
+        {messNumb > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
         <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button">
@@ -209,6 +210,7 @@ var arrLang = {
           alt="my lesson"
           className="app_navig_panel_img on_desktop_panel"
         />
+        {messNumb > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
         <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
       

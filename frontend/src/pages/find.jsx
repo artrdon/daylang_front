@@ -12,68 +12,46 @@ import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function Find() {
-
-  
-  const [groups, setGroup] = useState([]);
-  const [ws, setWs] = useState(null);
-  const websocket = useWebSocket();
-  const [messNumb, setMessNumb] = useState(websocket.messNumb);
-  useEffect(() => {
-    setMessNumb(websocket.messNumb);
-  }, [websocket.messNumb]);
-  const queryClient = useQueryClient();
+    const [groups, setGroup] = useState([]);
+    const [ws, setWs] = useState(null);
+    const websocket = useWebSocket();
+    const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    useEffect(() => {
+        setMessNumb(websocket.messNumb);
+    }, [websocket.messNumb]);
+    const queryClient = useQueryClient();
 
 
 
     document.querySelector("title").textContent = "DayLang";
 
     function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-  }
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
-
-  const theme = getCookie('theme');
-  //console.log(getCookie('theme'));
+    
+    if (getCookie('theme') === "dark"){
+        if (document.querySelector('body') != null)
+            document.querySelector('body').className = "dark_theme";
+    }
+    else{
+        if (document.querySelector('body') != null)
+            document.querySelector('body').className = "light_theme";
+    }
+    
   
-  
-  if (getCookie('theme') === "dark"){
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "dark_theme";
-  }
-  else{
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "light_theme";
-  }
-  
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
-
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
 
-if (lang != undefined){
-    langua = lang;
-}
-else{
-    document.cookie = `lang=English; path=/;max-age=31556926`;
-    langua = "English";
-}
+    if (lang != undefined){
+        langua = lang;
+    }
+    else{
+        document.cookie = `lang=English; path=/;max-age=31556926`;
+        langua = "English";
+    }
     var arrLang = {
       'English': {
           'teacher': 'Teacher',
@@ -163,131 +141,29 @@ else{
     }
 
 
-axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
 
-  const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
-    queryKey: ['userinfo'], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/userinfo/`);
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
+    const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
+      queryKey: ['userinfo'], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${APIURL}/userinfo/`);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
 
+    if (loading) return (
+          <>
+          <AppLoad lang={langua}/>
+    </>
 
+    );
+    if (error) return <p>Error: {error}</p>;
 
-  const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
-    queryKey: [`getchatlist`], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
-
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
-      }
-      //setMessNumb(response.data[1]);
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
-
-
-  /*useEffect(() => { 
-
-    const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-
-    socket.onmessage = (event) => {
-        const dataMess = JSON.parse(event.data);
-        console.log(dataMess);
-
-        if (dataMess.tip === "delete"){
-            let i_read = true;
-            for (let i = 0; dataMess.if_readed.length > i; i++){
-                if (dataMess.if_readed[i] === data.username){
-                  i_read = false;
-                }
-            }
-            if (i_read)
-              data12[1] = data12[1] - 1;
-              //setData12(prev => prev - 1);
-            return;
-        }
-
-        if (dataMess.tip === "send"){
-            //setMessNumb(prev => prev + 1);
-            queryClient.setQueryData(['getchatlist'], (oldData) => {
-              if (!oldData || !oldData[1]) return oldData;
-              
-              // Если data12[1] - число
-              if (typeof oldData[1] === 'number') {
-                return [oldData[0], oldData[1] + 1, ...oldData.slice(2)];
-              }
-              
-              // Если data12[1] - объект с полем messNumb
-              return [
-                oldData[0],
-                {
-                  ...oldData[1],
-                  messNumb: (oldData[1].messNumb || 0) + 1
-                },
-                ...oldData.slice(2)
-              ];
-            });
-            return;
-        }
-
-         //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    setWs(socket);
-
-    return () => {
-      socket.close();
-    };
-  }, [groups]);
-
-*/
-
-
-  if (loading) return (
-      <>
-      <AppLoad lang={langua}/>
-</>
-
-  );
-  if (error) return <p>Error: {error}</p>;
-
-
-  if (loading12) return (
-      <>
-      <AppLoad lang={langua}/>
-</>
-
-  );
-  if (error12) return <p>Error: {error12}</p>;
 
     return (
         <>
