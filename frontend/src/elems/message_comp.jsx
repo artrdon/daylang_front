@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import DOMPurify from 'dompurify';
 import axios from 'axios';
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -32,10 +33,19 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
     const [confirm, setIsVisible] = useState(false);
     const [position, setPosition] = useState({ y: 0 });
     const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
+    //const text = DOMPurify.sanitize(linkify(int));
 
 
 
   // Функция для переключения видимости элемента
+  const convertLinksToAnchors = (text) => {
+    const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  
+    return text.replace(urlRegex, function(url) {
+      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+    });
+  }
+  const [text, setText] = useState(convertLinksToAnchors(int));
   const toggleVisibility = (e, id) => {
     setVisibleId(prevId => prevId === id ? null : id);
     setPosition({ y: e.clientY });
@@ -89,7 +99,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
               <div className='message_comp_my_message' id={`mess${id}`} >
                   <div className='message_comp_my_message_div'>
                     <pre className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
-                      {int}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
+                      {text}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
                       <div>
                         {(() => {
                           if (changed === true) {
@@ -146,7 +156,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                     
                   <div className='message_comp_my_message_div'>
                     <pre className='message_comp_not_my_message_inside_pre' onClick={() => toggleVisibility(id)}>
-                      {int}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
+                      {text}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
                       
                       <div>
                         {(() => {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import Finded from '/src/pages/finded.jsx'
 import Type_offer from '/src/elems/offer_type.jsx'
@@ -8,14 +9,19 @@ import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function Find() {
 
   
   const [groups, setGroup] = useState([]);
   const [ws, setWs] = useState(null);
-  const [messNumb, setMessNumb] = useState(null);
-
+  const websocket = useWebSocket();
+  const [messNumb, setMessNumb] = useState(websocket.messNumb);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+  }, [websocket.messNumb]);
+  const queryClient = useQueryClient();
 
 
 
@@ -187,7 +193,7 @@ axios.defaults.withCredentials = true;
           }
           setGroup(group);
       }
-      setMessNumb(response.data[1]);
+      //setMessNumb(response.data[1]);
       return response.data; // Возвращаем только данные
     },
     // Опциональные параметры:
@@ -197,7 +203,7 @@ axios.defaults.withCredentials = true;
   });
 
 
-  useEffect(() => { 
+  /*useEffect(() => { 
 
     const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
 
@@ -207,6 +213,7 @@ axios.defaults.withCredentials = true;
 
     socket.onmessage = (event) => {
         const dataMess = JSON.parse(event.data);
+        console.log(dataMess);
 
         if (dataMess.tip === "delete"){
             let i_read = true;
@@ -216,12 +223,31 @@ axios.defaults.withCredentials = true;
                 }
             }
             if (i_read)
-              setMessNumb(prev => prev - 1);
+              data12[1] = data12[1] - 1;
+              //setData12(prev => prev - 1);
             return;
         }
 
         if (dataMess.tip === "send"){
-            setMessNumb(prev => prev + 1);
+            //setMessNumb(prev => prev + 1);
+            queryClient.setQueryData(['getchatlist'], (oldData) => {
+              if (!oldData || !oldData[1]) return oldData;
+              
+              // Если data12[1] - число
+              if (typeof oldData[1] === 'number') {
+                return [oldData[0], oldData[1] + 1, ...oldData.slice(2)];
+              }
+              
+              // Если data12[1] - объект с полем messNumb
+              return [
+                oldData[0],
+                {
+                  ...oldData[1],
+                  messNumb: (oldData[1].messNumb || 0) + 1
+                },
+                ...oldData.slice(2)
+              ];
+            });
             return;
         }
 
@@ -243,7 +269,7 @@ axios.defaults.withCredentials = true;
     };
   }, [groups]);
 
-
+*/
 
 
   if (loading) return (
@@ -265,7 +291,7 @@ axios.defaults.withCredentials = true;
 
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={data12[1]} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel">
   <div className="tag_select_panel">

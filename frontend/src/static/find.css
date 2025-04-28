@@ -200,6 +200,7 @@
 }
 .navig_panel_button:hover{
     background-color: #b4b4b4; 
+    transition: 0.2s linear;
 }
 
 .find_panel{

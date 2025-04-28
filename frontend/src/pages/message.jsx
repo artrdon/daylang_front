@@ -40,10 +40,7 @@ const [messId, setMessId] = useState(null);
 
   const [isVisible, setIsVisible] = useState(false);
   const [changeMess, setMessChanger] = useState(false);
-  const [groups, setGroup] = useState([0]);
-  const [data3, setData3] = useState(null);
-  const [loading3, setLoading3] = useState(true);
-  const [error3, setError3] = useState(null);
+  const [groups, setGroup] = useState([]);
   const [infoForHeader, setHeader] = useState(null);
 
 
@@ -210,11 +207,6 @@ const messChange = (idd) => {
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(';').shift();
   }
-
-
-  const theme = getCookie('theme');
-  //console.log(getCookie('theme'));
-  
   
   if (getCookie('theme') === "dark"){
       if (document.querySelector('body') != null)
@@ -225,22 +217,6 @@ const messChange = (idd) => {
           document.querySelector('body').className = "light_theme";
   }
   
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
 
 
     const csrfToken = getCookie('csrftoken');
@@ -283,10 +259,6 @@ const messChange = (idd) => {
     const [message, setData1] = useState({text: '', id: params.id});
     const [components, setComponents] = useState([]);
 
-    const [data2, setData2] = useState(null);
-    const [loading2, setLoading2] = useState(true);
-    const [error2, setError2] = useState(null);
-
     const [name_of_chat, setData4] = useState(null);
 
     const [showComponent, setShowComponent] = useState(false);
@@ -307,21 +279,48 @@ const messChange = (idd) => {
     });
   
 
+
+    
+
+    const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
+      queryKey: ['offerinfo_bychat', params.id], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${APIURL}/offerinfo_bychat/${params.id}/`);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+  
+
+
+    const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
+      queryKey: ['getmessagelist', params.id], // Уникальный ключ запроса
+      queryFn: async () => {
+        try {
+          const response = await axios.get(`${APIURL}/getmessagelist/${params.id}/`);
+          return response.data;
+        } catch (error) {
+          console.error('Ошибка при выполнении запроса:', error);
+          throw error;
+        } // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
     useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const response = await axios.get(`${APIURL}/offerinfo_bychat/${params.id}/`);
-              setData3(response.data);
-          } catch (err) {
-              setError3(err.message);
-          } finally {
-              setLoading3(false);
-          }
-      };
-
-      fetchData();
-  }, []);
-
+      if (data2) {
+        const chatName = data2.length === undefined 
+          ? data2.chat_name 
+          : data2[0]?.chat_name;
+        setData4(chatName);
+      }
+    }, [data2]);
+  
 const ByeButton = () => {
     setBye(true);
 }
@@ -357,46 +356,11 @@ const add_smile = (par) => {
 
     };
 
-useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${APIURL}/getmessagelist/${params.id}/`);
-                setData2(response.data);
-                if (response.data != null)
-                {
-                    if (response.data.length === undefined){
-                        setData4(response.data.chat_name);
-                    }
-                    else{
-                        setData4(response.data[0].chat_name);
-                    }
-                }
-
-            } catch (err) {
-                setError2(err.message);
-            } finally {
-            setLoading2(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
  
     const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
       queryKey: [`getchatlist`], // Уникальный ключ запроса
       queryFn: async () => {
         const response = await axios.get(`${APIURL}/getchatlist/`);
-  
-        if (response.data != null){
-            let group = [];
-            for (let i = 0; i < response.data[0].length; i++){
-                //setGroup((groups) => [...groups, response.data[0][i].id]);
-                group.unshift(response.data[0][i].id);
-            }
-            setGroup(group);
-        }
-        setMessNumb(response.data[1]);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:
@@ -405,6 +369,30 @@ useEffect(() => {
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
   
+    useEffect(() => {
+      if (data12 && Array.isArray(data12) && data12.length > 0 && Array.isArray(data12[0])) {
+        let group = [];
+        for (let i = 0; i < data12[0].length; i++) {
+          if (data12[0][i]?.id) {
+            group.unshift(data12[0][i].id);
+          }
+        }
+        setGroup(group);
+      }
+    }, [data12]);
+  
+    useEffect(() => {
+      if (data12 && Array.isArray(data12) && data12.length > 0 && Array.isArray(data12[0])) {
+        for (let i = 0; i < data12[0].length; i++) {
+          if (data12[0][i]?.id === params.id) {
+            setHeader(data12[0][i]);
+            break;
+          }
+        }
+      }
+    }, [data12, params.id]);
+
+
     if (loading) return (
       <>
       <AppMessLoad lang={langua}/>
@@ -430,7 +418,10 @@ useEffect(() => {
   );
   if (error12) return <p>Error: {error12}</p>;
 
-//console.log(infoForHeader);
+console.log("data12:", data12);
+console.log("infoForHeader:", infoForHeader);
+console.log("name_of_chat:", name_of_chat);
+console.log("data2:", data2);
 
     return (
         <>
@@ -460,12 +451,12 @@ useEffect(() => {
                     className="img_of_micro_chel"
                   />
                   {(() => {
-                      if (infoForHeader.me === true) {
+                     /* if (infoForHeader.me === true) {
                           return (<> <span className="ime message_chat_name" translate="no">
                                         {infoForHeader.ime} {infoForHeader.prezime}
                                     </span> </>)
 
-                      } else{
+                      } else*/{
                           return (<> <span className="ime message_chat_name" translate="no">
                                         {name_of_chat}
                                     </span> </>)

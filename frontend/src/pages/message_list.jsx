@@ -315,8 +315,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                             <Message_list_load/>
                         </> );
   if (error1) return <p>Error: {errorDetails1}</p>;
-console.log(data);
-console.log(data1);
+
 
     return (
         <>

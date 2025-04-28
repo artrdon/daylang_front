@@ -2,6 +2,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.74.4",
     "axios": "^1.8.4",
+    "dompurify": "^3.2.5",
     "react-oauth2-code-pkce": "^1.23.0"
   }
 }
