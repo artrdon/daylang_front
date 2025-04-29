@@ -19,14 +19,14 @@ function DeepSearchComp({closeSearch }) {
 
 return ( 
     <>
-<div style={{ display: "flex", width: "100vw", height: "100vh", justifyContent: "center", alignItems: "center", }}>
-    <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}} onClick={closeSearch}></div>
-    <div style={{ width: 600, height: "auto", backgroundColor: "#2e2e2e", position: "fixed", top: 150, borderRadius: 5,  zIndex: 1001}}>
-        <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-            <p id="form-title">Are you serious want to delete the chat</p>
+<div className="deep_search_component_main_div">
+    <div className="deep_search_component_close_search" onClick={closeSearch}></div>
+    <div className="deep_search_component_form">
+        <div className="deep_search_component_form_title">
+            <p id="form-title" className="deep_search_component_upper_title">Deep search</p>
         </div>
-        <div style={{ width: "100%", height: "auto"}}>
-            <div style={{ margin: 40, overflow: "auto", height: 430}}>
+        <div className="deep_search_component_div_under_title">
+            <div className="deep_search_component_div_under_title_fields">
               <div style={{height: "calc(100% - 70px)", }}>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <div className="crt_offer_blank">
@@ -79,11 +79,11 @@ return (
               </div>
               
             </div>
-            <a href={`/finded/${params.language}/${data2.format}/${data2.target}/${data2.age}/${data2.microphone}/${data2.price_min}/${data2.price_max}/`}>
-              <div style={{width: "calc(100% - 80px)", height: 70, backgroundColor: "white", margin: 40, marginTop: 0, borderRadius: 10, display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <p style={{color: "black", fontSize: 30}}>Find</p>
+            <Link to={`/finded/${params.language}/${data2.format}/${data2.target}/${data2.age}/${data2.microphone}/${data2.price_min}/${data2.price_max}/`}>
+              <div className="deep_search_component_button">
+                <p className="deep_search_component_button_text">Find</p>
               </div>
-            </a>
+            </Link>
         </div>
     </div>
 </div>

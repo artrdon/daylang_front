@@ -39,7 +39,7 @@ return (
                 )}
                 <div className="finded_review">
                     <img src="/src/static/img/11.png" alt="11" className="img_review" />
-                    <h1 className="review_text"> {review}</h1>
+                    <p className="review_text"> {review}</p>
                 </div>
                 <div className="part_with_text">
                 <p className="finded_price">{price} ₽</p>

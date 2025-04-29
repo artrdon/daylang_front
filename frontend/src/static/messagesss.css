@@ -226,6 +226,7 @@ div *::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 525px)
 {
+
     .message_list_unreaded_messages {
         left: calc(100% - 28.5714vw);
         top: -18.0952vw;
@@ -237,6 +238,8 @@ div *::-webkit-scrollbar-thumb {
     }
     .saved_finded_panel {
         top: 13.3333vw;
+        margin: 0.4545454545454545vw;
+        width: calc(100% - 0.9090909090909091vw);
     }
     .panel_of_one_mes{
         border-top-left-radius: 0px;

@@ -64,7 +64,7 @@
     width: 30px; height: 30px; display: inline-block;
 }
 .review_text{
-    color: black; position: absolute; display: inline-block;
+    font-size: 30px; color: black; position: absolute; display: inline-block;
 }
 .description_lol{
     font-size: 20px; color: black; margin-top: 30px; overflow-wrap: anywhere; margin-right: 50px; width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; top: 100px; position: absolute;
@@ -187,9 +187,9 @@
         width: 100%
     }
     .offer_of_lang_finded{
-        width: calc(100% - 2.4vw);
-        margin: 1.2vw;
-        height: 25vw;
+        width: calc(100% - 3.6363636363636362vw);
+        margin: 1.8181818181818181vw;
+        height: 23.636363636363636vw;
         border-radius: 2.22vw;
     }
     .offer_of_lang_finded_sort_panel{
@@ -204,22 +204,21 @@
     }
     .finded_name{
         font-size: 4vw;
-        left: 28vw;
-        top: 1vw;
+        left: 28.181818181818183vw;
+        top: 1.8181818181818181vw;
     }
     .part_with_text{
-        top: 40px;
-        left: 25%;
+        top: 6.363636363636363vw;
+        left: 28.181818181818183vw;
     }
     .finded_review{
-        right: 9vw;
-        top: 6vw;
+        right: 3.6363636363636362vw;
+        top: 7.272727272727273vw;
     }
     .finded_price{
-        font-size: 4vw;
+        font-size: 2.727272727272727vw;
         position: absolute;
         width: 50vw;
-        left: 4vw;
         margin-top: 3vw;
     }
     .finded_online_status{
@@ -227,64 +226,52 @@
         font-size: 20px;
     }
     .description_lol{
-        font-size: 2.6vw;
-        margin-top: 10px;
+        font-size: 1.8181818181818181vw;
+        margin-top: 0.9090909090909091vw;
         margin-right: 0px;
-        width: 60vw;
-        left: 4vw;
+        width: 54.54545454545454vw;
         position: absolute;
-        top: 13vw;
+        top: 9.090909090909091vw;
     }
     .review_text{
-        font-size: 5vw;
+        font-size: 2.727272727272727vw;
     }
     .img_review{
-        width: 5vw;
-        height: 5vw;
+        width: 2.727272727272727vw;
+        height: 2.727272727272727vw;
     }
     .src_img{
-        top: 1vw;
-        right: 6vw;
-        height: 5vw;
-        width: 5vw;
+        top: 1.8181818181818181vw;
+        right: 1.8181818181818181vw;
+        height: 3.6363636363636362vw;
+        width: 3.6363636363636362vw;
     }
 }
-@media only screen and (max-width: 600px)
-{
-    .description_lol{
-        top: 10vw;
+@media only screen and (max-width: 525px){
+        
+    .finded_setting_language_selector {
+        border-radius: 0.5714285714285714vw;
+        border: 0px;
+        font-size: 3.8095238095238093vw;
+        height: 5.714285714285714vw;
+        width: 100%;
+        margin-top: 9.523809523809524vw;
     }
-}
-@media only screen and (max-width: 450px)
-{
-    .src_img{
-        right: 2vw;
+
+    .finded_input_field_name {
+        border-radius: 0.5714285714285714vw;
+        border: 0px;
+        font-size: 3.8095238095238093vw;
+        height: 3.8095238095238093vw;
+        width: calc(100% - 3.8095238095238093vw);
+        margin-top: 9.523809523809524vw;
+        padding: 1.9047619047619047vw;
     }
-    .finded_price{
-        margin-top: -1vw;
+    
+    .finded_crt_offer_name_of_fields {
+        width: 100%;
+        top: 7.619047619047619vw;
+        font-size: 3.8095238095238093vw;
     }
-    .finded_review{
-        right: 5vw;
-        top: 7vw;
-    }
-    .description_lol{
-        top: 7vw;
-    }
-}
-@media only screen and (max-width: 350px)
-{
-    .src_img{
-        right: 2vw;
-    }
-    .finded_price{
-        margin-top: -1vw;
-    }
-    .finded_review{
-        right: 5vw;
-        top: 8vw;
-    }
-    .description_lol{
-        top: 4vw;
-        font-size: 3vw;
-    }
+
 }
