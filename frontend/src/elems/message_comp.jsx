@@ -46,6 +46,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
     });
   }
   const [text, setText] = useState(convertLinksToAnchors(int));
+  console.log(text);
   const toggleVisibility = (e, id) => {
     setVisibleId(prevId => prevId === id ? null : id);
     setPosition({ y: e.clientY });

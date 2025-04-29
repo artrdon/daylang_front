@@ -182,6 +182,7 @@ function Reg() {
             <input
               type="text"
               name="username"
+              pattern="[a-zA-Z0-9]{1,140}"
               placeholder="Username"
               className="form-control"
               value={data.username}

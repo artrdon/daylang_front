@@ -18,6 +18,9 @@
       background-color: blue;
     }
   }*/
+iframe{
+    width: auto;
+}
 #only_for_fon{
     display: none;
 }

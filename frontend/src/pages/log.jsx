@@ -170,6 +170,7 @@ function Log() {
               type="text"
               name="username"
               placeholder="username"
+              pattern="[a-zA-Z0-9]{1,140}"
               className="form-control"
               value={data.username}
             onChange={handleChange}
@@ -192,13 +193,16 @@ function Log() {
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
             <input
-              className="btn login_btn"
+              
               type="submit"
               defaultValue="Login"
+              id='login_button'
+              hidden
             />
+            <label htmlFor="login_button" className="btn login_btn">Login</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={KEY} onChange={onChange} style={{ width: 180 }}/>
+            <ReCAPTCHA sitekey={KEY} onChange={onChange}/>
           </div>
           <button onClick={handleYandexLogin}>
             Войти через Яндекс
@@ -271,6 +275,7 @@ function Log() {
   </div>
 </div>}
 
+<script src="https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js"></script>
 
 
 </>

@@ -264,7 +264,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
         }
     };
 
-//console.log(photo);
     return (
         <>
 <div className="ctr_offer_find_panel">
@@ -331,7 +330,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             <div className="crt_offer_photo_div">
               <ImageWithFallback src={settingChange.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
               <input accept="image" id="icon404873" name="photo" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
-              <label for="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+              <label htmlFor="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
             </div>
 
             {if_teacher === false ? (

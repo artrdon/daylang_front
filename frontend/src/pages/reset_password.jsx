@@ -180,7 +180,7 @@ function Log_reset() {
               placeholder="email"
               className="form-control"
               value={data.email}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
           <div className="input-group mb-2">
