@@ -67,11 +67,6 @@ function ChatCreate() {
       if (parts.length === 2) return parts.pop().split(';').shift();
   }
 
-
-  const theme = getCookie('theme');
-  //console.log(getCookie('theme'));
-  
-  
   if (getCookie('theme') === "dark"){
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "dark_theme";
@@ -81,31 +76,13 @@ function ChatCreate() {
           document.querySelector('body').className = "light_theme";
   }
   
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
-
-
     const csrfToken = getCookie('csrftoken');
-
-    const [message, setData1] = useState({username: params.username, offer_name: params.offer_name, offer_id: params.id});
-
     const [data3, setData3] = useState(null);
     const [loading3, setLoading3] = useState(true);
     const [error3, setError3] = useState(null);
+
+    const [message, setData1] = useState({username: params.username, offer_name: "", offer_id: params.id});
+
 
     axios.defaults.withCredentials = true;
 
@@ -141,6 +118,7 @@ function ChatCreate() {
           try {
               const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
               setData3(response.data);
+              setData1({ ...message, offer_name: response.data[0].name });
             } catch (err) {
               setError3(err.message);
             } finally {
@@ -234,7 +212,6 @@ useEffect(() => {
     return 0;*/
 };
 
-//sendpost();
 
 
     if (loading) return (

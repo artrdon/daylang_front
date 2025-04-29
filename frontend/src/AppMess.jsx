@@ -227,7 +227,7 @@ var arrLang = {
           alt="my lesson"
           className="app_navig_panel_img on_desktop_panel"
         />
-        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+        {mess_count > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{mess_count}</div>}
         <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
       
@@ -248,7 +248,7 @@ var arrLang = {
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
       </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to="/message_list/support/">
+      <Link className="navig_panel_button" id="not_for_fon" to="/support/">
         <img
           src="/src/static/img/support.png"
           alt="support"

@@ -48,6 +48,7 @@ const [messId, setMessId] = useState(null);
   const [changeMess, setMessChanger] = useState(false);
   const [groups, setGroup] = useState([]);
   const [infoForHeader, setHeader] = useState(null);
+  const [isTyping, setIsTyping] = useState(false);
 
 
   // Функция, которая будет вызываться при нажатии на кнопку
@@ -66,9 +67,12 @@ const [messId, setMessId] = useState(null);
     socket.onmessage = (event) => {
         const dataMess = JSON.parse(event.data);
 
-        console.log(dataMess);
         if (dataMess.chat_id === params.id)
         {
+            if (dataMess.tip === "typing_status"){
+                setIsTyping(dataMess.isTyping);
+                return;
+            }
             if (dataMess.tip === "delete"){
                 document.getElementById(`mess${dataMess.id}`).remove();
                 
@@ -78,6 +82,7 @@ const [messId, setMessId] = useState(null);
 
             if (dataMess.tip === "change"){
                 console.log(dataMess);
+                setIsTyping(false);
                 if (dataMess.sender === data.username){
                   console.log("my message");
                   document.getElementById(dataMess.id).children[0].children[0].firstChild.textContent = dataMess.text;
@@ -109,6 +114,7 @@ const [messId, setMessId] = useState(null);
                     minute: dataMess.minute, // Уникальный идентификатор
                 };
                 setComponents((components) => [...components, newComponent]);
+                setIsTyping(false);
                 return;
             }
             if (dataMess.tip === "sendvid"){
@@ -172,7 +178,8 @@ const [messId, setMessId] = useState(null);
 
   const sendMessage = (gh) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: "send", message: gh, id: params.id, sender: data.username }));
+      ws.send(JSON.stringify({ type: "send", message: gh, id: params.id, sender: data.username, isTyping: false }));
+      
       //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
     } else {
       console.error('WebSocket is not open');
@@ -181,7 +188,7 @@ const [messId, setMessId] = useState(null);
 
   const changeMessage = (idd, text) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: "change", id: params.id, id_mess: idd, text: text, sender: data.username  }));
+      ws.send(JSON.stringify({ type: "change", id: params.id, id_mess: idd, text: text, sender: data.username, isTyping: false }));
     } else {
       console.error('WebSocket is not open');
     }
@@ -194,6 +201,22 @@ const [messId, setMessId] = useState(null);
       console.error('WebSocket is not open');
     }
   };
+
+  useEffect(() => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({
+        type: 'typing',
+        id: params.id, 
+        sender: data.username,
+        is_typing: isTyping
+      }));
+      console.log("isTyping sended");
+    } else {
+      console.error('WebSocket is not open');
+    }
+    
+  
+  }, [isTyping]);
 
 const messChange = (idd) => {
     if (changeMess === false) {
@@ -343,6 +366,8 @@ const add_smile = (par) => {
     }
  const handleInput = (e) => {
     setData1({ ...message, text: e.target.innerText });
+    if (isTyping === false)
+      setIsTyping(true);
   };
 
 
@@ -466,7 +491,7 @@ const add_smile = (par) => {
 
 
                       })()}
-
+                      {isTyping && <div style={{fontSize: 15, color: "white", marginLeft: 60, marginTop: -22}}>typing...</div>}
                 </div>
             </Link>
             </>);

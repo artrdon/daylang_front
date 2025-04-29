@@ -289,7 +289,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
         />
         
 
-        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+        {mess_count > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{mess_count}</div>}
 
         <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
@@ -322,7 +322,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
         />
         <span className="text_in_panel">{arrLang[lang]['setting']}</span>
       </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to="/message_list/support/">
+      <Link className="navig_panel_button" id="not_for_fon" to="/support/">
         <img
           src="/src/static/img/support.png"
           alt="support"

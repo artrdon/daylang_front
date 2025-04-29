@@ -42,7 +42,7 @@ const WebSocketProvider = ({ children }) => {
                     group.unshift(response.data[0][i].id);
                 }
                 setGroup(group);
-                console.log(response.data[1]);
+                //console.log(group);
             }
             setData12(response.data);
             setMessNumb(response.data[1]);

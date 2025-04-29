@@ -33,7 +33,7 @@ useEffect(() => {
 
     socket.onmessage = (event) => {
         const dataMess = JSON.parse(event.data);
-        
+
         if (dataMess.tip === "delete_chat"){
             document.getElementById(`chatnum${dataMess.id}`).remove();
             confirmingF();
@@ -273,7 +273,6 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
   </> );
   if (error1) return <p>Error: {errorDetails1}</p>;
 
-
     return (
         <>
         <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -420,9 +419,9 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                             </div>
 
                         </button>
-                            {components[`${da.id}`] > 0 && <button className='message_list_unreaded_messages'>
+                            {da.unreaded_mess > 0 && <button className='message_list_unreaded_messages'>
                                   <div className='message_list_unreaded_messages_div'>
-                                      <span>{components[`${da.id}`]}</span>
+                                      <span>{da.unreaded_mess}</span>
                                   </div>
                             </button>}
 
@@ -463,9 +462,9 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                                 </div>
 
                             </button>
-                            {components[`${da.id}`] > 0 && <button className='message_list_unreaded_messages'>
+                            {da.unreaded_mess > 0 && <button className='message_list_unreaded_messages'>
                                   <div className='message_list_unreaded_messages_div'>
-                                      <span>{components[`${da.id}`]}</span>
+                                      <span>{da.unreaded_mess}</span>
                                   </div>
                             </button>}
 

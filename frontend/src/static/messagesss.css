@@ -226,6 +226,15 @@ div *::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 525px)
 {
+    .message_list_unreaded_messages {
+        left: calc(100% - 28.5714vw);
+        top: -18.0952vw;
+        border: 0.1904vw;
+    }
+    .message_list_unreaded_messages_div {
+        width: 7.619vw;
+        height: 7.619vw;
+    }
     .saved_finded_panel {
         top: 13.3333vw;
     }
@@ -255,6 +264,7 @@ div *::-webkit-scrollbar-thumb {
     .message_list_chat_panel_more_button{
         top: -15.23vw;
         left: calc(100% - 9.52vw);
+        border: 0.1904vw;
     }
     .message_list_chat_panel_more_button_div_of_points{
         width: 7.62vw; height: 7.62vw; display: flex; justify-content: center;
