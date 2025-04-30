@@ -420,7 +420,7 @@ div *::-webkit-scrollbar-thumb {
         display: none;
     }*/
     .find_panel{
-        top: 0px;
+        top: 13.333333333vw;
     }
     .panel_of_header{
         height: 13.333vw;

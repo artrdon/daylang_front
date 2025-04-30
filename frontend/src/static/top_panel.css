@@ -12,9 +12,12 @@
 
 @media only screen and (max-width: 525px)
 {
+    .top_panel_under_topbanner {
+        left: 3.8095238095238095vw;
+    }
     .top_panel_balance{
-        right: 24.76vw;
-        top: 4.761vw;
-        font-size: 4.761vw;
+        right: 24.761904761904763vw;
+        top: 4.761904761904762vw;
+        font-size: 4.761904761904762vw;
     }
 }

@@ -1,3 +1,16 @@
+.me_feedback_review_score_text{
+    font-size: 30px;
+    display: inline-block;
+}
+.me_page_place_of_teach {
+    background-color: #ebebeb;
+    height: auto;
+    padding: 20px;
+    margin-left: 35px;
+    white-space: normal;
+    position: relative;
+    top: 400px;
+}
 .page_of_type{
     padding-left: 40px;
     width: calc(100% - 40px); height: 50px; background-color: #ebebeb; position: absolute; top: 340px;
@@ -60,7 +73,7 @@
     width: 30px; height: 30px;
 }
 .feedback_review_container{
-    width: 60%; height: auto; border: 1px solid gray;
+    width: 60%; height: auto; border: 1px solid gray; margin-top: 10px;
 }
 .feedback_review_div_container{
     position: relative; top: 20px; left: 20px; cursor: pointer; width: calc(100% - 20px);
@@ -69,7 +82,7 @@
     width: 100px; height: 20px; right: 0px; position: absolute; top: 10px; margin-right: 20px; transform: scale(-1, 1);
 }
 .feedback_review_text{
-    padding: 20px; margin-top: 20px; white-space: pre-wrap; overflow-wrap: anywhere;
+    padding: 20px; margin-top: 20px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 18px;
 }
 .feedback_review_down_block{
     position: relative; top: 10px;
@@ -78,13 +91,13 @@
     color: rgb(0, 184, 0); font-weight: bold;
 }
 .offer_add_button{
-    width: 218px; height: 318px; background-color: #00000000; display: inline-block; margin: 5px; border-radius: 30px; border: 1px solid black;
+    width: 218px; height: 318px; background-color: #353535; display: inline-block; margin: 5px; border-radius: 30px;;
 }
 .offer_plus_container{
     margin-top: 85px; margin-left: 35px;
 }
 .offer_plus{
-    width: 150px; height: 150px; background-color: black; border-radius: 50%; margin: auto; position: absolute; font-size: 140px; text-align: center; color: white;
+    width: 150px; height: 150px; background-color: black; border-radius: 50%; margin: auto; display: block; position: absolute; font-size: 140px; text-align: center; color: white;
 }
 .dark_theme{
     .page_of_type{
@@ -94,16 +107,19 @@
         color: white;
     }
     .me_selected{
-        border-bottom: 5px solid white
+        border-bottom-color: white;
     }
     .offer_add_button{
-        border: 1px solid white;
+        border-color: white;
     }
     .offer_plus{
         background-color: white; color: black;
     }
     .me_setting_img{
         filter: unset;
+    }
+    .me_page_place_of_teach {
+        background-color: #191919;
     }
 }
 
@@ -114,6 +130,15 @@
         left: calc(100% - 300px);
     }
 }
+@media only screen and (max-width: 1100px)
+{
+    .me_page_place_of_teach {
+        margin: auto;
+        padding: 0px;
+        padding-bottom: 100px;
+    }
+}
+
 
 @media only screen and (max-width: 1000px)
 {
@@ -206,219 +231,131 @@
         padding-bottom: 100px;
     }
 }
-@media only screen and (max-width: 500px)
+@media only screen and (max-width: 525px)
 {
-
+    .offer_plus {
+        width: 28.571428571428573vw;
+        height: 28.571428571428573vw;
+        font-size: 26.666666666666668vw;
+    }
+    .offer_plus_container {
+        margin-top: calc(((47.8vw - 0.19047619047619047vw) / 11 * 16 - 28.571428571428573vw) / 2);
+        margin-left: calc((47.8vw - 0.19047619047619047vw - 28.571428571428573vw) / 2);
+    }
+    .offer_add_button{
+        aspect-ratio: 11 / 16;
+        width: calc(47.8vw - 0.19047619047619047vw);
+        height: auto;
+        margin: 1.08vw;
+        border: 0px;
+        border-radius: 5.714285714285714vw;
+    }
+    .me_span_of_button_text {
+        font-size: 4.761904761904762vw;
+    }
+    .me_selected{
+        border-bottom: 0.9523809523809523vw solid;
+    }
     .me_under_find{
-        width: 100%; height: 170px;
+        width: 100%; height: 32.38095238095238vw;
     }
     .page_of_type{
-        padding-left: 10px;
-        top: 270px;
+        padding-left: 1.9047619047619047vw;
+        width: calc(100% - 1.9047619047619047vw);
+        top: 51.42857142857143vw;
     }
+    .me_div_of_button {
+        padding-left: 1.9047619047619047vw;
+        padding-right: 1.9047619047619047vw;
+    }
+
     .me_avatar{
-        top: 130px;
-        left: 30px;
-        width: 110px;
-        height: 110px;
+        top: 24.761904761904762vw;
+        left: 5.714285714285714vw;
+        width: 20.952380952380952vw ;
+        height: 20.952380952380952vw;
+    }
+    .me_name_surname_panel {
+        left: 24.761904761904762vw;
+        top: 24.761904761904762vw;
     }
     .me_name{
-        font-size: 25px;
-        top: 60px;
-        left: 30px;
+        font-size: 4.761904761904762vw;
+        top: 10.714285714285714vw;
+        left: 5.714285714285714vw;
+        margin-right: 1.9047619047619047vw;
     }
     .me_surname{
-        font-size: 25px;
-        top: 60px;
-        left: 30px;
+        font-size: 4.761904761904762vw;
+        top: 10.714285714285714vw;
+        left: 5.714285714285714vw;
     }
     .me_real_pers{
-        top: 60px;
-        left: 30px;
+        top: 10.714285714285714vw;
+        left: 5.714285714285714vw;
+        width: 5.714285714285714vw;
     }
     .me_setting_ref{
-        top: 110px;
-        left: calc(100% - 180px);
+        top: 21.428571428571427vw;
+        left: calc(100% - 32.38095238095238vw);
+        width: 5.714285714285714vw;
+        height: 5.714285714285714vw;
+    }
+    .me_setting_img {
+        height: 5.714285714285714vw;
+        width: 5.714285714285714vw;
     }
     .me_description_offer{
-        padding: 10px;
-        width: calc(100% - 20px);
-        top: 360px;
-        font-size: 20px;
-        padding-bottom: 100px;
+        padding: 1.9047619047619047vw;
+        width: calc(100% - 3.8095238095238095vw);
+        top: 68.57142857142857vw;
+        font-size: 3.8095238095238095vw;
+        padding-bottom: 19.047619047619047vw;
     }
     .degree_page_around{
         padding: 3vw;
-        padding-bottom: 100px;
+        padding-bottom: 19.047619047619047vw;
+        top: 76.19047619047619vw;
     }
     .feedback_review_score{
         padding: 3vw;
         width: calc(100% - 6vw);
-        padding-bottom: 100px;
+        padding-bottom: 19.047619047619047vw;
+        top: 76.19047619047619vw;
     }
-}
-@media only screen and (max-width: 460px)
-{
-
-    .me_under_find{
-        width: 100%; height: 170px;
+    .degree_description_about {
+        font-size: 4.761904761904762vw;
     }
-    .me_avatar{
-        top: 130px;
-        left: 20px;
-        width: 110px;
-        height: 110px;
+    .feedback_review_img {
+        width: 5.714285714285714vw;
+        height: 5.714285714285714vw;
     }
-    .me_name{
-        font-size: 25px;
-        top: 60px;
-        left: 10px;
+    .me_feedback_review_score_text{
+        font-size: 5.714285714285714vw;
     }
-    .me_surname{
-        font-size: 25px;
-        top: 60px;
-        left: 10px;
+    .feedback_review_div_container {
+        top: 3.8095238095238095vw;
+        left: 3.8095238095238095vw;
+        width: calc(100% - 3.8095238095238095vw);
     }
-    .me_real_pers{
-        top: 60px;
-        left: 10px;
+    .feedback_review_zvezde {
+        width: 19.047619047619047vw;
+        height: 3.8095238095238095vw;
+        right: 0px;
+        top: 1.9047619047619047vw;
+        margin-right: 3.8095238095238095vw;
     }
-    .me_setting_ref{
-        top: 110px;
-        left: calc(100% - 160px);
+    
+    .feedback_review_text {
+        padding: 3.8095238095238095vw;
+        margin-top: 3.8095238095238095vw;
+        font-size: 3.4285714285714286vw;
     }
-    .offer_add_button{
-        aspect-ratio: 11/16;
-        width: calc(47.8vw - 0.36vw);
-        height: auto;
-        margin: 1.08vw;
-        border-radius: 6.52vw;
-        border: 0.36vw solid white;
+    .feedback_review_container {
+        border: 0.19047619047619047vw solid;
+        margin-top: 1.9047619047619047vw;
     }
-    .offer_plus_container{
-        margin-top: 18.48vw; margin-left: 7.61vw;
-    }
-    .offer_plus{
-        width: 32.6vw; height: 32.6vw; font-size: 31.6vw;
-    }
-
-}
-@media only screen and (max-width: 420px)
-{
-    .me_under_find{
-        width: 100%; height: 130px;
-    }
-    .page_of_type{
-        padding-left: 10px;
-        top: 220px;
-    }
-    .me_description_offer{
-        top: 310px;
-    }
-    .degree_page_around{
-        top: 310px;
-    }
-    .feedback_review_score{
-        top: 310px;
-    }
-    .me_avatar{
-        top: 80px;
-        left: 20px;
-        width: 100px;
-        height: 100px;
-    }
-    .me_name{
-        font-size: 20px;
-        top: 10px;
-        left: 5px;
-    }
-    .me_surname{
-        font-size: 20px;
-        top: 10px;
-        left: 5px;
-    }
-    .me_real_pers{
-        top: 10px;
-        left: 5px;
-        width: 25px;
-    }
-    .me_setting_ref{
-        top: 60px;
-        left: calc(100% - 140px);
-        width: 25px;
-        height: 25px;
-    }
-    .me_setting_img{
-        width: 25px;
-        height: 25px;
-    }
-}
-@media only screen and (max-width: 365px)
-{
-    .me_under_find{
-        width: 100%; height: 130px;
-    }
-    .page_of_type{
-        padding-left: 10px;
-    }
-    .me_avatar{
-        top: 90px;
-        left: 20px;
-        width: 90px;
-        height: 90px;
-    }
-    .me_name{
-        font-size: 20px;
-        top: 10px;
-        left: -10px;
-    }
-    .me_surname{
-        font-size: 20px;
-        top: 10px;
-        left: -10px;
-    }
-    .me_real_pers{
-        top: 10px;
-        left: -10px;
-        width: 25px;
-    }
-    .me_setting_ref{
-        top: 120px;
-        left: -70px;
-        width: 25px;
-        height: 25px;
-    }
-}
-@media only screen and (max-width: 300px)
-{
-    .me_under_find{
-        width: 100%; height: 130px;
-    }
-    .me_avatar{
-        top: 90px;
-        left: 20px;
-        width: 90px;
-        height: 90px;
-    }
-    .me_name{
-        font-size: 20px;
-        top: 10px;
-        left: -10px;
-    }
-    .me_surname{
-        font-size: 20px;
-        top: 10px;
-        left: -10px;
-    }
-    .me_real_pers{
-        top: 10px;
-        left: -10px;
-        width: 25px;
-    }
-    .me_setting_ref{
-        top: 120px;
-        left: -70px;
-        width: 25px;
-        height: 25px;
+    .me_page_place_of_teach {
+        top: 76.19047619047619vw;
     }
 }

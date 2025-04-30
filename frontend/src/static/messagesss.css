@@ -252,7 +252,7 @@ div *::-webkit-scrollbar-thumb {
         height: 100%;
     }
     .find_panel{
-        top: 0px;
+        top: 13.333333333vw;
     }
     .message_list_chat_num{
         max-height: 17.524vw;

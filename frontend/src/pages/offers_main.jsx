@@ -261,7 +261,7 @@ var arrLang = {
       </span>
       {(() => {
         if (data.real_man === true) {
-          return <img src="/src/static/img/confirmed.png" alt="" className="me_real_pers" />;
+          return <img src="/src/static/img/confirmed.png" alt="confirmed" className="me_real_pers" />;
         }
       })()}
 
@@ -269,7 +269,7 @@ var arrLang = {
     {(() => {
         if (data.username === usernow.username) {
           return (<> <Link to="/settings/" className="me_setting_ref">
-                        <img src="/src/static/img/setting.png" alt="" className="me_setting_img"/>
+                        <img src="/src/static/img/setting.png" alt="setting" className="me_setting_img"/>
                      </Link> </>)
         }
       })()}
@@ -322,7 +322,7 @@ var arrLang = {
     </button>
     </Link>
   </div>
-  <div className="place_of_teach" style={{ position: "relative", top: 400 }}>
+  <div className="me_page_place_of_teach">
 
     {(() => {
         if (data.if === "yes") {
@@ -339,9 +339,9 @@ var arrLang = {
         <div className="first_sloj">
           <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
           <div className="feedback_review_down_block">
-            <h1 className="name_of_offer" >
+            <p className="name_of_offer" >
               {dat.name}
-            </h1>
+            </p>
             <div className="block_of_price_and_status">
               <p className="price_and_status feedback_review_price_text"  >
                 {dat.price} ₽
@@ -349,7 +349,7 @@ var arrLang = {
             </div>
             <div className="block_of_review">
               <img src="/src/static/img/11.png" alt="" className="img_of_review" />
-              <h1 className="header_of_review"> {dat.review}</h1>
+              <p className="header_of_review"> {dat.review}</p>
             </div>
           </div>
         </div>

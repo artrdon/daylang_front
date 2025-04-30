@@ -239,7 +239,6 @@ iframe{
     margin: 5px;
     display: inline-block;
     border-radius: 0px;
-    box-shadow: 0px 0px 0px #666666;
     cursor: pointer;
     transition: transform .2s;
 }
@@ -362,9 +361,14 @@ iframe{
     color: white;
 }
 .ime_review{
+    width: 50%;
     color: rgb(0, 0, 0); 
+    font-size: 20px;
     top: 10px; 
     position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .familija_review{
     color: rgb(0, 0, 0);
@@ -403,13 +407,13 @@ iframe{
     display: block; left: 0px; font-size: 20px; position: relative;  color: rgb(0, 0, 0);
 }
 .block_of_review{
-    position: absolute; left: 140px; top: 242px; filter: hue-rotate(340deg);
+    position: absolute; right: 10px; top: 230px; filter: hue-rotate(340deg);
 }
 .img_of_review{
     width: 30px; height: 30px; display: inline-block;
 }
 .header_of_review{
-    color: rgb(0, 0, 0); position: absolute; display: inline-block; font-size: 30px;
+    color: rgb(0, 0, 0); display: inline-block; font-size: 30px;
 }
 .description{
     position: absolute; font-size: 20px; color: rgb(0, 0, 0); white-space: pre-wrap; overflow-wrap: anywhere; bottom: 40px; padding: 10px;
@@ -447,19 +451,18 @@ iframe{
     .offer_of_lang{
         background-color: #191919;
         transition: transform .2s;
-        box-shadow: 0px 0px 0px #666666;
     }
     .offer_of_lang:hover{
         background-color: #303030
     }
     .header_of_review{
-        color: white; position: absolute; display: inline-block; font-size: 30px;
+        color: white;
     }
     .name_of_offer{
         color: white;
     }
     .price_and_status{
-        display: block; left: 0px; font-size: 20px; position: relative; color: white;
+        color: white;
     }
     .message_top_banner{
         background-color: #191919;
@@ -489,21 +492,19 @@ iframe{
     }
     .clear_mes_butt{
         background-color: #191919; 
-        border: 1px solid rgb(255, 255, 255); 
+        border-color: rgb(255, 255, 255); 
     }
     .search_butt{
         background-color: #191919;
-        border: 1px solid rgb(255, 255, 255);
+        border-color: rgb(255, 255, 255);
     }
     .search_input_field{
         background-color: #191919; 
-        border: 1px solid white;
+        border-color: white;
         color: white;
     }
     .ime_review{
-        color: rgb(255, 255, 255); 
-        top: 10px; 
-        position: absolute;
+        color: rgb(255, 255, 255);
     }
     .familija_review{
         color: rgb(255, 255, 255);
@@ -758,15 +759,6 @@ a{
         width: 100%;
         height: auto;
     }
-    .offer_of_lang{
-        width: 220px;
-        height: 320px;
-        background-color: #c3c3c3;
-        margin: 5px;
-        display: inline-block;
-        box-shadow: 0px 0px 10px #666666;
-        cursor: pointer;
-    }
     .name_of_comp{
         position: static;
         font-size: 30px;
@@ -797,9 +789,6 @@ a{
     }
     .my_account_panel{
         display: none;
-    }
-    .block_of_review{
-        left: 110px;
     }
 }
 
@@ -873,15 +862,6 @@ a{
 @media only screen and (max-width: 700px)
 {
 
-    .offer_of_lang{
-        width: 220px;
-        height: 320px;
-        background-color: #c3c3c3;
-        margin: 5px;
-        display: inline-block;
-        box-shadow: 0px 0px 10px #666666;
-        cursor: pointer;
-    }
     .name_of_comp{
         position: static;
         font-size: 30px;
@@ -907,9 +887,6 @@ a{
         top: 0px;
         right: 450px
     }
-    .block_of_review{
-        left: 110px;
-    }
     
 }
 
@@ -934,15 +911,21 @@ a{
 
 @media only screen and (max-width: 525px)
 {
+    .avatar {
+        width: 9.523809523809523vw;
+        height: 9.523809523809523vw;
+        border-radius: 9.523809523809523vw;
+        margin-right: 1.9047619047619047vw;
+    }
     .app_lessons_indicator {
-        top: 3.8095vw;
-        font-size: 3.8095vw;
+        top: 3.8095238095238095vw;
+        font-size: 3.8095238095238095vw;
         width: 4.7619vw;
         height: 4.7619vw;
         border-radius: 50%;
     }
     .app_message_indicator{
-        top: 3.8095vw; font-size: 3.8095vw; width: 4.7619vw; height: 4.7619vw; border-radius: 50%;
+        top: 3.8095238095238095vw; font-size: 3.8095238095238095vw; width: 4.7619vw; height: 4.7619vw; border-radius: 50%;
     }
     .navig_panel{
         height: 12vw;
@@ -956,32 +939,32 @@ a{
         height: 9vw;
     }
     .find_page_teacher {
-        margin-left: 3vw;
+        margin-left: 3.8095238095238095vw;
         font-size: 9vw;
         width: calc(100% - 5vw);
     }
     .find_page_teacher_description {
-        margin: 3vw;
+        margin: 3.8095238095238095vw;
         margin-top: 10px;
         font-size: 5vw;
         width: calc(100% - 6vw);
     }
     .div_of_service {
-        margin: 1vw;
+        margin: 0.9523809523809523vw;
     }
     .service_img{
-        width: calc(((100vw - 4vw)/2) - 2vw);
-        border-radius: 1vw;
+        width: calc(((100vw - 3.8095238095238095vw)/2) - 1.9047619047619047vw);
+        border-radius: 0.9523809523809523vw;
     }
     .find_page_div_over_offer_types{
-        width: calc(100% - 4vw);
-        margin: 2vw;
+        width: calc(100% - 3.8095238095238095vw);
+        margin: 1.9047619047619047vw;
     }
     .count_of_offers{
         font-size: 6vw;
         width: calc(100% - 12vw);
         left: 6vw;
-        border-radius: 1vw;
+        border-radius: 0.9523809523809523vw;
     }
     .navig_panel_button{
         display: inline-block;
@@ -990,33 +973,23 @@ a{
         margin: 0px;
         height: 100%;
     }
-    .offer_of_lang{
-        width: 220px;
-        height: 320px;
-        background-color: #c3c3c3;
-        margin: 5px;
-        display: inline-block;
-        box-shadow: 0px 0px 10px #666666;
-        cursor: pointer;
-    }
     .name_of_comp{
         position: static;
-        font-size: 5.714vw;
-        top: 10px;
+        font-size: 5.714285714285714vw;
     }
     .change_theme_button_img {
-        height: 5.714vw;
-        width: 5.714vw;
+        height: 5.714285714285714vw;
+        width: 5.714285714285714vw;
     }
     .change_theme_button{
-        height: 5.714vw;
-        width: 5.714vw;
+        height: 5.714285714285714vw;
+        width: 5.714285714285714vw;
     }
     .top_banner{
         display: flex;
         justify-content: left;
         align-items: center;
-        height: 13.333vw;
+        height: 13.333333333333333vw;
     }
     .tag_select_panel{
         top: 0px;
@@ -1037,39 +1010,21 @@ a{
     .telef_search{
         display: block;
     }
-    .block_of_review{
-        left: 110px;
-    }
-    .name_of_offer{
-        width: calc(100% - 20px);
-    }
     .under_crt_offer_blank {
-        font-size: 3.8095vw;
+        font-size: 3.8095238095238095vw;
     }
-}
-
-
-/*@media only screen and (max-width: 900px)
-{
-    .saved_finded_panel{
-        width: calc(100% - 6px);
-        margin: 3px;
+    .ime_review {
+        top: 1.9047619047619047vw;
+        font-size: 3.8095238095238095vw;
     }
-    .sborishe_chelov{
-        width: 100%;
-        padding: 0px;
-        padding-bottom: 100px;
-    }
-}*/
-@media only screen and (max-width: 460px)
-{
+    
     .img_of_review{
         width: 6.525vw;
         height: 6.525vw;
     }
     .block_of_review{
-        left: 30vw;
-        top: 55vw;
+        right: 1.9047619047619047vw;
+        top: 54.285714285714285vw;
     }
     .name_of_offer{
         width: calc(100% - 2vw);
@@ -1092,5 +1047,8 @@ a{
     }
     .offer_image{
         height: 43.5vw;
+    }
+    .header_of_review {
+        font-size: 5.714285714285714vw;
     }
 }
