@@ -12,6 +12,8 @@ import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import ReviewsAll from '../elems/all_reviews.jsx';
+
 
 const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -169,9 +171,6 @@ function ImageWithFallbackFeedback({ src, fallbackSrc, alt }) {
 
 function Offer() {
 
-    
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
   const [showAllOffers, setShowAllOffers] = useState(false);
   const [showPhotoBig, setShowPhotoBig] = useState(false);
   const [screen, setScreen] = useState(null);
@@ -330,20 +329,19 @@ const save_to_fav = async (e) => {
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
-        save_to_favor();
         if (isfav === false)
         {
             isfav = true;
-            return 0;
+            return;
         }
         else
         {
             isfav = false;
-            return 0;
+            return;
         }
     }
 
-  const { data, loading, error } = useQuery({
+  const {  data: data, isLoading: loading, isError: error, error: errorDetails  } = useQuery({
     queryKey: ['userinfo'], // Уникальный ключ запроса
     queryFn: async () => {
       const response = await axios.get(`${APIURL}/userinfo/`);
@@ -356,7 +354,7 @@ const save_to_fav = async (e) => {
   });
 
   
-  const { data: data2, loading2, error2 } = useQuery({
+  const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
     queryKey: [`userinfo_author`, params.username], // Уникальный ключ запроса
     queryFn: async () => {
       const response = await axios.get(`${APIURL}/userinfo/${params.username}/`);
@@ -369,7 +367,7 @@ const save_to_fav = async (e) => {
   });
 
     
-  const { data: data7, loading7, error7 } = useQuery({
+  const {  data: data7, isLoading: loading7, isError: error7, error: errorDetails7 } = useQuery({
     queryKey: [`user_settings_author`, params.username], // Уникальный ключ запроса
     queryFn: async () => {
       const response = await axios.get(`${APIURL}/usersettings/${params.username}/`);
@@ -382,8 +380,8 @@ const save_to_fav = async (e) => {
   });
 
     
-  const { data: data3, loading3, error3 } = useQuery({
-    queryKey: [`reviews`, params.id], // Уникальный ключ запроса
+  const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
+    queryKey: [`reviews_two_offer`, params.id], // Уникальный ключ запроса
     queryFn: async () => {
       const response = await axios.get(`${APIURL}/reviews_two/${params.id}/`);
       return response.data; // Возвращаем только данные
@@ -502,7 +500,7 @@ const save_to_fav = async (e) => {
         isfav = data1.isFav;
     }
     
-
+console.log(data3);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -631,13 +629,13 @@ const save_to_fav = async (e) => {
           />{" "}
           {data1[0].review}
         </h1>
-        {data1[0].itsme === false ? (
+        {data1[0].itsme === false && !data3[1] ? (
           <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']}/>
                 ) : (
                   <UpReviewBlock />
                         )}
 
-        {data3[1].map((rew) => 
+        {data3[0].map((rew) => 
           <>
             <div className="offer_review_div_div" key={rew.id}>
               <div className="offer_review_div">
@@ -671,7 +669,7 @@ const save_to_fav = async (e) => {
             </span>
             {(() => {
                 if (data7.real_man === true) {
-                  return <img src="/src/static/img/confirmed.png" alt="" className="offer_me_real_pers" />;
+                  return <img src="/src/static/img/confirmed.png" alt="confirmed" className="offer_me_real_pers" />;
                 }
               })()}
           </div>
@@ -690,28 +688,7 @@ const save_to_fav = async (e) => {
     </div>
   </div>
 </div>
-{showAllOffers && <div className="offer_review_modal-container">
-                    <div className="offer_review_modal-backdrop" onClick={unShowRev}></div>
-                    <div className="offer_review_modal-content">
-                      <p className="offer_review_modal-title">{arrLang[lang]['reviews']}</p>
-                      <div className="offer_review_reviews-scroll-container">
-                      {data3[0].map((rew) => 
-                            <>
-                              <div className="offer_review_div_div" style={{top: "unset"}} key={rew.id}>
-                                <div className="offer_review_div">
-                                  <ImageWithFallbackFeedback src={rew.photo} alt={rew.name} fallbackSrc="/src/static/img/nema.png"/>
-                                  <span className="ime_review">{rew.name}  {rew.last_name}</span>
-                                  <img src={`/src/static/img/${rew.score}.png`} alt="score" className="offer_score_img"/>
-                                </div>
-                                <p className="offer_review_text">
-                                  {rew.text}
-                                </p>
-                              </div>
-                            </>
-                      )}
-                      </div>
-                    </div>
-                  </div>}
+{showAllOffers && <ReviewsAll/>}
 
 
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
