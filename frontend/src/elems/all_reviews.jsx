@@ -11,10 +11,28 @@ import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
 
-function ReviewsAll() {
+function ImageWithFallbackFeedback({ src, fallbackSrc, alt }) {
+    const [imgSrc, setImgSrc] = useState(src);
+  
+    const handleError = () => {
+      setImgSrc(fallbackSrc);
+    };
+  
+    return (
+      <img
+        className='avatar'
+        src={imgSrc}
+        alt={alt}
+        onError={handleError}
+      />
+    );
+  }
+  
 
-    
-  const { data: data, loading, error } = useQuery({
+function ReviewsAll({unShowRev, arrLang, lang}) {
+
+  const params = useParams();    
+  const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
     queryKey: [`reviews_all_offer`, params.id], // Уникальный ключ запроса
     queryFn: async () => {
       const response = await axios.get(`${APIURL}/reviews_all/${params.id}/`);
@@ -30,7 +48,15 @@ function ReviewsAll() {
 
   if (loading) return (
     <>
-    <div>loading...</div>
+    <div className="offer_review_modal-container">
+                    <div className="offer_review_modal-backdrop" onClick={unShowRev}></div>
+                    <div className="offer_review_modal-content">
+                      <p className="offer_review_modal-title">{arrLang[lang]['reviews']}</p>
+                      <div className="offer_review_reviews-scroll-container">
+                      
+                      </div>
+                    </div>
+                  </div>
 </>
 
 );

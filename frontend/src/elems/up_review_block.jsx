@@ -19,7 +19,7 @@ function UpReviewBlock() {
 
     return (
     <>
-        <div style={{ display: "block", paddingBottom: 100, position: "relative", top: 100, border: "1px solid gray", borderTopLeftRadius: 50, borderTopRightRadius: 50,  }}>
+        <div className="offer_page_up_review_block">
             <br />
             <br />
         </div>

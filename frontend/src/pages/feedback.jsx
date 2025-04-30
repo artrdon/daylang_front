@@ -341,7 +341,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
   </div>
   <div className="feedback_review_score" >
     <div>
-      <img src="/src/static/img/11.png" alt="" className="feedback_review_img" /> 
+      <img src="/src/static/img/11.png" alt="review score" className="feedback_review_img" /> 
       <p className="me_feedback_review_score_text">{data3}</p>
     </div>
     {data4.map((rew) => (

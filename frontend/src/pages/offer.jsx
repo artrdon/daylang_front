@@ -37,15 +37,7 @@ const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
       <p className="offer_review_text" style={{paddingBottom: 0}}>{displayText}</p>
       <button 
         onClick={showMore}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: 'white',
-          cursor: 'pointer',
-          paddingLeft: 20,
-          paddingBottom: 20,
-          marginTop: '5px',
-        }}
+        className='offer_page_show_more_button_expanded'
       >
         Показать больше
       </button>
@@ -500,7 +492,6 @@ const save_to_fav = async (e) => {
         isfav = data1.isFav;
     }
     
-console.log(data3);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -555,7 +546,7 @@ console.log(data3);
   <div className="review_div">
     <div className="margin_of_offer">
       <h1>
-        <span style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere", height: 75, display: "block" }}>{data1[0].name}</span>
+        <span className="offer_page_name">{data1[0].name}</span>
       </h1>
       <div className="offer_price_div">
         <div className="offer_price">
@@ -581,17 +572,17 @@ console.log(data3);
 
         </button>
 
-          <div style={{ width:"100%", height: 400, marginTop: 50, }}>
-              <li style={{margin: 20}}>
+          <div className="offer_page_div_of_info">
+              <li className="offer_page_div_of_info_li">
                   <span>Есть микрофон?</span> <span>{data1[0].microphone}</span>
               </li>
-              <li style={{margin: 20}}>
+              <li className="offer_page_div_of_info_li">
                   <span>Цели:</span> <span>{data1[0].target}</span>
               </li>
-              <li style={{margin: 20}}>
+              <li className="offer_page_div_of_info_li">
                   <span>Возраст:</span> <span>{data1[0].age}</span>
               </li>
-              <li style={{margin: 20}}>
+              <li className="offer_page_div_of_info_li">
                   <span>Формат:</span> <span>{data1[0].format}</span>
               </li>
           </div>
@@ -620,12 +611,12 @@ console.log(data3);
     </div>
     <div className="margin_of_offer">
       <div>
-        <h1 style={{ marginBottom: 30, top: 800, position: "absolute" }}>
+        <h1 className="offer_page_reviews_score">
           {arrLang[lang]['reviews']}{" "}
           <img
             src="/src/static/img/11.png"
-            alt=""
-            style={{ width: 30, height: 30 }}
+            alt="review score"
+            className='feedback_review_img'
           />{" "}
           {data1[0].review}
         </h1>
@@ -647,8 +638,8 @@ console.log(data3);
             </div>
           </>
         )}
-        <p style={{ display: "block", padding: 30, position: "relative", top: 100, border: "1px solid gray", borderBottomLeftRadius: 50, borderBottomRightRadius: 50, textAlign: "center" }} onClick={showRev}>
-            <span style={{ position: "relative", fontSize: 30, margin: 20, cursor: "pointer"}}>Показать больше</span>
+        <p className="offer_page_show_more_reviews_button" onClick={showRev}>
+            <span className="offer_page_show_more_reviews_button_span">Показать больше</span>
         </p>
       </div>
     </div>
@@ -679,16 +670,16 @@ console.log(data3);
   </Link>
   </div>
 
-  <div className="div_of_offer_div" style={{marginTop: 200}}>
+  <div className="offer_page_div_of_offer_div">
 
     <div className="offer_div">
-        <h3>Возможно вам подойдут</h3>
+        <p className="offer_page_vozmozno">Возможно вам подойдут</p>
         <Vozmozno_vam/>
         
     </div>
   </div>
 </div>
-{showAllOffers && <ReviewsAll/>}
+{showAllOffers && <ReviewsAll unShowRev={unShowRev} arrLang={arrLang} lang={lang}/>}
 
 
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
