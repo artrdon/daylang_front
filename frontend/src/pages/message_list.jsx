@@ -300,7 +300,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                     
                     (() => {
                       if (component.me === true) {
-                        return (<>
+                        return (
                 <div key={component.id} id={`chatnum${component.id}`} className='message_list_chat_num'>
                   <Link to={`/message_list/${component.id}/`}>
                     <div className="panel_of_one_mes">
@@ -326,7 +326,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                   </button>
                       {components[`${component.id}`] > 0 && <button className='message_list_unreaded_messages'>
                             <div className='message_list_unreaded_messages_div'>
-                                <span>{components[`${component.id}`]}</span>
+                                <span className='message_list_unreaded_messages_div_span'>{components[`${component.id}`]}</span>
                             </div>
                       </button>}
 
@@ -341,9 +341,9 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                           </div>
                       </div>}
                   </div>
-                            </>);
+                            );
                       } else{
-                          return (<>
+                          return (
                             <div key={component.id} id={`chatnum${component.id}`} className='message_list_chat_num'>
                       <Link to={`/message_list/${component.id}/`}>
                         <div className="panel_of_one_mes">
@@ -369,7 +369,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                       </button>
                       {components[`${component.id}`] > 0 && <button className='message_list_unreaded_messages'>
                             <div className='message_list_unreaded_messages_div'>
-                                <span>{components[`${component.id}`]}</span>
+                                <span className='message_list_unreaded_messages_div_span'>{components[`${component.id}`]}</span>
                             </div>
                       </button>}
 
@@ -384,7 +384,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                               </div>
                           </div>}
                       </div>
-                            </>);
+                            );
 
                           }
 
@@ -395,7 +395,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
                         (() => {
                             if (da.me === true) {
-                              return (<>
+                              return (
                                   <div key={da.id} id={`chatnum${da.id}`} className='message_list_chat_num'>
                         <Link to={`/message_list/${da.id}/`}>
                           <div className="panel_of_one_mes">
@@ -421,7 +421,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                         </button>
                             {da.unreaded_mess > 0 && <button className='message_list_unreaded_messages'>
                                   <div className='message_list_unreaded_messages_div'>
-                                      <span>{da.unreaded_mess}</span>
+                                      <span className='message_list_unreaded_messages_div_span'>{da.unreaded_mess}</span>
                                   </div>
                             </button>}
 
@@ -436,9 +436,9 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                                 </div>
                             </div>}
                         </div>
-                                  </>);
+                                  );
                             } else{
-                                return (<>
+                                return (
                                   <div key={da.id} id={`chatnum${da.id}`} className='message_list_chat_num'>
                             <Link to={`/message_list/${da.id}/`}>
                               <div className="panel_of_one_mes">
@@ -464,7 +464,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                             </button>
                             {da.unreaded_mess > 0 && <button className='message_list_unreaded_messages'>
                                   <div className='message_list_unreaded_messages_div'>
-                                      <span>{da.unreaded_mess}</span>
+                                      <span className='message_list_unreaded_messages_div_span'>{da.unreaded_mess}</span>
                                   </div>
                             </button>}
 
@@ -479,7 +479,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                                     </div>
                                 </div>}
                             </div>
-                                  </>);
+                                  );
 
                                 }
 

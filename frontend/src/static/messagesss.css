@@ -20,7 +20,15 @@
     background-color: black; z-index: 100; position: relative; left: calc(100% - 150px); border-radius: 50%; top: -95px; border: 1px solid black;
 }
 .message_list_unreaded_messages_div{
-    width: 40px; height: 40px; display: flex; justify-content: center; color: white;
+    width: 40px; 
+    height: 40px;     
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.message_list_unreaded_messages_div_span{
+    font-size: 15px;
 }
 .message_list_chat_delete_panel{
     z-index: 101; position: absolute; right: 50px;
@@ -38,16 +46,20 @@
     max-height: 92px;
 }
 .message_list_name_of_group{
-    position: relative; bottom: 50px; left: 10px; display: inline-block; max-width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    position: relative; bottom: 50px; left: 10px; display: inline-block; width: 70%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .message_list_span_of_mess{
-    position: relative; top: 0px; font-size: 20px; margin-right: 5px;
+    position: relative; top: 0px; font-size: 20px; margin-right: 5px; display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .panel_of_one_mes{
     width: calc(100% - 2px); height: 90px; position: relative; border: 1px solid rgb(174, 174, 174); background-color: #ededed; z-index: 5; display: flex; align-items: center; border-radius: 5px;
 }
 .place_of_autor_mes{
-    position: absolute; cursor: pointer; left: 20px;
+    position: absolute; cursor: pointer; left: 20px; width: 90%;
 }
 .img_of_autor_mes{
     width: 70px; height: 70px; border-radius: 50px; top: 0px; display: inline-block;
@@ -228,22 +240,21 @@ div *::-webkit-scrollbar-thumb {
 {
 
     .message_list_unreaded_messages {
-        left: calc(100% - 28.5714vw);
-        top: -18.0952vw;
-        border: 0.1904vw;
+        left: calc(100% - 28.571428571428571vw);
+        top: -18.095238095238095vw;
+        border: 0.19047619047619047vw;
     }
     .message_list_unreaded_messages_div {
-        width: 7.619vw;
-        height: 7.619vw;
+        width: 7.619047619047619vw;
+        height: 7.619047619047619vw;
+    }
+    .message_list_unreaded_messages_div_span{
+        font-size: 2.857142857142857vw;
     }
     .saved_finded_panel {
-        top: 13.3333vw;
+        top: 13.3333333333333vw;
         margin: 0.4545454545454545vw;
         width: calc(100% - 0.9090909090909091vw);
-    }
-    .panel_of_one_mes{
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
     }
     .panel_of_messs{
         top: 0px;
@@ -255,49 +266,54 @@ div *::-webkit-scrollbar-thumb {
         top: 13.333333333vw;
     }
     .message_list_chat_num{
-        max-height: 17.524vw;
+        max-height: 17.523809523809524vw;
     }
     .panel_of_one_mes{
-        height: 17.143vw;
+        height: 17.142857142857142vw;
+        border-radius: 0.9523809523809523vw;
+    }
+    .place_of_autor_mes {
+        left: 3.8095238095238093vw;
     }
     .img_of_autor_mes{
-        width: 13.336vw;
-        height: 13.336vw;
+        width: 13.333333333333334vw;
+        height: 13.333333333333334vw;
     }
     .message_list_chat_panel_more_button{
-        top: -15.23vw;
-        left: calc(100% - 9.52vw);
-        border: 0.1904vw;
+        top: -15.238095238095238vw;
+        left: calc(100% - 9.523809523809524vw);
+        border: 0.19047619047619047vw;
     }
     .message_list_chat_panel_more_button_div_of_points{
-        width: 7.62vw; height: 7.62vw; display: flex; justify-content: center;
+        width: 7.619047619047619vw; height: 7.619047619047619vw;
     }
     .message_list_chat_panel_more_button_points_one{
-        width: 1.334vw; height: 1.334vw; border-radius: 50%; top: 1.334vw;
+        width: 1.3333333333333333vw; height: 1.3333333333333333vw; top: 1.3333333333333333vw;
     }
     .message_list_chat_panel_more_button_points_two{
-        width: 1.334vw; height: 1.334vw; border-radius: 50%; top: 3.334vw;
+        width: 1.3333333333333333vw; height: 1.3333333333333333vw; top: 3.3333333333333335vw;
     }
     .message_list_chat_panel_more_button_points_three{
-        width: 1.334vw; height: 1.334vw; border-radius: 50%; top: 5.334vw;
+        width: 1.3333333333333333vw; height: 1.3333333333333333vw; top: 5.333333333333333vw;
     }
     .message_list_name_of_group{
-        left: 1.9vw;
-        bottom: 9.52vw;
+        left: 1.9047619047619047vw;
+        bottom: 9.523809523809524vw;
     }
     .message_list_span_of_mess{
-        font-size: 3.8vw;
+        font-size: 3.8095238095238093vw;
+        margin-right: 0.9523809523809523vw;
     }
     .message_list_find_panel{
-        top: 13.333vw;
+        top: 13.333333333333334vw;
     }
     .last_message{
-        left: 17.14vw;
-        top: 7.61vw;
-        font-size: 3.8vw;
+        left: 17.142857142857142vw;
+        top: 7.619047619047619vw;
+        font-size: 3.8095238095238093vw;
     }
     .message_list_chat_delete_panel {
-        right: 20.6vw;
+        right: 20.619047619047619vw;
     }
     .message_list_chat_delete_panel_div {
         width: 19.047vw;
