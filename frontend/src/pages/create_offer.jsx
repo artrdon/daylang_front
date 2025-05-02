@@ -356,7 +356,7 @@ var Lang = {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="crt_offer_gray_thing">
           <div className="crt_offer_blank">
-            <p className="crt_offer_name_of_fields" style={{margin: 40,marginLeft: "auto", marginRight: "auto", fontSize: 30}} >
+            <p className="crt_offer_name_of_fields">
               {arrLang[lang]['create_offer']}
             </p>
             <div className="crt_offer_name_of_fields">

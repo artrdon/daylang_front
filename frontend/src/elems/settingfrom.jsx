@@ -272,7 +272,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="crt_offer_gray_thing">
           <div className="crt_offer_blank">
-            <p className="crt_offer_name_of_fields" style={{margin: 40,marginLeft: "auto", marginRight: "auto", fontSize: 30}}>
+            <p className="crt_offer_name_of_fields">
               {arrLang[lang]['main']}
             </p>
             <div className="crt_offer_name_of_fields">
@@ -337,7 +337,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               null
             ) : (
                 <>
-              <p className="crt_offer_name_of_fields" style={{margin: 40,marginLeft: "auto", marginRight: "auto", fontSize: 30}}>
+              <p className="crt_offer_name_of_fields">
               {arrLang[lang]['degree']}
             </p>
             <div className="crt_offer_name_of_fields">
