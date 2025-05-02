@@ -29,7 +29,7 @@ return (
     <>
         <Link to={`/${chel}/offer/${id}/`} key={id} target='_blank'>
             <div className="offer_of_lang_finded">
-            <div style={{ width: "100%", height: "100%", position: "relative" }}>
+            <div className='first_sloj'>
                 <h1 className="finded_name">{name}</h1>
                 <ImageWithFallback src={photo} alt="offer photo" fallbackSrc="/src/static/img/nema.png"/>
                 {isFav === false ? (

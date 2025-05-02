@@ -123,7 +123,14 @@ return (
                 <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img" />
                 <span className='show_nav_in_mob_button_text_color'>{arrLang[lang]['about']}</span>
                 </Link>
-                <Docks />
+                <Link className="show_nav_in_mob_nav_panel_botton" to='/src/static/docks/pryvacy.pdf'>
+                {/*<img
+                    src="/src/static/img/support.png"
+                    alt="support"
+                    className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
+                />*/}
+                <span className='show_nav_in_mob_button_text_color'>Политика конфиденциальности</span>
+                </Link>
         </div>
     </div>
 

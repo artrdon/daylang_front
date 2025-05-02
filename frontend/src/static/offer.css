@@ -475,6 +475,9 @@
 
 @media only screen and (max-width: 525px)
 {
+    .offer_save_to_fav_button {
+        left: calc(100% - 7.619047619047619vw);
+    }
     .button_under_foto {
         font-size: 5.714285714285714vw;
         height: 9.523809523809524vw;

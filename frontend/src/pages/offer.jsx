@@ -610,7 +610,7 @@ const save_to_fav = async (e) => {
   </Link>
     </div>
     <div className="margin_of_offer">
-      <div>
+      <div>{/*error is here*/}
         <h1 className="offer_page_reviews_score">
           {arrLang[lang]['reviews']}{" "}
           <img
@@ -626,8 +626,7 @@ const save_to_fav = async (e) => {
                   <UpReviewBlock />
                         )}
 
-        {data3[0].map((rew) => 
-          <>
+        {data3[0].map((rew) => (
             <div className="offer_review_div_div" key={rew.id}>
               <div className="offer_review_div">
                 <ImageWithFallbackFeedback src={rew.photo} alt={rew.name} fallbackSrc="/src/static/img/nema.png"/>
@@ -636,8 +635,7 @@ const save_to_fav = async (e) => {
               </div>
               <ReviewExpandableText setShowAllOffers={setShowAllOffers} text={rew.text}/>
             </div>
-          </>
-        )}
+        ))}
         <p className="offer_page_show_more_reviews_button" onClick={showRev}>
             <span className="offer_page_show_more_reviews_button_span">Показать больше</span>
         </p>
@@ -686,7 +684,7 @@ const save_to_fav = async (e) => {
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
           <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center"}} onClick={() => toggleVisibility()}>
-              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: photoArray[photoIndex].h_or_w === "w" ? "100%" : "auto", height: photoArray[photoIndex].h_or_w === "h" ? "100%" : "auto"}} />
+              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: photoArray[photoIndex].h_or_w === "w" ? "100%" : "auto", height: photoArray[photoIndex].h_or_w === "h" ? "100%" : "auto", zIndex: 12}} />
           </div>
           {photoArray.length > (photoIndex + 1) && 
             <button style={{ position: "fixed", right: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 }} onClick={nextPhoto}>

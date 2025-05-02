@@ -673,10 +673,6 @@ a{
     .app_lessons_indicator{
         left: 71vw; top: 20px;
     }
-    .saved_finded_panel{
-        width: calc(100% - 6px);
-        margin: 3px;
-    }
     .sborishe_chelov{
         width: 100%;
         padding: 0px;

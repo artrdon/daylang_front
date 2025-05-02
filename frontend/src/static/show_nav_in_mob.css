@@ -19,3 +19,17 @@
     margin: 20px;
     font-size: 25px;
 }
+
+@media screen and (max-width: 525px) {
+    .show_nav_in_mob_nav_panel_botton{
+        height: 9.523809523809524vw;
+        width: calc(100% - 7.619047619047619vw);
+        font-size: 5.714285714285714vw;
+        margin: 3.8095238095238098vw;
+        border-radius: 1.9047619047619047vw;
+    }
+    .show_nav_in_mob_button_text_color{
+        margin: 3.8095238095238098vw;
+        font-size: 4.761904761904762vw;
+    }  
+}

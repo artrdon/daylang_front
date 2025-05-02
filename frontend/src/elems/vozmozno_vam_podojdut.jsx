@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import StandartOffer from '/src/elems/standart_offer.jsx'
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -58,27 +59,7 @@ function Vozmozno_vam() {
     return (
             <>
             {data.map((dat) => (
-                <a href={`/${dat.chel}/offer/${dat.id}/`} key={dat.id} target='_blank'>
-                <div className="offer_of_lang" id={dat.id}>
-                    <div className="first_sloj">
-                    <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-                    <div className="feedback_review_down_block">
-                        <h1 className="name_of_offer" >
-                        {dat.name}
-                        </h1>
-                        <div className="block_of_price_and_status">
-                        <p className="price_and_status feedback_review_price_text"  >
-                            {dat.price} ₽
-                        </p>
-                        </div>
-                        <div className="block_of_review">
-                        <img src="/src/static/img/11.png" alt="" className="img_of_review" />
-                        <h1 className="header_of_review"> {dat.review}</h1>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </a>
+                <StandartOffer username={dat.username} id={dat.id} name={dat.name} photo={dat.photo} review={dat.review} price={dat.price} key={dat.id}/>
       ))}
         </>
     )

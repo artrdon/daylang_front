@@ -10,6 +10,8 @@ import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import StandartOffer from '/src/elems/standart_offer.jsx'
+
 
 function ImageWithFallbackAvatar({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -334,27 +336,7 @@ var arrLang = {
 
 
 {data1.map((dat) => (
-    <Link to={`/${data.username}/offer/${dat.id}/`} key={dat.id} target='_blank'>
-      <div className="offer_of_lang" id={dat.id}>
-        <div className="first_sloj">
-          <ImageWithFallback src={dat.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-          <div className="feedback_review_down_block">
-            <p className="name_of_offer" >
-              {dat.name}
-            </p>
-            <div className="block_of_price_and_status">
-              <p className="price_and_status feedback_review_price_text"  >
-                {dat.price} ₽
-              </p>
-            </div>
-            <div className="block_of_review">
-              <img src="/src/static/img/11.png" alt="" className="img_of_review" />
-              <p className="header_of_review"> {dat.review}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Link>
+  <StandartOffer username={data.username} id={dat.id} name={dat.name} photo={dat.photo} review={dat.review} price={dat.price}/>
 ))}
   </div>
 </div>
