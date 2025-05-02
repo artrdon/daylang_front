@@ -21,7 +21,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   }
   
 
-function ShowNavInMob({show, lang, myphoto, ifteach, username}) {
+function ShowNavInMob({showOtherInNav, show, lang, myphoto, ifteach, username, ref}) {
     const arrLang = {
         'English': {
             'find': "Find",
@@ -86,7 +86,7 @@ function ShowNavInMob({show, lang, myphoto, ifteach, username}) {
 return (
     <>
     <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 1000, position: "fixed"}} onClick={show} ></div>
-    <div style={{ backgroundColor: "#242424", width: "100vw", height: "80%", position: "fixed", bottom: 0, zIndex: 1000, }}>
+    <div className={`show_nav_in_mob_nav_panel`} ref={ref}>
         <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
                 {ifteach === true ? 
                     (

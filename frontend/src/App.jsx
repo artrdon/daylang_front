@@ -1,5 +1,6 @@
-import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
+import { useState, useEffect, state, handleChange, handleSubmit, setState, useRef }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group';
 /*import Find from '/src/pages/find.jsx'
 import Finded from '/src/pages/finded.jsx'
 import Message_list from '/src/pages/message_list.jsx'
@@ -56,7 +57,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 
 function App({ name, lastname, username, lang, if_teach, mess_count, photo, balance }) {
 
-
+  const nodeRef = useRef(null);
   const [showOtherInNav, setshowOtherInNav] = useState(false);
 
   const showNav = () =>{
@@ -339,7 +340,17 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
     </div>
   </div>
 
-  {showOtherInNav && <ShowNavInMob show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username}/>}
+<CSSTransition
+  in={showOtherInNav}
+  timeout={300}
+  classNames="show_nav_in_mob_nav_panel"
+  unmountOnExit
+  nodeRef={nodeRef}
+>
+    <ShowNavInMob ref={nodeRef} show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username}/>
+
+</CSSTransition>
+  {/*`showOtherInNav && <ShowNavInMob showOtherInNav={showOtherInNav} show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username}/>*/}
 
 </>
 
