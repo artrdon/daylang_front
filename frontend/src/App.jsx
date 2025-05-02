@@ -347,7 +347,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
   unmountOnExit
   nodeRef={nodeRef}
 >
-    <ShowNavInMob ref={nodeRef} show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username}/>
+    <ShowNavInMob setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username}/>
 
 </CSSTransition>
 

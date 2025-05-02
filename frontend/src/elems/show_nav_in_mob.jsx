@@ -21,7 +21,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   }
   
 
-function ShowNavInMob({showOtherInNav, show, lang, myphoto, ifteach, username, ref}) {
+function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username, ref}) {
     const arrLang = {
         'English': {
             'find': "Find",
@@ -82,6 +82,22 @@ function ShowNavInMob({showOtherInNav, show, lang, myphoto, ifteach, username, r
   
       }
   
+      useEffect(() => {
+        let start = 0;
+        let end = 0;
+    
+        document.addEventListener('touchstart', () => {
+          start = event.changedTouches[0].clientY;
+        });
+    
+        document.addEventListener('touchend', () => {
+          end = event.changedTouches[0].clientY;
+          let delta = end - start;
+          if (delta > 30) {
+            setshowOtherInNav(false);
+          }
+        });
+      }, []);
 
 return (
     <>

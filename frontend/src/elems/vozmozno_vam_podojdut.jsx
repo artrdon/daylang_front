@@ -55,7 +55,7 @@ function Vozmozno_vam() {
 
       </>);
   if (error) return <p>Error: {error}</p>;
-console.log(data);
+
     return (
             <>
             {data.map((dat) => (

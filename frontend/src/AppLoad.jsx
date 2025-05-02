@@ -126,7 +126,6 @@ function AppLoad({ lang, messNumb }) {
                 )
                 }
     </button>
-          <p style={{ position: "absolute", right: 130, top: 25, fontSize: 25 }}>₽</p>
           <div className="my_account_panel">
             <img src="/src/static/img/nema.png" alt='user' className='avatar'/>
           </div>
