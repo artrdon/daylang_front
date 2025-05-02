@@ -55,11 +55,11 @@ function Vozmozno_vam() {
 
       </>);
   if (error) return <p>Error: {error}</p>;
-
+console.log(data);
     return (
             <>
             {data.map((dat) => (
-                <StandartOffer username={dat.username} id={dat.id} name={dat.name} photo={dat.photo} review={dat.review} price={dat.price} key={dat.id}/>
+                <StandartOffer username={dat.chel} id={dat.id} name={dat.name} photo={dat.photo} review={dat.review} price={dat.price} key={dat.id}/>
       ))}
         </>
     )

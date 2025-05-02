@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import ReviewsAll from '../elems/all_reviews.jsx';
+import { CSSTransition } from 'react-transition-group';
 
 
 const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
@@ -168,6 +169,7 @@ function Offer() {
   const [screen, setScreen] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
+  const nodeRev = useRef(null);
     useEffect(() => {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
@@ -677,7 +679,19 @@ const save_to_fav = async (e) => {
     </div>
   </div>
 </div>
-{showAllOffers && <ReviewsAll unShowRev={unShowRev} arrLang={arrLang} lang={lang}/>}
+
+<CSSTransition
+  in={showAllOffers}
+  timeout={300}
+  classNames="offer_review_modal-container"
+  unmountOnExit
+  nodeRef={nodeRev}
+>
+  <ReviewsAll ref={nodeRev} unShowRev={unShowRev} arrLang={arrLang} lang={lang}/>
+
+</CSSTransition>
+
+
 
 
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>

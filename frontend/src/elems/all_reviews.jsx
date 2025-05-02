@@ -29,7 +29,7 @@ function ImageWithFallbackFeedback({ src, fallbackSrc, alt }) {
   }
   
 
-function ReviewsAll({unShowRev, arrLang, lang}) {
+function ReviewsAll({ref, unShowRev, arrLang, lang}) {
 
   const params = useParams();    
   const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
@@ -50,7 +50,7 @@ function ReviewsAll({unShowRev, arrLang, lang}) {
     <>
     <div className="offer_review_modal-container">
                     <div className="offer_review_modal-backdrop" onClick={unShowRev}></div>
-                    <div className="offer_review_modal-content">
+                    <div className="offer_review_modal-content" ref={ref}>
                       <p className="offer_review_modal-title">{arrLang[lang]['reviews']}</p>
                       <div className="offer_review_reviews-scroll-container">
                       
@@ -65,7 +65,7 @@ if (error) return <p>Error: {error}</p>;
     return (
         <div className="offer_review_modal-container">
                     <div className="offer_review_modal-backdrop" onClick={unShowRev}></div>
-                    <div className="offer_review_modal-content">
+                    <div className="offer_review_modal-content" ref={ref}>
                       <p className="offer_review_modal-title">{arrLang[lang]['reviews']}</p>
                       <div className="offer_review_reviews-scroll-container">
                       {data.map((rew) => 

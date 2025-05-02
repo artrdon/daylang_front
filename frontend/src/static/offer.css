@@ -1,3 +1,21 @@
+.offer_review_modal-container-enter {
+    transform: translateY(100%);
+}
+
+.offer_review_modal-container-enter-active {
+    transform: translateY(0);
+    transition: transform 300ms;
+}
+
+.offer_review_modal-container-exit {
+    transform: translateY(0);
+}
+
+.offer_review_modal-container-exit-active {
+    transform: translateY(100%);
+    transition: transform 300ms;
+}
+
 .offer_page_div_of_offer_div {
     width: 100%;
     height: auto;

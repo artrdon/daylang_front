@@ -111,7 +111,7 @@ return (
                 />
                 <span className='show_nav_in_mob_button_text_color'>{arrLang[lang]['setting']}</span>
                 </Link>
-                <Link className="show_nav_in_mob_nav_panel_botton" to="/message_list/support/">
+                <Link className="show_nav_in_mob_nav_panel_botton" to="/support/">
                 <img
                     src="/src/static/img/support.png"
                     alt="support"
