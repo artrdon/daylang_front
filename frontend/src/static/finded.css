@@ -1,3 +1,22 @@
+/* Mobile Nav Animation */
+.deep_search_component_form-enter {
+    transform: translateY(100%);
+}
+
+.deep_search_component_form-enter-active {
+    transform: translateY(0);
+    transition: transform 300ms;
+}
+
+.deep_search_component_form-exit {
+    transform: translateY(0);
+}
+
+.deep_search_component_form-exit-active {
+    transform: translateY(100%);
+    transition: transform 300ms;
+}
+
 .offer_of_lang_finded{
     width: 1000px;
     height: 260px;

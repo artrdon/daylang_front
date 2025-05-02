@@ -6,12 +6,12 @@ import Calendar from 'react-calendar';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
-function FindedDeepSearchComp({closeSearch, ref}) {
+function DeepSearchComp({closeSearch, ref, price_min, price_max, format, target, age, microphone}) {
 
   const params = useParams();
   
 
-  const [data2, setData2] = useState({price_min: 0, price_max: 1000, format: 'individual', target: 'exam', age: '5-12', microphone: 'yes'});
+  const [data2, setData2] = useState({price_min: price_min, price_max: price_max, format: format, target: target, age: age, microphone: microphone});
   const handleChange = (e) => {
     setData2({ ...data2, [e.target.name]: e.target.value });
 };
@@ -92,4 +92,4 @@ return (
   )
 }
 
-export default FindedDeepSearchComp
+export default DeepSearchComp
