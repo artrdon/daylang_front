@@ -328,15 +328,15 @@ var arrLang = {
 
     {(() => {
         if (data.if === "yes") {
-      return (<>
+      return (
           <Add_button/>
-          </>)
+          )
         }
       })()}
 
 
 {data1.map((dat) => (
-  <StandartOffer username={data.username} id={dat.id} name={dat.name} photo={dat.photo} review={dat.review} price={dat.price}/>
+  <StandartOffer username={data.username} id={dat.id} name={dat.name} photo={dat.photo} review={dat.review} price={dat.price} key={dat.id}/>
 ))}
   </div>
 </div>

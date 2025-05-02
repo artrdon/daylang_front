@@ -14,8 +14,6 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 function UpdateOffer() {
 
     
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
     useEffect(() => {
@@ -31,10 +29,6 @@ function UpdateOffer() {
   }
 
 
-  const theme = getCookie('theme');
-  //console.log(getCookie('theme'));
-  
-  
   if (getCookie('theme') === "dark"){
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "dark_theme";
@@ -49,10 +43,6 @@ function UpdateOffer() {
     const csrfToken = getCookie('csrftoken');
 
     document.querySelector("title").textContent = "Update Offer";
-
-    const [data2, setData2] = useState(null);
-    const [loading2, setLoading2] = useState(true);
-    const [error2, setError2] = useState(null);
 
     axios.defaults.withCredentials = true;
 
@@ -76,25 +66,20 @@ function UpdateOffer() {
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
 
+
+    const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
+      queryKey: ['gettingoffer', params.username, params.index], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.index}/`);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
     
   
-
-    useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.index}/`);
-        setData2(response.data);
-
-      } catch (err) {
-        setError2(err.message);
-      } finally {
-        setLoading2(false);
-      }
-    };
-
-    fetchData();
-
-  }, []);
  
   
 
@@ -122,7 +107,7 @@ function UpdateOffer() {
         <>
 <App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} photo={data1.photo} balance={data1.balance}/>
 
-<UpdateOfferComp name={data2.name} description={data2.description} price={data2.price} id={params.index} language={data2.lang} format={data2.format} target={data2.target} age={data2.age} microphone={data2.microphone} photo={data2.photo} message={data2.message}/>
+<UpdateOfferComp name={data2[0].name} description={data2[0].description} price={data2[0].price} id={params.index} language={data2[0].lang} format={data2[0].format} target={data2[0].target} age={data2[0].age} microphone={data2[0].microphone} photo={data2[0].photo} message={data2[0].message}/>
 
 
 </>
