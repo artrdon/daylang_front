@@ -6,6 +6,7 @@ import Reg from '/src/pages/reg.jsx'
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
 import KEY from '/captcha.js';
+import TwoMinuteTimer from '../elems/timer2min';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
@@ -17,6 +18,7 @@ function Log() {
     const [ifChel, setIfChel] = useState(false);
     const [captcha, setCaptcha] = useState(null);
     const [confirmation, setConf] = useState(false);
+    const [timehave, setTimehave] = useState(true);
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -213,15 +215,15 @@ function Log() {
       <div className="mt-4">
         <div style={{ display: "flex", justifyContent: "center" }}>
           Don't have an account?{" "}
-          <a href="/reg/" style={{ marginLeft: 10, color: "white" ,}}>
+          <Link to="/reg/" style={{ marginLeft: 10, color: "white" ,}}>
             Sign Up
-          </a>
+          </Link>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           Forgot the password?{" "}
-          <a href="/log/reset/" style={{ marginLeft: 10, color: "white" ,}}>
+          <Link to="/log/reset/" style={{ marginLeft: 10, color: "white" ,}}>
             Reset
-          </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -239,7 +241,7 @@ function Log() {
           <div className="input-group mb-3">
             <div className="input-group-append">
               <span className="input-group-text">
-                <i className="fas fa-user" />
+                Введите код из email
               </span>
             </div>
             <input
@@ -253,22 +255,14 @@ function Log() {
             onChange={handleChange1}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
-            <input
+          <TwoMinuteTimer setTimehave={setTimehave}/>
+          {timehave > 0 && <input
               className="btn login_btn"
               type="submit"
               defaultValue="Confirm"
-            />
-          </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
-          </div>
+            />}
+          
+        
         </form>
       </div>
     </div>

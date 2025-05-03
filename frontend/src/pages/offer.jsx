@@ -223,7 +223,7 @@ function Offer() {
   const params = useParams();
 
   document.querySelector("title").textContent = "Offer";
-  let isfav = null;
+  const [isfav, setIsfav] = useState(false);
 
   const [data1, setData1] = useState(null);
   const [loading1, setLoading1] = useState(true);
@@ -323,16 +323,8 @@ const save_to_fav = async (e) => {
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
-        if (isfav === false)
-        {
-            isfav = true;
-            return;
-        }
-        else
-        {
-            isfav = false;
-            return;
-        }
+        
+        setIsfav(!isfav);
     }
 
   const {  data: data, isLoading: loading, isError: error, error: errorDetails  } = useQuery({
@@ -399,6 +391,7 @@ const save_to_fav = async (e) => {
       try {
         const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
         setData1(response.data);
+        setIsfav(response.data[0].isFav);
               // Обрабатываем первое фото
       const firstPhotoMeta = await new Promise(resolve => {
         getMeta(response.data[0].photo, (err, img) => {
@@ -490,9 +483,7 @@ const save_to_fav = async (e) => {
 
     document.querySelector("title").textContent = `${data1[0].name}`;
     document.querySelector("meta[name='description']").content = `${data1[0].description}`;
-    if (data1 != null){
-        isfav = data1.isFav;
-    }
+  
     
     return (
         <>
@@ -559,14 +550,14 @@ const save_to_fav = async (e) => {
          {isfav === false ? (
               <img
                 src="/src/static/img/srce.png"
-                alt=""
+                alt="srce"
                 className="offer_src_img"
                 id="favorito"
               />
             ) : (
               <img
                 src="/src/static/img/srcered.png"
-                alt=""
+                alt="srcered"
                 className="offer_src_img"
                 id="favorito"
               />

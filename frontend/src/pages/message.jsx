@@ -55,6 +55,13 @@ const [messId, setMessId] = useState(null);
   const toggleVisibility = () => {
     setIsVisible(!isVisible); // Меняем состояние на противоположное
   };
+  
+  const goback = () => {
+      window.history.back();
+  }
+  const clear_mess = () => {
+      document.getElementById("mess").textContent = "";
+  }
 
   useEffect(() => {
 
@@ -289,8 +296,6 @@ const messChange = (idd) => {
     const [components, setComponents] = useState([]);
 
     const [name_of_chat, setData4] = useState(null);
-
-    const [showComponent, setShowComponent] = useState(false);
 
     axios.defaults.withCredentials = true;
 
