@@ -10,12 +10,15 @@ import AppLoad from '/src/AppLoad.jsx'
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import OffersFromPupils from '/src/elems/offers_from_pupils.jsx'
+
 
 function Find() {
     const [groups, setGroup] = useState([]);
     const [ws, setWs] = useState(null);
     const websocket = useWebSocket();
     const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    const [page, setPage] = useState(0);
     useEffect(() => {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
@@ -169,7 +172,19 @@ function Find() {
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
+{
+  page === 0 &&
+
 <div className="find_panel">
+  <div className='find_page_up_buttons'>
+    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
+      {arrLang[lang]['teacher']}
+    </button>
+    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
+      setpage1
+    </button>
+  </div>
+  
   <div className="tag_select_panel">
     <h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
     <p className='find_page_teacher_description'>
@@ -186,6 +201,37 @@ function Find() {
   </div>
   <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 </div>
+
+}
+{
+  page === 1 &&
+
+<div className="find_panel">
+  <div className='find_page_up_buttons'>
+    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
+      {arrLang[lang]['teacher']}
+    </button>
+    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
+      setpage1
+    </button>
+  </div>
+  <div className="tag_select_panel">
+    <h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
+    <p className='find_page_teacher_description'>
+      {arrLang[lang]['teacher_description']}
+    </p>
+    <div className='find_page_div_over_offer_types'>
+      <div className='find_page_div_of_offer_types'>
+
+        <OffersFromPupils/>
+
+      </div>
+    </div>
+  </div>
+  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
+</div>
+
+}
 
 
 

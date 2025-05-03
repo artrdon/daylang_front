@@ -87,13 +87,13 @@ function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username
         let end = 0;
     
         document.addEventListener('touchstart', () => {
-          start = event.changedTouches[0].clientY;
+          start = event.changedTouches[0].clientX;
         });
     
         document.addEventListener('touchend', () => {
-          end = event.changedTouches[0].clientY;
+          end = event.changedTouches[0].clientX;
           let delta = end - start;
-          if (delta > 30) {
+          if (delta > 40) {
             setshowOtherInNav(false);
           }
         });

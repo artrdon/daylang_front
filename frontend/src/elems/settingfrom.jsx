@@ -384,31 +384,14 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 
 
               <button
-                style={{
-                  width: 570,
-                  height: 50,
-                  backgroundColor: "#00d472",
-                  margin: 20,
-                  marginTop: 70,
-                  fontSize: 30,
-                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
-                }}
+                className='crt_offer_save_button'
                 type="submit"
               >
                 {arrLang[lang]['save']}
               </button>
 
               <button
-                style={{
-                  width: 570,
-                  height: 50,
-                  color: "white",
-                  backgroundColor: "red",
-                  margin: 20,
-                  fontSize: 30,
-                  marginBottom: 100,
-                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
-                }}
+                className='crt_offer_save_button'
                 onClick={exit}
               >
                 {arrLang[lang]['exit']}

@@ -1,6 +1,7 @@
 *{
     padding: 0px;
     margin: 0px;
+    font-family: 'Roboto', sans-serif;
     /*-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;*/
@@ -23,6 +24,19 @@ iframe{
 }
 #only_for_fon{
     display: none;
+}
+.find_page_up_buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.find_page_up_button_el{
+    background-color: #ebebeb;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
 }
 .horizontal-scroll-container {
     width: 100%;

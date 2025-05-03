@@ -398,30 +398,14 @@ var Lang = {
             <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
 
               <button
-                style={{
-                  width: 570,
-                  height: 50,
-                  backgroundColor: "#00d472",
-                  margin: 20,
-                  fontSize: 30,
-                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
-                }}
+                className='crt_offer_save_button'
                 type="submit"
               >
                 {arrLang[lang]['update']}
               </button>
 
                 <button
-                style={{
-                  width: 570,
-                  height: 50,
-                  color: "white",
-                  backgroundColor: "red",
-                  margin: 20,
-                  fontSize: 30,
-                  marginBottom: 100,
-                  marginRight: "auto", marginLeft: "auto", display: "block", borderRadius: 10
-                }}
+                className='crt_offer_save_button'
                 onClick={delete_offer}
               >
                 {arrLang[lang]['delete']}

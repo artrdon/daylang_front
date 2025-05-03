@@ -1,23 +1,23 @@
 /* Mobile Nav Animation */
 .show_nav_in_mob_nav_panel-enter {
-    transform: translateY(100%);
+    transform: translateX(100%);
 }
 
 .show_nav_in_mob_nav_panel-enter-active {
-    transform: translateY(0);
+    transform: translateX(0);
     transition: transform 300ms;
 }
 
 .show_nav_in_mob_nav_panel-exit {
-    transform: translateY(0);
+    transform: translateX(0);
 }
 
 .show_nav_in_mob_nav_panel-exit-active {
-    transform: translateY(100%);
+    transform: translateX(100%);
     transition: transform 300ms;
 }
 .show_nav_in_mob_nav_panel{
-    background-color: #242424; width: 100vw; height: 80%; position: fixed; bottom: 0; z-index: 1000;
+    background-color: #242424; width: 90vw; height: 100%; position: fixed; bottom: 0; right: 0; z-index: 1000;
 }
 .show_nav_in_mob_nav_panel_botton{
     height: 50px;
