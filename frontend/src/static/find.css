@@ -25,6 +25,47 @@ iframe{
 #only_for_fon{
     display: none;
 }
+.find_pupils_offer{
+    width: 1000px;
+    height: 260px;
+    margin: 20px;
+    display: inline-block;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px #666666;
+    cursor: pointer;
+    background-color: #ebebeb;
+}
+.find_pupils_offer_name{
+    font-size: 20px;
+    padding: 20px;
+}
+.find_pupils_offer_description{
+    font-size: 16px;
+    padding: 20px;
+}
+.find_pupils_offer_price{
+    font-size: 16px;
+    padding: 20px;
+}
+.find_pupils_offer_time{
+    font-size: 16px;
+    padding: 20px;
+}
+.find_pupils_offer_info_about_chel{
+    width: calc(100% - 42px);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+
+}
+.find_pupils_offer_info_about_chel_img{
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 .find_page_up_buttons{
     display: flex;
     justify-content: center;
@@ -351,7 +392,9 @@ iframe{
     border-radius: 50px; 
     top: 0px; 
     display: inline-block;
-    margin-right: 10px
+    margin-right: 10px;
+    object-fit: contain;
+    background-color: #2a2a2a;
 }
 .avatar_in_panel{
     width: 50px;
@@ -409,7 +452,7 @@ iframe{
     position: relative;
 }
 .offer_image{
-    position: absolute; height: 200px; width: 100%;
+    position: absolute; height: 200px; width: 100%; object-fit: contain; background-color: #2a2a2a;
 }
 .name_of_offer{
     position: absolute; font-size: 20px; top: 200px; left: 10px; color: rgb(40, 108, 255); white-space: pre-wrap; overflow-wrap: anywhere; width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -447,9 +490,12 @@ iframe{
 }
 .dark_theme{
 
-    font-family: "NimbusSanL-Bol", sans-serif;
+    /*font-family: "NimbusSanL-Bol", sans-serif;*/
     background-color: #191919;
     color: #c3c3c3;
+    .find_pupils_offer{
+        background-color: #424242;
+    }
     .app_policy_text_color{
         color:white;
     }
@@ -595,6 +641,11 @@ a{
 }
 [contentEditable=true]:empty:not(:focus):before {
     content: attr(data-text)
+}
+@media screen and (max-width: 1400px) {
+    .find_pupils_offer{
+        width: calc(100% - 20px);
+    }
 }
 @media only screen and (max-width: 1230px)
 {

@@ -109,13 +109,8 @@ function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
   );
 }
 
-function ImageWithFallbackMain({ src, fallbackSrc, alt, h_or_w }) {
+function ImageWithFallbackMain({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
-  const [horw, setHorw] = useState(h_or_w); 
-
-  useEffect(() =>{
-    setHorw(h_or_w);
-  }, [h_or_w])
 
   useEffect(() => {
     setImgSrc(src);
@@ -132,10 +127,12 @@ function ImageWithFallbackMain({ src, fallbackSrc, alt, h_or_w }) {
       alt={alt}
       onError={handleError}
       style={{ 
-        width: horw === "w" ? "100%" : "auto",
-        height: horw === "h" ? "100%" : "auto",
+        width: '100%',
+        height: "100%",
         margin: "auto", 
-        display: "block" }}
+        display: "block",
+        objectFit: "contain",
+       }}
       id="divoffb_img"
     />
   );
@@ -392,8 +389,10 @@ const save_to_fav = async (e) => {
         const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
         setData1(response.data);
         setIsfav(response.data[0].isFav);
+        console.log(response.data);
+        console.log(response.data[0].photo, response.data[1]);
               // Обрабатываем первое фото
-      const firstPhotoMeta = await new Promise(resolve => {
+      /*const firstPhotoMeta = await new Promise(resolve => {
         getMeta(response.data[0].photo, (err, img) => {
           resolve({
             photo: response.data[0].photo,
@@ -413,9 +412,9 @@ const save_to_fav = async (e) => {
           });
         }))
       );
-
+*/
       // Объединяем результаты
-      setPhotoArray([firstPhotoMeta, ...otherPhotosMeta]);
+      setPhotoArray([response.data[0], response.data[1]]);
     //    setPhotoArray(photos);
       } catch (err) {
         setError1(err.message);
@@ -492,7 +491,7 @@ const save_to_fav = async (e) => {
 <div className="find_panel">
   <div className="div_of_foto_and_button" id="divoffb">
     <div className="foto_main" style={{display: "flex", justifyContent: "center", alignItem : "center"}} onClick={() => toggleVisibility()}>
-        <ImageWithFallbackMain src={photoArray[photoIndex].photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png" h_or_w={`${photoArray[photoIndex].h_or_w}`}/>
+        <ImageWithFallbackMain src={photoArray[photoIndex].photo} alt="offer photo" fallbackSrc="/src/static/img/nema.png"/>
 
         
     </div>
@@ -689,7 +688,7 @@ const save_to_fav = async (e) => {
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
           <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center"}} onClick={() => toggleVisibility()}>
-              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: photoArray[photoIndex].h_or_w === "w" ? "100%" : "auto", height: photoArray[photoIndex].h_or_w === "h" ? "100%" : "auto", zIndex: 12}} />
+              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 12, objectFit: "contain"}} />
           </div>
           {photoArray.length > (photoIndex + 1) && 
             <button style={{ position: "fixed", right: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 }} onClick={nextPhoto}>

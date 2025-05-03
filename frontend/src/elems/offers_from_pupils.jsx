@@ -172,11 +172,9 @@ function OffersFromPupils() {
 
   if (loading1) return;
   if (error1) return <p>Error: {error1}</p>;
-
+console.log(data1);
   return (
       <>
-<div className="saved_finded_panel">
-  <div className="sborishe_chelov">
     <div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>
 {(() => {
         if (data1.length === 0) {
@@ -190,7 +188,15 @@ function OffersFromPupils() {
                 
                 {data1.map((data) => (
 
-                      <FindedAndSavedOffers chel={data.chel} id={data.id} name={data.name} photo={data.photo} isFav={data.isFav} review={data.review} price={data.price} description={data.description} key={data.id}/>
+                      <div className='find_pupils_offer' key={data.id}>
+                        <div className='find_pupils_offer_name'>{data.name}</div>
+                        <div className='find_pupils_offer_description'>{data.description}</div>
+                        <div className='find_pupils_offer_price'>{data.price}</div>
+                        <div className='find_pupils_offer_time'>{data.time}</div>
+                        <div className='find_pupils_offer_info_about_chel'>
+                            <img src={data.photo} alt={data.username} className='find_pupils_offer_info_about_chel_img'/>
+                        </div>
+                      </div>
                     ))}
                 </>)
 
@@ -198,10 +204,7 @@ function OffersFromPupils() {
       })()}
 
 <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
-  </div>
-</div>
-
-<CSSTransition
+{/*<CSSTransition
   in={search}
   timeout={300}
   classNames="deep_search_component_form"
@@ -210,7 +213,7 @@ function OffersFromPupils() {
 >
   <DeepSearchComp ref={nodeDeep} closeSearch={closeSearch} />
 
-</CSSTransition>
+</CSSTransition>*/}
 
 </>
 

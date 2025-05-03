@@ -62,7 +62,7 @@
     position: absolute; cursor: pointer; left: 20px; width: 90%;
 }
 .img_of_autor_mes{
-    width: 70px; height: 70px; border-radius: 50px; top: 0px; display: inline-block;
+    width: 70px; height: 70px; border-radius: 50px; top: 0px; display: inline-block; object-fit: contain; background-color: #2a2a2a;
 }
 .last_message{
     position: absolute; color: rgba(0, 0, 0, 0.548); left: 90px; top: 40px; font-size: 20px; max-width: 100%; white-space: nowrap;

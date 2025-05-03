@@ -65,7 +65,7 @@
     position: absolute; color: black; left: 310px; top: 20px; width: 60%; overflow-wrap: anywhere; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .finded_img{
-    position: relative; height: 100%; border-top-left-radius: 20px; border-bottom-left-radius: 20px; aspect-ratio: 1 / 1; width: auto;
+    position: relative; height: 100%; border-top-left-radius: 20px; border-bottom-left-radius: 20px; aspect-ratio: 1 / 1; width: auto; background-color: gray; object-fit: contain;
 }
 .part_with_text{
     position: absolute; top: 70px; left: 310px; 
