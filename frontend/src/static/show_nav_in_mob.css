@@ -19,6 +19,19 @@
 .show_nav_in_mob_nav_panel{
     background-color: #242424; width: 90vw; height: 100%; position: fixed; bottom: 0; right: 0; z-index: 1000;
 }
+.show_nav_in_mob_nav_panel_botton_main{
+    height: 50px;
+    width: calc(100% - 40px);
+    color: rgb(54, 54, 54);
+    background-color: #ebebeb00;
+    font-size: 30px;
+    justify-content: left;
+    align-items: center;
+    display: flex;
+    margin: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+}
 .show_nav_in_mob_nav_panel_botton{
     height: 50px;
     width: calc(100% - 40px);
@@ -42,6 +55,13 @@
 }
 
 @media screen and (max-width: 525px) {
+    .show_nav_in_mob_nav_panel_botton_main{
+        height: 9.523809523809524vw;
+        width: calc(100% - 7.619047619047619vw);
+        font-size: 5.714285714285714vw;
+        margin: 3.8095238095238098vw;
+        border-radius: 1.9047619047619047vw;
+    }
     .show_nav_in_mob_nav_panel_botton{
         height: 9.523809523809524vw;
         width: calc(100% - 7.619047619047619vw);

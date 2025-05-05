@@ -13,6 +13,12 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     <script>
+        function clear_mess()
+        {
+            document.getElementById("Finding").textContent = "";
+        }
+    </script>
+    <script>
 
         function blockDangerousLinks(e) {
             const dangerousLink = e.target.closest('a[href^="javascript:"]');

@@ -13,12 +13,40 @@ import WSAPIURL from '/wsapi.js';
 import FindedAndSavedOffers from '/src/elems/finded_and_saved_offers.jsx'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import { CSSTransition } from 'react-transition-group';
+import AnswerToPupilOffer from '/src/elems/answer_to_pupil_offer.jsx'
+
+
+function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
+    const [imgSrc, setImgSrc] = useState(src);
+  
+    const handleError = () => {
+      setImgSrc(fallbackSrc);
+    };
+  
+    return (
+      <img
+        className="find_pupils_offer_info_about_chel_img"
+        src={imgSrc}
+        alt={alt}
+        onError={handleError}
+      />
+    );
+  }
 
 function OffersFromPupils() {
 
-  const nodeDeep = useRef(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
+  const [answerToPupilOffer, setAnswerToPupilOffer] = useState(false);
+  const reftoAnswerToPupilOffer = useRef(null);
+
+  const openAnswerToPupilOffer = () => {
+    setAnswerToPupilOffer(true);
+  }
+
+  const closeAnswerToPupilOffer = () => {
+    setAnswerToPupilOffer(false);
+  }
     useEffect(() => {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
@@ -175,7 +203,7 @@ function OffersFromPupils() {
 console.log(data1);
   return (
       <>
-    <div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>
+    {/*<div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>*/}
 {(() => {
         if (data1.length === 0) {
             return (<>
@@ -189,13 +217,27 @@ console.log(data1);
                 {data1.map((data) => (
 
                       <div className='find_pupils_offer' key={data.id}>
-                        <div className='find_pupils_offer_name'>{data.name}</div>
-                        <div className='find_pupils_offer_description'>{data.description}</div>
-                        <div className='find_pupils_offer_price'>{data.price}</div>
-                        <div className='find_pupils_offer_time'>{data.time}</div>
+                        <p className='find_pupils_offer_name'>{data.name}</p>
+                        <p className='find_pupils_offer_description'>{data.description}</p>
+                        <div className='find_pupils_offer_price_currency'>₽</div>
+                        <div className='find_pupils_offer_price'>{data.price_min} - {data.price_max} ₽</div>
+                        <div className='find_pupils_offer_time_logo'>t</div>
+                        <div className='find_pupils_offer_time'> {data.time} минут</div>
+                        <Link to={`/p/user/${data.username}/`}>
                         <div className='find_pupils_offer_info_about_chel'>
-                            <img src={data.photo} alt={data.username} className='find_pupils_offer_info_about_chel_img'/>
+                            <ImageWithFallbackAuthor src={data.photo} alt={data.username} fallbackSrc="/src/static/img/nema.png"/>
+                            <div className="offer_author_name_div">
+                                <span className="ime offer_author_name_span" translate="no">
+                                {data.first_name} {data.last_name}
+                                </span>
+                                {data.real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
+                            </div>
+                            <div className="offer_author_description">{data.about_myself}</div>
                         </div>
+                        </Link>
+                        <button className='find_pupils_offer_button' onClick={openAnswerToPupilOffer}>
+                      
+                        </button>
                       </div>
                     ))}
                 </>)
@@ -204,16 +246,17 @@ console.log(data1);
       })()}
 
 <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
-{/*<CSSTransition
-  in={search}
+
+<CSSTransition
+  in={answerToPupilOffer}
   timeout={300}
   classNames="deep_search_component_form"
   unmountOnExit
-  nodeRef={nodeDeep}
+  nodeRef={reftoAnswerToPupilOffer}
 >
-  <DeepSearchComp ref={nodeDeep} closeSearch={closeSearch} />
+  <AnswerToPupilOffer ref={reftoAnswerToPupilOffer} closeSearch={closeAnswerToPupilOffer} />
 
-</CSSTransition>*/}
+</CSSTransition>
 
 </>
 

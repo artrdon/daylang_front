@@ -21,7 +21,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   }
   
 
-function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username, ref}) {
+function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username, ref, money}) {
     const arrLang = {
         'English': {
             'find': "Find",
@@ -106,14 +106,17 @@ return (
         <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
                 {ifteach === true ? 
                     (
-                        <Link className="show_nav_in_mob_nav_panel_botton" to={`/t/user/${username}/`}>
+                        <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/t/user/${username}/`}>
                             <ImageWithFallbackPanel src={myphoto} alt='me' fallbackSrc="/src/static/img/nema.png"/>
                             <span className='show_nav_in_mob_button_text_color'>Me</span>
+                            <div style={{display: 'block'}}>
+                              <p className='top_panel_balance'>{money}₽</p>
+                            </div>
                         </Link>
                     ) 
                     : 
                     (
-                        <Link className="show_nav_in_mob_nav_panel_botton" to={`/p/user/${username}/`}>
+                        <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/p/user/${username}/`}>
                             <ImageWithFallbackPanel src={myphoto} alt='me' fallbackSrc="/src/static/img/nema.png"/>
                             <span className='show_nav_in_mob_button_text_color'>Me</span>
                         </Link>

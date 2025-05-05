@@ -647,6 +647,9 @@
         font-size: 2.857142857142857vw;
         margin-top: 0.9523809523809524vw;
     }
+    .offer_me_real_pers {
+        width: 4.761904761904762vw;
+    }
 }
 @media only screen and (max-width: 450px)
 {

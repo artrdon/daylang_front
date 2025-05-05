@@ -216,11 +216,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
                 )
                 }
     </button>
-      {(() => {
-        if (if_teach) {
-          return <p className='top_panel_balance' >{balance}₽</p>;
-        }
-      })()}
+          {/*if_teach && <p className='top_panel_balance' >{balance}₽</p>}*/}
 
           {username === undefined ? (
           <Link to={`/log/`}>
@@ -347,7 +343,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
   unmountOnExit
   nodeRef={nodeRef}
 >
-    <ShowNavInMob setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username}/>
+    <ShowNavInMob setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username} money={balance}/>
 
 </CSSTransition>
 

@@ -413,8 +413,20 @@ const save_to_fav = async (e) => {
         }))
       );
 */
-      // Объединяем результаты
-      setPhotoArray([response.data[0], response.data[1]]);
+      console.log(response.data[1].length);
+      if (response.data[1] != null && response.data[1] != undefined && response.data[1].length > 0)
+      {
+        let photos = [];
+        photos.push(response.data[0]);
+        for (let i = 0; i < response.data[1].length; i++){
+          photos.push(response.data[1][i]);
+        }
+        setPhotoArray(photos);
+      }
+      else{
+        setPhotoArray([response.data[0]]);
+      }
+
     //    setPhotoArray(photos);
       } catch (err) {
         setError1(err.message);
@@ -482,7 +494,8 @@ const save_to_fav = async (e) => {
 
     document.querySelector("title").textContent = `${data1[0].name}`;
     document.querySelector("meta[name='description']").content = `${data1[0].description}`;
-  
+    
+
     
     return (
         <>
@@ -590,11 +603,7 @@ const save_to_fav = async (e) => {
             <span className="ime offer_author_name_span" translate="no">
               {data2.first_name} {data2.last_name}
             </span>
-            {(() => {
-                if (data7.real_man === true) {
-                  return <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />;
-                }
-              })()}
+            {data2.real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
           </div>
           <div className="offer_author_description">{data7.about_myself}</div>
         </div>
@@ -602,7 +611,7 @@ const save_to_fav = async (e) => {
   </Link>
     </div>
     <div className="margin_of_offer">
-      <div>{/*error is here*/}
+      <div>
         <h1 className="offer_page_reviews_score">
           {arrLang[lang]['reviews']}{" "}
           <img
@@ -648,11 +657,7 @@ const save_to_fav = async (e) => {
             <span className="ime offer_author_name_span" translate="no">
               {data2.first_name} {data2.last_name}
             </span>
-            {(() => {
-                if (data7.real_man === true) {
-                  return <img src="/src/static/img/confirmed.png" alt="confirmed" className="offer_me_real_pers" />;
-                }
-              })()}
+            {data2.real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
           </div>
           <div className="offer_author_description">{data7.about_myself}</div>
         </div>
@@ -687,7 +692,7 @@ const save_to_fav = async (e) => {
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
-          <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center"}} onClick={() => toggleVisibility()}>
+          <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "gray"}} onClick={() => toggleVisibility()}>
               <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 12, objectFit: "contain"}} />
           </div>
           {photoArray.length > (photoIndex + 1) && 
