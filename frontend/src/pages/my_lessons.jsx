@@ -10,6 +10,8 @@ import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import AnswersToMyOffers from '/src/elems/answers_to_my_offers.jsx';
+
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -32,9 +34,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function MyLessons() {
 
-    
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
+  const[page, setPage] = useState(0);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
     useEffect(() => {
@@ -135,24 +135,6 @@ else{
       document.querySelector('body').className = "light_theme";
 }
 
-
-function change_theme() {
-  if (document.querySelector('body').className === "dark_theme")
-  {
-
-      document.querySelector('body').className = "light_theme";
-      document.cookie = "theme=light; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-  }
-  else
-  {
-      document.querySelector('body').className = "dark_theme";
-      document.cookie = "theme=dark; path=/;max-age=31556926";
-      document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-  }
-}
-
-
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
 
@@ -175,14 +157,6 @@ function change_theme() {
 
 
 
-  const [data2, setData2] = useState({price_min: 0, price_max: 1000, format: 'individual', target: 'exam', age: '5-12', microphone: 'yes'});
-  const handleChange = (e) => {
-    setData2({ ...data2, [e.target.name]: e.target.value });
-};
-
-
-
-
   if (loading) return (
       <>
       <AppLoad lang={langua} messNumb={messNumb}/>
@@ -195,54 +169,92 @@ function change_theme() {
       <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
-<div className="saved_finded_panel">
-  <div className="sborishe_chelov">
-    <div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>
-{/*(() => {
-        if (data1.length === 0) {
-            return (<>
-                      <NotFoundSave iwant={"no_offers"}/>
-                </>)
-        }
-        else{
-
-            return (<>
-                
-                {data1.map((data) => (
-
-                    <Link to={`/${data.chel}/offer/${data.id}/`} key={data.id} target='_blank'>
-                      <div className="offer_of_lang_finded">
-                        <div style={{ width: "100%", height: "100%", position: "relative" }}>
-                          <h1 className="finded_name">{data.name}</h1>
-                          <ImageWithFallback src={data.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-                            {data.isFav === false ? (
-                              <img src="/src/static/img/srce.png" alt="" className="src_img" />
-                            ) : (
-                              <img src="/src/static/img/srcered.png" alt="" className="src_img" />
-                            )}
-                          <div className="part_with_text">
-                            <p className="finded_price" style={{color: "rgb(0, 184, 0)" }}>{data.price} ₽</p>
-                            <p className="finded_online_status">online</p>
-                            <div className="finded_review">
-                              <img src="/src/static/img/11.png" alt="" className="img_review" />
-                              <h1 className="review_text"> {data.review}</h1>
-                            </div>
-                            <div className="description_lol">
-                              {data.description}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                    ))}
-                </>)
-
-        }
-      })()}*/}
-
-
+{
+  page === 0 &&
+  <div className="find_panel">
+  <div className='find_page_up_buttons'>
+    <button onClick={() => setPage(0)} className='find_page_up_button_el selected'>
+      future lessons
+    </button>
+    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
+      past lessons
+    </button>
+    <button onClick={() => setPage(2)} className='find_page_up_button_el'>
+      answers from teachers
+    </button>
   </div>
+
+  
+  <div className="tag_select_panel">
+    <div className='find_page_div_over_offer_types'>
+      <div className='find_page_div_of_offer_types'>
+
+        
+
+      </div>
+    </div>
+  </div>
+  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 </div>
+}
+
+{
+  page === 1 &&
+  <div className="find_panel">
+  <div className='find_page_up_buttons'>
+    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
+      future lessons
+    </button>
+    <button onClick={() => setPage(1)} className='find_page_up_button_el selected'>
+      past lessons
+    </button>
+    <button onClick={() => setPage(2)} className='find_page_up_button_el'>
+      answers from teachers
+    </button>
+  </div>
+
+
+  <div className="tag_select_panel">
+    <div className='find_page_div_over_offer_types'>
+      <div className='find_page_div_of_offer_types'>
+
+        
+
+      </div>
+    </div>
+  </div>
+  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
+</div>
+}
+
+{
+  page === 2 &&
+  <div className="find_panel">
+  <div className='find_page_up_buttons'>
+    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
+      future lessons
+    </button>
+    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
+      past lessons
+    </button>
+    <button onClick={() => setPage(2)} className='find_page_up_button_el selected'>
+      answers from teachers
+    </button>
+  </div>
+
+
+  <div className="tag_select_panel">
+    <div className='find_page_div_over_offer_types'>
+      <div className='find_page_div_of_offer_types'>
+
+        <AnswersToMyOffers/>
+
+      </div>
+    </div>
+  </div>
+  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
+</div>
+}
 </>
 
   )

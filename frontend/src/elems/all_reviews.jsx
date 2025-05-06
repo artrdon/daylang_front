@@ -69,7 +69,7 @@ if (error) return <p>Error: {error}</p>;
                       <p className="offer_review_modal-title">{arrLang[lang]['reviews']}</p>
                       <div className="offer_review_reviews-scroll-container">
                       {data.map((rew) => 
-                            <>
+                            
                               <div className="offer_review_div_div" style={{top: "unset"}} key={rew.id}>
                                 <div className="offer_review_div">
                                   <ImageWithFallbackFeedback src={rew.photo} alt={rew.name} fallbackSrc="/src/static/img/nema.png"/>
@@ -80,7 +80,7 @@ if (error) return <p>Error: {error}</p>;
                                   {rew.text}
                                 </p>
                               </div>
-                            </>
+                            
                       )}
                       </div>
                     </div>

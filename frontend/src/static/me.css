@@ -254,9 +254,6 @@
     .me_span_of_button_text {
         font-size: 4.761904761904762vw;
     }
-    .me_selected{
-        border-bottom: 0.9523809523809523vw solid;
-    }
     .me_under_find{
         width: 100%; height: 32.38095238095238vw;
     }

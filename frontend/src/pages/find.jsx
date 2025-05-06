@@ -193,10 +193,10 @@ function Find() {
   </div>
   
   <div className="tag_select_panel">
-    <h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
+    {/*<h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
     <p className='find_page_teacher_description'>
       {arrLang[lang]['teacher_description']}
-    </p>
+    </p>*/}
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
 
