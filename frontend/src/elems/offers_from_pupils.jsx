@@ -222,6 +222,21 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer}) {
                         <div className='find_pupils_offer_price'>{data.price_min} - {data.price_max} ₽</div>
                         <div className='find_pupils_offer_time_logo'>t</div>
                         <div className='find_pupils_offer_time'> {data.time} минут</div>
+                                      
+                        <div className="offer_page_div_of_info" style={{height: "auto", margin: 0}}>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Есть микрофон?</span> <span>{data.microphone}</span>
+                            </li>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Цели:</span> <span>{data.target}</span>
+                            </li>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Возраст:</span> <span>{data.age}</span>
+                            </li>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Формат:</span> <span>{data.format}</span>
+                            </li>
+                        </div>
                         <Link to={`/p/user/${data.username}/`}>
                         <div className='find_pupils_offer_info_about_chel'>
                             <ImageWithFallbackAuthor src={data.photo} alt={data.username} fallbackSrc="/src/static/img/nema.png"/>
@@ -235,7 +250,7 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer}) {
                         </div>
                         </Link>
                         <button className='find_pupils_offer_button' onClick={() => {openAnswerToPupilOffer(data.id)}}>
-                      
+                          Answer
                         </button>
                       </div>
                     ))}

@@ -30,10 +30,6 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function Degree() {
 
-    
-  const [groups, setGroup] = useState([0]);
-  const [photoArray, setPhotoArray] = useState([]);
-  const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
     useEffect(() => {
@@ -198,7 +194,6 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     queryKey: ['get_degree_load', params.user], // Уникальный ключ запроса
     queryFn: async () => {
       const response = await axios.get(`${APIURL}/get_degree_load/${params.user}/`);
-      setPhotoArray((photoArray) => [...photoArray, response.data]);
       return response.data; // Возвращаем только данные
     },
     // Опциональные параметры:
@@ -247,8 +242,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   );
   if (error3) return <p>Error: {error3}</p>;
-
-
+  
     return (
         <>
   <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
@@ -346,9 +340,9 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
           <button className="degree_button" style={{ transform: 'scale(4)', transition: 'transform 0.3s ease', zIndex: 11}}>
-              <img src={photoArray[0][photoIndex].photo} alt={`degreephotoBig`} className="degree_img" />
+              <img src={data3[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" />
           </button>
-          {photoArray[0].length > (photoIndex + 1) && 
+          {data3.length > (photoIndex + 1) && 
             <div style={{ position: "fixed", right: 0, zIndex: 11 }} onClick={nextPhoto}>
               <img src="/src/static/img/next_photo.png" alt="" style={{width: 100, height: 100}}/>
             </div>}

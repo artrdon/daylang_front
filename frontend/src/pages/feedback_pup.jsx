@@ -312,11 +312,8 @@ var arrLang = {
     </Link>
   </div>
   <div className="feedback_review_score" >
-    <h1>
-      <img src="/src/static/img/11.png" alt="" className="feedback_review_img" /> {data3}
-    </h1>
-    <br />
-    <br />
+      <img src="/src/static/img/11.png" alt="review score" className="feedback_review_img" /> 
+      <p className="me_feedback_review_score_text">{data3}</p>
     {data4.map((rew) => (
 
     <div className="feedback_review_container" key={rew.id}>

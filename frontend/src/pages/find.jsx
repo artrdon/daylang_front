@@ -184,11 +184,11 @@ function Find() {
 
 <div className="find_panel">
   <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
-      {arrLang[lang]['teacher']}
+    <button onClick={() => setPage(0)} className='find_page_up_button_el selected'>
+      teacher`s offers
     </button>
     <button onClick={() => setPage(1)} className='find_page_up_button_el'>
-      setpage1
+      pupil`s offers
     </button>
   </div>
   
@@ -216,10 +216,10 @@ function Find() {
 <div className="find_panel">
   <div className='find_page_up_buttons'>
     <button onClick={() => setPage(0)} className='find_page_up_button_el'>
-      {arrLang[lang]['teacher']}
+      teacher`s offers
     </button>
-    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
-      setpage1
+    <button onClick={() => setPage(1)} className='find_page_up_button_el selected'>
+      pupil`s offers
     </button>
   </div>
   <div className="tag_select_panel">

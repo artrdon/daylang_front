@@ -360,15 +360,8 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             <div className="crt_offer_photo_div">
               {degree_photo.map((photo) => (
                 <img
-                alt=""
-                style={{
-                  width: 200,
-                  height: "auto",
-                  position: "relative",
-                  top: 0,
-                  display: "inline-block",
-                  margin: 10,
-                }} 
+                alt="degree photo"
+                className="settings_page_degree_photo"
                 src={photo.photo}
                 key={photo.id}
               />

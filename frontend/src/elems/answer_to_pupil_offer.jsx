@@ -55,6 +55,20 @@ return (
                         <div className='find_pupils_offer_price'>{currentOffer.price_min} - {currentOffer.price_max} ₽</div>
                         <div className='find_pupils_offer_time_logo'>t</div>
                         <div className='find_pupils_offer_time'> {currentOffer.time} минут</div>
+                        <div className="offer_page_div_of_info" style={{height: "auto", margin: 0}}>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Есть микрофон?</span> <span>{currentOffer.microphone}</span>
+                            </li>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Цели:</span> <span>{currentOffer.target}</span>
+                            </li>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Возраст:</span> <span>{currentOffer.age}</span>
+                            </li>
+                            <li className="offer_page_div_of_info_li">
+                                <span>Формат:</span> <span>{currentOffer.format}</span>
+                            </li>
+                        </div>
                         <Link to={`/p/user/${currentOffer.username}/`}>
                         <div className='find_pupils_offer_info_about_chel'>
                             <ImageWithFallbackAuthor src={currentOffer.photo} alt={currentOffer.username} fallbackSrc="/src/static/img/nema.png"/>
@@ -72,11 +86,10 @@ return (
               </div>
               
             </div>
-            <button style={{width: "100%", backgroundColor: "#00000000"}}>
-              <div className="deep_search_component_button">
+            
+              <button className="deep_search_component_button">
                 <p className="deep_search_component_button_text">Find</p>
-              </div>
-            </button>
+              </button>
         </div>
     </div>
 </div>
