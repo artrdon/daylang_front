@@ -179,9 +179,9 @@ else{
     <button onClick={() => setPage(1)} className='find_page_up_button_el'>
       past lessons
     </button>
-    <button onClick={() => setPage(2)} className='find_page_up_button_el'>
+    {!data.i_am_teacher && <button onClick={() => setPage(2)} className='find_page_up_button_el'>
       answers from teachers
-    </button>
+    </button>}
   </div>
 
   
@@ -208,9 +208,9 @@ else{
     <button onClick={() => setPage(1)} className='find_page_up_button_el selected'>
       past lessons
     </button>
-    <button onClick={() => setPage(2)} className='find_page_up_button_el'>
+    {!data.i_am_teacher && <button onClick={() => setPage(2)} className='find_page_up_button_el'>
       answers from teachers
-    </button>
+    </button>}
   </div>
 
 
@@ -237,9 +237,9 @@ else{
     <button onClick={() => setPage(1)} className='find_page_up_button_el'>
       past lessons
     </button>
-    <button onClick={() => setPage(2)} className='find_page_up_button_el selected'>
+    {!data.i_am_teacher && <button onClick={() => setPage(2)} className='find_page_up_button_el selected'>
       answers from teachers
-    </button>
+    </button>}
   </div>
 
 

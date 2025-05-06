@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
+import axios from 'axios';
 import Message from '/src/pages/message.jsx'
 import Calendar from 'react-calendar';
 import APIURL from '/api.js'
@@ -30,9 +31,28 @@ function AnswerToPupilOffer({closeSearch, ref, currentOffer}) {
   const params = useParams();
   
   const [message, setMessage] = useState('');
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
-  const sendMessage = () => {
-    console.log(message);
+  const sendMessage = async (e) => {
+    e.preventDefault();
+      try {
+        console.log(1);
+          const response = await axios.post(`${APIURL}/offer/creatinganswertooffer/`, {'message': message, 'offer': currentOffer.id}, {
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken'),
+              },
+          });
+          console.log(2);
+          console.log('Response:', response.data);
+
+      } catch (error) {
+          console.error('There was an error!', error.response.data);
+      }
   };
 
 
