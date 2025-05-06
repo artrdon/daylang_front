@@ -29,11 +29,11 @@ function AnswerToPupilOffer({closeSearch, ref, currentOffer}) {
 
   const params = useParams();
   
+  const [message, setMessage] = useState('');
 
-  const [data2, setData2] = useState({price_min: 0, price_max: 1000, format: 'individual', target: 'exam', age: '5-12', microphone: 'yes'});
-  const handleChange = (e) => {
-    setData2({ ...data2, [e.target.name]: e.target.value });
-};
+  const sendMessage = () => {
+    console.log(message);
+  };
 
 
 return ( 
@@ -81,14 +81,17 @@ return (
                             <div className="offer_author_description">{currentOffer.about_myself}</div>
                         </div>
                         </Link>
+                        <textarea className='answer_to_pupil_offer_textarea' placeholder='Message' onChange={(e) => setMessage(e.target.value)} value={message} maxLength={500} minLength={10}>
+                            
+                        </textarea>
                         </div>
                     </div>
               </div>
               
             </div>
             
-              <button className="deep_search_component_button">
-                <p className="deep_search_component_button_text">Find</p>
+              <button className="deep_search_component_button" onClick={sendMessage}>
+                <p className="deep_search_component_button_text">Send</p>
               </button>
         </div>
     </div>

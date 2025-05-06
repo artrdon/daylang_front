@@ -26,6 +26,32 @@ iframe{
 #only_for_fon{
     display: none;
 }
+.find_pupils_offer_button_create_offer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2854c7;
+    color: white;
+    font-size: 40px;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    width: 980px;
+    height: 60px;
+}
+.answer_to_pupil_offer_textarea{
+    background-color: #ebebeb;
+    color: black;
+    width: calc(100% - 22px);
+    height: 300px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid #666666;
+    padding: 10px;
+    margin-top: 20px;
+    resize: none;
+    outline: none;
+}
 .find_pupils_offer{
     width: 980px;
     height: auto;
@@ -543,6 +569,10 @@ iframe{
     /*font-family: "NimbusSanL-Bol", sans-serif;*/
     background-color: #191919;
     color: #c3c3c3;
+    .answer_to_pupil_offer_textarea{
+        background-color: #191919;
+        color: white;
+    }
     .find_pupils_offer{
         background-color: #252525;
     }
@@ -701,6 +731,9 @@ a{
 }
 @media screen and (max-width: 1550px) {
     .find_pupils_offer {
+        width: calc(100% - 80px);
+    }
+    .find_pupils_offer_button_create_offer{
         width: calc(100% - 80px);
     }
 }
@@ -1034,6 +1067,22 @@ a{
 
 @media only screen and (max-width: 525px)
 {
+    .find_pupils_offer_button_create_offer{
+        font-size: 7.619047619047619vw;
+        border-radius: 1.9047619047619047vw;
+        margin: 0px;
+        padding: 3.8095238095238095vw;
+        width: calc(100% - 7.619047619047619vw);
+        height: 11.428571428571428vw;
+    }
+    .answer_to_pupil_offer_textarea{
+        width: calc(100%  - 3.8095238095238095vw - 2px);
+        height: 57.14285714285714vw;
+        font-size: 3.8095238095238095vw;
+        border-radius: 1.9047619047619047vw;
+        padding: 1.9047619047619047vw;
+        margin-top: 3.8095238095238095vw;
+    }
     .find_page_up_buttons {
         margin-bottom: 3.8095238095238095vw;
     }

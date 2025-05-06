@@ -226,7 +226,7 @@ function Find() {
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
 
-        <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer}/>
+        <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer} ifteacher={data.i_am_teacher}/>
 
       </div>
     </div>

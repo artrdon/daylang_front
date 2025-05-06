@@ -32,7 +32,7 @@ function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
     );
   }
 
-function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer}) {
+function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
 
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
@@ -212,7 +212,12 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer}) {
         else{
 
             return (<>
-                
+                {!ifteacher && <Link to={`/create_offer/`}>
+                <div className='find_pupils_offer_button_create_offer'>
+                        Create offer
+                    </div>
+                    </Link>}
+
                 {data1.map((data, index) => (
 
                       <div className='find_pupils_offer' key={data.id}>
@@ -249,9 +254,9 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer}) {
                             <div className="offer_author_description">{data.about_myself}</div>
                         </div>
                         </Link>
-                        <button className='find_pupils_offer_button' onClick={() => {openAnswerToPupilOffer(data.id)}}>
+                        {ifteacher && <button className='find_pupils_offer_button' onClick={() => {openAnswerToPupilOffer(data.id)}}>
                           Answer
-                        </button>
+                        </button>}
                       </div>
                     ))}
                 </>)
