@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
@@ -11,20 +11,27 @@ import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import OffersFromPupils from '/src/elems/offers_from_pupils.jsx'
+import AnswerToPupilOffer from '/src/elems/answer_to_pupil_offer.jsx'
+import { CSSTransition } from 'react-transition-group';
 
 
 function Find() {
     const [groups, setGroup] = useState([]);
+    const [answerToPupilOffer, setAnswerToPupilOffer] = useState(false);
+    const reftoAnswerToPupilOffer = useRef(null);
     const [ws, setWs] = useState(null);
     const websocket = useWebSocket();
     const [messNumb, setMessNumb] = useState(websocket.messNumb);
     const [page, setPage] = useState(0);
+    const [currentOffer, setCurrentOffer] = useState(null);
     useEffect(() => {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
     const queryClient = useQueryClient();
 
-
+    const closeAnswerToPupilOffer = () => {
+      setAnswerToPupilOffer(false);
+    }
 
     document.querySelector("title").textContent = "DayLang";
 
@@ -219,7 +226,7 @@ function Find() {
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
 
-        <OffersFromPupils/>
+        <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer}/>
 
       </div>
     </div>
@@ -229,6 +236,17 @@ function Find() {
 
 }
 
+
+<CSSTransition
+  in={answerToPupilOffer}
+  timeout={300}
+  classNames="deep_search_component_form"
+  unmountOnExit
+  nodeRef={reftoAnswerToPupilOffer}
+>
+  <AnswerToPupilOffer ref={reftoAnswerToPupilOffer} closeSearch={closeAnswerToPupilOffer} data={data} currentOffer={currentOffer}/>
+
+</CSSTransition>
 
 
 </>

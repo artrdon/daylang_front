@@ -13,7 +13,6 @@ import WSAPIURL from '/wsapi.js';
 import FindedAndSavedOffers from '/src/elems/finded_and_saved_offers.jsx'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import { CSSTransition } from 'react-transition-group';
-import AnswerToPupilOffer from '/src/elems/answer_to_pupil_offer.jsx'
 
 
 function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
@@ -33,20 +32,20 @@ function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
     );
   }
 
-function OffersFromPupils() {
+function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer}) {
 
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-  const [answerToPupilOffer, setAnswerToPupilOffer] = useState(false);
-  const reftoAnswerToPupilOffer = useRef(null);
+  
 
-  const openAnswerToPupilOffer = () => {
+
+  const openAnswerToPupilOffer = (id) => {
     setAnswerToPupilOffer(true);
+    const item = data1.find(item => item.id === id);
+    setCurrentOffer(item);
   }
 
-  const closeAnswerToPupilOffer = () => {
-    setAnswerToPupilOffer(false);
-  }
+  
     useEffect(() => {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
@@ -200,7 +199,7 @@ function OffersFromPupils() {
 
   if (loading1) return;
   if (error1) return <p>Error: {error1}</p>;
-console.log(data1);
+//console.log(data1);
   return (
       <>
     {/*<div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>*/}
@@ -214,7 +213,7 @@ console.log(data1);
 
             return (<>
                 
-                {data1.map((data) => (
+                {data1.map((data, index) => (
 
                       <div className='find_pupils_offer' key={data.id}>
                         <p className='find_pupils_offer_name'>{data.name}</p>
@@ -235,7 +234,7 @@ console.log(data1);
                             <div className="offer_author_description">{data.about_myself}</div>
                         </div>
                         </Link>
-                        <button className='find_pupils_offer_button' onClick={openAnswerToPupilOffer}>
+                        <button className='find_pupils_offer_button' onClick={() => {openAnswerToPupilOffer(data.id)}}>
                       
                         </button>
                       </div>
@@ -246,17 +245,6 @@ console.log(data1);
       })()}
 
 <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
-
-<CSSTransition
-  in={answerToPupilOffer}
-  timeout={300}
-  classNames="deep_search_component_form"
-  unmountOnExit
-  nodeRef={reftoAnswerToPupilOffer}
->
-  <AnswerToPupilOffer ref={reftoAnswerToPupilOffer} closeSearch={closeAnswerToPupilOffer} />
-
-</CSSTransition>
 
 </>
 

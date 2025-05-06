@@ -1,6 +1,7 @@
 *{
     padding: 0px;
     margin: 0px;
+    -webkit-tap-highlight-color: transparent;
     font-family: 'Roboto', sans-serif;
     /*-webkit-user-select: none;
     -moz-user-select: none;
@@ -36,10 +37,21 @@ iframe{
     cursor: pointer;
     background-color: #ebebeb;
 }
+.find_pupils_offer_name_answer{
+    word-wrap: break-word;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.find_pupils_offer_description_answer{
+    word-wrap: break-word;
+    font-size: 16px;
+}
 .find_pupils_offer_name{
+    word-wrap: break-word;
     font-size: 30px;
 }
 .find_pupils_offer_description{
+    word-wrap: break-word;
     font-size: 16px;
     padding: 20px;
 }
@@ -1148,5 +1160,8 @@ a{
     }
     .header_of_review {
         font-size: 5.714285714285714vw;
+    }
+    .ime {
+        top: 1.9047619047619047vw;
     }
 }

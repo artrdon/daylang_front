@@ -28,7 +28,7 @@
     position: relative; cursor: pointer; padding-left: 90px; padding-right: 80px; margin-top: 10px;
 }
 .message_chat_name{
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; width: calc(100% - 240px); margin-left: 10px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; width: calc(100% - 240px); margin-left: 10px; font-size: 16px;
 }
 .message_comp_my_message{
     margin-top: 40px; margin-bottom: 20px; position: relative; display: block; transform: scale(-1, 1); z-index: 1;
@@ -352,6 +352,19 @@ div *::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 525px)
 {
+    .place_of_mess {
+        height: calc(100vh - 38.095238095vw);
+        padding-top: 7.619047619vw;
+    }
+    .message_chat_name {
+        width: calc(100% - 45.714285714vw);
+        margin-left: 1.9047vw;
+        font-size: 3.0476190476190476vw;
+    }
+    .message_comp_my_message {
+        margin-top: 7.619047619vw;
+        margin-bottom: 3.809523809vw;
+    }
     .create_chat_button{
         height: 9.5238vw;
         position: absolute;

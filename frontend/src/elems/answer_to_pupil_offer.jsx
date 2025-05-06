@@ -6,7 +6,26 @@ import Calendar from 'react-calendar';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
-function AnswerToPupilOffer({closeSearch, ref}) {
+
+function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
+  const [imgSrc, setImgSrc] = useState(src);
+
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className="find_pupils_offer_info_about_chel_img"
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
+
+
+function AnswerToPupilOffer({closeSearch, ref, currentOffer}) {
 
   const params = useParams();
   
@@ -23,67 +42,41 @@ return (
     <div className="deep_search_component_close_search" onClick={closeSearch}></div>
     <div className="deep_search_component_form" ref={ref}>
         <div className="deep_search_component_form_title">
-            <p id="form-title" className="deep_search_component_upper_title">Deep search</p>
+            <p id="form-title" className="deep_search_component_upper_title">Answer to offer</p>
         </div>
         <div className="deep_search_component_div_under_title">
             <div className="deep_search_component_div_under_title_fields">
               <div style={{height: "calc(100% - 70px)", }}>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <div className="crt_offer_blank">
-                          <div className="finded_crt_offer_name_of_fields">
-                            <span>Format</span>
-                          </div>
-                          <select id="formate" className="finded_setting_language_selector" onChange={handleChange} value={data2.format} name="format">
-                            <option id="ind" value="individual">Individual</option>
-                            <option id="gro" value="group">Group</option>
-                          </select>
-
-                          <div className="finded_crt_offer_name_of_fields">
-                            <span>Target</span>
-                          </div>
-                          <select id="target" className="finded_setting_language_selector" onChange={handleChange} value={data2.target} name="target">
-                            <option id="exam" value="exam">Exam</option>
-                            <option id="selfdev" value="self_development">Self development</option>
-                            <option id="trav" value="travelling">Travelling</option>
-                          </select>
-
-                          <div className="finded_crt_offer_name_of_fields">
-                            <span>Age</span>
-                          </div>
-                          <select id="age" className="finded_setting_language_selector" onChange={handleChange} value={data2.age} name="age">
-                            <option id="5-12" value="5-12">5-12</option>
-                            <option id="13-17" value="13-17">13-17</option>
-                            <option id="18-30" value="18-30">18-30</option>
-                            <option id="31+" value="31+">31+</option>
-                            <option id="all" value="all">all</option>
-                          </select>
-
-                          <div className="finded_crt_offer_name_of_fields">
-                            <span>I have microphone</span>
-                          </div>
-                          <select id="microphone" className="finded_setting_language_selector" onChange={handleChange} value={data2.microphone} name="microphone">
-                            <option id="yes" value="yes">Yes</option>
-                            <option id="no" value="no">No</option>
-                          </select>
-
-                          <div className="finded_crt_offer_name_of_fields">
-                            <span>min price</span>
-                          </div>
-                          <input maxLength={30} placeholder={"min price"} name="price_min" type="number" min="0" max="1000000" className="finded_input_field_name" onChange={handleChange} value={data2.price_min}/>
-                          <div className="finded_crt_offer_name_of_fields">
-                            <span>max price</span>
-                          </div>
-                          <input maxLength={30} placeholder={"max price"} name="price_max" type="number" min="0" max="1000000" className="finded_input_field_name" onChange={handleChange} value={data2.price_max}/>
+                        <p className='find_pupils_offer_name_answer'>{currentOffer.name}</p>
+                        <p className='find_pupils_offer_description_answer'>{currentOffer.description}</p>
+                        <div className='find_pupils_offer_price_currency'>₽</div>
+                        <div className='find_pupils_offer_price'>{currentOffer.price_min} - {currentOffer.price_max} ₽</div>
+                        <div className='find_pupils_offer_time_logo'>t</div>
+                        <div className='find_pupils_offer_time'> {currentOffer.time} минут</div>
+                        <Link to={`/p/user/${currentOffer.username}/`}>
+                        <div className='find_pupils_offer_info_about_chel'>
+                            <ImageWithFallbackAuthor src={currentOffer.photo} alt={currentOffer.username} fallbackSrc="/src/static/img/nema.png"/>
+                            <div className="offer_author_name_div">
+                                <span className="ime offer_author_name_span" translate="no">
+                                {currentOffer.first_name} {currentOffer.last_name}
+                                </span>
+                                {currentOffer.real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
+                            </div>
+                            <div className="offer_author_description">{currentOffer.about_myself}</div>
                         </div>
-                      </div>
+                        </Link>
+                        </div>
+                    </div>
               </div>
               
             </div>
-            <a href={`/finded/${params.language}/${data2.format}/${data2.target}/${data2.age}/${data2.microphone}/${data2.price_min}/${data2.price_max}/`}>
+            <button style={{width: "100%", backgroundColor: "#00000000"}}>
               <div className="deep_search_component_button">
                 <p className="deep_search_component_button_text">Find</p>
               </div>
-            </a>
+            </button>
         </div>
     </div>
 </div>
