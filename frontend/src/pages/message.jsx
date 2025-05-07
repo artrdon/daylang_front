@@ -311,24 +311,6 @@ const messChange = (idd) => {
       staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
-  
-
-
-    
-
-    const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
-      queryKey: ['offerinfo_bychat', params.id], // Уникальный ключ запроса
-      queryFn: async () => {
-        const response = await axios.get(`${APIURL}/offerinfo_bychat/${params.id}/`);
-        return response.data; // Возвращаем только данные
-      },
-      // Опциональные параметры:
-      retry: 2, // Количество попыток повтора при ошибке
-      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-    });
-  
-
 
     const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
       queryKey: ['getmessagelist', params.id], // Уникальный ключ запроса
@@ -380,7 +362,7 @@ const add_smile = (par) => {
         if (document.getElementById("mess").innerText != ""){
             message.text = document.getElementById("mess").innerText.replace(/\s+/g, ' ').trim();
             if (message.text === " " || message.text === "")
-                return 0;
+                return;
 
 
             const g = document.getElementById("mess").innerText.replace(/\s+/g, ' ').trim();
@@ -629,7 +611,7 @@ const add_smile = (par) => {
       </div>
     </div>
 
-      {ifBye && <DoBye setdate={setDate7} date={date7} removeDataSetter={removeDataSetter} am_teach={data.i_am_teacher} name_of_offer={data3.name_of_offer} price={data3.price} photo={data3.photo} review_score={data3.review_score} description={data3.description}/>}
+      {ifBye && !data.i_am_teacher && <DoBye setdate={setDate7} date={date7} removeDataSetter={removeDataSetter}/>}
 
 
 </>

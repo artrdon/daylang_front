@@ -202,7 +202,6 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
 //console.log(data1);
   return (
       <>
-    {/*<div className="offer_of_lang_finded_sort_panel" onClick={openSearch}></div>*/}
 {(() => {
         if (data1.length === 0) {
             return (<>
@@ -264,7 +263,6 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
         }
       })()}
 
-<div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 
 </>
 

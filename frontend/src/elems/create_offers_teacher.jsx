@@ -11,7 +11,14 @@ import WSAPIURL from '/wsapi.js';
 
 function CreateOffersTeacher({arrLang, lang, Lang}) {
     const navigate = useNavigate();
-    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '', beggin_time_of_work: "8", end_time_of_work: "16", workday: ''});
+    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '', beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
+    const setLessonTime = (e) => {
+      setData(prevData => ({
+        ...prevData,
+        lesson_time: e
+    }));
+    console.log(data.lesson_time);
+    }
     
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -54,11 +61,31 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
     const [components, setComponents] = useState([]);
   
     const AddTimeToBye = () =>{
-      const newComponent = {
-        time: document.getElementById("input_time_to_a").value,
-        price: data.price,
-      };
-      setComponents((components) => [...components, newComponent]);
+      let time_to_work = 60 * (Number(data.end_time_of_work) - Number(data.beggin_time_of_work));
+      const lesson_time = Number(data.lesson_time);
+      const break_betwen_lessons = Number(data.break_betwen_lessons);
+      let array_of_components = [];
+      let beg_time = Number(data.beggin_time_of_work) * 60;
+      let end_time = Number(data.end_time_of_work) * 60;
+      console.log(time_to_work);
+      for (let i = 0; i < time_to_work; time_to_work -= (lesson_time + break_betwen_lessons)){
+        if (time_to_work - lesson_time >= 0){
+          if (beg_time + lesson_time > end_time){
+            break;
+          }
+          let beg_time_hour = Math.floor(beg_time / 60);
+          let beg_time_minute = beg_time % 60;
+          let end_time_hour = Math.floor((beg_time + lesson_time) / 60);
+          let end_time_minute = (beg_time + lesson_time) % 60;
+          const newComponent = {
+            time: `${beg_time_hour}:${beg_time_minute} - ${end_time_hour}:${end_time_minute}`,
+            price: data.price,
+          };
+          array_of_components.push(newComponent);
+          beg_time += lesson_time + break_betwen_lessons;
+        }
+      }
+      setComponents(array_of_components);
       return;
     }
 
@@ -110,7 +137,12 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
           formData.append('age', data.age);
           formData.append('microphone', data.microphone);
           formData.append('message', data.message);
-          formData.append('img', file);  // 'img' должно совпадать с именем на бэкенде
+          formData.append('img', file);  
+          formData.append('workday', data.workday);
+          formData.append('beggin_time_of_work', data.beggin_time_of_work);
+          formData.append('end_time_of_work', data.end_time_of_work);
+          formData.append('lesson_time', data.lesson_time);
+          formData.append('break_betwen_lessons', data.break_betwen_lessons);
   
           
           try {
@@ -253,77 +285,79 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
             <div className="crt_offer_name_of_fields">
               <span>work</span>
             </div>
-            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Monday">Mo</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Tuesday">Tu</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Wednesday">We</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Thirsday">Th</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Friday">Fr</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Saturday">Sa</button>
-              <button style={{width: "calc(100%/7 - 20px)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={ChangeWorkDay} name="Sunday">Su</button>
+            <div className='crt_offer_work_day_div'>
+              <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Monday">Mo</button>
+              <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Tuesday">Tu</button>
+              <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Wednesday">We</button>
+              <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Thirsday">Th</button>
+              <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Friday">Fr</button>
+              <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Saturday">Sa</button>
+              <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Sunday">Su</button>
             </div>
-            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
-              <select id="beggin_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} name="beggin_time_of_work"  onChange={handleChange} value={data.beggin_time_of_work}>
-                <option id="0hb" value="0">0</option>
-                <option id="1hb" value="1">1</option>
-                <option id="2hb" value="2">2</option>
-                <option id="3hb" value="3">3</option>
-                <option id="4hb" value="4">4</option>
-                <option id="5hb" value="5">5</option>
-                <option id="6hb" value="6">6</option>
-                <option id="7hb" value="7">7</option>
-                <option id="8hb" value="8">8</option>
-                <option id="9hb" value="9">9</option>
-                <option id="10hb" value="10">10</option>
-                <option id="11hb" value="11">11</option>
-                <option id="12hb" value="12">12</option>
-                <option id="13hb" value="13">13</option>
-                <option id="14hb" value="14">14</option>
-                <option id="15hb" value="15">15</option>
-                <option id="16hb" value="16">16</option>
-                <option id="17hb" value="17">17</option>
-                <option id="18hb" value="18">18</option>
-                <option id="19hb" value="19">19</option>
-                <option id="20hb" value="20">20</option>
-                <option id="21hb" value="21">21</option>
-                <option id="22hb" value="22">22</option>
-                <option id="23hb" value="23">23</option>
+            <div className='crt_offer_work_day_div'>
+              <select id="beggin_time_of_work" className='crt_offer_work_day_select' name="beggin_time_of_work"  onChange={handleChange} value={data.beggin_time_of_work}>
+                <option id="0hb" value="0">00:00</option>
+                <option id="1hb" value="1">01:00</option>
+                <option id="2hb" value="2">02:00</option>
+                <option id="3hb" value="3">03:00</option>
+                <option id="4hb" value="4">04:00</option>
+                <option id="5hb" value="5">05:00</option>
+                <option id="6hb" value="6">06:00</option>
+                <option id="7hb" value="7">07:00</option>
+                <option id="8hb" value="8">08:00</option>
+                <option id="9hb" value="9">09:00</option>
+                <option id="10hb" value="10">10:00</option>
+                <option id="11hb" value="11">11:00</option>
+                <option id="12hb" value="12">12:00</option>
+                <option id="13hb" value="13">13:00</option>
+                <option id="14hb" value="14">14:00</option>
+                <option id="15hb" value="15">15:00</option>
+                <option id="16hb" value="16">16:00</option>
+                <option id="17hb" value="17">17:00</option>
+                <option id="18hb" value="18">18:00</option>
+                <option id="19hb" value="19">19:00</option>
+                <option id="20hb" value="20">20:00</option>
+                <option id="21hb" value="21">21:00</option>
+                <option id="22hb" value="22">22:00</option>
+                <option id="23hb" value="23">23:00</option>
               </select>
-              <select id="end_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} name="end_time_of_work" onChange={handleChange} value={data.end_time_of_work}>
-                <option id="0he" value="0">0</option>
-                <option id="1he" value="1">1</option>
-                <option id="2he" value="2">2</option>
-                <option id="3he" value="3">3</option>
-                <option id="4he" value="4">4</option>
-                <option id="5he" value="5">5</option>
-                <option id="6he" value="6">6</option>
-                <option id="7he" value="7">7</option>
-                <option id="8he" value="8">8</option>
-                <option id="9he" value="9">9</option>
-                <option id="10he" value="10">10</option>
-                <option id="11he" value="11">11</option>
-                <option id="12he" value="12">12</option>
-                <option id="13he" value="13">13</option>
-                <option id="14he" value="14">14</option>
-                <option id="15he" value="15">15</option>
-                <option id="16he" value="16">16</option>
-                <option id="17he" value="17">17</option>
-                <option id="18he" value="18">18</option>
-                <option id="19he" value="19">19</option>
-                <option id="20he" value="20">20</option>
-                <option id="21he" value="21">21</option>
-                <option id="22he" value="22">22</option>
-                <option id="23he" value="23">23</option>
+              <select id="end_time_of_work" className='crt_offer_work_day_select' name="end_time_of_work" onChange={handleChange} value={data.end_time_of_work}>
+                <option id="0he" value="0">00:00</option>
+                <option id="1he" value="1">01:00</option>
+                <option id="2he" value="2">02:00</option>
+                <option id="3he" value="3">03:00</option>
+                <option id="4he" value="4">04:00</option>
+                <option id="5he" value="5">05:00</option>
+                <option id="6he" value="6">06:00</option>
+                <option id="7he" value="7">07:00</option>
+                <option id="8he" value="8">08:00</option>
+                <option id="9he" value="9">09:00</option>
+                <option id="10he" value="10">10:00</option>
+                <option id="11he" value="11">11:00</option>
+                <option id="12he" value="12">12:00</option>
+                <option id="13he" value="13">13:00</option>
+                <option id="14he" value="14">14:00</option>
+                <option id="15he" value="15">15:00</option>
+                <option id="16he" value="16">16:00</option>
+                <option id="17he" value="17">17:00</option>
+                <option id="18he" value="18">18:00</option>
+                <option id="19he" value="19">19:00</option>
+                <option id="20he" value="20">20:00</option>
+                <option id="21he" value="21">21:00</option>
+                <option id="22he" value="22">22:00</option>
+                <option id="23he" value="23">23:00</option>
               </select>
             </div>
-            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
-              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>00:30</button>
-              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>01:00</button>
-              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>01:30</button>
-              <button style={{width: "calc(100%/4 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}}>02:00</button>
+            <div className='crt_offer_work_day_div'>
+            <select id="lesson_time" className='crt_offer_work_day_select' name="lesson_time" onChange={handleChange} value={data.lesson_time}>
+                <option id="30lesson" value="30">30</option>
+                <option id="60lesson" value="60">60</option>
+                <option id="90lesson" value="90">90</option>
+                <option id="120lesson" value="120">120</option>
+              </select>
             </div>
-            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
-              {/*<select id="end_time_of_work" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} name="end_time_of_work" onChange={handleChange} value={data.end_time_of_work}>
+            <div className='crt_offer_work_day_div'>
+              <select id="break_betwen_lessons" className='crt_offer_work_day_select' name="break_betwen_lessons" onChange={handleChange} value={data.break_betwen_lessons}>
                 <option id="10min" value="10">10</option>
                 <option id="20min" value="20">20</option>
                 <option id="30min" value="30">30</option>
@@ -332,18 +366,16 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
                 <option id="60min" value="60">60</option>
                 <option id="90min" value="90">90</option>
                 <option id="120min" value="120">120</option>
-              </select>*/}
-              <input type="time" name="" id="input_time_to_a" style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, border: 0, color: "white", fontSize: 20, borderRadius: 5, outline: "none"}} step="1800"/>
-              <button style={{width: "calc(100%/2 - 20px)", height: 50, backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5}} onClick={AddTimeToBye}>Add</button>
+              </select>
+              {/*<input type="time" name="" id="input_time_to_a" className='' step="1800"/>*/}
+              <button className='crt_offer_work_day_add_button' onClick={AddTimeToBye}>Add</button>
             </div>
-            <div style={{width: 550, height: 50, display: "block", marginLeft: "auto", marginRight: "auto", marginTop: 50, marginBottom: 50}}>
-                {components.map((component) => ( 
-                  <>
-                      <button style={{width: "calc(100%/6)", height: "auto", aspectRatio: "1/1", backgroundColor: "#181818", margin: 10, color: "white", fontSize: 20, borderRadius: 5, padding: 10}} onClick={ChangeWorkDay} name="Monday">
+            <div className='crt_offer_work_day_div_work_grafic'>
+                {components.map((component, index) => ( 
+                      <div className='crt_offer_work_day_work_grafic' onClick={ChangeWorkDay} name="Monday" key={index}>
                         <span>{component.time}</span>
                         <div>{component.price} ₽</div>
-                      </button>
-                  </>
+                      </div>
                   ))}
               
             </div>

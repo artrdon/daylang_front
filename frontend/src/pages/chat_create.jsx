@@ -238,7 +238,7 @@ useEffect(() => {
   );
     if (error3) return <p>Error: {error3}</p>;
 
-
+console.log(data3);
 
     return (
         <>
@@ -275,7 +275,7 @@ useEffect(() => {
                       </Link>
                     <div className='message_comp_my_message_div'>
                     <pre className='message_comp_not_my_message_inside_pre'>
-                      {data3.message}
+                      {data3[0].message}
                       <div>
                         <span className='message_comp_my_message_inside_readed'>✓✓ </span>
                         <span className='message_comp_my_message_inside_readed'>{hours}:{minutes}</span>

@@ -11,7 +11,7 @@ import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import AnswersToMyOffers from '/src/elems/answers_to_my_offers.jsx';
-
+import FutureLessons from '/src/elems/future_lessons.jsx';
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -189,7 +189,7 @@ else{
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
 
-        
+        <FutureLessons/>
 
       </div>
     </div>

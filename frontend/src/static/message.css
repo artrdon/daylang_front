@@ -60,9 +60,7 @@
 .message_comp_not_my_message_inside_pre{
     font-size: 18px; position: relative; padding: 10px; background-color: rgb(120 120 120); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; left: 60px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer;
 }
-.message_comp_not_my_message{
-    margin-top: 40px; margin-bottom: 20px; position: relative; display: block; z-index: 1
-}
+
 .message_comp_message_inside_chan{
     font-size: 12px; position: relative; margin-left: 10px; bottom: 0px;
 }
@@ -352,9 +350,21 @@ div *::-webkit-scrollbar-thumb {
 
 @media only screen and (max-width: 525px)
 {
+    .message_comp_not_my_message{
+        margin-top: 7.619047619vw; margin-bottom: 3.8095238095238098vw;
+    }
     .place_of_mess {
         height: calc(100vh - 38.095238095vw);
         padding-top: 7.619047619vw;
+    }
+    .message_korzina {
+        margin-top: 0.95238095238vw;
+        width: 15.238095238vw;
+        height: 11.428571428vw;
+    }
+    .message_korzina_img {
+        height: 11.428571428vw;
+        padding-left: 2.857142857vw;
     }
     .message_chat_name {
         width: calc(100% - 45.714285714vw);
@@ -367,14 +377,11 @@ div *::-webkit-scrollbar-thumb {
     }
     .create_chat_button{
         height: 9.5238vw;
-        position: absolute;
         right: 5.7142vw;
-        display: inline-block;
-        outline: none;
-        width: calc(100% - 11.4285vw); border-radius: 3.8095vw; background-color: #00c925; border: 0.3809vw solid #00db1f
+        width: calc(100% - 11.4285vw); border-radius: 3.8095vw;
     }
     .create_chat_button_text{
-        color: white; font-size: 5.7142vw;
+        font-size: 5.7142vw;
     }
     .goback_but{
         margin-left: 1.9047vw;

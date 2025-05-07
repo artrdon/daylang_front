@@ -1089,6 +1089,7 @@ a{
     .find_page_up_button_el {
         padding: 1.9047619047619047vw;
         font-size: 3.8095238095238095vw;
+        margin: 0.95238095238vw;
     }
     .find_pupils_offer_name_answer {
         font-size: 5.714285714285714vw;
