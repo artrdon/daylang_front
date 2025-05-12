@@ -374,6 +374,10 @@ const save_to_fav = async (e) => {
 
     //    setPhotoArray(photos);
       } catch (err) {
+        if (err.response?.status === 404) {
+          window.location.href = '/not_found/'; // Более предпочтительно чем replace
+          return;
+        }
         setError1(err.message);
       } finally {
         setLoading1(false);

@@ -92,9 +92,11 @@ function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username
     
         document.addEventListener('touchend', () => {
           end = event.changedTouches[0].clientX;
-          let delta = end - start;
+          let delta = start - end;
+          //console.log(delta);
           if (delta > 40) {
             setshowOtherInNav(false);
+            document.querySelector('body').style.overflow = 'auto';
           }
         });
       }, []);

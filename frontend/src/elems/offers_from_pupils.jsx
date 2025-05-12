@@ -41,6 +41,7 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
 
   const openAnswerToPupilOffer = (id) => {
     setAnswerToPupilOffer(true);
+    document.querySelector('body').style.overflow = 'hidden';
     const item = data1.find(item => item.id === id);
     setCurrentOffer(item);
   }

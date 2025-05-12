@@ -59,14 +59,21 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
 
   const nodeRef = useRef(null);
   const [showOtherInNav, setshowOtherInNav] = useState(false);
+  const [showDesktopPanel, setshowDesktopPanel] = useState(false);
+
+  const ShowDesktop = () =>{
+    setshowDesktopPanel(!showDesktopPanel);
+  }
 
   const showNav = () =>{
     if (showOtherInNav)
     {
       setshowOtherInNav(false);
+      document.querySelector('body').style.overflow = 'auto';
     }
     else{
       setshowOtherInNav(true);
+      document.querySelector('body').style.overflow = 'hidden';
     }
   }
 
@@ -76,7 +83,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
         createHTML: (html) => html.replace(/<iframe[^>]*onload\s*=[^>]+>/gi, ''),
         createScriptURL: url => url.replace(/javascript:/gi, 'blocked:')
     });
-}
+  }
 
 
 
@@ -230,18 +237,33 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
                 ) :
               (
               if_teach === true ? (
-          <Link to={`/t/user/${username}/`}>
-              <div className="my_account_panel">
-                <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
-              </div>
-            </Link>
+          //<Link to={`/t/user/${username}/`}>
+            <>
+              <button onClick={ShowDesktop}>
+                <div className="my_account_panel">
+                  <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+                </div>
+              </button>
+              {showDesktopPanel &&
+                <div className='show_nav_in_desktop'>
+                  <div className='show_nav_in_desktop_section'>
+
+                  </div>
+                </div>
+              }
+            </>
+            //</Link>
+
                 ) :
               (
-              <Link to={`/p/user/${username}/`}>
+              //<Link to={`/p/user/${username}/`}>
+                <button onClick={ShowDesktop}>
                   <div className="my_account_panel">
                     <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
                   </div>
-                </Link>
+                </button>
+                  
+                //</Link>
                 )
                 )
 

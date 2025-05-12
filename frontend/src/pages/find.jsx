@@ -16,10 +16,8 @@ import { CSSTransition } from 'react-transition-group';
 
 
 function Find() {
-    const [groups, setGroup] = useState([]);
     const [answerToPupilOffer, setAnswerToPupilOffer] = useState(false);
     const reftoAnswerToPupilOffer = useRef(null);
-    const [ws, setWs] = useState(null);
     const websocket = useWebSocket();
     const [messNumb, setMessNumb] = useState(websocket.messNumb);
     const [page, setPage] = useState(0);
@@ -31,6 +29,7 @@ function Find() {
 
     const closeAnswerToPupilOffer = () => {
       setAnswerToPupilOffer(false);
+      document.querySelector('body').style.overflow = 'unset';
     }
 
     document.querySelector("title").textContent = "DayLang";

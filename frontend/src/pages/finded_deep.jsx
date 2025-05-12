@@ -108,9 +108,11 @@ var arrLang = {
     const [search, setSearch] = useState(false);
     const openSearch = () =>{
       setSearch(true);
+      document.querySelector('body').style.overflow = 'hidden';
     }
     const closeSearch = () =>{
       setSearch(false);
+      document.querySelector('body').style.overflow = 'auto';
     }
     
     document.querySelector("title").textContent = "Offers";

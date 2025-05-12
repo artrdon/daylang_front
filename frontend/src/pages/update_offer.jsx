@@ -70,8 +70,20 @@ function UpdateOffer() {
     const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
       queryKey: ['getting_offer_to_update', params.index], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/offer/get_offer_to_update/${params.index}/`);
-        return response.data; // Возвращаем только данные
+        try{
+          const response = await axios.get(`${APIURL}/offer/get_offer_to_update/${params.index}/`);
+          if (response?.status === 404) {
+            window.location.href = '/not_found/'; // Более предпочтительно чем replace
+            return;
+          }
+          return response.data; 
+        } catch (error) {
+          if (error.response?.status === 404) {
+            window.location.href = '/not_found/'; // Более предпочтительно чем replace
+            return;
+          }
+        }
+        // Возвращаем только данные
       },
       // Опциональные параметры:
       retry: 2, // Количество попыток повтора при ошибке
@@ -106,6 +118,7 @@ function UpdateOffer() {
 
   );
   if (error2) return <p>Error: {error2}</p>;
+  
   if (data2 === 'unauthenticated_ttt')
   {
       window.location.replace(`/forbidden/`);
