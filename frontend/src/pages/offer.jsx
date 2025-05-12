@@ -303,6 +303,11 @@ axios.defaults.withCredentials = true;
 const save_to_fav = async (e) => {
 
             e.preventDefault();
+        if (data.username === undefined)
+        {
+            window.location.replace(`/log/`);
+            return;
+        }
         try {
             const response = await axios.post(`${APIURL}/save_to_fav/`, favor, {
                 headers: {
@@ -335,33 +340,6 @@ const save_to_fav = async (e) => {
     staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
     refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
   });
-
-  
-  const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
-    queryKey: [`userinfo_author`, params.username], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/userinfo/${params.username}/`);
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
-
-    
-  const {  data: data7, isLoading: loading7, isError: error7, error: errorDetails7 } = useQuery({
-    queryKey: [`user_settings_author`, params.username], // Уникальный ключ запроса
-    queryFn: async () => {
-      const response = await axios.get(`${APIURL}/usersettings/${params.username}/`);
-      return response.data; // Возвращаем только данные
-    },
-    // Опциональные параметры:
-    retry: 2, // Количество попыток повтора при ошибке
-    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-  });
-
     
   const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
     queryKey: [`reviews_two_offer`, params.id], // Уникальный ключ запроса
@@ -375,45 +353,12 @@ const save_to_fav = async (e) => {
     refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
   });
 
-
-  const getMeta = (url, cb) => {
-    const img = new Image();
-    img.onload = () => cb(null, img);
-    img.onerror = (err) => cb(err);
-    img.src = url;
-  };
-  
     useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
         setData1(response.data);
         setIsfav(response.data[0].isFav);
-        console.log(response.data);
-        console.log(response.data[0].photo, response.data[1]);
-              // Обрабатываем первое фото
-      /*const firstPhotoMeta = await new Promise(resolve => {
-        getMeta(response.data[0].photo, (err, img) => {
-          resolve({
-            photo: response.data[0].photo,
-            h_or_w: img.naturalWidth >= img.naturalHeight ? "w" : "h"
-          });
-        });
-      });
-
-      // Обрабатываем остальные фото
-      const otherPhotosMeta = await Promise.all(
-        response.data[1].map(item => new Promise(resolve => {
-          getMeta(item.photo, (err, img) => {
-            resolve({
-              photo: item.photo,  // Исправлено: было response.data[0].photo
-              h_or_w: img.naturalWidth >= img.naturalHeight ? "w" : "h"
-            });
-          });
-        }))
-      );
-*/
-      console.log(response.data[1].length);
       if (response.data[1] != null && response.data[1] != undefined && response.data[1].length > 0)
       {
         let photos = [];
@@ -461,17 +406,6 @@ const save_to_fav = async (e) => {
   );
   if (error1) return <p>Error: {error1}</p>;
 
-  if (loading2) return (
-      <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
-      <Offer_load/>
-
-</>
-
-  );
-  if (error2) return <p>Error: {error2}</p>;
-
-
   if (loading3) return (
       <>
       <AppLoad lang={langua} messNumb={messNumb}/>
@@ -482,20 +416,8 @@ const save_to_fav = async (e) => {
   );
   if (error3) return <p>Error: {error3}</p>;
 
-    if (loading7) return (
-      <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
-      <Offer_load/>
-</>
-
-  );
-  if (error7) return <p>Error: {error7}</p>;
-
-
     document.querySelector("title").textContent = `${data1[0].name}`;
     document.querySelector("meta[name='description']").content = `${data1[0].description}`;
-    
-
     
     return (
         <>
@@ -595,17 +517,17 @@ const save_to_fav = async (e) => {
     </div>
     <div className="div_description" id="phone">
       <AnimatedExpandableTextPhone text={data1[0].description} />
-      <Link to={`/t/user/${data2.username}/`}>
+      <Link to={`/t/user/${data1[0].username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
-          <ImageWithFallbackAuthor src={data2.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+          <ImageWithFallbackAuthor src={data1[0].chel_photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
           <div className="offer_author_name_div">
             <span className="ime offer_author_name_span" translate="no">
-              {data2.first_name} {data2.last_name}
+              {data1[0].first_name} {data1[0].last_name}
             </span>
-            {data2.real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
+            {data1[0].real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
           </div>
-          <div className="offer_author_description">{data7.about_myself}</div>
+          <div className="offer_author_description">{data1[0].about_myself}</div>
         </div>
       </div>
   </Link>
@@ -622,7 +544,7 @@ const save_to_fav = async (e) => {
           {data1[0].review}
         </h1>
         {data1[0].itsme === false && !data3[1] ? (
-          <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']}/>
+          <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']} username={data.username}/>
                 ) : (
                   <UpReviewBlock />
                         )}
@@ -645,21 +567,21 @@ const save_to_fav = async (e) => {
   </div>
   <div className="div_description" id="comp">
     <AnimatedExpandableText text={data1[0].description} />
-    <Link to={`/t/user/${data2.username}/`}>
+    <Link to={`/t/user/${data1[0].username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
           <img
-            src={data2.photo}
+            src={data1[0].chel_photo}
             alt="pupil"
             className="img_of_autor_mes"
           />
           <div className="offer_author_name_div">
             <span className="ime offer_author_name_span" translate="no">
-              {data2.first_name} {data2.last_name}
+              {data1[0].first_name} {data1[0].last_name}
             </span>
-            {data2.real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
+            {data1[0].real_man && <img src="/src/static/img/confirmed.png" alt="confirm" className="offer_me_real_pers" />}
           </div>
-          <div className="offer_author_description">{data7.about_myself}</div>
+          <div className="offer_author_description">{data1[0].about_myself}</div>
         </div>
       </div>
   </Link>

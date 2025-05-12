@@ -27,6 +27,7 @@ import MyLessons from '/src/pages/my_lessons.jsx'
 import App from './App.jsx'
 import Call from '/src/pages/call.jsx'
 import Finded_deep from './pages/finded_deep.jsx'
+import Forbidden from './pages/forbidden.jsx';
 import pers from '/src/static/docks/pryvacy.pdf'
 import CallbackHandler from './pages/yandex_call_back.jsx'
 import WebSocketProvider from './once/web_socket_provider.jsx'
@@ -64,6 +65,7 @@ export default function Epp(){
             <Route path='/my_lessons/' element={<MyLessons />} />
             <Route path='/support/' element={<MyLessons />} />
             <Route path="/call/:id/" element={<Call />}/>
+            <Route path="/forbidden/" element={<Forbidden />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     

@@ -55,8 +55,8 @@ function NotFoundSave({ iwant }) {
 
     return (
             <>
-            <div style={{width: "100%", height: 300, display: "flex", justifyContent: "center"}}>
-                <h1 style={{marginTop: 50,}}>{arrLang[lang][iwant]}</h1>
+            <div className='not_found_no_yet'>
+                <p className='not_found_no_yet_font'>{arrLang[lang][iwant]}</p>
             </div>
         </>
     )

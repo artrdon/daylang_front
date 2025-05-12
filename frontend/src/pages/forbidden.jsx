@@ -9,7 +9,7 @@ import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
-function NotFound() {
+function Forbidden() {
 
     
   const [groups, setGroup] = useState([0]);
@@ -20,7 +20,7 @@ function NotFound() {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
 
-  document.querySelector("title").textContent = `404`;
+  document.querySelector("title").textContent = `403`;
 
 axios.defaults.withCredentials = true;
 
@@ -77,7 +77,7 @@ return (
 <div className="find_panel not_found_all_container_404_positing" >
     <div className='not_found_all_container_404'>
         <div className='not_found_font_404'>
-            404
+            403
         </div>
     </div>
 </div>
@@ -85,4 +85,4 @@ return (
 )
 }
 
-export default NotFound
+export default Forbidden

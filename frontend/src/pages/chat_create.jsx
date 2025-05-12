@@ -182,6 +182,11 @@ useEffect(() => {
 }, []);
 
   const sendpost = async () => {
+    if (data2.username === undefined)
+    {
+        window.location.replace(`/log/`);
+        return;
+    }
     if (wsGroup && wsGroup.readyState === WebSocket.OPEN) {
       wsGroup.send(JSON.stringify({ type: "create_chat", message: message }));
       //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
@@ -238,11 +243,10 @@ useEffect(() => {
   );
     if (error3) return <p>Error: {error3}</p>;
 
-console.log(data3);
 
     return (
         <>
-        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+        <AppMess name={data2.first_name} lastname={data2.last_name} username={data2.username} lang={langua} if_teach={data2.i_am_teacher} mess_count={messNumb} photo={data2.photo} balance={data2.balance}/>
  
     <div className="message_find_panel">
       <div style={{ display: "flex", justifyContent: "center" }}>

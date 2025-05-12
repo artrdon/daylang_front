@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, React, Fragment } from 'react';
 import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
@@ -426,7 +426,11 @@ const add_smile = (par) => {
 
   );
     if (error2) return <p>Error: {error2}</p>;
-
+    if (data2 === 'output')
+    {
+        window.location.replace(`/forbidden/`);
+        return;
+    }
 
   if (loading12) return (
       <>
@@ -435,7 +439,6 @@ const add_smile = (par) => {
 
   );
   if (error12) return <p>Error: {error12}</p>;
-
     return (
         <>
         <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
@@ -454,7 +457,7 @@ const add_smile = (par) => {
 
     {(() => {
         if (data2.length != undefined) {
-            return (<>
+            return (
 
             <Link to={`/${data2[0].offerer}/offer/${data2[0].offer_id}/`}>
                 <div className='message_chat_info_div'>
@@ -481,10 +484,10 @@ const add_smile = (par) => {
                       {isTyping && <div style={{fontSize: 15, color: "white", marginLeft: 60, marginTop: -22}}>typing...</div>}
                 </div>
             </Link>
-            </>);
+            );
         }
     else{
-        return (<>
+        return (
 
          <Link to={`/${data2.offerer}/offer/${data2.offer_id}/`}>
                 <div className='message_chat_info_div'>
@@ -498,7 +501,7 @@ const add_smile = (par) => {
                   </span>
                 </div>
               </Link>
-         </>);
+         );
     }
       })()}
 
@@ -510,25 +513,26 @@ const add_smile = (par) => {
 
 
     {(() => {
-        if (data2.length != undefined) {
+        if (data2?.length > 0) {
           for (let i = 0; data2.length > i; i++){
             if (String(data2[i].minute).length === 1){
               data2[i].minute = "0" + String(data2[i].minute);
             }
           }
           
-          return (<>
-            <div style={{display: "flex", flexDirection: "column-reverse"}}>
+          return (
+            <div style={{display: "flex", flexDirection: "column-reverse"}} key={`divkey`}>
               {data2.map((da) => (
                 <>
-                <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link} call_id={da.call_id}/>
-                  {(() => {if (da.i_read){
-                    return <ScrollToBottom key={`keyscroll${da.id}`} />;
-                  }})()}
+                <Fragment key={`fragment-${da.id}`}>
+                  <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link} call_id={da.call_id}/>
+                  {da.i_read && <ScrollToBottom key={`keyscroll${da.id}`} />}
+                </Fragment>
+                
                 </>
               ))}
             </div>
-              </>);
+              );
             
         }
       })()}

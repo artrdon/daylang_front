@@ -146,14 +146,14 @@ function AnswersToMyOffers() {
   if (loading) return;
   if (error) return <p>Error: {error}</p>;
 
-  console.log(data);
   return (
       <>
 {(() => {
-        if (data.length === 0) {
-            return (<>
-                      <NotFoundSave iwant={"no_offers"}/>
-                </>)
+        if (!data.isArray) {
+          return <NotFoundSave iwant={"no_offers"}/>;
+        }
+        else if (data.length === 0) {
+          return <NotFoundSave iwant={"no_offers"}/>;
         }
         else{
 

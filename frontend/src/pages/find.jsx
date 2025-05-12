@@ -178,20 +178,15 @@ function Find() {
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
-
-{
-  page === 0 &&
-
-<div className="find_panel">
+<div className='find_panel'>
   <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className='find_page_up_button_el selected'>
+    <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
       teacher`s offers
     </button>
-    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
+    <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
       pupil`s offers
     </button>
   </div>
-  
   <div className="tag_select_panel">
     {/*<h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
     <p className='find_page_teacher_description'>
@@ -201,40 +196,14 @@ function Find() {
       <div className='find_page_div_of_offer_types'>
 
 
-        <Type_offer lang={lang}/>
+        {page === 0 && <Type_offer lang={lang}/>}
+        {page === 1 && <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer} ifteacher={data.i_am_teacher}/>}
 
       </div>
     </div>
   </div>
   <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 </div>
-
-}
-{
-  page === 1 &&
-
-<div className="find_panel">
-  <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
-      teacher`s offers
-    </button>
-    <button onClick={() => setPage(1)} className='find_page_up_button_el selected'>
-      pupil`s offers
-    </button>
-  </div>
-  <div className="tag_select_panel">
-    <div className='find_page_div_over_offer_types'>
-      <div className='find_page_div_of_offer_types'>
-
-        <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer} ifteacher={data.i_am_teacher}/>
-
-      </div>
-    </div>
-  </div>
-  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
-</div>
-
-}
 
 
 <CSSTransition

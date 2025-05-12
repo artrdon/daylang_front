@@ -68,7 +68,7 @@ else{
     queryKey: ['userinfo'], // Уникальный ключ запроса
     queryFn: async () => {
       const response = await axios.get(`${APIURL}/userinfo/`);
-      if (response.data === 'unauthenticated_ttt')
+      if (response.data == 'unauthenticated_ttt')
         window.location.replace('/log/');
       return response.data; // Возвращаем только данные
     },
@@ -112,7 +112,10 @@ else{
 
   );
   if (error) return <p>Error: {error}</p>;
-
+  if (data.username === undefined){
+    window.location.replace('/log/');
+    return;
+  }
 
   if (loading1) return (
       <>

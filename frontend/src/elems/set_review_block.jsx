@@ -7,7 +7,7 @@ import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
 
-function SetReviewBlock({set_rew, feedback}) {
+function SetReviewBlock({set_rew, feedback, username}) {
 
 
     function getCookie(name) {
@@ -19,9 +19,6 @@ function SetReviewBlock({set_rew, feedback}) {
     const csrfToken = getCookie('csrftoken');
     let params = useParams();
 
-    const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [review, setData4] = useState({user: params.username, offer: params.id, setter: '', score: '', text: ''});
   let sett = [];
     const [notScore, setNotScore] = useState(false);
@@ -40,6 +37,11 @@ axios.defaults.withCredentials = true;
     const handleSubmit = async (e) => {
 
             e.preventDefault();
+        if (username === undefined)
+        {
+            window.location.replace(`/log/`);
+            return;
+        }
         try {
             const response = await axios.post(`${APIURL}/reviews/`, review, {
                 headers: {

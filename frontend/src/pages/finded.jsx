@@ -105,11 +105,6 @@ function Finded() {
       if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-
-    const theme = getCookie('theme');
-    //console.log(getCookie('theme'));
-
-
     if (getCookie('theme') === "dark"){
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "dark_theme";
@@ -117,23 +112,6 @@ function Finded() {
     else{
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "light_theme";
-    }
-
-
-    function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
     }
 
 

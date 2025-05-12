@@ -242,6 +242,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   );
   if (error3) return <p>Error: {error3}</p>;
+  console.log(data3);
   
     return (
         <>
@@ -324,7 +325,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     <br />
     {data3.map((photo) => (
             <button className="degree_button" onClick={() => toggleVisibility()} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
-                <img src={photo.photo} alt="" className="degree_img" />
+                <img src={photo.photo} alt="degree" className="degree_img" />
             </button>
     ))}
     </div>

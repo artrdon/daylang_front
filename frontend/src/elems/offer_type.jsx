@@ -97,6 +97,8 @@ function Type_offer({ lang }) {
     },
   });
 
+  console.log(data);
+
   if (loading) return (<>
       <div className="div_of_service">
             <img  alt="" style={{height: 100,width: 160,position: "absolute", zIndex: 10, top: 50, left: 20 }}/>
@@ -112,6 +114,7 @@ function Type_offer({ lang }) {
       </>);
   if (error) return <p>Error: {error}</p>;
 
+  
     return (
             <>
             {data.map((data) => (

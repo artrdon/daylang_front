@@ -68,9 +68,9 @@ function UpdateOffer() {
 
 
     const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
-      queryKey: ['gettingoffer', params.username, params.index], // Уникальный ключ запроса
+      queryKey: ['getting_offer_to_update', params.index], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.index}/`);
+        const response = await axios.get(`${APIURL}/offer/get_offer_to_update/${params.index}/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:
@@ -92,7 +92,11 @@ function UpdateOffer() {
 
   );
   if (error1) return <p>Error: {error1}</p>;
-
+  if (data1.username === undefined)
+  {
+      window.location.replace(`/log/`);
+      return;
+  }
 
   if (loading2) return (
       <>
@@ -102,6 +106,11 @@ function UpdateOffer() {
 
   );
   if (error2) return <p>Error: {error2}</p>;
+  if (data2 === 'unauthenticated_ttt')
+  {
+      window.location.replace(`/forbidden/`);
+      return;
+  }
 
     return (
         <>

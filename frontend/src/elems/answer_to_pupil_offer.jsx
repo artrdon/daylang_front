@@ -40,15 +40,13 @@ function AnswerToPupilOffer({closeSearch, ref, currentOffer}) {
   const sendMessage = async (e) => {
     e.preventDefault();
       try {
-        console.log(1);
           const response = await axios.post(`${APIURL}/offer/creatinganswertooffer/`, {'message': message, 'offer': currentOffer.id}, {
               headers: {
                   'Content-Type': 'application/json',
                   'X-CSRFToken': getCookie('csrftoken'),
               },
           });
-          console.log(2);
-          console.log('Response:', response.data);
+          //console.log('Response:', response.data);
 
       } catch (error) {
           console.error('There was an error!', error.response.data);

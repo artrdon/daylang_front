@@ -212,6 +212,10 @@ const Lang = {
 
   );
   if (error1) return <p>Error: {error1}</p>;
+  if (data1.username === undefined){
+    window.location.replace('/log/');
+    return;
+  }
 
     return (
         <>
