@@ -77,13 +77,13 @@
     display: block; right: 0px; font-size: 30px; position: relative; color: black;
 }
 .finded_review{
-    position: absolute; right: 40px; top: 80px;  filter: hue-rotate(340deg);
+    position: absolute; right: 20px; top: 80px;  filter: hue-rotate(340deg);
 }
 .img_review{
     width: 30px; height: 30px; display: inline-block;
 }
 .review_text{
-    font-size: 30px; color: black; position: absolute; display: inline-block;
+    font-size: 30px; color: black; display: inline-block;
 }
 .description_lol{
     font-size: 20px; color: black; margin-top: 30px; overflow-wrap: anywhere; margin-right: 50px; width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; top: 100px; position: absolute;
@@ -177,6 +177,12 @@
         transition: background-color .2s;
         background-color: #2b2b2b;
     }
+    @media only screen and (max-width: 1100px)
+    {
+        .offer_of_lang_finded:hover{
+            background-color: #191919;
+        }
+    }
 }
 
 
@@ -190,8 +196,38 @@
     }
 }
 
+@media only screen and (max-width: 1300px)
+{
+    .finded_name {
+        left: 270px;
+        top: 10px;
+        width: calc(100vw - 750px);
+    }
+    .finded_price {
+        left: -40px;
+    }
+    .description_lol {
+        left: -40px;
+        width: calc(100vw - 700px);
+    }
+}
+
+
+
 @media only screen and (max-width: 1100px)
 {
+    .offer_of_lang_finded:hover{
+        background-color: #ebebeb;
+    }
+    .finded_name {
+        width: 60%;
+    }
+    .finded_price {
+        left: 0px;
+    }
+    .description_lol {
+        left: 0px;
+    }
     .finded_img{
         height: auto;
         width: 25vw;
@@ -231,7 +267,7 @@
         left: 28.181818181818183vw;
     }
     .finded_review{
-        right: 3.6363636363636362vw;
+        right: 1.8181818181818181vw;
         top: 7.272727272727273vw;
     }
     .finded_price{

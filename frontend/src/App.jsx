@@ -247,7 +247,12 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
               {showDesktopPanel &&
                 <div className='show_nav_in_desktop'>
                   <div className='show_nav_in_desktop_section'>
-
+                    <Link to={`/t/user/${username}/`}>
+                      <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+                    </Link>
+                  </div>
+                  <div className='show_nav_in_desktop_section'>
+                    Become te
                   </div>
                 </div>
               }
