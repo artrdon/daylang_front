@@ -19,7 +19,7 @@ import Docks from '/src/elems/docks.jsx'
 import ShowNavInMob from '/src/elems/show_nav_in_mob.jsx'
 import axios from 'axios';
 
-function ImageWithFallback({ src, fallbackSrc, alt, }) {
+function ImageWithFallback({ src, fallbackSrc, alt, style}) {
   const [imgSrc, setImgSrc] = useState(src);
 
   const handleError = () => {
@@ -31,6 +31,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
       className="avatar"
       src={imgSrc}
       alt={alt}
+      style={style}
       onError={handleError}
     />
   );
@@ -247,9 +248,13 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
               {showDesktopPanel &&
                 <div className='show_nav_in_desktop'>
                   <div className='show_nav_in_desktop_section'>
-                    <Link to={`/t/user/${username}/`}>
-                      <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+                    <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                      <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
+                      
                     </Link>
+                    <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 70, top: 5, width: "calc(100% - 80px)"}}>
+                      {name} {lastname}
+                    </span>
                   </div>
                   <div className='show_nav_in_desktop_section'>
                     Become te
