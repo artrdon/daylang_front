@@ -12,6 +12,8 @@ import WSAPIURL from '/wsapi.js';
 function CreateOffersTeacher({arrLang, lang, Lang}) {
     const navigate = useNavigate();
     const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '', beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
+    const [full, setFull] = useState({name: '0', description: '0', message: '0'});
+    const [allowed, setAllowed] = useState({name: null, description: null, message: null});
     const setLessonTime = (e) => {
       setData(prevData => ({
         ...prevData,
@@ -30,6 +32,27 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
   
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
+        if (e.target.name === 'name'){
+          setFull(prev => ({ ...prev, name: e.target.value.length }));
+          if (e.target.value.length < e.target.minLength)
+            setAllowed(prev => ({ ...prev, name: false}));
+          else
+            setAllowed(prev => ({ ...prev, name: true}));
+        }
+        if (e.target.name === 'description'){
+          setFull(prev => ({ ...prev, description: e.target.value.length }));
+          if (e.target.value.length < e.target.minLength)
+            setAllowed(prev => ({ ...prev, description: false}));
+          else
+            setAllowed(prev => ({ ...prev, description: true}));
+        }
+        if (e.target.name === 'message'){
+          setFull(prev => ({ ...prev, message: e.target.value.length }));
+          if (e.target.value.length < e.target.minLength)
+            setAllowed(prev => ({ ...prev, message: false}));
+          else
+            setAllowed(prev => ({ ...prev, message: true}));
+        }
     };
 
 
@@ -39,25 +62,32 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
     
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
+        const file = e.target.files[0]
+        //console.log(file);
+        if (file) {
+          document.getElementById('image_of_offer').src = URL.createObjectURL(file)
+          //console.log(URL.createObjectURL(file));
+        }
         setData(prev => ({...prev, photo: e.target.files[0]}) )
     // await handleSubmitPhoto(e);
     };
 
     const handlPhotosLoad = (e) => {
         setPhotosFile([]);
+        setPhotosLink([]);
         for (let i = 0; i < e.target.files.length; i++){
           setPhotosFile((components) => [...components, e.target.files[i]]);
+          setPhotosLink((components) => [...components, URL.createObjectURL(e.target.files[i])]);
           //console.log(e.target.files[i]);
         }
         
-    
        // await handleSubmitPhoto(e);
     };
-
     axios.defaults.withCredentials = true;
 
     const [file, setFile] = useState("none");
     const [photosFile, setPhotosFile] = useState([]);
+    const [photosLink, setPhotosLink] = useState([]);
     const [components, setComponents] = useState([]);
   
     const AddTimeToBye = () =>{
@@ -193,69 +223,82 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
             </p>
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['name']}</span>
+              <input minLength={20} maxLength={40} placeholder={arrLang[lang]['name']} name="name" type="text" className="input_field_name" onChange={handleChange} value={data.name}/>
+              <p className={` ${allowed.name === false && 'crt_offer_unallowed'} ${allowed.name && 'crt_offer_allowed'}`}>{full.name} / 40</p>
             </div>
-            <input maxLength={40} placeholder={arrLang[lang]['name']} name="name" type="text" className="input_field_name" onChange={handleChange} value={data.name}/>
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['description']}</span>
+              <textarea minLength={120} maxLength={700} placeholder={arrLang[lang]['description']} name="description" id="description" className="input_field_description" onChange={handleChange} value={data.description}/>
+              <p className={` ${allowed.description === false && 'crt_offer_unallowed'} ${allowed.description && 'crt_offer_allowed'}`}>{full.description} / 700</p>
             </div>
-            <textarea maxLength={700} placeholder={arrLang[lang]['description']} name="description" id="description" className="input_field_description" onChange={handleChange} value={data.description}/>
 
             <div className="crt_offer_name_of_fields">
               <span>Language</span>
+              <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
+                <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
+                <option id="eng" value="english">{Lang[lang]["English"]}</option>
+                <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
+                <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
+                <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
+                <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
+                <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
+                <option id="franc" value="french">{Lang[lang]["French"]}</option>
+                <option id="oth" value="other">Other</option>
+              </select>
+              
             </div>
-            <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
-              <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
-              <option id="eng" value="english">{Lang[lang]["English"]}</option>
-              <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
-              <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
-              <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
-              <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
-              <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
-              <option id="franc" value="french">{Lang[lang]["French"]}</option>
-              <option id="oth" value="other">Other</option>
-            </select>
+            
 
             <div className="crt_offer_name_of_fields">
               <span>Format</span>
+              <select id="formate" className="setting_language_selector" onChange={handleChange} value={data.format} name="format">
+                <option id="ind" value="individual">Individual</option>
+                <option id="gro" value="group">Group</option>
+              </select>
+
             </div>
-            <select id="formate" className="setting_language_selector" onChange={handleChange} value={data.format} name="format">
-              <option id="ind" value="individual">Individual</option>
-              <option id="gro" value="group">Group</option>
-            </select>
+            
 
             <div className="crt_offer_name_of_fields">
               <span>Target</span>
+              <select id="target" className="setting_language_selector" onChange={handleChange} value={data.target} name="target">
+                <option id="exam" value="exam">Exam</option>
+                <option id="selfdev" value="self_development">Self development</option>
+                <option id="trav" value="travelling">Travelling</option>
+              </select>
+
             </div>
-            <select id="target" className="setting_language_selector" onChange={handleChange} value={data.target} name="target">
-              <option id="exam" value="exam">Exam</option>
-              <option id="selfdev" value="self_development">Self development</option>
-              <option id="trav" value="travelling">Travelling</option>
-            </select>
+            
 
             <div className="crt_offer_name_of_fields">
               <span>Age</span>
+              <select id="age" className="setting_language_selector" onChange={handleChange} value={data.age} name="age">
+                <option id="5-12" value="5-12">5-12</option>
+                <option id="13-17" value="13-17">13-17</option>
+                <option id="18-30" value="18-30">18-30</option>
+                <option id="31+" value="31+">31+</option>
+                <option id="all" value="all">all</option>
+              </select>
+              
             </div>
-            <select id="age" className="setting_language_selector" onChange={handleChange} value={data.age} name="age">
-              <option id="5-12" value="5-12">5-12</option>
-              <option id="13-17" value="13-17">13-17</option>
-              <option id="18-30" value="18-30">18-30</option>
-              <option id="31+" value="31+">31+</option>
-              <option id="all" value="all">all</option>
-            </select>
+            
 
             <div className="crt_offer_name_of_fields">
               <span>I have microphone</span>
+              <select id="microphone" className="setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
+                <option id="yes" value="yes">Yes</option>
+                <option id="no" value="no">No</option>
+              </select>
+
             </div>
-            <select id="microphone" className="setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
-              <option id="yes" value="yes">Yes</option>
-              <option id="no" value="no">No</option>
-            </select>
+            
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['price']}</span>
+              <input maxLength={30} placeholder={arrLang[lang]['price']} name="price" type="number" min="0" max="1000000" className="input_field_name" onChange={handleChange} value={data.price}/>
+              
             </div>
-            <input maxLength={30} placeholder={arrLang[lang]['price']} name="price" type="number" min="0" max="1000000" className="input_field_name" onChange={handleChange} value={data.price}/>
 
 
             <div  className="crt_offer_name_of_fields">
@@ -263,24 +306,26 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
             </div>
             
             <div className="crt_offer_photo_div">
-              <img alt="" className="crt_offer_photo" src="/src/static/img/nema.png"/>
+              <img alt="offer_photo" className="crt_offer_photo" src="/src/static/img/nema.png" id='image_of_offer'/>
               <input accept="image/png" id="icon404873" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
               <label htmlFor="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
             </div>
             
             
             <div className="crt_offer_photo_div">
-              
-
-
               <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handlPhotosLoad} multiple hidden/>
-              <label htmlFor="icon404"  style={{position: "relative", display: "flex", top: 70, left: 0, width: "100%", height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+              <label htmlFor="icon404"  style={{position: "relative", display: "flex", left: 0, width: "100%", height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+              {photosLink.map((link) => (<img alt="offer_photo" className="crt_offer_photos" src={link} id='image_of_offer'/>
+              ))}
             </div>
+
+            
 
             <div className="crt_offer_name_of_fields">
               <span>message</span>
+              <textarea minLength={100} maxLength={400} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
+              <p className={` ${allowed.message === false && 'crt_offer_unallowed'} ${allowed.message && 'crt_offer_allowed'}`}>{full.message} / 400</p>
             </div>
-            <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
 
             <div className="crt_offer_name_of_fields">
               <span>work</span>

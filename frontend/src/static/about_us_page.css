@@ -1,0 +1,58 @@
+.about-page {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .about-image img {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .feature-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-icon {
+    font-size: 2.5rem;
+    color: #4a6bdf;
+  }
+  
+  .stats-section {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4a6bdf;
+  }
+  
+  .stat-label {
+    font-size: 1.1rem;
+    color: #6c757d;
+  }
+  
+  .team-member {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+  
+  .team-member img {
+    border-radius: 10px 10px 0 0;
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  .cta-section {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }

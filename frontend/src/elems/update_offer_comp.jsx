@@ -292,96 +292,104 @@ var Lang = {
             </p>
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['name']}</span>
+              <input
+                maxLength={40}
+                placeholder={arrLang[lang]['name']}
+                name="name"
+                type="text"
+                className="input_field_name"
+                onChange={handleChange}
+                value={data.name}
+              />
+
             </div>
-            <input
-              maxLength={40}
-              placeholder={arrLang[lang]['name']}
-              name="name"
-              type="text"
-              className="input_field_name"
-              onChange={handleChange}
-              value={data.name}
-            />
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['description']}</span>
+              <textarea
+                maxLength={700}
+                placeholder={arrLang[lang]['description']}
+                name="description"
+                id=""
+                className="input_field_description"
+                onChange={handleChange}
+                value={data.description}
+              />
+
             </div>
-            <textarea
-              maxLength={700}
-              placeholder={arrLang[lang]['description']}
-              name="description"
-              id=""
-              className="input_field_description"
-              onChange={handleChange}
-              value={data.description}
-            />
 
             <div className="crt_offer_name_of_fields">
-              <span>language</span>
+              <span>language</span>  
+              <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
+                <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
+                <option id="eng" value="english">{Lang[lang]["English"]}</option>
+                <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
+                <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
+                <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
+                <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
+                <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
+                <option id="franc" value="french">{Lang[lang]["French"]}</option>
+                <option id="rus" value="other">Other</option>
+              </select>
+              
             </div>
-            <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
-              <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
-              <option id="eng" value="english">{Lang[lang]["English"]}</option>
-              <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
-              <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
-              <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
-              <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
-              <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
-              <option id="franc" value="french">{Lang[lang]["French"]}</option>
-              <option id="rus" value="other">Other</option>
-            </select>
 
             <div className="crt_offer_name_of_fields">
               <span>Format</span>
+              <select id="formate" className="setting_language_selector" onChange={handleChange} value={data.format} name="format">
+                <option id="ind" value="individual">Individual</option>
+                <option id="gro" value="group">Group</option>
+              </select>
+
             </div>
-            <select id="formate" className="setting_language_selector" onChange={handleChange} value={data.format} name="format">
-              <option id="ind" value="individual">Individual</option>
-              <option id="gro" value="group">Group</option>
-            </select>
 
             <div className="crt_offer_name_of_fields">
-              <span>Target</span>
+              <span>Target</span>  
+              <select id="target" className="setting_language_selector" onChange={handleChange} value={data.target} name="target">
+                <option id="exam" value="exam">Exam</option>
+                <option id="selfdev" value="self_development">Self development</option>
+                <option id="trav" value="travelling">Travelling</option>
+              </select>
+
             </div>
-            <select id="target" className="setting_language_selector" onChange={handleChange} value={data.target} name="target">
-              <option id="exam" value="exam">Exam</option>
-              <option id="selfdev" value="self_development">Self development</option>
-              <option id="trav" value="travelling">Travelling</option>
-            </select>
 
             <div className="crt_offer_name_of_fields">
               <span>Age</span>
-            </div>
-            <select id="age" className="setting_language_selector" onChange={handleChange} value={data.age} name="age">
-              <option id="5-12" value="5-12">5-12</option>
-              <option id="13-17" value="13-17">13-17</option>
-              <option id="18-30" value="18-30">18-30</option>
-              <option id="31+" value="31+">31+</option>
-              <option id="all" value="all">all</option>
-            </select>
+              <select id="age" className="setting_language_selector" onChange={handleChange} value={data.age} name="age">
+                <option id="5-12" value="5-12">5-12</option>
+                <option id="13-17" value="13-17">13-17</option>
+                <option id="18-30" value="18-30">18-30</option>
+                <option id="31+" value="31+">31+</option>
+                <option id="all" value="all">all</option>
+              </select>
 
+            </div>
+            
             <div className="crt_offer_name_of_fields">
               <span>I have microphone</span>
+              <select id="microphone" className="setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
+                <option id="yes" value="yes">Yes</option>
+                <option id="no" value="no">No</option>
+              </select>
+
             </div>
-            <select id="microphone" className="setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
-              <option id="yes" value="yes">Yes</option>
-              <option id="no" value="no">No</option>
-            </select>
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['price']}</span>
-            </div>
-            <input
-              maxLength={30}
-              placeholder={arrLang[lang]['price']}
-              name="price"
-              type="number"
-              min="0"
-              max="1000000"
-              className="input_field_name"
-              onChange={handleChange}
-              value={data.price}
-            />
+              <input
+                maxLength={30}
+                placeholder={arrLang[lang]['price']}
+                name="price"
+                type="number"
+                min="0"
+                max="1000000"
+                className="input_field_name"
+                onChange={handleChange}
+                value={data.price}
+              />
 
+            </div>
+            
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['load_photo']}</span>
@@ -394,9 +402,10 @@ var Lang = {
             
             <div className="crt_offer_name_of_fields">
               <span>message</span>
-            </div>
-            <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
+              <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
 
+            </div>
+            
               <button
                 className='crt_offer_save_button'
                 type="submit"

@@ -1,3 +1,10 @@
+.crt_offer_allowed{
+    color: #00d472;
+}
+.crt_offer_unallowed{
+    color: red;
+}
+
 .crt_offer_work_day_div{
     width: 550px; display: block; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 50px;
 }
@@ -35,7 +42,7 @@
 }
 
 .input_field_description{
-    color: rgb(0, 0, 0); background-color: #f1f1f1; border-radius: 3px; border: 0px; font-size: 20px; display: block; resize: none; width: 550px; height: 400px;  margin-left: auto; margin-right: auto; margin-top: 50px; outline: none; padding: 10px; margin-bottom: 50px;
+    color: rgb(0, 0, 0); background-color: #f1f1f1; border-radius: 3px; border: 0px; font-size: 20px; display: block; resize: none; width: 550px; height: 400px;  margin-left: auto; margin-right: auto; margin-top: 50px; outline: none; padding: 10px;/* margin-bottom: 50px;*/
 }
 .input_field_description::-webkit-scrollbar{
     width: 1px;
@@ -60,10 +67,15 @@
     font-size: 30px;
 }
 .crt_offer_photo_div{
-    width: 570px; margin-left: auto; margin-right: auto; position: relative; top: 50px; font-size: 20px; height: 500px;
+    width: 570px; margin-left: auto; margin-right: auto; position: relative; /*top: 50px;*/ font-size: 20px; min-height: 500px;
 }
 .crt_offer_photo{
     width: 300px; height: 300px; position: relative; top: 50px; display: block; object-fit: contain;
+    background-color: #2a2a2a;
+}
+.crt_offer_photos{
+    width: 200px; height: 200px; position: relative; top: 50px; display: inline; object-fit: contain;
+    margin: 5px;
     background-color: #2a2a2a;
 }
 .setting_language_selector{
@@ -124,11 +136,11 @@
         width: 78.573%;
     }
     .input_field_name{
-        width: 78.573%;
+        width: calc(100% - 2.66666666666666666666666666666vw);
     }
 
     .input_field_description{
-        width: 78.573%;
+        width: calc(100% - 3.80952380952380952380952380952381vw);
     }
     .crt_offer_name_of_fields{
         width: 78.573%;
@@ -184,23 +196,23 @@
         border-radius: 0.57142857142857142857142857142857vw;
         font-size: 3.80952380952380952380952380952381vw;
         height: 7.61904761904761904761904761904762vw;
-        width: calc(78.573% + 3.80952380952380952380952380952381vw);
-        margin-top: 9.52380952380952380952380952380952vw;
+        width: 100%;
+        margin-top: 3.80952380952380952380952380952381vw;
     }
     .input_field_name {
         border-radius: 0.57142857142857142857142857142857vw;
         font-size: 3.80952380952380952380952380952381vw;
         height: 3.80952380952380952380952380952381vw;
-        margin-top: 9.52380952380952380952380952380952vw;
+        margin-top: 3.80952380952380952380952380952381vw;
         padding: 1.33333333333333333333333333333333vw;
     }
     .input_field_description {
         border-radius: 0.57142857142857142857142857142857vw;
         font-size: 3.80952380952380952380952380952381vw;
         height: 76.1904761904761904761904761904762vw;
-        margin-top: 9.52380952380952380952380952380952vw;
+        margin-top: 3.80952380952380952380952380952381vw;
         padding: 1.9047619047619047619047619047619vw;
-        margin-bottom: 9.52380952380952380952380952380952vw;
+        /*margin-bottom: 9.52380952380952380952380952380952vw;*/
     }
     .crt_offer_photo_div {
         top: 9.52380952380952380952380952380952vw;
@@ -210,9 +222,17 @@
     .crt_offer_photo {
         top: 9.52380952380952380952380952380952vw;
     }
+    .crt_offer_photos {
+        top: 9.52380952380952380952380952380952vw;
+    }
     .settings_page_degree_photo {
         width: 38.0952380952380952380952380952381vw;
         margin: 1.9047619047619047619047619047619vw;
+    }
+}
+@media only screen and (max-width: 535px){
+    .crt_offer_photos{
+        width: calc(50% - 1.86915887vw); height: auto; aspect-ratio: 1/1; margin: 0.93457943vw;
     }
 }
 @media only screen and (max-width: 525px){
@@ -237,9 +257,6 @@
     .crt_offer_work_day_work_grafic{
         border-radius: 0.952380952380952380952380952380952vw;
     }
-}
-@media only screen and (max-width: 380px)
-{
     .crt_offer_photo{
         width: 100%; height: auto; aspect-ratio: 1/1;
     }

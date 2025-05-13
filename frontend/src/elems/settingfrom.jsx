@@ -277,52 +277,58 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             </p>
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['language']}</span>
+              <select id="languages" className="setting_language_selector" onChange={handleChange} value={settingChange.language} name="language">
+                <option id="rus">Русский</option>
+                <option id="eng">English</option>
+                <option id="srbc">Српски</option>
+                <option id="srbl">Srpski</option>
+                <option id="germ">Deutsch</option>
+                <option id="span">Español</option>
+                <option id="arab">عربي</option>
+              </select>
+              
             </div>
-            <select id="languages" className="setting_language_selector" onChange={handleChange} value={settingChange.language} name="language">
-              <option id="rus">Русский</option>
-              <option id="eng">English</option>
-              <option id="srbc">Српски</option>
-              <option id="srbl">Srpski</option>
-              <option id="germ">Deutsch</option>
-              <option id="span">Español</option>
-              <option id="arab">عربي</option>
-            </select>
+            
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['name']}</span>
+              <input
+                maxLength={30}
+                placeholder="Name"
+                name="name"
+                type="text"
+                className="input_field_name"
+                value={settingChange.name}
+                onChange={handleChange}
+              />
+
             </div>
-            <input
-              maxLength={30}
-              placeholder="Name"
-              name="name"
-              type="text"
-              className="input_field_name"
-              value={settingChange.name}
-              onChange={handleChange}
-            />
+            
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['last_name']}</span>
+              <input
+                maxLength={30}
+                placeholder="Last name"
+                type="text"
+                name="surname"
+                className="input_field_name"
+                value={settingChange.surname}
+                onChange={handleChange}
+              />
             </div>
-            <input
-              maxLength={30}
-              placeholder="Last name"
-              type="text"
-              name="surname"
-              className="input_field_name"
-              value={settingChange.surname}
-              onChange={handleChange}
-            />
+            
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['about_myself']}</span>
+              <textarea
+                maxLength={700}
+                placeholder="Description"
+                name="about_myself"
+                id=""
+                className="input_field_description"
+                value={settingChange.about_myself}
+                onChange={handleChange}
+              />
             </div>
-            <textarea
-              maxLength={700}
-              placeholder="Description"
-              name="about_myself"
-              id=""
-              className="input_field_description"
-              value={settingChange.about_myself}
-              onChange={handleChange}
-            />
+            
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['load_photo']}</span>
             </div>
@@ -338,39 +344,40 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             ) : (
                 <>
               <p className="crt_offer_name_of_fields">
-              {arrLang[lang]['degree']}
-            </p>
-            <div className="crt_offer_name_of_fields">
-              <span>{arrLang[lang]['about_my_degree']}</span>
-            </div>
-            <textarea
-              maxLength={300}
-              placeholder="Description"
-              name="about_my_degree"
-              id=""
-              className="input_field_description"
-              style={{ height: 200 }}
-              value={settingChange.about_my_degree}
-              onChange={handleChange}
-            />
-            <div className="crt_offer_name_of_fields">
-              <span>{arrLang[lang]['load_photo_of_degree']}</span>
-            </div>
-            
-            <div className="crt_offer_photo_div">
-              {degree_photo.map((photo) => (
-                <img
-                alt="degree photo"
-                className="settings_page_degree_photo"
-                src={photo.photo}
-                key={photo.id}
-              />
-              
-              ))}
-              <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
-              <label htmlFor="icon404"  style={{position: "relative", display: "flex", top: 70, left: 0, width: "100%", height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+                {arrLang[lang]['degree']}
+              </p>
+              <div className="crt_offer_name_of_fields">
+                <span>{arrLang[lang]['about_my_degree']}</span>
+                <textarea
+                  maxLength={300}
+                  placeholder="Description"
+                  name="about_my_degree"
+                  id=""
+                  className="input_field_description"
+                  value={settingChange.about_my_degree}
+                  onChange={handleChange}
+                />
 
-            </div>
+              </div>
+              
+              <div className="crt_offer_name_of_fields">
+                <span>{arrLang[lang]['load_photo_of_degree']}</span>
+              </div>
+              
+              <div className="crt_offer_photo_div">
+                {degree_photo.map((photo) => (
+                  <img
+                  alt="degree photo"
+                  className="settings_page_degree_photo"
+                  src={photo.photo}
+                  key={photo.id}
+                />
+                
+                ))}
+                <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
+                <label htmlFor="icon404"  style={{position: "relative", display: "flex", top: 70, left: 0, width: "100%", height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+
+              </div>
 
               </>
             )}
