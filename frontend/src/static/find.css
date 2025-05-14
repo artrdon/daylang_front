@@ -866,7 +866,10 @@ a{
         display: block;
     }
     .text_in_panel{
-        display: none;
+        display: block;
+        font-size: 10px;
+        text-align: center;
+        margin: 0px;
     }
     .search_all_pos{
         justify-content: right;
@@ -1285,5 +1288,8 @@ a{
     }
     .ime {
         top: 1.9047619047619047vw;
+    }
+    .text_in_panel{
+        font-size: 1.9047619047619047vw;
     }
 }

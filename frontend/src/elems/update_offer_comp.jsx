@@ -196,6 +196,9 @@ var Lang = {
     const [data, setData] = useState({name: name, description: description, price: price, language: language, format: format, target: target, age: age, microphone: micr, photo: photo, message: message});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [photosLink, setPhotosLink] = useState([]);
+
+
 
 
     axios.defaults.withCredentials = true;
@@ -276,6 +279,16 @@ var Lang = {
         }
 
     };
+
+    const handlPhotosLoad = (e) => {
+      for (let i = 0; i < e.target.files.length; i++){
+        //setPhotosFile((components) => [...components, e.target.files[i]]);
+        setPhotosLink((components) => [...components, URL.createObjectURL(e.target.files[i])]);
+        //console.log(e.target.files[i]);
+      }
+      
+     // await handleSubmitPhoto(e);
+  };
 
 
 
@@ -398,6 +411,13 @@ var Lang = {
               <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
               <input accept="image/png" id="icon404873" name="photo" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
               <label htmlFor="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+            </div>
+
+            <div className="crt_offer_photo_div">
+              <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handlPhotosLoad} multiple hidden/>
+              <label htmlFor="icon404"  style={{position: "relative", display: "flex", left: 0, width: "100%", height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
+              {photosLink.map((link) => (<img alt="offer_photo" className="crt_offer_photos" src={link} id='image_of_offer'/>
+              ))}
             </div>
             
             <div className="crt_offer_name_of_fields">

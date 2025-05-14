@@ -4,6 +4,11 @@
 .crt_offer_unallowed{
     color: red;
 }
+.crt_offer_font_size_of_min_length{
+    margin-top: 10px;
+    font-size: 20px;
+}
+
 
 .crt_offer_work_day_div{
     width: 550px; display: block; margin-left: auto; margin-right: auto; margin-top: 50px; margin-bottom: 50px;
@@ -181,10 +186,10 @@
         margin-right: auto;
     }
     .ctr_offer_find_panel {
-        top: 13.3333333333333333vw;
+        top: 70px;
     }
     .crt_offer_gray_thing {
-        border: 0.38095238095238095238095238095238vw solid #444444;
+        border: 0vw solid #444444;
         margin-bottom: 5.7142857142857142857142857142857vw;
     }
     .crt_offer_name_of_fields {
@@ -217,7 +222,7 @@
     .crt_offer_photo_div {
         top: 9.52380952380952380952380952380952vw;
         font-size: 3.80952380952380952380952380952381vw;
-        height: 96.1904761904761904761904761904762vw;
+        min-height: 96.1904761904761904761904761904762vw;
     }
     .crt_offer_photo {
         top: 9.52380952380952380952380952380952vw;
@@ -236,6 +241,10 @@
     }
 }
 @media only screen and (max-width: 525px){
+    .crt_offer_font_size_of_min_length{
+        margin-top: 1.9047619047619047619047619047619vw;
+        font-size: 3.80952380952380952380952380952381vw;
+    }
     .crt_offer_work_day_select {
         height: 7vw;
     }
@@ -259,5 +268,8 @@
     }
     .crt_offer_photo{
         width: 100%; height: auto; aspect-ratio: 1/1;
+    }
+    .ctr_offer_find_panel {
+        top: 13.3333333333333333vw;
     }
 }

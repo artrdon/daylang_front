@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
@@ -10,18 +10,21 @@ import WSAPIURL from '/wsapi.js';
 
 
 function CreateOffersTeacher({arrLang, lang, Lang}) {
+    const buttonSaveRef = useRef(null);
+    const [ifSaveButtonDisabled, setIfSaveButtonDisabled] = useState(true)
     const navigate = useNavigate();
-    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '', beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
+    const [data, setData] = useState({name: '', description: '', price: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', message: '', photo: '',/* beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'*/});
     const [full, setFull] = useState({name: '0', description: '0', message: '0'});
     const [allowed, setAllowed] = useState({name: null, description: null, message: null});
-    const setLessonTime = (e) => {
+    /*const setLessonTime = (e) => {
       setData(prevData => ({
         ...prevData,
         lesson_time: e
     }));
     console.log(data.lesson_time);
-    }
+    }*/
     
+  
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -85,7 +88,7 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
     };
     axios.defaults.withCredentials = true;
 
-    const [file, setFile] = useState("none");
+    const [file, setFile] = useState(null);
     const [photosFile, setPhotosFile] = useState([]);
     const [photosLink, setPhotosLink] = useState([]);
     const [components, setComponents] = useState([]);
@@ -121,7 +124,8 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
 
     
     const handleSubmit1 = async (e) => {
-        
+        if (!(allowed.name && allowed.description && allowed.message))
+          return
         e.preventDefault();
         let resp = await handleSubmit(e);
         const photosMuliple = new FormData();
@@ -209,7 +213,12 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
     };
   
   
-
+    useEffect(() => {
+      if (allowed.name && allowed.description && allowed.message && (file != null))
+        setIfSaveButtonDisabled(false)
+      else
+        setIfSaveButtonDisabled(true);
+    }, [allowed, file]);
     
 
     return (
@@ -224,13 +233,15 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['name']}</span>
               <input minLength={20} maxLength={40} placeholder={arrLang[lang]['name']} name="name" type="text" className="input_field_name" onChange={handleChange} value={data.name}/>
-              <p className={` ${allowed.name === false && 'crt_offer_unallowed'} ${allowed.name && 'crt_offer_allowed'}`}>{full.name} / 40</p>
+              <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'} ${allowed.name && 'crt_offer_allowed'}`}>{full.name} / 40</p>
+              {allowed.name === false && <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 20</p>}
             </div>
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['description']}</span>
               <textarea minLength={120} maxLength={700} placeholder={arrLang[lang]['description']} name="description" id="description" className="input_field_description" onChange={handleChange} value={data.description}/>
-              <p className={` ${allowed.description === false && 'crt_offer_unallowed'} ${allowed.description && 'crt_offer_allowed'}`}>{full.description} / 700</p>
+              <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'} ${allowed.description && 'crt_offer_allowed'}`}>{full.description} / 700</p>
+              {allowed.description === false && <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 120</p>}
             </div>
 
             <div className="crt_offer_name_of_fields">
@@ -324,10 +335,11 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
             <div className="crt_offer_name_of_fields">
               <span>message</span>
               <textarea minLength={100} maxLength={400} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
-              <p className={` ${allowed.message === false && 'crt_offer_unallowed'} ${allowed.message && 'crt_offer_allowed'}`}>{full.message} / 400</p>
+              <p className={`crt_offer_font_size_of_min_length ${allowed.message === false && 'crt_offer_unallowed'} ${allowed.message && 'crt_offer_allowed'}`}>{full.message} / 400</p>
+              {allowed.message === false && <p className={`crt_offer_font_size_of_min_length ${allowed.message === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 100</p>}
             </div>
 
-            <div className="crt_offer_name_of_fields">
+            {/*<div className="crt_offer_name_of_fields">
               <span>work</span>
             </div>
             <div className='crt_offer_work_day_div'>
@@ -412,7 +424,7 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
                 <option id="90min" value="90">90</option>
                 <option id="120min" value="120">120</option>
               </select>
-              {/*<input type="time" name="" id="input_time_to_a" className='' step="1800"/>*/}
+              
               <button className='crt_offer_work_day_add_button' onClick={AddTimeToBye}>Add</button>
             </div>
             <div className='crt_offer_work_day_div_work_grafic'>
@@ -423,8 +435,8 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
                       </div>
                   ))}
               
-            </div>
-            <button className="crt_offer_save_button" onClick={handleSubmit1}>
+            </div>*/}
+            <button className="crt_offer_save_button" onClick={handleSubmit1} ref={buttonSaveRef} disabled={ifSaveButtonDisabled}>
               {arrLang[lang]['save']}
             </button>
 

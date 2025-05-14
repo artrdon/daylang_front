@@ -65,7 +65,6 @@ function Log_reset() {
       setCaptcha(value);
     }
 
-    const csrfToken = getCookie('csrftoken');
 
     document.querySelector("title").textContent = "Authentication";
 
@@ -94,7 +93,7 @@ function Log_reset() {
               const to_email = await axios.post(`${APIURL}/email/${data.email}`, data, {
                   headers: {
                       'Content-Type': 'application/json',
-                      'X-CSRFToken': csrfToken,
+                      'X-CSRFToken': getCookie('csrftoken'),
                   },
               });
               console.log('Response:', to_email.data);
@@ -114,7 +113,7 @@ function Log_reset() {
                 const response = await axios.post(`${APIURL}/forgot_password/`, data1, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,
+                        'X-CSRFToken': getCookie('csrftoken'),
                     },
                 });
                 if (response.data["if"] === "yes"){
@@ -138,7 +137,7 @@ function Log_reset() {
                 const response = await axios.post(`${APIURL}/forgot_password_reset/`, { email: data.email, password1: data.password1, password2: data.password2, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,
+                        'X-CSRFToken': getCookie('csrftoken'),
                     },
                 });
                 console.log('Response:', response.data);
