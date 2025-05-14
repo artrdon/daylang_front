@@ -19,6 +19,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
       src={imgSrc}
       alt={alt}
       onError={handleError}
+      id='image_of_offer'
     />
   );
 }
@@ -36,7 +37,7 @@ function UpdateOfferComp({ name, description, price, id, language, format, targe
     }
 
     const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
+   // let [langua, setData10] = useState(getCookie('lang'));
     let micr = null;
     if (microphone === false){
         micr = "No"
@@ -45,7 +46,7 @@ function UpdateOfferComp({ name, description, price, id, language, format, targe
         micr = "Yes"
     }
 
-    langua = lang;
+    //langua = lang;
 
         var arrLang = {
       'English': {
@@ -188,26 +189,31 @@ var Lang = {
 
     }
 
-
-    const csrfToken = getCookie('csrftoken');
-
-
-
     const [data, setData] = useState({name: name, description: description, price: price, language: language, format: format, target: target, age: age, microphone: micr, photo: photo, message: message});
+    const [constData, setConstData] = useState({name: name, description: description, price: price, language: language, format: format, target: target, age: age, microphone: micr, photo: photo, message: message});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [full, setFull] = useState({name: `${name.length}`, description: `${description.length}`, message: `${message.length}`});
+    const [allowed, setAllowed] = useState({name: null, description: null, message: null});
+    const [ifSaveButtonDisabled, setIfSaveButtonDisabled] = useState(true);
     const [photosLink, setPhotosLink] = useState([]);
 
 
 
 
     axios.defaults.withCredentials = true;
-
+    const [constFile, setConstFile] = useState(photo)
     const [file, setFile] = useState(photo);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
-
+        const file = e.target.files[0]
+        //console.log(file);
+        if (file) {
+          document.getElementById('image_of_offer').src = URL.createObjectURL(file)
+          //console.log(URL.createObjectURL(file));
+        }
+        //setData(prev => ({...prev, photo: e.target.files[0]}) )
     };
 
     const handleSubmitPhoto = async (e) => {
@@ -235,9 +241,30 @@ var Lang = {
 
 
 //onLoad = () => setData1({ ...settingChange, about_myself: "lol" });
-   const handleChange = (e) => {
-            setData({ ...data, [e.target.name]: e.target.value });
-        };
+  const handleChange = (e) => {
+      setData({ ...data, [e.target.name]: e.target.value });
+      if (e.target.name === 'name'){
+        setFull(prev => ({ ...prev, name: e.target.value.length }));
+        if (e.target.value.length < e.target.minLength)
+          setAllowed(prev => ({ ...prev, name: false}));
+        else
+          setAllowed(prev => ({ ...prev, name: true}));
+      }
+      if (e.target.name === 'description'){
+        setFull(prev => ({ ...prev, description: e.target.value.length }));
+        if (e.target.value.length < e.target.minLength)
+          setAllowed(prev => ({ ...prev, description: false}));
+        else
+          setAllowed(prev => ({ ...prev, description: true}));
+      }
+      if (e.target.name === 'message'){
+        setFull(prev => ({ ...prev, message: e.target.value.length }));
+        if (e.target.value.length < e.target.minLength)
+          setAllowed(prev => ({ ...prev, message: false}));
+        else
+          setAllowed(prev => ({ ...prev, message: true}));
+      }
+  };
 
 
 
@@ -248,7 +275,7 @@ var Lang = {
             const response = await axios.post(`${APIURL}/updatingoffer/${id}/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
             console.log('Response:', response.data);
@@ -268,7 +295,7 @@ var Lang = {
             const response = await axios.post(`${APIURL}/deletingoffer/${id}/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
             console.log('Response:', response.data);
@@ -290,7 +317,15 @@ var Lang = {
      // await handleSubmitPhoto(e);
   };
 
-
+  useEffect(() => {
+    const keys = ['name', 'description', 'price', 'language', 'format', 'target', 'age', 'microphone', 'photo', 'message'];
+    const hasChanged = keys.some(key => constData[key] != data[key]);
+    if (file != constFile){
+      setIfSaveButtonDisabled(false);
+      return;
+    }
+    setIfSaveButtonDisabled(!hasChanged);
+  }, [data, constData, file]);
 
     return (
         <>
@@ -306,6 +341,7 @@ var Lang = {
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['name']}</span>
               <input
+                minLength={20}
                 maxLength={40}
                 placeholder={arrLang[lang]['name']}
                 name="name"
@@ -314,12 +350,15 @@ var Lang = {
                 onChange={handleChange}
                 value={data.name}
               />
-
+              <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'} ${allowed.name && 'crt_offer_allowed'}`}>{full.name} / 40</p>
+              {allowed.name === false && <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 20</p>}
+            
             </div>
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['description']}</span>
               <textarea
+                minLength={120}
                 maxLength={700}
                 placeholder={arrLang[lang]['description']}
                 name="description"
@@ -328,7 +367,9 @@ var Lang = {
                 onChange={handleChange}
                 value={data.description}
               />
-
+              <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'} ${allowed.description && 'crt_offer_allowed'}`}>{full.description} / 700</p>
+              {allowed.description === false && <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 120</p>}
+            
             </div>
 
             <div className="crt_offer_name_of_fields">
@@ -408,7 +449,7 @@ var Lang = {
               <span>{arrLang[lang]['load_photo']}</span>
             </div>
             <div className="crt_offer_photo_div">
-              <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
+              <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png" />
               <input accept="image/png" id="icon404873" name="photo" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
               <label htmlFor="icon404873"  style={{position: "relative", display: "flex", top: 70, left: 0, width: 300, height: 50, backgroundColor: "rgb(0, 212, 114)", borderRadius: 10, color: "black", fontSize: 30, padding: "auto", justifyContent: "center", alignItems: "center" }}> Загрузить фото </label>
             </div>
@@ -422,13 +463,16 @@ var Lang = {
             
             <div className="crt_offer_name_of_fields">
               <span>message</span>
-              <textarea maxLength={950} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
-
+              <textarea minLength={100} maxLength={400} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
+              <p className={`crt_offer_font_size_of_min_length ${allowed.message === false && 'crt_offer_unallowed'} ${allowed.message && 'crt_offer_allowed'}`}>{full.message} / 400</p>
+              {allowed.message === false && <p className={`crt_offer_font_size_of_min_length ${allowed.message === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 100</p>}
+            
             </div>
             
               <button
                 className='crt_offer_save_button'
                 type="submit"
+                disabled={ifSaveButtonDisabled}
               >
                 {arrLang[lang]['update']}
               </button>

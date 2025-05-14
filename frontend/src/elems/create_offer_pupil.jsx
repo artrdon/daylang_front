@@ -12,7 +12,10 @@ import WSAPIURL from '/wsapi.js';
 function CreateOffersPupil({arrLang, lang, Lang}) {
     const navigate = useNavigate();
     const [data, setData] = useState({name: '', description: '', price_min: '', price_max: '', language: 'other', format: 'individual', target: 'exam', age: '5-12', microphone: 'yes', time: 30});
-    
+    const [full, setFull] = useState({name: '0', description: '0'});
+    const [allowed, setAllowed] = useState({name: null, description: null});
+    const [ifSaveButtonDisabled, setIfSaveButtonDisabled] = useState(true);
+
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -23,6 +26,20 @@ function CreateOffersPupil({arrLang, lang, Lang}) {
   
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
+        if (e.target.name === 'name'){
+          setFull(prev => ({ ...prev, name: e.target.value.length }));
+          if (e.target.value.length < e.target.minLength)
+            setAllowed(prev => ({ ...prev, name: false}));
+          else
+            setAllowed(prev => ({ ...prev, name: true}));
+        }
+        if (e.target.name === 'description'){
+          setFull(prev => ({ ...prev, description: e.target.value.length }));
+          if (e.target.value.length < e.target.minLength)
+            setAllowed(prev => ({ ...prev, description: false}));
+          else
+            setAllowed(prev => ({ ...prev, description: true}));
+        }
     };
 
     axios.defaults.withCredentials = true;  
@@ -46,6 +63,12 @@ function CreateOffersPupil({arrLang, lang, Lang}) {
           }
   
     };
+    useEffect(() => {
+      if (allowed.name && allowed.description)
+        setIfSaveButtonDisabled(false)
+      else
+        setIfSaveButtonDisabled(true);
+    }, [allowed]);
 
 
     return (
@@ -60,13 +83,17 @@ function CreateOffersPupil({arrLang, lang, Lang}) {
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['name']}</span>
               <input minLength={20} maxLength={40} placeholder={arrLang[lang]['name']} name="name" type="text" className="input_field_name" onChange={handleChange} value={data.name}/>
-
+              <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'} ${allowed.name && 'crt_offer_allowed'}`}>{full.name} / 40</p>
+              {allowed.name === false && <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 20</p>}
+            
             </div>
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['description']}</span>
               <textarea minLength={120} maxLength={700} placeholder={arrLang[lang]['description']} name="description" id="description" className="input_field_description" onChange={handleChange} value={data.description}/>
-
+              <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'} ${allowed.description && 'crt_offer_allowed'}`}>{full.description} / 700</p>
+              {allowed.description === false && <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 120</p>}
+            
             </div>
 
             <div className="crt_offer_name_of_fields">
@@ -145,7 +172,7 @@ function CreateOffersPupil({arrLang, lang, Lang}) {
 
             </div>
 
-            <button className="crt_offer_save_button" onClick={handleSubmit}>
+            <button className="crt_offer_save_button" onClick={handleSubmit} disabled={ifSaveButtonDisabled}>
               {arrLang[lang]['save']}
             </button>
 
