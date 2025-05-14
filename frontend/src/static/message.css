@@ -34,7 +34,7 @@
     margin-top: 40px; margin-bottom: 20px; position: relative; display: block; transform: scale(-1, 1); z-index: 1;
 }
 .message_comp_my_message_div{
-    max-width: calc(100% - 100px); position: relative; border-radius: 10px;
+    max-width: calc(100% - 60px); position: relative; border-radius: 10px;
 }
 .message_comp_my_message_inside_pre{
     font-size: 18px; position: relative; padding: 10px; background-color: rgb(76 88 167); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer; transform: scale(-1, 1);
@@ -496,7 +496,7 @@ div *::-webkit-scrollbar-thumb {
         font-size: 2.2857vw;
     }
     .message_comp_my_message_div {
-        max-width: calc(100% - 19.047vw);
+        max-width: calc(100% - 11.4285vw);
         border-radius: 1.9047vw;
     }
     .message_comp_link_to_sender{

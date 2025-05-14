@@ -1,4 +1,4 @@
-import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
+import { useState, useEffect, state, handleChange, handleSubmit, setState, useRef }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import React, { Component } from 'react'
@@ -12,7 +12,7 @@ import KEY from '/captcha.js';
 
 function Log_reset() {
 
-    const [count, setCount] = useState(0);
+    const recaptchaRef = useRef(null);
     const [ifChel, setIfChel] = useState(false);
     const [captcha, setCaptcha] = useState(null);
     const [confirmation, setConf] = useState(false);
@@ -87,19 +87,19 @@ function Log_reset() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
-            if (captcha != null)
-            {
-                setConf(true);
-                    const to_email = await axios.post(`${APIURL}/email/${data.email}`, data, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': csrfToken,
-                        },
-                    });
-                    console.log('Response:', to_email.data);
+            
+          setConf(true);
+              const to_email = await axios.post(`${APIURL}/email/${data.email}`, data, {
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': csrfToken,
+                  },
+              });
+              console.log('Response:', to_email.data);
                 
-            }
+            
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -131,10 +131,11 @@ function Log_reset() {
 
     const handleSubmit2 = async (e) => {
         e.preventDefault();
+        const token = await recaptchaRef.current.executeAsync();
         try {
             //if (captcha != null)
             //{
-                const response = await axios.post(`${APIURL}/forgot_password_reset/`, data, {
+                const response = await axios.post(`${APIURL}/forgot_password_reset/`, { email: data.email, password1: data.password1, password2: data.password2, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken,
@@ -205,9 +206,7 @@ function Log_reset() {
               defaultValue="Login"
             />
           </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={KEY} onChange={onChange} style={{ width: 180 }}/>
-          </div>
+          
         </form>
 {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
       </div>
@@ -297,6 +296,9 @@ function Log_reset() {
               type="submit"
               defaultValue="Register Account"
             />
+          </div>
+          <div className="d-flex justify-content-center mt-3 login_container">
+            <ReCAPTCHA sitekey={KEY} ref={recaptchaRef} size='invisible' theme='dark'/>
           </div>
         </form>
       </div>

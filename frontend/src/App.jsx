@@ -70,11 +70,11 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
     if (showOtherInNav)
     {
       setshowOtherInNav(false);
-      document.querySelector('body').style.overflow = 'auto';
+      //document.querySelector('body').style.overflow = 'auto';
     }
     else{
       setshowOtherInNav(true);
-      document.querySelector('body').style.overflow = 'hidden';
+      //document.querySelector('body').style.overflow = 'hidden';
     }
   }
 

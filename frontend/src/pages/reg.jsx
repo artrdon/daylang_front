@@ -1,4 +1,4 @@
-import { useState, useEffect, state, handleChange, handleSubmit, setState }  from 'react'
+import { useState, useEffect, state, handleChange, handleSubmit, setState, useRef }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import Log from '/src/pages/log.jsx'
@@ -10,31 +10,25 @@ import WSAPIURL from '/wsapi.js';
 
 function Reg() {
 
-   // const [count, setCount] = useState(0)
-       axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
     document.querySelector("title").textContent = "Registration";
+    const recaptchaRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleEmail, setIsVisibleEmail] = useState(false);
     const [ifChel, setIfChel] = useState(false);
-    const [captcha, setCaptcha] = useState(null);
     const [confirmation, setConf] = useState(false);
 
 
 
-    const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: '', is_teacher: false });
-    const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: '', is_teacher: false });
+    const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
+    const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(';').shift();
   }
-
-
-  const theme = getCookie('theme');
-  //console.log(getCookie('theme'));
-  
   
   if (getCookie('theme') === "dark"){
       if (document.querySelector('body') != null)
@@ -44,66 +38,35 @@ function Reg() {
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "light_theme";
   }
-  
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
-
-
-    const csrfToken = getCookie('csrftoken');
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
         setData2({ ...data2, [e.target.name]: e.target.value });
         setIsVisible(false);
         setIsVisibleEmail(false);
-        console.log(data);
-        console.log(data2);
+        //console.log(data);
+        //console.log(data2);
     };
 
-    const handleChange1 = (e) => {
-        const { name, type, checked, value } = e.target;
-        // If the input is a checkbox, use the `checked` value, otherwise use `value`
-        setData({...data, [name]: type === 'checkbox' ? checked : value, });
-        setData2({...data2, [name]: type === 'checkbox' ? checked : value, });
-        console.log('Updated data:', data);
-    };
 
     const handleChange2 = (e) => {
         setData2({ ...data2, [e.target.name]: e.target.value });
         console.log(data2);
     };
 
-    const onChange = (value) => {
-      console.log("Captcha value:", value);
-      if (value === null){
-        setIfChel(false);
-      }
-      setCaptcha(value);
-    }
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (captcha != null)
+            const token = await recaptchaRef.current.executeAsync();
+            setData({ ...data, captcha: token });
+            if (token != null)
             {
-                const response = await axios.post(`${APIURL}/reg/`, data, {
+                const response = await axios.post(`${APIURL}/reg/`, { username: data.username, email: data.email, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,
+                        'X-CSRFToken': getCookie('csrftoken'),
                     },
                 });
 
@@ -121,7 +84,7 @@ function Reg() {
                     const email = await axios.post(`${APIURL}/email/${response.data}`, data, {
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRFToken': csrfToken,
+                            'X-CSRFToken': getCookie('csrftoken'),
                         },
                     });
                 }
@@ -147,7 +110,7 @@ function Reg() {
             const response = await axios.post(`${APIURL}/confirmreg/`, data2, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
             if (response.data["if"] === "yes"){
@@ -261,35 +224,35 @@ function Reg() {
               placeholder="Last name"
               className="form-control"
               value={data.second_name}
-            onChange={handleChange}
+              onChange={handleChange}
             />
 
           </div>
           <div>
-          <label htmlFor="agree">
-  <input type="checkbox" id="agree" name="is_teacher" checked={data.is_teacher} onChange={handleChange1}/> I am teacher </label>
           </div>
           {isVisible && <div style={{ zIndex: 150, width: 100, height: 30, }}>user ima</div>}
           {isVisibleEmail && <div style={{ zIndex: 150, width: 100, height: 30, }}>imail ima</div>}
           {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
           <div className="d-flex justify-content-center mt-3 login_container">
             <input
-              className="btn login_btn"
               type="submit"
               defaultValue="Register Account"
+              id='reg_button'
+              hidden
             />
+            <label htmlFor="reg_button" className="btn login_btn">Registration</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={KEY} onChange={onChange}/>
+            <ReCAPTCHA sitekey={KEY} ref={recaptchaRef} size='invisible' theme='dark'/>
           </div>
         </form>
       </div>
       <div className="mt-4">
         <div style={{ display: "flex", justifyContent: "center" }}>
           Already have an account?{" "}
-          <a href="/log/" style={{ marginLeft: 10, color: "white" }}>
+          <Link to="/log/" style={{ marginLeft: 10, color: "white" }}>
             Login
-          </a>
+          </Link>
         </div>
       </div>
     </div>

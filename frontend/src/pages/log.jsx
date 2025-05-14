@@ -1,4 +1,4 @@
-import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
+import { useState, useEffect, state, handleChange, handleSubmit, setStat, useRef }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import React, { Component } from 'react'
@@ -14,22 +14,16 @@ import WSAPIURL from '/wsapi.js';
 
 function Log() {
 
-    const [count, setCount] = useState(0);
-    const [ifChel, setIfChel] = useState(false);
-    const [captcha, setCaptcha] = useState(null);
+    const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
+    const recaptchaRef = useRef(null);
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(';').shift();
   }
-
-
-  const theme = getCookie('theme');
-  //console.log(getCookie('theme'));
-  
   
   if (getCookie('theme') === "dark"){
       if (document.querySelector('body') != null)
@@ -39,44 +33,18 @@ function Log() {
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "light_theme";
   }
-  
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
-
-
-    const onChange = (value) => {
-      console.log("Captcha value:", value);
-      if (value === null){
-        setIfChel(false); //strannosti
-      }
-      setCaptcha(value);
-    }
-
-    const csrfToken = getCookie('csrftoken');
 
     document.querySelector("title").textContent = "Authentication";
 
-    const [data, setData] = useState({ username: '', password: ''});
+    const [data, setData] = useState({ username: '', password: '', captcha: ''});
     const [data1, setData1] = useState({ code: '', username: data.username, password: data.username});
+    const [passIncor, setPassIncor] = useState(false);
     const history = useNavigate();
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
         setData1({ ...data1, [e.target.name]: e.target.value });
+        setPassIncor(false);
     };
 
     const handleChange1 = (e) => {
@@ -87,57 +55,58 @@ function Log() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const token = await recaptchaRef.current.executeAsync();
+        setData({ ...data, captcha: token });
         try {
-            if (captcha != null)
-            {
-                const response = await axios.post(`${APIURL}/log/`, data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,
-                    },
-                });
-                /*if (response.data["if"] === "yes"){
-                    document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
-                    window.location.replace('/'); // Нет возможности вернуться
+          if (token != null)
+          {
+            const response = await axios.post(`${APIURL}/log/`, { username: data.username, password: data.password, captcha: token}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+            });
+            console.log(response.data);
+            if (response.data != 'username or password is incorrect'){
+              setConf(true);
+              const to_email = await axios.post(`${APIURL}/email/${response.data}`, { username: data.username, password: data.password, captcha: token}, {
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': getCookie('csrftoken'),
+                  },
+              });
+              console.log('Response:', to_email.data);
 
-                }*/console.log(response.data);
-                    if (response.data != 'username or password is incorrect'){
-                      setConf(true);
-                      const to_email = await axios.post(`${APIURL}/email/${response.data}`, data, {
-                          headers: {
-                              'Content-Type': 'application/json',
-                              'X-CSRFToken': csrfToken,
-                          },
-                      });
-                      console.log('Response:', to_email.data);
-  
-                  }
             }
-
+            else{
+              setPassIncor(true);
+            }
+          }
+          else
+          {
+            setIfChel(false);
+          }
         } catch (error) {
-            console.error('There was an error!', error.response.data);
+          console.error('There was an error!', error.response.data);
         }
+        recaptchaRef.current.reset();
     };
 
     const handleSubmit1 = async (e) => {
         e.preventDefault();
         try {
-            if (captcha != null)
-            {
-                const response = await axios.post(`${APIURL}/confirm/`, data1, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken,
-                    },
-                });
-                if (response.data["if"] === "yes"){
-                    document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
-                    window.location.replace('/'); // Нет возможности вернуться
+            const response = await axios.post(`${APIURL}/confirm/`, data1, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+            });
+            if (response.data["if"] === "yes"){
+                document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
+                history('/'); 
 
-                }
-                console.log('Response:', response.data);
             }
-
+            console.log('Response:', response.data);
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
@@ -204,15 +173,22 @@ function Log() {
             <label htmlFor="login_button" className="btn login_btn">Login</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={KEY} onChange={onChange}/>
+            <ReCAPTCHA sitekey={KEY} ref={recaptchaRef} size='invisible' theme='dark'/>
           </div>
           <button onClick={handleYandexLogin}>
             Войти через Яндекс
         </button>
         </form>
-{ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
+
+
       </div>
       <div className="mt-4">
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {ifChel === false && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {passIncor && <div style={{ zIndex: 150, width: 100, height: 30, }}>username or password is incorrect</div>}
+        </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           Don't have an account?{" "}
           <Link to="/reg/" style={{ marginLeft: 10, color: "white" ,}}>

@@ -1,2 +1,3 @@
-const KEY = "6LdGfPgqAAAAAPx1WfbRE6TeQ8gM5KX6tgDheJoH"; // localhost: 6LdGfPgqAAAAAPx1WfbRE6TeQ8gM5KX6tgDheJoH   daylang.ru: 6Lc8shQrAAAAAMnzLwTxdJlOS5UCX2K0lwI4Y7bW
+const KEY = "6LemrTgrAAAAAC-mX1qNg9b-E0DCQRibfUZEv4l5"; // dev
+//const KEY = "6LdUrjgrAAAAAIvRDcxVhr-dj00jCLQ7lth_nC_7"; // prod
 export default KEY
