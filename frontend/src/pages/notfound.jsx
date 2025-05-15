@@ -16,9 +16,11 @@ function NotFound() {
   const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  const [lessons, setLessons] = useState(websocket.lessons);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
 
   document.querySelector("title").textContent = `404`;
 
@@ -66,13 +68,13 @@ else{
   
  
 
-  if (loading) return  ( <> <AppLoad lang={langua} messNumb={messNumb}/> </> );
+  if (loading) return <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>;
   if (error) return <p>Error: {error}</p>;
 
 
 return (
     <>
-    <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+    <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel not_found_all_container_404_positing" >
     <div className='not_found_all_container_404'>

@@ -37,9 +37,11 @@ function Saved() {
   const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
+  const [lessons, setLessons] = useState(websocket.lessons);
   useEffect(() => {
-      setMessNumb(websocket.messNumb);
-  }, [websocket.messNumb]);
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
 
     const [count, setCount] = useState(0)
 
@@ -98,7 +100,7 @@ else{
  
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -107,7 +109,7 @@ else{
 
     if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -115,7 +117,7 @@ else{
 
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className="saved_finded_panel">
   <div className="sborishe_chelov">

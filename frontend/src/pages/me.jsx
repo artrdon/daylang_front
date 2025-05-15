@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import My_load from '/src/load_elems/me_load.jsx'
-import Degree from './degree_opy.jsx';
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
@@ -37,9 +36,11 @@ function Me() {
   const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  const [lessons, setLessons] = useState(websocket.lessons);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
     
   const [showDegree, setShowDegree] = useState(false);
   const showDeg = () =>{
@@ -186,7 +187,7 @@ function Me() {
 
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -196,7 +197,7 @@ function Me() {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -206,7 +207,7 @@ function Me() {
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -218,7 +219,7 @@ function Me() {
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
+        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
 
   <div className="find_panel">
   <div className="me_under_find">

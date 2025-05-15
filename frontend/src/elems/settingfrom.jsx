@@ -167,7 +167,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
           let end_time_minute = (beg_time + lesson_time) % 60;
           const newComponent = {
             time: `${beg_time_hour}:${beg_time_minute} - ${end_time_hour}:${end_time_minute}`,
-            price: settingChange.price,
           };
           array_of_components.push(newComponent);
           beg_time += lesson_time + break_betwen_lessons;
@@ -515,7 +514,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                   {components.map((component, index) => ( 
                         <div className='crt_offer_work_day_work_grafic' onClick={ChangeWorkDay} name="Monday" key={index}>
                           <span>{component.time}</span>
-                          <div>{component.price} ₽</div>
                         </div>
                     ))}
                 

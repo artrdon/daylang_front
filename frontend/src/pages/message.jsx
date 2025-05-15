@@ -38,9 +38,11 @@ const [messId, setMessId] = useState(null);
   const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  const [lessons, setLessons] = useState(websocket.lessons);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
 
 
   const [ifBye, setBye] = useState(false);
@@ -413,7 +415,7 @@ const add_smile = (par) => {
 
     if (loading) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb}/>
+      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -421,7 +423,7 @@ const add_smile = (par) => {
 
     if (loading2) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb}/>
+      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -434,14 +436,14 @@ const add_smile = (par) => {
 
   if (loading12) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb}/>
+      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
   if (error12) return <p>Error: {error12}</p>;
     return (
         <>
-        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
     <div className="message_find_panel">
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="panel_of_messages">

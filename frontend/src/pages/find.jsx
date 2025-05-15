@@ -20,11 +20,13 @@ function Find() {
     const reftoAnswerToPupilOffer = useRef(null);
     const websocket = useWebSocket();
     const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    const [lessons, setLessons] = useState(websocket.lessons);
     const [page, setPage] = useState(0);
     const [currentOffer, setCurrentOffer] = useState(null);
     useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+      setMessNumb(websocket.messNumb);
+      setLessons(websocket.lessons);
+  }, [websocket.messNumb, websocket.lessons]);
     const queryClient = useQueryClient();
 
     const closeAnswerToPupilOffer = () => {
@@ -167,7 +169,7 @@ function Find() {
 
     if (loading) return (
           <>
-          <AppLoad lang={langua}/>
+          <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
     </>
 
     );
@@ -176,7 +178,7 @@ function Find() {
 
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 <div className='find_panel'>
   <div className='find_page_up_buttons'>
     <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>

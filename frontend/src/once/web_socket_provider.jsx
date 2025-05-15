@@ -9,6 +9,7 @@ const WebSocketContext = createContext(null);
 const WebSocketProvider = ({ children }) => {
 
     const [groups, setGroup] = useState([]);
+    const [lessons, setLessons] = useState(0)
     const [error12, setError12] = useState(null);
     const [loading12, setLoading12] = useState(true);
     const [data12, setData12] = useState([]);
@@ -17,7 +18,29 @@ const WebSocketProvider = ({ children }) => {
     axios.defaults.withCredentials = true;
 
 
-
+    const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+      queryKey: [`future_lessons_offer`], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${APIURL}/bye/`);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+    useEffect(() => {
+      const fetchData = async () => {
+        if (data1) {
+          if (Array.isArray(data1)) {
+            setLessons(data1.length);
+            console.log(data1.length);
+          }
+        }
+      };
+      fetchData();
+  }, [data1]);
+  
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
         queryKey: ['userinfo'], // Уникальный ключ запроса
         queryFn: async () => {
@@ -29,7 +52,7 @@ const WebSocketProvider = ({ children }) => {
         staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
         refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
       });
-    
+      
     
     useEffect(() => {
         const fetchData = async () => {
@@ -98,7 +121,7 @@ const WebSocketProvider = ({ children }) => {
     }, [groups]);
 
     return (
-        <WebSocketContext.Provider value={{ messNumb }}>
+        <WebSocketContext.Provider value={{ messNumb, lessons }}>
           {children}
         </WebSocketContext.Provider>
     );

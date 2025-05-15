@@ -16,9 +16,11 @@ function UpdateOffer() {
     
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  const [lessons, setLessons] = useState(websocket.lessons);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
 
     const params = useParams();
 
@@ -98,7 +100,7 @@ function UpdateOffer() {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <Create_offer_load/>
 </>
 
@@ -112,7 +114,7 @@ function UpdateOffer() {
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <Create_offer_load/>
 </>
 
@@ -127,7 +129,7 @@ function UpdateOffer() {
 
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} photo={data1.photo} balance={data1.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data1.photo} balance={data1.balance}/>
 
 <UpdateOfferComp name={data2[0].name} description={data2[0].description} price={data2[0].price} id={params.index} language={data2[0].lang} format={data2[0].format} target={data2[0].target} age={data2[0].age} microphone={data2[0].microphone} photo={data2[0].photo} message={data2[0].message}/>
 

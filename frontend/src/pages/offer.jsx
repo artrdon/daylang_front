@@ -162,7 +162,7 @@ function ImageAfterMain({ src, fallbackSrc, alt, className, style }) {
   useEffect(() => {
     setImgSrc(src);
   }, [src]);
-  
+
   const handleError = () => {
     setImgSrc(fallbackSrc);
   };
@@ -186,10 +186,12 @@ function Offer() {
   const [screen, setScreen] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
+  const [lessons, setLessons] = useState(websocket.lessons);
   const nodeRev = useRef(null);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
 
 
   useEffect(() => {
@@ -413,7 +415,7 @@ const save_to_fav = async (e) => {
 
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <Offer_load/>
 </>
 
@@ -422,7 +424,7 @@ const save_to_fav = async (e) => {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <Offer_load/>
 
 </>
@@ -432,7 +434,7 @@ const save_to_fav = async (e) => {
 
   if (loading3) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <Offer_load/>
 
 </>
@@ -445,7 +447,7 @@ const save_to_fav = async (e) => {
     
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className="find_panel">
   <div className="div_of_foto_and_button" id="divoffb">

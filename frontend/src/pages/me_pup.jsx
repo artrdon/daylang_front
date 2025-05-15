@@ -34,9 +34,11 @@ function Me_pup() {
   const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  const [lessons, setLessons] = useState(websocket.lessons);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
 
     const params = useParams();
     if (params.user === "undefined")
@@ -168,7 +170,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <My_pup_load/>
 </>
 
@@ -178,7 +180,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <My_pup_load/>
 </>
 
@@ -188,7 +190,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <My_pup_load/>
 </>
 
@@ -201,7 +203,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} photo={usernow.photo} balance={usernow.balance}/>
+        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
 
   <div className="find_panel">
   <div className="me_under_find">

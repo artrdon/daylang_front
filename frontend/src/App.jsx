@@ -56,7 +56,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 
 
 
-function App({ name, lastname, username, lang, if_teach, mess_count, photo, balance }) {
+function App({ name, lastname, username, lang, if_teach, mess_count, lessons, photo, balance }) {
 
   const nodeRef = useRef(null);
   const [showOtherInNav, setshowOtherInNav] = useState(false);
@@ -357,7 +357,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
         />
         
 
-        {mess_count > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{mess_count}</div>}
+        {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
 
         <span className="text_in_panel">My lessons</span>
       </Link>

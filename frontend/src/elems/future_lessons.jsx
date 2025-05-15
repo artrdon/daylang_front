@@ -54,7 +54,7 @@ function FutureLessons() {
         {(() => {
             
             if (data?.length === 0) {
-              console.log(1);
+              //console.log(1);
               return <NotFoundSave iwant={"no_offers"}/>;
             }
             else{

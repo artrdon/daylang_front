@@ -18,9 +18,11 @@ function Message_list() {
   const [wsGroup, setWsGroup] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  const [lessons, setLessons] = useState(websocket.lessons);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
   
 
 useEffect(() => {
@@ -263,19 +265,19 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
 
 
-  if (loading) return ( <> <AppLoad lang={langua} messNumb={messNumb}/>
+  if (loading) return ( <> <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
                             <Message_list_load/>
                         </> );
   if (error) return <p>Error: {errorDetails}</p>;
 
-  if (loading1) return ( <> <AppLoad lang={langua} messNumb={messNumb}/>
+  if (loading1) return ( <> <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
       <Message_list_load/>
   </> );
   if (error1) return <p>Error: {errorDetails1}</p>;
 
     return (
         <>
-        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className="message_list_find_panel">
   <div style={{ display: "flex", justifyContent: "center" }}>

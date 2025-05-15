@@ -19,9 +19,11 @@ function Finded() {
   const nodeDeep = useRef(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
-    useEffect(() => {
-        setMessNumb(websocket.messNumb);
-    }, [websocket.messNumb]);
+  const [lessons, setLessons] = useState(websocket.lessons);
+  useEffect(() => {
+    setMessNumb(websocket.messNumb);
+    setLessons(websocket.lessons);
+}, [websocket.messNumb, websocket.lessons]);
 
     const arrLang = {
       'English': {
@@ -169,13 +171,13 @@ function Finded() {
     };
 
 
-  if (loading) return (<AppLoad lang={langua} messNumb={messNumb}/>);
+  if (loading) return <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>;
   if (error) return <p>Error: {error}</p>;
 
 
   if (loading1) return (
       <>
-       <AppLoad lang={langua} messNumb={messNumb}/>
+       <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 
 {/*<div className="finded_panel" style={{ width: "100%", display: "flex", justifyContent: "center", left: "unset", backgroundColor: "#00000000"}}>
   <div className="sborishe_chelov">
@@ -211,7 +213,7 @@ function Finded() {
 
   return (
       <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className="saved_finded_panel">
   <div className="sborishe_chelov">

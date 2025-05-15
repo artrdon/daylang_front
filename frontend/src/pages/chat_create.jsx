@@ -54,9 +54,11 @@ function ChatCreate() {
     }
     const websocket = useWebSocket();
     const [messNumb, setMessNumb] = useState(websocket.messNumb);
+    const [lessons, setLessons] = useState(websocket.lessons);
       useEffect(() => {
           setMessNumb(websocket.messNumb);
-      }, [websocket.messNumb]);
+          setLessons(websocket.lessons);
+      }, [websocket.messNumb, websocket.lessons]);
 
 
     const [wsGroup, setWsGroup] = useState(null);
@@ -221,7 +223,7 @@ useEffect(() => {
 
     if (loading) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb}/>
+      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -229,7 +231,7 @@ useEffect(() => {
 
     if (loading2) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb}/>
+      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -237,7 +239,7 @@ useEffect(() => {
 
     if (loading3) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb}/>
+      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -246,7 +248,7 @@ useEffect(() => {
 
     return (
         <>
-        <AppMess name={data2.first_name} lastname={data2.last_name} username={data2.username} lang={langua} if_teach={data2.i_am_teacher} mess_count={messNumb} photo={data2.photo} balance={data2.balance}/>
+        <AppMess name={data2.first_name} lastname={data2.last_name} username={data2.username} lang={langua} if_teach={data2.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data2.photo} balance={data2.balance}/>
  
     <div className="message_find_panel">
       <div style={{ display: "flex", justifyContent: "center" }}>
