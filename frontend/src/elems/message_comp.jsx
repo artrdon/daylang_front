@@ -41,16 +41,16 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
   const convertLinksToAnchors = (text) => {
     const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
   
-    return text.replace(urlRegex, function(url) {
-      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
-    });
+  return text.replace(urlRegex, function(url) {
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+  });
   }
   const [text, setText] = useState(convertLinksToAnchors(int));
   console.log(text);
   const toggleVisibility = (e, id) => {
     setVisibleId(prevId => prevId === id ? null : id);
     setPosition({ y: e.clientY });
-    console.log(e.clientY);
+    //console.log(e.clientY);
   };
   const unToggleVisibility = () =>{
     setVisibleId(null);
@@ -99,8 +99,8 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
           return (<>
               <div className='message_comp_my_message' id={`mess${id}`} >
                   <div className='message_comp_my_message_div'>
-                    <pre className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
-                      {text}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
+                    <div className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
+                      <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       <div>
                         {(() => {
                           if (changed === true) {
@@ -120,7 +120,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                         })()}
                       </div>
 
-                    </pre>
+                    </div>
                   </div>
                   
                   {/*visibleId === id && <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
@@ -156,8 +156,8 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                   }
                     
                   <div className='message_comp_my_message_div'>
-                    <pre className='message_comp_not_my_message_inside_pre' onClick={() => toggleVisibility(id)}>
-                      {text}{tip === "sendvid" && <Link to={`${link}${call_id}/`} target='_blank'>join</Link>}
+                    <div className='message_comp_not_my_message_inside_pre' /*onClick={() => toggleVisibility(id)}*/>
+                      <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       
                       <div>
                         {(() => {
@@ -179,7 +179,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                       </div>
                       
 
-                    </pre>
+                    </div>
                     </div>
             </div>
           </>);

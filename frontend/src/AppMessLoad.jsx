@@ -1,18 +1,5 @@
-import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
+import { useState, }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-/*import Find from '/src/pages/find.jsx'
-import Finded from '/src/pages/finded.jsx'
-import Message_list from '/src/pages/message_list.jsx'
-import Saved from '/src/pages/saved.jsx'
-import Message from '/src/pages/message.jsx'
-import Offer from '/src/pages/offer.jsx'
-import Me from '/src/pages/me.jsx'
-import Degree from '/src/pages/degree.jsx'
-import Feedback from '/src/pages/feedback.jsx'
-import Offers_on_main from '/src/pages/offers_main.jsx'
-import Settings from '/src/pages/settings.jsx'
-import About from '/src/pages/about_us.jsx'
-import NotFound from '/src/pages/notfound.jsx'*/
 import axios from 'axios';
 import Docks from '/src/elems/docks.jsx'
 
@@ -57,22 +44,6 @@ else{
         document.querySelector('body').className = "light_theme";
 }
 
-
-function change_theme() {
-    if (document.querySelector('body').className === "dark_theme")
-    {
-
-        document.querySelector('body').className = "light_theme";
-        document.cookie = "theme=light; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-    }
-    else
-    {
-        document.querySelector('body').className = "dark_theme";
-        document.cookie = "theme=dark; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-    }
-}
 
 
 var arrLang = {
@@ -153,25 +124,7 @@ var arrLang = {
           <input type="text" name="Find" id="Finding" placeholder="Find" className="search_input_field"/>
       </div>
   </div>*/}
-    <button className="change_theme_button">
-      {theme === "dark" ? (
-          <img
-            src="/src/static/img/moon.png"
-            alt="dark"
-            className="change_theme_button_img"
-            id="theme_img"
-          />
-                ) :
-              (
-              <img
-                src="/src/static/img/sunce.png"
-                alt="light"
-                className="change_theme_button_img"
-                id="theme_img"
-              />
-                )
-                }
-    </button>
+    
       <div className="my_account_panel">
         <ImageWithFallback src="/src/static/img/nema.png" alt='nema' />
       </div>
@@ -209,7 +162,7 @@ var arrLang = {
           alt="my lesson"
           className="app_navig_panel_img on_desktop_panel"
         />
-        {lessons > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{lessons}</div>}
+        {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
         <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
       

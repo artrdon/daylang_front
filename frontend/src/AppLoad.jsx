@@ -1,18 +1,5 @@
 import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-/*import Find from '/src/pages/find.jsx'
-import Finded from '/src/pages/finded.jsx'
-import Message_list from '/src/pages/message_list.jsx'
-import Saved from '/src/pages/saved.jsx'
-import Message from '/src/pages/message.jsx'
-import Offer from '/src/pages/offer.jsx'
-import Me from '/src/pages/me.jsx'
-import Degree from '/src/pages/degree.jsx'
-import Feedback from '/src/pages/feedback.jsx'
-import Offers_on_main from '/src/pages/offers_main.jsx'
-import Settings from '/src/pages/settings.jsx'
-import About from '/src/pages/about_us.jsx'
-import NotFound from '/src/pages/notfound.jsx'*/
 import Docks from '/src/elems/docks.jsx'
 import axios from 'axios';
 
@@ -106,26 +93,7 @@ function AppLoad({ lang, messNumb, lessons }) {
           <input type="text" name="Find" id="Finding" placeholder="Find" className="search_input_field"/>
       </div>
   </div>*/}
-    <button className="change_theme_button" >
-
-      {theme === "dark" ? (
-          <img
-            src="/src/static/img/moon.png"
-            alt="dark"
-            className="change_theme_button_img"
-            id="theme_img"
-          />
-                ) :
-              (
-              <img
-                src="/src/static/img/sunce.png"
-                alt="light"
-                className="change_theme_button_img"
-                id="theme_img"
-              />
-                )
-                }
-    </button>
+    
           <div className="my_account_panel">
             <img src="/src/static/img/nema.png" alt='user' className='avatar'/>
           </div>
@@ -167,7 +135,7 @@ function AppLoad({ lang, messNumb, lessons }) {
         />
         
 
-        {lessons > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{lessons}</div>}
+        {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
         <span className="text_in_panel" id="not_for_fon">My lessons</span>
       </Link>
       

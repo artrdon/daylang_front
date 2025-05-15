@@ -1,18 +1,5 @@
 import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-/*import Find from '/src/pages/find.jsx'
-import Finded from '/src/pages/finded.jsx'
-import Message_list from '/src/pages/message_list.jsx'
-import Saved from '/src/pages/saved.jsx'
-import Message from '/src/pages/message.jsx'
-import Offer from '/src/pages/offer.jsx'
-import Me from '/src/pages/me.jsx'
-import Degree from '/src/pages/degree.jsx'
-import Feedback from '/src/pages/feedback.jsx'
-import Offers_on_main from '/src/pages/offers_main.jsx'
-import Settings from '/src/pages/settings.jsx'
-import About from '/src/pages/about_us.jsx'
-import NotFound from '/src/pages/notfound.jsx'*/
 import Cookie from '/src/elems/cookie.jsx'
 import Docks from '/src/elems/docks.jsx'
 import axios from 'axios';
@@ -36,7 +23,11 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 function AppMess({ name, lastname, username, lang, if_teach, mess_count, lessons, photo, balance }) {
-  const [count, setCount] = useState(0)
+  const [showDesktopPanel, setshowDesktopPanel] = useState(false);
+
+  const ShowDesktop = () =>{
+    setshowDesktopPanel(!showDesktopPanel);
+  }
 
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -154,44 +145,122 @@ var arrLang = {
           <input type="text" name="Find" id="Finding" placeholder="Find" className="search_input_field"/>
       </div>
   </div>*/}
-    <button className="change_theme_button" onClick={change_theme}>
-      {theme === "dark" ? (
-          <img
-            src="/src/static/img/moon.png"
-            alt="dark"
-            className="change_theme_button_img"
-            id="theme_img"
-          />
-                ) :
-              (
-              <img
-                src="/src/static/img/sunce.png"
-                alt="light"
-                className="change_theme_button_img"
-                id="theme_img"
-              />
-                )
-                }
-    </button>
-    {(() => {
+    
+    {/*(() => {
         if (if_teach) {
           return <p className='top_panel_balance'>{balance}₽</p>;
         }
-      })()}
-    {if_teach === true ? (
-          <Link to={`/t/user/${username}/`}>
-      <div className="my_account_panel">
-        <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
-      </div>
-    </Link>
+      })()*/}
+    {username === undefined ? (
+          <Link to={`/log/`}>
+              <div className="my_account_panel" style={{ right: 40 }}>
+                <img src="/src/static/img/nema.png" alt="log" className="avatar" />
+                <span className="ime_i" translate="no" style={{ top: 15, fontSize: 20 }}>
+                  Login
+                </span>
+              </div>
+            </Link>
                 ) :
               (
-              <Link to={`/p/user/${username}/`}>
-      <div className="my_account_panel">
-        <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
-      </div>
-    </Link>
+              if_teach === true ? (
+            <>
+              <button onClick={ShowDesktop}>
+                <div className="my_account_panel">
+                  <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+                </div>
+              </button>
+              {showDesktopPanel &&
+                <div className='show_nav_in_desktop'>
+                  <div className='show_nav_in_desktop_section'>
+                    <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                      <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
+                      
+                    </Link>
+                    <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 70, top: 5, width: "calc(100% - 80px)"}}>
+                      {name} {lastname}
+                    </span>
+                  </div>
+                  <div className='show_nav_in_desktop_section'>
+                    Theme 
+                    <button className="change_theme_button" onClick={change_theme}>
+                    {theme === "dark" ? (
+                      <img
+                        src="/src/static/img/moon.png"
+                        alt="dark"
+                        className="change_theme_button_img"
+                        id="theme_img"
+                      />
+                      )
+                      :
+                      (
+                      <img
+                        src="/src/static/img/sunce.png"
+                        alt="light"
+                        className="change_theme_button_img"
+                        id="theme_img"
+                      />
+                      )
+                    }
+                    </button>
+                  </div>
+                  <div className='show_nav_in_desktop_section'>
+                    Become te
+                  </div>
+                </div>
+              }
+            </>
+                ) :
+              (
+              <>
+                <button onClick={ShowDesktop}>
+                  <div className="my_account_panel">
+                    <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+                  </div>
+                </button>
+                {showDesktopPanel &&
+                    <div className='show_nav_in_desktop'>
+                      <div className='show_nav_in_desktop_section'>
+                        <Link to={`/p/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                          <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
+                          
+                        </Link>
+                        <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 70, top: 5, width: "calc(100% - 80px)"}}>
+                          {name} {lastname}
+                        </span>
+                      </div>
+                      <div className='show_nav_in_desktop_section'>
+                        Theme 
+                        <button className="change_theme_button" onClick={change_theme}>
+                        {theme === "dark" ? (
+                          <img
+                            src="/src/static/img/moon.png"
+                            alt="dark"
+                            className="change_theme_button_img"
+                            id="theme_img"
+                          />
+                          )
+                          :
+                          (
+                          <img
+                            src="/src/static/img/sunce.png"
+                            alt="light"
+                            className="change_theme_button_img"
+                            id="theme_img"
+                          />
+                          )
+                        }
+                        </button>
+                      </div>
+                      <div className='show_nav_in_desktop_section'>
+                        Become te
+                      </div>
+                    </div>
+                }
+              </>
+              )
                 )
+
+
                 }
   </div>
   <div className="message_navig_panel">

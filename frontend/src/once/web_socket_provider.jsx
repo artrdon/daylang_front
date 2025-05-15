@@ -34,7 +34,7 @@ const WebSocketProvider = ({ children }) => {
         if (data1) {
           if (Array.isArray(data1)) {
             setLessons(data1.length);
-            console.log(data1.length);
+            //console.log(data1.length);
           }
         }
       };
@@ -88,7 +88,7 @@ const WebSocketProvider = ({ children }) => {
 
         socket.onmessage = (event) => {
             const dataMess = JSON.parse(event.data);
-            console.log(dataMess);
+            //console.log(dataMess);
     
             if (dataMess.tip === "delete"){
                 let i_read = true;

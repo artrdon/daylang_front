@@ -1,19 +1,6 @@
 import { useState, useEffect, state, handleChange, handleSubmit, setState, useRef }  from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group';
-/*import Find from '/src/pages/find.jsx'
-import Finded from '/src/pages/finded.jsx'
-import Message_list from '/src/pages/message_list.jsx'
-import Saved from '/src/pages/saved.jsx'
-import Message from '/src/pages/message.jsx'
-import Offer from '/src/pages/offer.jsx'
-import Me from '/src/pages/me.jsx'
-import Degree from '/src/pages/degree.jsx'
-import Feedback from '/src/pages/feedback.jsx'
-import Offers_on_main from '/src/pages/offers_main.jsx'
-import Settings from '/src/pages/settings.jsx'
-import About from '/src/pages/about_us.jsx'
-import NotFound from '/src/pages/notfound.jsx'*/
 import Cookie from '/src/elems/cookie.jsx'
 import Docks from '/src/elems/docks.jsx'
 import ShowNavInMob from '/src/elems/show_nav_in_mob.jsx'
@@ -228,7 +215,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
               {showDesktopPanel &&
                 <div className='show_nav_in_desktop'>
                   <div className='show_nav_in_desktop_section'>
-                    <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                    <Link to={`t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
                       <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
                       
                     </Link>
@@ -276,7 +263,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
                 {showDesktopPanel &&
                     <div className='show_nav_in_desktop'>
                       <div className='show_nav_in_desktop_section'>
-                        <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                        <Link to={`/p/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
                           <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
                           
                         </Link>
@@ -329,38 +316,48 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
         />
         <span className="text_in_panel" key="about">{arrLang[lang]['find']}</span>
       </Link>
-      <Link className="navig_panel_button" to="/saved/">
-        <img
-          src="/src/static/img/srce.png"
-          alt="saved"
-          className="app_navig_panel_img on_desktop_panel"
-        />
-        <span className="text_in_panel">{arrLang[lang]['saved']}</span>
-      </Link>
-      <Link className="navig_panel_button" to="/message_list/">
-        <img
-          src="/src/static/img/messagebutwhite.png"
-          alt="message"
-          className="app_navig_panel_img on_desktop_panel"
-        />
-        
+      {username === undefined &&
+        <Link className="navig_panel_button" to="/log/">
+          
+          <span className="text_in_panel">Login</span>
+        </Link>
+      }
+      {!(username === undefined) &&
+        <>
+          <Link className="navig_panel_button" to="/saved/">
+            <img
+              src="/src/static/img/srce.png"
+              alt="saved"
+              className="app_navig_panel_img on_desktop_panel"
+            />
+            <span className="text_in_panel">{arrLang[lang]['saved']}</span>
+          </Link>
+          <Link className="navig_panel_button" to="/message_list/">
+            <img
+              src="/src/static/img/messagebutwhite.png"
+              alt="message"
+              className="app_navig_panel_img on_desktop_panel"
+            />
+            
 
-        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+            {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
 
-        <span className="text_in_panel">{arrLang[lang]['messages']}</span>
-      </Link>
-      <Link className="navig_panel_button" to="/my_lessons/">
-        <img
-          src="/src/static/img/my_lessons.png"
-          alt="my lessons"
-          className="app_navig_panel_img on_desktop_panel"
-        />
-        
+            <span className="text_in_panel">{arrLang[lang]['messages']}</span>
+          </Link>
+          <Link className="navig_panel_button" to="/my_lessons/">
+            <img
+              src="/src/static/img/my_lessons.png"
+              alt="my lessons"
+              className="app_navig_panel_img on_desktop_panel"
+            />
+            
 
-        {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+            {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
 
-        <span className="text_in_panel">My lessons</span>
-      </Link>
+            <span className="text_in_panel">My lessons</span>
+          </Link>
+        </>
+      }
       
       {username === undefined ? (
           <a className="navig_panel_button" href={`/log/`} id="only_for_fon">
@@ -382,22 +379,26 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
 
     </div>
     <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">
-      <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
-        <img
-          src="/src/static/img/setting.png"
-          alt="settings"
-          className="app_navig_panel_img on_desktop_panel"
-        />
-        <span className="text_in_panel">{arrLang[lang]['setting']}</span>
-      </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to="/support/">
-        <img
-          src="/src/static/img/support.png"
-          alt="support"
-          className="app_navig_panel_img on_desktop_panel"
-        />
-        <span className="text_in_panel">{arrLang[lang]['support']}</span>
-      </Link>
+      {!(username === undefined) &&
+        <>
+          <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
+            <img
+              src="/src/static/img/setting.png"
+              alt="settings"
+              className="app_navig_panel_img on_desktop_panel"
+            />
+            <span className="text_in_panel">{arrLang[lang]['setting']}</span>
+          </Link>
+          <Link className="navig_panel_button" id="not_for_fon" to="/support/">
+            <img
+              src="/src/static/img/support.png"
+              alt="support"
+              className="app_navig_panel_img on_desktop_panel"
+            />
+            <span className="text_in_panel">{arrLang[lang]['support']}</span>
+          </Link>
+        </>
+      }
       <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
         <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLang[lang]['about']}</span>
