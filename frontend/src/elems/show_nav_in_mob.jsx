@@ -21,7 +21,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   }
   
 
-function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username, ref, money, firstname, lastname}) {
+function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username, ref, money, firstname, lastname, change_theme, theme}) {
     const arrLang = {
         'English': {
             'find': "Find",
@@ -108,13 +108,18 @@ return (
         <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
                 {ifteach === true ? 
                     (
+                      <>
                         <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/t/user/${username}/`}>
                             <ImageWithFallbackPanel src={myphoto} alt='me' fallbackSrc="/src/static/img/nema.png"/>
                             <span className='show_nav_in_mob_button_text_color' style={{overflowWrap: 'anywhere', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>{firstname} {lastname}</span>
-                            <div style={{display: 'block'}}>
-                              <p className='top_panel_balance'>{money}₽</p>
-                            </div>
+                            
                         </Link>
+                        <div className="show_nav_in_mob_nav_panel_botton_main">
+                            <div style={{display: 'block'}}>
+                              <p className='top_panel_balance'>Current balance: {money}₽</p>
+                            </div>
+                        </div>
+                      </>
                     ) 
                     : 
                     (
@@ -124,6 +129,29 @@ return (
                         </Link>
                     )
                 }
+                <div className="show_nav_in_mob_nav_panel_botton_main">
+                    <p className='top_panel_balance'>Theme </p>
+                    <button className="change_theme_button" onClick={change_theme}>
+                    {theme === "dark" ? (
+                      <img
+                        src="/src/static/img/moon.png"
+                        alt="dark"
+                        className="change_theme_button_img"
+                        id="theme_img"
+                      />
+                      )
+                      :
+                      (
+                      <img
+                        src="/src/static/img/sunce.png"
+                        alt="light"
+                        className="change_theme_button_img"
+                        id="theme_img"
+                      />
+                      )
+                    }
+                    </button>
+                </div>
                 <Link className="show_nav_in_mob_nav_panel_botton" to="/settings/">
                 <img
                     src="/src/static/img/setting.png"

@@ -156,7 +156,23 @@ function ImageWithFallbackFeedback({ src, fallbackSrc, alt }) {
 }
 
 
+function ImageAfterMain({ src, fallbackSrc, alt, className, style }) {
+  const [imgSrc, setImgSrc] = useState(src);
 
+  const handleError = () => {
+    setImgSrc(fallbackSrc);
+  };
+
+  return (
+    <img
+      className={className}
+      style={style}
+      src={imgSrc}
+      alt={alt}
+      onError={handleError}
+    />
+  );
+}
 
 
 function Offer() {
@@ -185,12 +201,12 @@ function Offer() {
   };
 
 
-  const showRev = () =>{
+  const showRev = () => {
     document.querySelector("body").style.overflow = "hidden";
     setShowAllOffers(true);
   }
 
-  const unShowRev = () =>{
+  const unShowRev = () => {
     document.querySelector("body").style.overflow = "unset";
     setShowAllOffers(false);
   }
@@ -619,7 +635,7 @@ const save_to_fav = async (e) => {
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
           <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "gray"}} onClick={() => toggleVisibility()}>
-              <img src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 12, objectFit: "contain"}} />
+              <ImageAfterMain src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 12, objectFit: "contain"}} fallbackSrc="/src/static/img/nema.png"/>
           </div>
           {photoArray.length > (photoIndex + 1) && 
             <button style={{ position: "fixed", right: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 }} onClick={nextPhoto}>

@@ -1,13 +1,12 @@
-import { useState, useEffect, useRef } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import { Document, Page } from 'react-pdf';
-import { pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
+import { useState } from 'react';
 
-// Настройка worker
+// Указываем путь к worker-у PDF.js (обязательно для корректной работы)
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-function Privacy() {
+export default function PDFViewer() {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -16,19 +15,28 @@ function Privacy() {
   }
 
   return (
-    <iframe 
-      src="/src/static/docks/pryvacy.pdf"
-      style={{
-        width: '100vw',
-        height: '100vh',
-        border: 'none'
-      }}
-      title="PDF Viewer"
-    >
-      Ваш браузер не поддерживает PDF. 
-      <a href="/example.pdf">Скачать PDF</a>
-    </iframe>
+    <div>
+      <Document
+        file="/src/static/docks/pryvacy.pdf"  // Путь к PDF-файлу (может быть URL или Blob)
+        onLoadSuccess={onDocumentLoadSuccess}
+      >
+        <Page pageNumber={pageNumber} />
+      </Document>
+      <p>
+        Страница {pageNumber} из {numPages}
+      </p>
+      <button 
+        onClick={() => setPageNumber(prev => Math.max(prev - 1, 1))}
+        disabled={pageNumber <= 1}
+      >
+        Назад
+      </button>
+      <button 
+        onClick={() => setPageNumber(prev => Math.min(prev + 1, numPages))}
+        disabled={pageNumber >= numPages}
+      >
+        Вперед
+      </button>
+    </div>
   );
 }
-
-export default Privacy
