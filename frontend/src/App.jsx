@@ -219,7 +219,6 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
                 ) :
               (
               if_teach === true ? (
-          //<Link to={`/t/user/${username}/`}>
             <>
               <button onClick={ShowDesktop}>
                 <div className="my_account_panel">
@@ -266,19 +265,55 @@ function App({ name, lastname, username, lang, if_teach, mess_count, photo, bala
                 </div>
               }
             </>
-            //</Link>
-
                 ) :
               (
-              //<Link to={`/p/user/${username}/`}>
+              <>
                 <button onClick={ShowDesktop}>
                   <div className="my_account_panel">
                     <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
                   </div>
                 </button>
-                  
-                //</Link>
-                )
+                {showDesktopPanel &&
+                    <div className='show_nav_in_desktop'>
+                      <div className='show_nav_in_desktop_section'>
+                        <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                          <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
+                          
+                        </Link>
+                        <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 70, top: 5, width: "calc(100% - 80px)"}}>
+                          {name} {lastname}
+                        </span>
+                      </div>
+                      <div className='show_nav_in_desktop_section'>
+                        Theme 
+                        <button className="change_theme_button" onClick={change_theme}>
+                        {theme === "dark" ? (
+                          <img
+                            src="/src/static/img/moon.png"
+                            alt="dark"
+                            className="change_theme_button_img"
+                            id="theme_img"
+                          />
+                          )
+                          :
+                          (
+                          <img
+                            src="/src/static/img/sunce.png"
+                            alt="light"
+                            className="change_theme_button_img"
+                            id="theme_img"
+                          />
+                          )
+                        }
+                        </button>
+                      </div>
+                      <div className='show_nav_in_desktop_section'>
+                        Become te
+                      </div>
+                    </div>
+                }
+              </>
+              )
                 )
 
 

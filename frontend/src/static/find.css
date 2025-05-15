@@ -478,7 +478,9 @@ iframe{
     border-radius: 50px;
     top: 0px;
     display: inline-block;
-    margin-right: 10px
+    margin-right: 10px;
+    object-fit: contain;
+    background-color: #2a2a2a;
 }
 .ime{
     color: black;

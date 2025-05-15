@@ -23,7 +23,11 @@
     }
 }
 
-
+.show_nav_in_mob_main_info{
+    border: 1px solid;
+    border-radius: 20px;
+    margin: 20px;
+}
 .show_nav_in_desktop{
     position: fixed; width: 300px; background-color: #2a2a2a; right: 40px; top: 70px; border: 1px solid gray; border-radius: 10px;
 }
@@ -91,4 +95,9 @@
         margin: 3.8095238095238098vw;
         font-size: 4.761904761904762vw;
     }  
+    .show_nav_in_mob_main_info{
+        border: 1px solid;
+        border-radius: 3.8095238095238098vw;
+        margin: 3.8095238095238098vw;
+    }
 }

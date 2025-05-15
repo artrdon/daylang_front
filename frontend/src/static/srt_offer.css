@@ -36,10 +36,13 @@
 .settings_page_degree_photo{
     width: 200px;
     height: auto;
+    aspect-ratio: 1/1;
+    object-fit: contain;
     position: relative;
     top: 0;
     display: inline-block;
     margin: 10px;
+    background-color: #2a2a2a;
 }
 .crt_offer_save_button{
     width: 570px; height: 50px; background-color: #00d472; margin: 20px; font-size: 30px; margin-bottom: 100px; margin-right: auto; margin-left: auto; display: block; border-radius: 10px;
@@ -236,8 +239,8 @@
         top: 9.52380952380952380952380952380952vw;
     }
     .settings_page_degree_photo {
-        width: 38.0952380952380952380952380952381vw;
-        margin: 1.9047619047619047619047619047619vw;
+        width: calc(50% - 3.80vw);
+        margin: 1.90vw;
     }
 }
 @media only screen and (max-width: 535px){

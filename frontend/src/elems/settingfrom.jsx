@@ -20,6 +20,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
       alt={alt}
       onError={handleError}
       style={{ borderRadius: "50%" }}
+      id='avatarka'
     />
   );
 }
@@ -35,7 +36,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
+    const [pre_degree_photo, setPre_degree_photo] = useState([])
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
     //const [data, setData] = useState({beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
@@ -138,13 +139,13 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     }
 
 
-
-    const csrfToken = getCookie('csrftoken');
     const handleDegreeLoad = (e) => {
       setComponents([]);
+      setPre_degree_photo([]);
       for (let i = 0; i < e.target.files.length; i++){
         setComponents((components) => [...components, e.target.files[i]]);
-        console.log(e.target.files[i]);
+        setPre_degree_photo((pre_degree_photo) => [...pre_degree_photo, URL.createObjectURL(e.target.files[i])]);
+       // console.log(e.target.files[i]);
       }
     };
     const AddTimeToBye = () =>{
@@ -197,7 +198,12 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
-
+        const file = e.target.files[0]
+        //console.log(file);
+        if (file) {
+          document.getElementById('avatarka').src = URL.createObjectURL(file)
+          //console.log(URL.createObjectURL(file));
+        }
        // await handleSubmitPhoto(e);
     };
 
@@ -211,7 +217,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             const response = await axios.post(`${APIURL}/change_avatar/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
             console.log(response.data);
@@ -238,7 +244,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
           const response = await axios.post(`${APIURL}/degree_load/`, formData, {
               headers: {
                   'Content-Type': 'multipart/form-data',
-                  'X-CSRFToken': csrfToken,
+                  'X-CSRFToken': getCookie('csrftoken'),
               },
           });
           console.log(response.data);
@@ -266,7 +272,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             const response = await axios.post(`${APIURL}/usersettings/`, settingChange, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
             document.cookie = `lang=${settingChange.language}; path=/;max-age=31556926`;
@@ -285,7 +291,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             const response = await axios.post(`${APIURL}/logout/`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
             console.log('Response:', response.data);
@@ -403,10 +409,17 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                   src={photo.photo}
                   key={photo.id}
                 />
-                
+                ))}
+                {pre_degree_photo.map((photo, index) => (
+                  <img
+                  alt="degree photo"
+                  className="settings_page_degree_photo"
+                  src={photo}
+                  key={index}
+                />
                 ))}
                 <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
-                <label htmlFor="icon404" className='crt_offer_load_photo'> Загрузить фото </label>
+                <label htmlFor="icon404" className='crt_offer_load_photo'>Загрузить фото</label>
 
               </div>
 

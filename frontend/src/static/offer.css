@@ -16,6 +16,13 @@
     transition: transform 300ms;
 }
 
+
+.offer_right_next_photo_button{
+    position: absolute; right: 0px; z-index: 11; top: calc(50% - 25px); background-color:#00000000; width: 50px; height: 50px;
+}
+.offer_left_next_photo_button{
+    position: absolute; left: 0px; z-index: 11; top: calc(50% - 25px); background-color:#00000000; width: 50px; height: 50px; transform: rotate(180deg);
+}
 .offer_page_div_of_offer_div {
     width: 100%;
     height: auto;
@@ -649,6 +656,12 @@
     }
     .offer_me_real_pers {
         width: 4.761904761904762vw;
+    }
+    .offer_right_next_photo_button{
+        top: calc(50% - 4.761904761904762vw); width: 9.523809523809524vw; height: 9.523809523809524vw;
+    }
+    .offer_left_next_photo_button{
+        top: calc(50% - 4.761904761904762vw); width: 9.523809523809524vw; height: 9.523809523809524vw;
     }
 }
 @media only screen and (max-width: 450px)

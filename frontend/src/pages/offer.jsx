@@ -159,6 +159,10 @@ function ImageWithFallbackFeedback({ src, fallbackSrc, alt }) {
 function ImageAfterMain({ src, fallbackSrc, alt, className, style }) {
   const [imgSrc, setImgSrc] = useState(src);
 
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+  
   const handleError = () => {
     setImgSrc(fallbackSrc);
   };
@@ -451,11 +455,11 @@ const save_to_fav = async (e) => {
         
     </div>
     {photoArray.length > (photoIndex + 1) && 
-          <button style={{ position: "absolute", right: 0, zIndex: 11, top: "calc(50% - 25px)", backgroundColor:"#00000000", width: 50, height: 50 }} onClick={nextPhoto}>
+          <button className='offer_right_next_photo_button' onClick={nextPhoto}>
             <img src="/src/static/img/next_photo.png" alt="next" style={{width: "100%", height: "100%"}}/>
           </button>}
         {photoIndex > 0 && 
-          <button style={{ position: "absolute", left: 0, zIndex: 11, top: "calc(50% - 25px)", backgroundColor:"#00000000", width: 50, height: 50 , transform: "rotate(180deg)" }} onClick={previosPhoto}>
+          <button className='offer_left_next_photo_button' onClick={previosPhoto}>
             <img src="/src/static/img/next_photo.png" alt="prev" style={{width: "100%", height: "100%"}}/>
           </button>}
 
@@ -635,14 +639,14 @@ const save_to_fav = async (e) => {
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
           <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "gray"}} onClick={() => toggleVisibility()}>
-              <ImageAfterMain src={photoArray[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 12, objectFit: "contain"}} fallbackSrc="/src/static/img/nema.png"/>
+              <ImageAfterMain src={photoArray[photoIndex].photo}  alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 12, objectFit: "contain"}} fallbackSrc="/src/static/img/nema.png"/>
           </div>
           {photoArray.length > (photoIndex + 1) && 
-            <button style={{ position: "fixed", right: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 }} onClick={nextPhoto}>
+            <button className='offer_right_next_photo_button' onClick={nextPhoto}>
               <img src="/src/static/img/next_photo.png" alt="prevBig" style={{width: "100%", height: "100%"}}/>
             </button>}
           {photoIndex > 0 && 
-            <button style={{ position: "fixed", left: 0, zIndex: 11, backgroundColor:"#00000000", width: 100, height: 100 , transform: "rotate(180deg)" }} onClick={previosPhoto}>
+            <button className='offer_left_next_photo_button' onClick={previosPhoto}>
               <img src="/src/static/img/next_photo.png" alt="nextBig" style={{width: "100%", height: "100%"}}/>
             </button>}
           
