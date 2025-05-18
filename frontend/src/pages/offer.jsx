@@ -354,8 +354,18 @@ const save_to_fav = async (e) => {
   const {  data: data, isLoading: loading, isError: error, error: errorDetails  } = useQuery({
     queryKey: ['userinfo'], // Уникальный ключ запроса
     queryFn: async () => {
-      const response = await axios.get(`${APIURL}/userinfo/`);
-      return response.data; // Возвращаем только данные
+      try {
+        const response = await axios.get(`${APIURL}/userinfo/`);
+        return response.data;
+      } catch (err) {
+        if (err.response?.status === 401){
+          return "undefined";
+        }
+        throw new Error(
+          err.response?.data?.message || 
+          'Не удалось загрузить данные пользователя'
+        );
+      }
     },
     // Опциональные параметры:
     retry: 2, // Количество попыток повтора при ошибке
@@ -569,7 +579,7 @@ const save_to_fav = async (e) => {
           />{" "}
           {data1[0].review}
         </h1>
-        {data1[0].itsme === false && !data3[1] ? (
+        {data1[0].itsme === false && !data3[1] && data !== 'undefined' ? (
           <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']} username={data.username}/>
                 ) : (
                   <UpReviewBlock />

@@ -21,8 +21,12 @@ const WebSocketProvider = ({ children }) => {
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: [`future_lessons_offer`], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/bye/`);
-        return response.data; // Возвращаем только данные
+        try {
+          const response = await axios.get(`${APIURL}/bye/`);
+          return response.data;
+        } catch {
+          return 0;
+        }
       },
       // Опциональные параметры:
       retry: 2, // Количество попыток повтора при ошибке
@@ -44,8 +48,18 @@ const WebSocketProvider = ({ children }) => {
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
         queryKey: ['userinfo'], // Уникальный ключ запроса
         queryFn: async () => {
-          const response = await axios.get(`${APIURL}/userinfo/`);
-          return response.data; // Возвращаем только данные
+          try {
+            const response = await axios.get(`${APIURL}/userinfo/`);
+            return response.data;
+          } catch (err) {
+            if (err.response?.status === 401){
+              return "undefined";
+            }
+            throw new Error(
+              err.response?.data?.message || 
+              'Не удалось загрузить данные пользователя'
+            );
+          }
         },
         // Опциональные параметры:
         retry: 2, // Количество попыток повтора при ошибке
@@ -120,6 +134,13 @@ const WebSocketProvider = ({ children }) => {
         };
     }, [groups]);
 
+
+ /*   if (error12) return (
+      <WebSocketContext.Provider value={{ messNumb, lessons }}>
+        {children}
+      </WebSocketContext.Provider>
+  );
+*/
     return (
         <WebSocketContext.Provider value={{ messNumb, lessons }}>
           {children}

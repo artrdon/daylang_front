@@ -97,7 +97,7 @@ function Type_offer({ lang }) {
     },
   });
 
-  console.log(data);
+ // console.log(data);
 
   if (loading) return (<>
       <div className="div_of_service">
@@ -107,7 +107,7 @@ function Type_offer({ lang }) {
 
               </p>
             </div>
-            <img src="/src/static/img/bluefon.png" alt="" className="service_img" />
+            <img src="/src/static/img/bluefon.png" alt="fon" className="service_img" />
             <div className="count_of_offers"></div>
           </div>
 

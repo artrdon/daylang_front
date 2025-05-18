@@ -305,8 +305,15 @@ const messChange = (idd) => {
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
       queryKey: ['userinfo'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        return response.data; // Возвращаем только данные
+        try {
+          const response = await axios.get(`${APIURL}/userinfo/`);
+          return response.data;
+        } catch (err) {
+          if (err.response?.status === 401){
+            window.location.href = '/log';
+            return null;
+          }
+        }
       },
       // Опциональные параметры:
       retry: 2, // Количество попыток повтора при ошибке
@@ -321,6 +328,10 @@ const messChange = (idd) => {
           const response = await axios.get(`${APIURL}/getmessagelist/${params.id}/`);
           return response.data;
         } catch (error) {
+          if (err.response?.status === 401){
+            window.location.href = '/log';
+            return null;
+          }
           console.error('Ошибка при выполнении запроса:', error);
           throw error;
         } // Возвращаем только данные
@@ -380,8 +391,15 @@ const add_smile = (par) => {
     const { data: data12, isLoading: loading12, isError: error12, error: errorDetails12  } = useQuery({
       queryKey: [`getchatlist`], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/getchatlist/`);
-        return response.data; // Возвращаем только данные
+        try {
+          const response = await axios.get(`${APIURL}/getchatlist/`);
+          return response.data; 
+        } catch (err) {
+          if (err.response?.status === 401){
+            window.location.href = '/log';
+            return null;
+          }
+        }
       },
       // Опциональные параметры:
       retry: 2, // Количество попыток повтора при ошибке

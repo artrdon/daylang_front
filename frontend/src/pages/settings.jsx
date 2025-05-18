@@ -69,10 +69,15 @@ else{
   const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
     queryKey: ['userinfo'], // Уникальный ключ запроса
     queryFn: async () => {
-      const response = await axios.get(`${APIURL}/userinfo/`);
-      if (response.data == 'unauthenticated_ttt')
-        window.location.replace('/log/');
-      return response.data; // Возвращаем только данные
+      try {
+        const response = await axios.get(`${APIURL}/userinfo/`);
+        return response.data; 
+      } catch (err) {
+        if (err.response?.status === 401){
+          window.location.href = '/log';
+          return null;
+        }
+      }
     },
     // Опциональные параметры:
     retry: 2, // Количество попыток повтора при ошибке
@@ -84,8 +89,15 @@ else{
   const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
     queryKey: ['usersettings'], // Уникальный ключ запроса
     queryFn: async () => {
-      const response = await axios.get(`${APIURL}/usersettings/`);
-      return response.data; // Возвращаем только данные
+      try {
+        const response = await axios.get(`${APIURL}/usersettings/`);
+        return response.data; 
+      } catch (err) {
+        if (err.response?.status === 401){
+          window.location.href = '/log';
+          return null;
+        }
+      }
     },
     // Опциональные параметры:
     retry: 2, // Количество попыток повтора при ошибке
@@ -96,8 +108,15 @@ else{
   const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
     queryKey: ['degree_load'], // Уникальный ключ запроса
     queryFn: async () => {
-      const response = await axios.get(`${APIURL}/degree_load/`);
-      return response.data; // Возвращаем только данные
+      try {
+        const response = await axios.get(`${APIURL}/degree_load/`);
+        return response.data;
+      } catch (err) {
+        if (err.response?.status === 401){
+          window.location.href = '/log';
+          return null;
+        }
+      }
     },
     // Опциональные параметры:
     retry: 2, // Количество попыток повтора при ошибке
@@ -114,10 +133,6 @@ else{
 
   );
   if (error) return <p>Error: {error}</p>;
-  if (data.username === undefined){
-    window.location.replace('/log/');
-    return;
-  }
 
   if (loading1) return (
       <>
@@ -142,25 +157,7 @@ if (error2) return <p>Error: {error2}</p>;
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
-{(() => {
-        if (data1.length === 0) {
-          return (<>
-                      <NotFoundSave iwant={"saved"}/>
-                </>)
-        }
-        else{
-            if (data1 === "unauthenticated_ttt") {
-              return (<>
-                          <NotFoundSave iwant={"saved"}/>
-                    </>)
-            }
-            else{
-                return (<>
-                     <SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2}/>
-                    </>)
-                }
-        }
-      })()}
+<SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2}/>
 
 </>
 

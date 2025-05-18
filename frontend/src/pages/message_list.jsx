@@ -122,10 +122,6 @@ const [confirm, setIsVisible] = useState(false);
 }
 
 
-const theme = getCookie('theme');
-//console.log(getCookie('theme'));
-
-
 if (getCookie('theme') === "dark"){
     if (document.querySelector('body') != null)
         document.querySelector('body').className = "dark_theme";
@@ -181,8 +177,15 @@ const delete_chat = async (e, idd,) => {
 const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
   queryKey: ['userinfo'], // Уникальный ключ запроса
   queryFn: async () => {
-    const response = await axios.get(`${APIURL}/userinfo/`);
-    return response.data; // Возвращаем только данные
+    try {
+      const response = await axios.get(`${APIURL}/userinfo/`);
+      return response.data;
+    } catch (err) {
+      if (err.response?.status === 401){
+        window.location.href = '/log';
+        return null;
+      }
+    }
   },
   // Опциональные параметры:
   retry: 2, // Количество попыток повтора при ошибке
@@ -244,18 +247,25 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
   const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
     queryKey: [`getchatlist`], // Уникальный ключ запроса
     queryFn: async () => {
-      const response = await axios.get(`${APIURL}/getchatlist/`);
+      try {
+        const response = await axios.get(`${APIURL}/getchatlist/`);
 
-      if (response.data != null){
-          let group = [];
-          for (let i = 0; i < response.data[0].length; i++){
-              //setGroup((groups) => [...groups, response.data[0][i].id]);
-              group.unshift(response.data[0][i].id);
-          }
-          setGroup(group);
+        if (response.data != null){
+            let group = [];
+            for (let i = 0; i < response.data[0].length; i++){
+                //setGroup((groups) => [...groups, response.data[0][i].id]);
+                group.unshift(response.data[0][i].id);
+            }
+            setGroup(group);
+        }
+        setMessNumb(response.data[1]);
+        return response.data;
+      } catch (err) {
+        if (err.response?.status === 401){
+          window.location.href = '/log';
+          return null;
+        }
       }
-      setMessNumb(response.data[1]);
-      return response.data; // Возвращаем только данные
     },
     // Опциональные параметры:
     retry: 2, // Количество попыток повтора при ошибке

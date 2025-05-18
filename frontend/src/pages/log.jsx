@@ -103,7 +103,7 @@ function Log() {
             });
             if (response.data["if"] === "yes"){
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
-                history('/'); 
+                window.location.replace('/'); // Нет возможности вернуться
 
             }
             console.log('Response:', response.data);
