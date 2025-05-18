@@ -31,16 +31,16 @@
     font-size: 15px;
 }
 .message_list_chat_delete_panel{
-    z-index: 101; position: absolute; right: 50px;
+    z-index: 101; position: absolute; right: 208px;
 }
 .message_list_chat_delete_panel_div{
-    width: 100px; height: auto; background-color: #2e2e2e; z-index: 101; position: absolute; border-radius: 20px; top: -125px;
+    width: 200px; height: auto; background-color: #2e2e2e; z-index: 101; position: absolute; border-radius: 10px; top: -125px;
 }
 .message_list_chat_delete_panel_delete{
-    width: 100%; height: 50px; background-color: #00000000; color: white; border: 1px solid black; border-top-right-radius: 20px; border-top-left-radius: 20px;
+    width: 100%; height: 50px; background-color: #00000000; color: white; border: 1px solid black; border-top-right-radius: 10px; border-top-left-radius: 10px; font-size: 20px;
 }
 .message_list_chat_delete_panel_quit{
-    width: 100%; height: 50px; background-color: #00000000; color: white; border: 1px solid black; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;
+    width: 100%; height: 50px; background-color: #00000000; color: white; border: 1px solid black; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; font-size: 20px;
 }
 .message_list_chat_num{
     max-height: 92px;
@@ -243,7 +243,7 @@ div *::-webkit-scrollbar-thumb {
         height: calc(100% - 70px);
     }
     .message_list_chat_delete_panel{
-        right: 108px;
+        right: 208px;
     }
 }
 
@@ -330,25 +330,25 @@ div *::-webkit-scrollbar-thumb {
         font-size: 3.8095238095238093vw;
     }
     .message_list_chat_delete_panel {
-        right: 20.619047619047619vw;
+        right: 40vw;
     }
     .message_list_chat_delete_panel_div {
-        width: 19.047vw;
-        border-radius: 3.809vw;
+        width: 38.0952380952381vw;
+        border-radius: 1.9047619047619047vw;
         top: -23.8094vw;
     }
     .message_list_chat_delete_panel_delete {
         width: 100%;
         height: 9.523vw;
-        border-top-right-radius: 3.809vw;
-        border-top-left-radius: 3.809vw;
+        border-top-right-radius: 1.9047619047619047vw;
+        border-top-left-radius: 1.9047619047619047vw;
         font-size: 3vw;
     }
     .message_list_chat_delete_panel_quit {
         width: 100%;
         height: 9.523vw;
-        border-bottom-right-radius: 3.809vw;
-        border-bottom-left-radius: 3.809vw;
+        border-bottom-right-radius: 1.9047619047619047vw;
+        border-bottom-left-radius: 1.9047619047619047vw;
         font-size: 3vw;
     }
 }

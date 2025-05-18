@@ -72,16 +72,11 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
             <>
             <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}} onClick={unToggleVisibility}/>
             <div
-          style={{
-            position: 'fixed',
-            left: `60vw`,
-            top: `${position.y}px`,
-            width: '50px',
-            height: '50px',
-            zIndex: 10000,
-            transform: "scale(-1, 1)", // Центрирует элемент относительно клика
-          }}
-        >
+              style={{
+                top: `${position.y}px`, // Центрирует элемент относительно клика
+              }}
+              className='the_main_position_of_the_delete_edit_panel'
+            >
           <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
                                             <div className='message_comp_delete_panel_div'>
                                                 <button className='message_comp_delete_panel_div_delete' onClick={() => DELunToggleVisibility(id)}>
