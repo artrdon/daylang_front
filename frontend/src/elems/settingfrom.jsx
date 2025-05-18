@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import App from '/src/App.jsx'
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
@@ -28,7 +28,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 
-function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo }) {
+function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo, sessions }) {
 
 
      function getCookie(name) {
@@ -284,6 +284,22 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
        //
     };
 
+    
+    const deleteSession = async (id) => {
+      try {
+          const response = await axios.post(`${APIURL}/delete_session/${id}`, {
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken'),
+              },
+          });
+
+      } catch (error) {
+          console.error('There was an error!', error.response.data);
+      }
+  };
+
+
     const exit = async (e) => {
         e.preventDefault();
         try {
@@ -488,8 +504,8 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                   <option id="23he" value="23">23:00</option>
                 </select>
               </div>
-              <div className='crt_offer_work_day_div'>
-              <select id="lesson_time" className='crt_offer_work_day_select' name="lesson_time" onChange={handleChange} value={settingChange.lesson_time}>
+              {/*<div className='crt_offer_work_day_div'>
+                <select id="lesson_time" className='crt_offer_work_day_select' name="lesson_time" onChange={handleChange} value={settingChange.lesson_time}>
                   <option id="30lesson" value="30">30</option>
                   <option id="60lesson" value="60">60</option>
                   <option id="90lesson" value="90">90</option>
@@ -509,7 +525,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                 </select>
                 
                 <button className='crt_offer_work_day_add_button' onClick={AddTimeToBye} type='button'>Add</button>
-              </div>
+              </div>*/}
               <div className='crt_offer_work_day_div_work_grafic'>
                   {components.map((component, index) => ( 
                         <div className='crt_offer_work_day_work_grafic' onClick={ChangeWorkDay} name="Monday" key={index}>
@@ -522,6 +538,24 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               </>
             )}
 
+              <div className="crt_offer_name_of_fields">
+                <span>Sessions</span>
+                <div className="input_field_description">
+                  {sessions.map((session) => (
+                    <div className='settings_session_div' key={`session${session.id}`}>
+                      {session.type !== 'ordinary' && <p className='settings_sessiond_div_p'>{session.type}</p>}
+                      <p className='settings_sessiond_div_p'>{session.device}</p>
+                      <p className='settings_sessiond_div_p'>{session.os}</p>
+                      <p className='settings_sessiond_div_p'>{session.browzer}</p>
+                      <div className='settings_delete_div_button' onClick={deleteSession}>
+
+                      </div>
+                    </div>
+                  ))}
+                  
+
+                </div>
+              </div>
 
               <button
                 className='crt_offer_save_button'

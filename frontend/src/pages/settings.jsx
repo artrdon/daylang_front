@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
@@ -43,10 +42,6 @@ function getCookie(name) {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
-
-
-const theme = getCookie('theme');
-//console.log(getCookie('theme'));
 
 
 if (getCookie('theme') === "dark"){
@@ -124,6 +119,28 @@ else{
     refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
   });
 
+  
+  const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
+    queryKey: ['my_sessions'], // Уникальный ключ запроса
+    queryFn: async () => {
+      try {
+        const response = await axios.get(`${APIURL}/get_sessions/`);
+        return response.data;
+      } catch (err) {
+        if (err.response?.status === 401){
+          window.location.href = '/log';
+          return;
+        }
+      }
+    },
+    // Опциональные параметры:
+    retry: 2, // Количество попыток повтора при ошибке
+    staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+    refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+  });
+
+
+
 
   if (loading) return (
       <>
@@ -152,12 +169,23 @@ else{
 );
 if (error2) return <p>Error: {error2}</p>;
 
+if (loading3) return (
+  <>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
+<SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2}/>
+
+</>
+
+);
+if (error3) return <p>Error: {error3}</p>;
+
+
   document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | Настройки`;
 
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
-<SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2}/>
+<SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2} sessions={data3}/>
 
 </>
 
