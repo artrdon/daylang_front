@@ -650,17 +650,19 @@ const save_to_fav = async (e) => {
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
-          <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "gray"}} onClick={() => toggleVisibility()}>
-              <ImageAfterMain src={photoArray[photoIndex].photo}  alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 12, objectFit: "contain"}} fallbackSrc="/src/static/img/nema.png"/>
+          <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "gray"}}>
+            {photoArray.length > (photoIndex + 1) && 
+              <button className='offer_right_next_photo_button' onClick={nextPhoto}>
+                <img src="/src/static/img/next_photo.png" alt="prevBig" style={{width: "100%", height: "100%"}}/>
+              </button>}
+                  <ImageAfterMain src={photoArray[photoIndex].photo}  alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 10, objectFit: "contain"}} fallbackSrc="/src/static/img/nema.png"/>
+            {photoIndex > 0 && 
+              <button className='offer_left_next_photo_button' onClick={previosPhoto}>
+                <img src="/src/static/img/next_photo.png" alt="nextBig" style={{width: "100%", height: "100%"}}/>
+              </button>}
+              
           </div>
-          {photoArray.length > (photoIndex + 1) && 
-            <button className='offer_right_next_photo_button' onClick={nextPhoto}>
-              <img src="/src/static/img/next_photo.png" alt="prevBig" style={{width: "100%", height: "100%"}}/>
-            </button>}
-          {photoIndex > 0 && 
-            <button className='offer_left_next_photo_button' onClick={previosPhoto}>
-              <img src="/src/static/img/next_photo.png" alt="nextBig" style={{width: "100%", height: "100%"}}/>
-            </button>}
+          
           
   </div>}
 </>

@@ -33,6 +33,16 @@ function Degree() {
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [screen, setScreen] = useState(null);
+
+  useEffect(() => {
+    if (window.innerWidth > window.innerHeight) {
+      setScreen(true);
+    } else {
+      setScreen(false);
+    }
+  }, [window.innerWidth, window.innerHeight]);
+
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -342,17 +352,21 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
-          <button className="degree_button" style={{ transform: 'scale(4)', transition: 'transform 0.3s ease', zIndex: 11}}>
-              <img src={data3[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" />
-          </button>
-          {data3.length > (photoIndex + 1) && 
-            <div style={{ position: "fixed", right: 0, zIndex: 11 }} onClick={nextPhoto}>
-              <img src="/src/static/img/next_photo.png" alt="" style={{width: 100, height: 100}}/>
-            </div>}
-          {photoIndex > 0 && 
-            <div style={{ position: "fixed", left: 0, zIndex: 11 }} onClick={previosPhoto}>
-              <img src="/src/static/img/next_photo.png" alt="" style={{width: 100, height: 100, transform: "rotate(180deg)"}}/>
-            </div>}
+          <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "gray"}}>
+              {data3.length > (photoIndex + 1) && 
+              <button className='offer_right_next_photo_button' onClick={nextPhoto}>
+                <img src="/src/static/img/next_photo.png" alt="next photo" style={{width: "100%", height: "100%"}}/>
+              </button>}
+              
+                  <img src={data3[photoIndex].photo} alt={`degreephotoBig`} className="degree_img" style={{ width: "100%", height: "100%", zIndex: 10, objectFit: "contain"}}/>
+              
+              {photoIndex > 0 && 
+              <button className='offer_left_next_photo_button' onClick={previosPhoto}>
+                <img src="/src/static/img/next_photo.png" alt="next photo" style={{width: "100%", height: "100%"}}/>
+              </button>}
+          </div>
+          
+          
           
   </div>}
 

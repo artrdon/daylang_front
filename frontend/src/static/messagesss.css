@@ -212,8 +212,8 @@ div *::-webkit-scrollbar-thumb {
         /* margin: 10px; */
     }
     .sborishe_chelov {
-        /* padding: 10px; */
-        /* width: calc(100% - 40px); */
+        padding: unset;
+        width: unset;
     }
 }
 
