@@ -40,9 +40,6 @@ function UpdateOffer() {
           document.querySelector('body').className = "light_theme";
   }
   
-  
-
-    const csrfToken = getCookie('csrftoken');
 
     document.querySelector("title").textContent = "Update Offer";
 
@@ -52,15 +49,28 @@ function UpdateOffer() {
     const lang = getCookie('lang');
     let [langua, setData10] = useState(null);
 
-    langua = lang;
+    if (lang != undefined){
+        langua = lang;
+    }
+    else{
+        document.cookie = `lang=Русский; path=/;max-age=31556926`;
+        langua = "Русский";
+    }
 
 
 
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['userinfo'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        return response.data; // Возвращаем только данные
+        try {
+          const response = await axios.get(`${APIURL}/userinfo/`);
+          return response.data; 
+        } catch (err) {
+          if (err.response?.status === 401) {
+            window.location.href = '/log'; // Более предпочтительно чем replace
+            return;
+          }
+        }
       },
       // Опциональные параметры:
       retry: 2, // Количество попыток повтора при ошибке
@@ -82,6 +92,14 @@ function UpdateOffer() {
         } catch (error) {
           if (error.response?.status === 404) {
             window.location.href = '/not_found/'; // Более предпочтительно чем replace
+            return;
+          }
+          if (error.response?.status === 401) {
+            window.location.href = '/log'; // Более предпочтительно чем replace
+            return;
+          }
+          if (error.response?.status === 403) {
+            window.location.replace(`/forbidden/`);
             return;
           }
         }
@@ -106,11 +124,6 @@ function UpdateOffer() {
 
   );
   if (error1) return <p>Error: {error1}</p>;
-  if (data1.username === undefined)
-  {
-      window.location.replace(`/log/`);
-      return;
-  }
 
   if (loading2) return (
       <>
@@ -121,11 +134,6 @@ function UpdateOffer() {
   );
   if (error2) return <p>Error: {error2}</p>;
   
-  if (data2 === 'unauthenticated_ttt')
-  {
-      window.location.replace(`/forbidden/`);
-      return;
-  }
 
     return (
         <>

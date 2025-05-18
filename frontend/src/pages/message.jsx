@@ -328,9 +328,13 @@ const messChange = (idd) => {
           const response = await axios.get(`${APIURL}/getmessagelist/${params.id}/`);
           return response.data;
         } catch (error) {
-          if (err.response?.status === 401){
+          if (error.response?.status === 401){
             window.location.href = '/log';
-            return null;
+            return;
+          }
+          if (error.response?.status === 403){
+            window.location.href = '/forbidden';
+            return;
           }
           console.error('Ошибка при выполнении запроса:', error);
           throw error;
@@ -397,7 +401,7 @@ const add_smile = (par) => {
         } catch (err) {
           if (err.response?.status === 401){
             window.location.href = '/log';
-            return null;
+            return;
           }
         }
       },
@@ -446,12 +450,7 @@ const add_smile = (par) => {
 
   );
     if (error2) return <p>Error: {error2}</p>;
-    if (data2 === 'output')
-    {
-        window.location.replace(`/forbidden/`);
-        return;
-    }
-
+    
   if (loading12) return (
       <>
       <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>

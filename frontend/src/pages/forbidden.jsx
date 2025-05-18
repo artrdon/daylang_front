@@ -11,9 +11,6 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function Forbidden() {
 
-    
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
@@ -32,10 +29,6 @@ function getCookie(name) {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
-
-
-const theme = getCookie('theme');
-//console.log(getCookie('theme'));
 
 
 if (getCookie('theme') === "dark"){

@@ -60,8 +60,8 @@ function Find() {
         langua = lang;
     }
     else{
-        document.cookie = `lang=English; path=/;max-age=31556926`;
-        langua = "English";
+        document.cookie = `lang=Русский; path=/;max-age=31556926`;
+        langua = "Русский";
     }
     var arrLang = {
       'English': {

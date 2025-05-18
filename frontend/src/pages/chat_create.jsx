@@ -78,7 +78,6 @@ function ChatCreate() {
           document.querySelector('body').className = "light_theme";
   }
   
-    const csrfToken = getCookie('csrftoken');
     const [data3, setData3] = useState(null);
     const [loading3, setLoading3] = useState(true);
     const [error3, setError3] = useState(null);
@@ -117,15 +116,15 @@ function ChatCreate() {
 
     useEffect(() => {
       const fetchData = async () => {
-          try {
-              const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
-              setData3(response.data);
-              setData1({ ...message, offer_name: response.data[0].name });
-            } catch (err) {
-              setError3(err.message);
-            } finally {
-              setLoading3(false);
-            }
+        try {
+            const response = await axios.get(`${APIURL}/gettingoffer/${params.username}/${params.id}/`);
+            setData3(response.data);
+            setData1({ ...message, offer_name: response.data[0].name });
+          } catch (err) {
+            setError3(err.message);
+          } finally {
+            setLoading3(false);
+          }
       };
 
       fetchData();

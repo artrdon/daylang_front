@@ -31,10 +31,6 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 function Saved() {
-
-    
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
@@ -43,7 +39,6 @@ function Saved() {
     setLessons(websocket.lessons);
 }, [websocket.messNumb, websocket.lessons]);
 
-    const [count, setCount] = useState(0)
 
     document.querySelector("title").textContent = "Saved";
 
@@ -76,8 +71,15 @@ else{
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
       queryKey: ['userinfo'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/userinfo/`);
-        return response.data; // Возвращаем только данные
+        try {
+          const response = await axios.get(`${APIURL}/userinfo/`);
+          return response.data;
+        } catch (err) {
+          if (err.response?.status === 401){
+            window.location.href = '/log';
+            return null;
+          }
+        }
       },
       // Опциональные параметры:
       retry: 2, // Количество попыток повтора при ошибке
@@ -88,8 +90,15 @@ else{
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['myfavors'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/get_fav/`);
-        return response.data; // Возвращаем только данные
+        try {
+          const response = await axios.get(`${APIURL}/get_fav/`);
+          return response.data;
+        } catch (err) {
+          if (err.response?.status === 401){
+            window.location.href = '/log';
+            return null;
+          }
+        }
       },
       // Опциональные параметры:
       retry: 2, // Количество попыток повтора при ошибке
@@ -129,19 +138,13 @@ else{
                 </>)
         }
         else{
-            if (data1 === "unauthenticated_ttt") {
-              return (<>
-                          <NotFoundSave iwant={"saved"}/>
-                    </>)
-            }
-            else{
-                return (<>
-                    {data1.map((data) => (
-                        <FindedAndSavedOffers chel={data.chel} id={data.id} name={data.name} photo={data.photo} isFav={data.isFav} review={data.review} price={data.price} description={data.description} key={data.id}/>
-  
-                        ))}
-                    </>)
-                }
+          return (<>
+              {data1.map((data) => (
+                  <FindedAndSavedOffers chel={data.chel} id={data.id} name={data.name} photo={data.photo} isFav={data.isFav} review={data.review} price={data.price} description={data.description} key={data.id}/>
+
+                  ))}
+              </>)
+                
         }
       })()}
 <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
