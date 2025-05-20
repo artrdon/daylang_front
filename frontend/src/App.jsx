@@ -215,7 +215,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
               {showDesktopPanel &&
                 <div className='show_nav_in_desktop'>
                   <div className='show_nav_in_desktop_section'>
-                    <Link to={`t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                    <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
                       <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
                       
                     </Link>

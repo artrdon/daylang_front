@@ -70,8 +70,12 @@ function Degree() {
   const [scaledButtonId, setScaledButtonId] = useState(null);
   const [showPhotoBig, setShowPhotoBig] = useState(false);
 
-  const toggleVisibility = () => {
+  const toggleVisibility = (index) => {
+      if (index != undefined)
+        setPhotoIndex(index);
+      
       setShowPhotoBig(!showPhotoBig);
+      
   };
 
   
@@ -335,8 +339,8 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     <p className="degree_description_about" >{data1.about_my_degree}</p>
     <br />
     <br />
-    {data3.map((photo) => (
-            <button className="degree_button" onClick={() => toggleVisibility()} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
+    {data3.map((photo, index) => (
+            <button className="degree_button" onClick={() => toggleVisibility(index)} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
                 <img src={photo.photo} alt="degree" className="degree_img" />
             </button>
     ))}

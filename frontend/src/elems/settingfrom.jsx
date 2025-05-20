@@ -220,8 +220,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                 },
             });
             console.log(response.data);
-            settingChange.photo = response.data;
-            console.log(settingChange);
         } catch (error) {
             console.error('Ошибка при загрузке фото:', error);
         }
@@ -237,12 +235,14 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
         formData.append(`image_${i}`, components[i]);
         console.log(components[i]);
       }
-      
+      if (components.length === 0)
+        return;
       console.log("zagruzaju photo");
+      console.log(formData);
       try {
           const response = await axios.post(`${APIURL}/degree_load/`, formData, {
               headers: {
-                  'Content-Type': 'multipart/form-data',
+                 // 'Content-Type': 'multipart/form-data',
                   'X-CSRFToken': getCookie('csrftoken'),
               },
           });
