@@ -185,7 +185,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     const [components, setComponents] = useState([]);
     let sett = [];
 
-    axios.defaults.withCredentials = true;
+    //axios.defaults.withCredentials = true;
 
 
     const [file, setFile] = useState(photo);
@@ -258,8 +258,8 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 //onLoad = () => setData1({ ...settingChange, about_myself: "lol" });
 
     const handleChange = (e) => {
-            setData1({ ...settingChange, [e.target.name]: e.target.value });
-        };
+        setData1({ ...settingChange, [e.target.name]: e.target.value });
+    };
 
 
     const handleSubmit = async (e) => {
@@ -276,7 +276,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             });
             document.cookie = `lang=${settingChange.language}; path=/;max-age=31556926`;
             console.log('Response:', response.data);
-            location.reload();
+           // location.reload();
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -285,19 +285,23 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     };
 
     
-    const deleteSession = async (id) => {
-      try {
-          const response = await axios.post(`${APIURL}/delete_session/${id}`, {
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': getCookie('csrftoken'),
-              },
-          });
+    const deleteSession = async (e, id) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${APIURL}/delete_session/`,{id}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+               // withCredentials: true,
+            });
+            if (response)
+              document.getElementById(`session_id_${response}`).remove();
 
-      } catch (error) {
-          console.error('There was an error!', error.response.data);
-      }
-  };
+        } catch (error) {
+            console.error('There was an error!', error.response.data);
+        }
+    };
 
 
     const exit = async (e) => {
@@ -542,12 +546,12 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                 <span>Sessions</span>
                 <div className="input_field_description">
                   {sessions.map((session) => (
-                    <div className='settings_session_div' key={`session${session.id}`}>
+                    <div className='settings_session_div' key={`session${session.id}`} id={`session_id_${session.id}`}>
                       {session.type !== 'ordinary' && <p className='settings_sessiond_div_p'>{session.type}</p>}
                       <p className='settings_sessiond_div_p'>{session.device}</p>
                       <p className='settings_sessiond_div_p'>{session.os}</p>
                       <p className='settings_sessiond_div_p'>{session.browzer}</p>
-                      <div className='settings_delete_div_button' onClick={deleteSession}>
+                      <div className='settings_delete_div_button' onClick={(e) => deleteSession(e, session.id)}>
 
                       </div>
                     </div>
