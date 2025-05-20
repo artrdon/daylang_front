@@ -38,12 +38,12 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     }
     const [pre_degree_photo, setPre_degree_photo] = useState([])
     const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
+  //  let [langua, setData10] = useState(null);
     //const [data, setData] = useState({beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
 
-    langua = lang;
+ //   langua = lang;
 
-        var arrLang = {
+    const arrLang = {
       'English': {
           'main': "Main",
           'degree': 'Degree / Certificate',
@@ -287,14 +287,19 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     
     const deleteSession = async (e, id) => {
         e.preventDefault();
+        console.log('Current cookies:', document.cookie);
+        const csrfToken = getCookie('csrftoken');
+        console.log('Extracted CSRF token:', csrfToken);
         try {
-            const response = await axios.post(`${APIURL}/delete_session/`,{id}, {
+            const response = await axios.post(`${APIURL}/delete_session/`, id,
+              {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'),
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': csrfToken,
                 },
-               // withCredentials: true,
-            });
+                withCredentials: true,
+              }
+            );
             if (response)
               document.getElementById(`session_id_${response}`).remove();
 
@@ -319,6 +324,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             console.error('There was an error!', error.response.data);
         }
     };
+    console.log(getCookie('csrftoken'));
 
     return (
         <>

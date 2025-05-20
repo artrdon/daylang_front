@@ -18,6 +18,19 @@ const WebSocketProvider = ({ children }) => {
     axios.defaults.withCredentials = true;
 
 
+    useEffect(() => {
+      const initCSRF = async () => {
+        try {
+          await axios.get(`${APIURL}/get_csrf/`, { withCredentials: true });
+          console.log('CSRF token initialized');
+        } catch (error) {
+          console.error('CSRF init failed:', error);
+        }
+      };
+      initCSRF();
+  }, []);
+    
+
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: [`future_lessons_offer`], // Уникальный ключ запроса
       queryFn: async () => {

@@ -51,6 +51,7 @@ const [messId, setMessId] = useState(null);
   const [groups, setGroup] = useState([]);
   const [infoForHeader, setHeader] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
+  const [isMeTyping, setIsMeTyping] = useState(false);
   const typingTimeout = useRef(null);
 
 
@@ -80,8 +81,13 @@ const [messId, setMessId] = useState(null);
         if (dataMess.chat_id === params.id)
         {
             if (dataMess.tip === "typing_status"){
+              console.log(dataMess.isTyping);
+              if (dataMess.sender !== data.username){
                 setIsTyping(dataMess.isTyping);
                 return;
+              }
+              
+                
             }
             if (dataMess.tip === "delete"){
                 document.getElementById(`mess${dataMess.id}`).remove();
@@ -212,22 +218,6 @@ const [messId, setMessId] = useState(null);
     }
   };
 
-  useEffect(() => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({
-        type: 'typing',
-        id: params.id, 
-        sender: data.username,
-        is_typing: isTyping
-      }));
-      console.log("isTyping sended");
-    } 
-    else {
-      console.error('WebSocket is not open');
-    }
-    
-  
-  }, [isTyping]);
 
 const messChange = (idd) => {
     if (changeMess === false) {
@@ -372,21 +362,38 @@ const add_smile = (par) => {
     }
  const handleInput = (e) => {
     setData1({ ...message, text: e.target.innerText });
-    if (isTyping === false){
-      console.log('typing');
+    /*if (isTyping === false){
+      //console.log('typing');
       setIsTyping(true);
-    }
+    }*/
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        if (!isMeTyping){
+          setIsMeTyping(true);
+          ws.send(JSON.stringify({
+            type: 'typing',
+            id: params.id, 
+            sender: data.username,
+            is_typing: true
+          }));
+        }
+        
+       // console.log("isTyping sended");
+      } 
+      else {
+        console.error('WebSocket is not open');
+      }
 
     
-    else if (typingTimeout.current){
-      console.log("zhzhzh")
+    if (typingTimeout.current){
+     // console.log("zhzhzh")
       clearTimeout(typingTimeout.current);
     }
     
     typingTimeout.current = setTimeout(() => {
-      console.log("no...")
+     // console.log("no...")
       if (ws && ws.readyState === WebSocket.OPEN) {
-        console.log("...typing")
+        setIsMeTyping(false);
+       // console.log("...typing")
         ws.send(JSON.stringify({
           type: 'typing',
           id: params.id, 
