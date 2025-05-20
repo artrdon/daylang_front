@@ -28,7 +28,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 
-function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo, sessions }) {
+function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo, sessions, work_day_begin_int, work_day_end_int }) {
 
 
      function getCookie(name) {
@@ -181,7 +181,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     //const [data, setData] = useState(null);
     //const [loading, setLoading] = useState(true);
     //const [error, setError] = useState(null);
-    const [settingChange, setData1] = useState({language: language, name: name, surname: surname, about_myself: about_myself, about_my_degree: about_my_degree, photo: photo, beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
+    const [settingChange, setData1] = useState({language: language, name: name, surname: surname, about_myself: about_myself, about_my_degree: about_my_degree, photo: photo, beggin_time_of_work: work_day_begin_int, end_time_of_work: work_day_end_int, workday: '',});
     const [components, setComponents] = useState([]);
     let sett = [];
 
@@ -429,19 +429,19 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               <div className="crt_offer_photo_div">
                 {degree_photo.map((photo) => (
                   <img
-                  alt="degree photo"
-                  className="settings_page_degree_photo"
-                  src={photo.photo}
-                  key={photo.id}
-                />
+                    alt="degree photo"
+                    className="settings_page_degree_photo"
+                    src={photo.photo}
+                    key={photo.id}
+                  />
                 ))}
                 {pre_degree_photo.map((photo, index) => (
                   <img
-                  alt="degree photo"
-                  className="settings_page_degree_photo"
-                  src={photo}
-                  key={index}
-                />
+                    alt="degree photo"
+                    className="settings_page_degree_photo"
+                    src={photo}
+                    key={index}
+                  />
                 ))}
                 <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
                 <label htmlFor="icon404" className='crt_offer_load_photo'>Загрузить фото</label>
@@ -514,37 +514,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                   <option id="23he" value="23">23:00</option>
                 </select>
               </div>
-              {/*<div className='crt_offer_work_day_div'>
-                <select id="lesson_time" className='crt_offer_work_day_select' name="lesson_time" onChange={handleChange} value={settingChange.lesson_time}>
-                  <option id="30lesson" value="30">30</option>
-                  <option id="60lesson" value="60">60</option>
-                  <option id="90lesson" value="90">90</option>
-                  <option id="120lesson" value="120">120</option>
-                </select>
-              </div>
-              <div className='crt_offer_work_day_div'>
-                <select id="break_betwen_lessons" className='crt_offer_work_day_select' name="break_betwen_lessons" onChange={handleChange} value={settingChange.break_betwen_lessons}>
-                  <option id="10min" value="10">10</option>
-                  <option id="20min" value="20">20</option>
-                  <option id="30min" value="30">30</option>
-                  <option id="40min" value="40">40</option>
-                  <option id="50min" value="50">50</option>
-                  <option id="60min" value="60">60</option>
-                  <option id="90min" value="90">90</option>
-                  <option id="120min" value="120">120</option>
-                </select>
-                
-                <button className='crt_offer_work_day_add_button' onClick={AddTimeToBye} type='button'>Add</button>
-              </div>*/}
-              <div className='crt_offer_work_day_div_work_grafic'>
-                  {components.map((component, index) => ( 
-                        <div className='crt_offer_work_day_work_grafic' onClick={ChangeWorkDay} name="Monday" key={index}>
-                          <span>{component.time}</span>
-                        </div>
-                    ))}
-                
-              </div>
-
               </>
             )}
 

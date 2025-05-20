@@ -73,7 +73,7 @@ function Degree() {
   const toggleVisibility = (index) => {
       if (index != undefined)
         setPhotoIndex(index);
-      
+
       setShowPhotoBig(!showPhotoBig);
       
   };
@@ -88,11 +88,6 @@ function getCookie(name) {
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
-
-
-const theme = getCookie('theme');
-//console.log(getCookie('theme'));
-
 
 if (getCookie('theme') === "dark"){
   if (document.querySelector('body') != null)
@@ -339,11 +334,15 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     <p className="degree_description_about" >{data1.about_my_degree}</p>
     <br />
     <br />
+    
+    <div className="degree_page_degree_photos">
     {data3.map((photo, index) => (
-            <button className="degree_button" onClick={() => toggleVisibility(index)} key={photo.id} style={{ transform: scaledButtonId === photo.id ? 'scale(4)' : 'scale(1)', transition: 'transform 0.3s ease',}}>
+            <button className="degree_page_degree_button" onClick={() => toggleVisibility(index)} key={photo.id}>
                 <img src={photo.photo} alt="degree" className="degree_img" />
             </button>
     ))}
+    </div>
+    
     </div>
 </div>
 
