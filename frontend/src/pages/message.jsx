@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import EmojiPicker from 'emoji-picker-react';
 import Calendar from 'react-calendar';
 import AppMess from '/src/AppMess.jsx'
 import AppMessLoad from '/src/AppMessLoad.jsx'
@@ -247,7 +248,7 @@ const messChange = (idd) => {
           document.querySelector('body').className = "light_theme";
   }
   
-
+    const [theme, setTheme] = useState(getCookie('theme'));
 
     const csrfToken = getCookie('csrftoken');
     const lang = getCookie('lang');
@@ -354,12 +355,11 @@ const removeDataSetter = () => {
     setBye(false);
 }
 
+const addEmoji = (emoji) => {
+  //setData1({ ...message, text: message.text + emoji.emoji });
+  document.getElementById("mess").innerText += emoji.emoji;
+};
 
-
-const add_smile = (par) => {
-    document.getElementById("mess").innerText += '😀';
-
-    }
  const handleInput = (e) => {
     setData1({ ...message, text: e.target.innerText });
     /*if (isTyping === false){
@@ -573,13 +573,13 @@ const add_smile = (par) => {
           return (
             <div style={{display: "flex", flexDirection: "column-reverse"}} key={`divkey`}>
               {data2.map((da) => (
-                <>
+                
                 <Fragment key={`fragment-${da.id}`}>
                   <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link} call_id={da.call_id}/>
                   {da.i_read && <ScrollToBottom key={`keyscroll${da.id}`} />}
                 </Fragment>
                 
-                </>
+                
               ))}
             </div>
               );
@@ -587,13 +587,13 @@ const add_smile = (par) => {
         }
       })()}
   {components.map((component) => ( 
-    <>
+    <div key={`divkey${component.id}`}>
       <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute} tip={component.tip} link={component.link} call_id={component.call_id}/>
-      <ScrollToBottom/>
-    </>
+      <ScrollToBottom key={`keyscroll${component.id}`} />
+    </div>
     ))}
       
-      { (data2.length === undefined && components.length === 0) && <div style={{ display: "flex", justifyContent: "center", }}>
+      {(data2.length === undefined && components.length === 0) && <div style={{ display: "flex", justifyContent: "center", }}>
                     <div style={{ display: "flex", justifyContent: "center", backgroundColor: "gray", height: 200, width:300, borderRadius: 20 }}>
                         <p style={{ color: "black", marginTop: 30, fontWeight: "bold", fontSize: 20, marginLeft: 20, marginRight: 20, textAlign: "center" }}>
                           There are no messages here yet
@@ -631,25 +631,13 @@ const add_smile = (par) => {
                     <button className="extra_mess_button" onClick={toggleVisibility}>
                       <img
                         src="/src/static/img/delete.png"
-                        alt=""
+                        alt="open emoji"
                         className="img_delete"
                       />
                     </button>
-                        {isVisible && <div className="extra_mess">
-                            <div style={{ overflow: "auto" }}>
-                                <button style={{width: 30, height: 30, backgroundColor: "white", margin: 10,}} onClick={() => add_smile(1)}>
-
-                                </button>
-                                <button style={{width: 30, height: 30, backgroundColor: "white", margin: 10,}} onClick={() => add_smile(1)}>
-
-                                </button>
-                                <button style={{width: 30, height: 30, backgroundColor: "white", margin: 10,}} onClick={() => add_smile(1)}>
-
-                                </button>
-                                <button style={{width: 30, height: 30, backgroundColor: "white", margin: 10,}} onClick={() => add_smile(1)}>
-
-                                </button>
-                            </div>
+                    
+                        {isVisible && <div className="emoji_picker" >
+                          <EmojiPicker theme={theme} onEmojiClick={addEmoji} width={"100%"}/>
 
                         </div>}
                     <button className="sending_button" onClick={handleSubmit}>

@@ -3,6 +3,7 @@
     "@tanstack/react-query": "^5.74.4",
     "axios": "^1.8.4",
     "dompurify": "^3.2.5",
+    "emoji-picker-react": "^4.12.2",
     "react-bootstrap": "^2.10.10",
     "react-oauth2-code-pkce": "^1.23.0",
     "react-pdf": "^9.2.1",

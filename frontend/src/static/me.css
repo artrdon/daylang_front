@@ -68,10 +68,10 @@
     background-color: #2a2a2a;
 }
 .degree_description_about{
-    display: inline-block; font-size: 25px; top: 400px; width: 60%;
+    display: inline-block; font-size: 25px; width: 60%; margin: 10px;
 }
 .degree_img{
-    width: 200px; height: auto;
+    width: 200px; height: auto; aspect-ratio: 1/1; object-fit: contain;
 }
 .degree_button{
     display: inline-block;
@@ -146,6 +146,9 @@
 }
 @media only screen and (max-width: 1100px)
 {
+    .degree_img{
+        width: 100%;
+    }
     .me_page_place_of_teach {
         margin: auto;
         padding: 0px;
@@ -238,9 +241,6 @@
         padding: 20px;
         width: calc(100% - 40px);
         padding-bottom: 100px;
-    }
-    .degree_img{
-        width: 35vw;
     }
     .degree_button{
         margin: 2vw;

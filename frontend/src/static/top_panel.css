@@ -9,6 +9,9 @@
 .top_panel_balance{
     font-size: 25px; color: white;
 }
+.top_panel_balance_desktop{
+    font-size: 18px; color: white;
+}
 
 @media only screen and (max-width: 525px)
 {

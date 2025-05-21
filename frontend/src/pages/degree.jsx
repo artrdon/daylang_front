@@ -332,8 +332,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
   </div>
   <div className="degree_page_around">
     <p className="degree_description_about" >{data1.about_my_degree}</p>
-    <br />
-    <br />
+    
     
     <div className="degree_page_degree_photos">
     {data3.map((photo, index) => (

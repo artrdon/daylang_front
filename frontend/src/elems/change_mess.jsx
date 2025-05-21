@@ -61,7 +61,7 @@ const [smileVisible, setSmileVisible] = useState(false);
 
     return (
             <>
-            <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}} onClick={() => finishChange(id)}/>
+            <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0, zIndex: 1000, backgroundColor: "#00000030", backdropFilter: "blur(3px)"}} onClick={() => finishChange(id)}/>
          <div className="inviz_panel_of_writing" style={{ zIndex:1000 }}>
             <div className="jos_inviz_panel">
               <div className="centering_of_mess_panel">
@@ -109,7 +109,7 @@ const [smileVisible, setSmileVisible] = useState(false);
 
                         </div>}
                     <button className="sending_button" onClick={(e) => change_mess(e, 1)}>
-                      <img src="/src/static/img/send.png" alt="" className="img_send" />
+                      <img src="/src/static/img/send.png" alt="send" className="img_send" />
                     </button>
                   </div>
                 </div>

@@ -149,7 +149,7 @@ return (
                       <div className='show_nav_in_mob_main_info'>
                         <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/p/user/${username}/`}>
                             <ImageWithFallbackPanel src={myphoto} alt='me' fallbackSrc="/src/static/img/nema.png"/>
-                            <span className='show_nav_in_mob_button_text_color'>Me</span>
+                            <span className='show_nav_in_mob_button_text_color' style={{overflowWrap: 'anywhere', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>{firstname} {lastname}</span>
                         </Link>
                         <div className="show_nav_in_mob_nav_panel_botton_main">
                             <p className='top_panel_balance'>Theme </p>

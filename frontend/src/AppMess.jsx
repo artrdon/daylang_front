@@ -57,12 +57,14 @@ function change_theme() {
         document.querySelector('body').className = "light_theme";
         document.cookie = "theme=light; path=/;max-age=31556926";
         document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+        location.reload();
     }
     else
     {
         document.querySelector('body').className = "dark_theme";
         document.cookie = "theme=dark; path=/;max-age=31556926";
         document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+        location.reload();
     }
 }
 
@@ -172,39 +174,40 @@ var arrLang = {
               {showDesktopPanel &&
                 <div className='show_nav_in_desktop'>
                   <div className='show_nav_in_desktop_section'>
-                    <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                  <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
                       <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
                       
                     </Link>
-                    <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 70, top: 5, width: "calc(100% - 80px)"}}>
+                    <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 90, top: 25, width: "calc(100% - 120px)"}}>
                       {name} {lastname}
                     </span>
+                    <div className='show_nav_in_desktop_section_main'>
+                        <p className='top_panel_balance_desktop'>Current balance: {balance}₽</p>
+                    </div>
+                    <div className='show_nav_in_desktop_section_main'>
+                      
+                      <p className='top_panel_balance_desktop'>Theme</p>
+                      <button className="change_theme_button_desktop" onClick={change_theme}>
+                      {theme === "dark" ? (
+                        <img
+                          src="/src/static/img/moon.png"
+                          alt="dark"
+                          className="change_theme_button_img"
+                          id="theme_img"
+                        />
+                        )
+                        :
+                        (
+                        <img
+                          src="/src/static/img/sunce.png"
+                          alt="light"
+                          className="change_theme_button_img"
+                          id="theme_img"
+                        />
+                        )
+                      }
+                      </button>
                   </div>
-                  <div className='show_nav_in_desktop_section'>
-                    Theme 
-                    <button className="change_theme_button" onClick={change_theme}>
-                    {theme === "dark" ? (
-                      <img
-                        src="/src/static/img/moon.png"
-                        alt="dark"
-                        className="change_theme_button_img"
-                        id="theme_img"
-                      />
-                      )
-                      :
-                      (
-                      <img
-                        src="/src/static/img/sunce.png"
-                        alt="light"
-                        className="change_theme_button_img"
-                        id="theme_img"
-                      />
-                      )
-                    }
-                    </button>
-                  </div>
-                  <div className='show_nav_in_desktop_section'>
-                    Become te
                   </div>
                 </div>
               }
@@ -220,36 +223,37 @@ var arrLang = {
                 {showDesktopPanel &&
                     <div className='show_nav_in_desktop'>
                       <div className='show_nav_in_desktop_section'>
-                        <Link to={`/p/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                      <Link to={`/p/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
                           <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
                           
                         </Link>
-                        <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 70, top: 5, width: "calc(100% - 80px)"}}>
+                        <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 90, top: 25, width: "calc(100% - 120px)"}}>
                           {name} {lastname}
                         </span>
+                        <div className='show_nav_in_desktop_section_main'>
+                          
+                          <p className='top_panel_balance_desktop'>Theme</p>
+                          <button className="change_theme_button_desktop" onClick={change_theme}>
+                          {theme === "dark" ? (
+                            <img
+                              src="/src/static/img/moon.png"
+                              alt="dark"
+                              className="change_theme_button_img"
+                              id="theme_img"
+                            />
+                            )
+                            :
+                            (
+                            <img
+                              src="/src/static/img/sunce.png"
+                              alt="light"
+                              className="change_theme_button_img"
+                              id="theme_img"
+                            />
+                            )
+                          }
+                          </button>
                       </div>
-                      <div className='show_nav_in_desktop_section'>
-                        Theme 
-                        <button className="change_theme_button" onClick={change_theme}>
-                        {theme === "dark" ? (
-                          <img
-                            src="/src/static/img/moon.png"
-                            alt="dark"
-                            className="change_theme_button_img"
-                            id="theme_img"
-                          />
-                          )
-                          :
-                          (
-                          <img
-                            src="/src/static/img/sunce.png"
-                            alt="light"
-                            className="change_theme_button_img"
-                            id="theme_img"
-                          />
-                          )
-                        }
-                        </button>
                       </div>
                       <div className='show_nav_in_desktop_section'>
                         Become te

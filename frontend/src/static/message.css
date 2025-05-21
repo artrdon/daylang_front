@@ -1,3 +1,9 @@
+.emoji_picker{
+    position: absolute;
+    width: 450px;
+    bottom: 0px;
+    right: 0px;
+}
 .create_chat_button{
     height: 50px;
     position: absolute;
@@ -545,5 +551,11 @@ div *::-webkit-scrollbar-thumb {
         border: 0.1904vw solid black;
         border-bottom-right-radius: 1.9047vw;
         border-bottom-left-radius: 1.9047vw;
+    }
+}
+@media only screen and (max-width: 450px)
+{
+    .emoji_picker{
+        width: 100%;
     }
 }

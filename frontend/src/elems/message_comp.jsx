@@ -70,7 +70,7 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
             <>
             { visibleId != null && 
             <>
-            <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0,  opacity: 0.5, zIndex: 1000, backgroundColor: "black"}} onClick={unToggleVisibility}/>
+            <div style={{ width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0, zIndex: 1000, backgroundColor: "#00000030", backdropFilter: "blur(3px)"}} onClick={unToggleVisibility}/>
             <div
               style={{
                 top: `${position.y}px`, // Центрирует элемент относительно клика

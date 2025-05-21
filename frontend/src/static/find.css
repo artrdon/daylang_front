@@ -440,11 +440,22 @@ iframe{
     left: -78px; 
     border: 1px solid black;
 }
+.change_theme_button_desktop{
+    height: 30px; 
+    width: 30px; 
+    background-color: #2ab92a00; 
+    position: absolute;
+    left: 110px;
+    top: 110px; 
+    cursor: pointer; 
+    margin-right: 20px;
+    outline: none;
+}
 .change_theme_button{
     height: 30px; 
     width: 30px; 
     background-color: #2ab92a00; 
-    position: relative;
+    position: absolute;
     left: 200px;
     top: 10px; 
     cursor: pointer; 
@@ -892,6 +903,7 @@ a{
     }
 
     .change_theme_button{
+        position: relative;
         margin-left: 3vw;
         left: 0vw;
         top: 0px;
