@@ -141,7 +141,7 @@ console.log(data3);
 return ( 
     <>
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh"}}>
-            <div style={{ position: "absolute", zIndex: 1000, background: "black", width: "100vw", height: "100vh", opacity: "30%" }}  onClick={removeDataSetter}>
+            <div style={{width: "100vw", height: "100vh", position: "fixed", top: 0, left: 0, zIndex: 1000, backgroundColor: "#00000030", backdropFilter: "blur(3px)"}}  onClick={removeDataSetter}>
             </div>
             <form>
                 <div style={{ position: "relative", zIndex: 1001, margin: "auto", display: "block", width: 500, height: "auto", backgroundColor: "rgb(46, 46, 46)", padding: 50, borderRadius: 10}}>

@@ -34,7 +34,7 @@ import CallbackHandler from './pages/yandex_call_back.jsx'
 import WebSocketProvider from './once/web_socket_provider.jsx'
 
 
-export default function Epp(){
+export default function Epp({queryClient}){
 
     return(
         
@@ -59,7 +59,7 @@ export default function Epp(){
             <Route path="/t/user/:user/offers/" element={<Offers_on_main />}/>
             <Route path="/message_list/" element={<Message_list />}/>
             <Route path="/saved/" element={<Saved />}/>
-            <Route path="/message_list/:id/" element={<Message />}/>
+            <Route path="/message_list/:id/" element={<Message queryClient={queryClient} />} />
             <Route path="/settings/" element={<Settings />}/>
             <Route path="/about_us/" element={<About />}/>
             <Route path="/:username/offer/:id/" element={<Offer />}/>

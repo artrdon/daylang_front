@@ -17,7 +17,7 @@ createRoot(document.querySelector('body')).render(
                 <QueryClientProvider client={queryClient}>
                     <WebSocketProvider>
                         
-                            <Epp/>
+                            <Epp queryClient={queryClient}/>
 
                     </WebSocketProvider>
                 </QueryClientProvider>

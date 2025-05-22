@@ -556,6 +556,6 @@ div *::-webkit-scrollbar-thumb {
 @media only screen and (max-width: 450px)
 {
     .emoji_picker{
-        width: 100%;
+        width: 100vw;
     }
 }

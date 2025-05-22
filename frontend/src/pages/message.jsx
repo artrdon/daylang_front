@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, React, Fragment } from 'react';
 import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import EmojiPicker from 'emoji-picker-react';
 import Calendar from 'react-calendar';
@@ -28,7 +28,7 @@ const ScrollToBottom = () => {
   return <div ref={elementRef} />;
 };
 
-function Message() {
+function Message({queryClient}) {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -100,18 +100,23 @@ const [messId, setMessId] = useState(null);
             if (dataMess.tip === "change"){
                 //console.log(dataMess);
                 setIsTyping(false);
+                //searchedId = data2.findIndex(item => item.id === dataMess.id)
+
+                queryClient.setQueryData(['getmessagelist', params.id], (oldData) => {
+                  return oldData.map(item => 
+                    item.id === dataMess.id ? { ...item, text: dataMess.text } : item
+                  );
+                });
                 if (dataMess.sender === data.username){
-                 // console.log("my message");
-                  document.getElementById(dataMess.id).children[0].children[0].firstChild.textContent = dataMess.text;
-                  document.getElementById(dataMess.id).children[0].children[0].children[0].children[0].innerText = "chan.";
-                  document.getElementById(dataMess.id).children[0].children[0].children[0].children[0].style.marginRight = "10px";
+                  document.getElementById(`mess${dataMess.id}`).children[0].children[0].firstChild.textContent = dataMess.text;
+                  document.getElementById(`mess${dataMess.id}`).children[0].children[0].children[1].children[0].innerText = "chan.";
+                  document.getElementById(`mess${dataMess.id}`).children[0].children[0].children[1].children[0].style.marginRight = "10px";
                   return;
                 }
                 else{
-                 // console.log("its not my mess");
-                  document.getElementById(dataMess.id).children[1].children[0].firstChild.textContent = dataMess.text;
-                  document.getElementById(dataMess.id).children[1].children[0].children[0].children[0].innerText = "chan.";
-                  document.getElementById(dataMess.id).children[1].children[0].children[0].children[0].style.marginRight = "10px";
+                  document.getElementById(`mess${dataMess.id}`).children[1].children[0].firstChild.textContent = dataMess.text;
+                  document.getElementById(`mess${dataMess.id}`).children[1].children[0].children[1].children[0].innerText = "chan.";
+                  document.getElementById(`mess${dataMess.id}`).children[1].children[0].children[1].children[0].style.marginLeft = "10px";
                   return;
                 }
                 
@@ -128,13 +133,13 @@ const [messId, setMessId] = useState(null);
                     photo: dataMess.photo,
                     senderIsTeacher: dataMess.senderIsTeacher,
                     hour: dataMess.hour,
-                    minute: dataMess.minute, // Уникальный идентификатор
+                    minute: dataMess.minute, 
                 };
                 setComponents((components) => [...components, newComponent]);
                 setIsTyping(false);
                 return;
             }
-            if (dataMess.tip === "sendvid"){
+            /*if (dataMess.tip === "sendvid"){
               //setMessage(dataMess.message);
               if (String(dataMess.minute).length === 1){
                 dataMess.minute = "0" + String(dataMess.minute);
@@ -154,7 +159,7 @@ const [messId, setMessId] = useState(null);
               setComponents((components) => [...components, newComponent]);
               window.open(`${newComponent.link}${call_id}`, '_blank'); 
               return;
-          }
+          }*/
             
 
         }
@@ -164,7 +169,6 @@ const [messId, setMessId] = useState(null);
               return;
           }
           setMessNumb(prev => prev + 1);
-          
         }
          //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
     };
@@ -193,17 +197,16 @@ const [messId, setMessId] = useState(null);
     }
   };
 
-  const sendMessage = (gh) => {
+  const sendMessage = (messageText) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: "send", message: gh, id: params.id, sender: data.username, isTyping: false }));
-      
-      //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
+      ws.send(JSON.stringify({ type: "send", message: messageText, id: params.id, sender: data.username, isTyping: false }));
     } else {
       console.error('WebSocket is not open');
     }
   };
 
   const changeMessage = (idd, text) => {
+    //console.log(idd);
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: "change", id: params.id, id_mess: idd, text: text, sender: data.username, isTyping: false }));
     } else {
@@ -212,6 +215,7 @@ const [messId, setMessId] = useState(null);
   };
 
   const deleteMessage = (idd) => {
+    console.log(idd);
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: "delete", id: params.id, id_mess: idd }));
     } else {
@@ -222,7 +226,9 @@ const [messId, setMessId] = useState(null);
 
 const messChange = (idd) => {
     if (changeMess === false) {
-       let tex = document.getElementById(`mess${idd}`).children[0].children[0].firstChild.textContent;/////////////////////////////////////////////////////////
+      console.log(idd);
+      console.log(document.getElementById(`mess${idd}`).children[0].children[0].firstChild.textContent);
+      let tex = document.getElementById(`mess${idd}`).children[0].children[0].firstChild.textContent;/////////////////////////////////////////////////////////
       //  console.log(text);
       setText(tex);
       setMessId(`mess${idd}`);
@@ -284,7 +290,7 @@ const messChange = (idd) => {
 
 
 
-    document.querySelector("title").textContent = `Message` ;
+    document.querySelector("title").textContent = `Message`;
 
     const [date7, setDate7] = useState(new Date());
     const [message, setData1] = useState({text: '', id: params.id});
@@ -390,10 +396,8 @@ const addEmoji = (emoji) => {
     }
     
     typingTimeout.current = setTimeout(() => {
-     // console.log("no...")
       if (ws && ws.readyState === WebSocket.OPEN) {
         setIsMeTyping(false);
-       // console.log("...typing")
         ws.send(JSON.stringify({
           type: 'typing',
           id: params.id, 
@@ -489,6 +493,7 @@ const addEmoji = (emoji) => {
 
   );
   if (error12) return <p>Error: {error12}</p>;
+  //console.log(data2);
     return (
         <>
         <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
@@ -641,7 +646,7 @@ const addEmoji = (emoji) => {
 
                         </div>}
                     <button className="sending_button" onClick={handleSubmit}>
-                      <img src="/src/static/img/send.png" alt="" className="img_send" />
+                      <img src="/src/static/img/send.png" alt="send" className="img_send" />
                     </button>
                   </div>
                 </div>
