@@ -54,7 +54,8 @@ const [messId, setMessId] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [isMeTyping, setIsMeTyping] = useState(false);
   const typingTimeout = useRef(null);
-
+  const [components, setComponents] = useState([]);
+  const [componentsMess, setComponentsMess] = useState([]);
 
   // Функция, которая будет вызываться при нажатии на кнопку
   const toggleVisibility = () => {
@@ -98,28 +99,31 @@ const [messId, setMessId] = useState(null);
             }
 
             if (dataMess.tip === "change"){
-                //console.log(dataMess);
+                console.log(components);
                 setIsTyping(false);
-                //searchedId = data2.findIndex(item => item.id === dataMess.id)
-
-                queryClient.setQueryData(['getmessagelist', params.id], (oldData) => {
-                  return oldData.map(item => 
-                    item.id === dataMess.id ? { ...item, text: dataMess.text } : item
+                const searched_id = componentsMess.findIndex(item => item.id == dataMess.id);
+                console.log(searched_id);
+                if (searched_id < 0){
+                  const index = components.findIndex(item => item.id == dataMess.id);
+                  console.log(index);
+                  setComponents(prevData =>
+                    prevData.map(item => 
+                      item.id == dataMess.id ? {...item, text: dataMess.text, ifChanged: true } : item
+                    )
                   );
-                });
-                if (dataMess.sender === data.username){
-                  document.getElementById(`mess${dataMess.id}`).children[0].children[0].firstChild.textContent = dataMess.text;
-                  document.getElementById(`mess${dataMess.id}`).children[0].children[0].children[1].children[0].innerText = "chan.";
-                  document.getElementById(`mess${dataMess.id}`).children[0].children[0].children[1].children[0].style.marginRight = "10px";
-                  return;
                 }
                 else{
-                  document.getElementById(`mess${dataMess.id}`).children[1].children[0].firstChild.textContent = dataMess.text;
-                  document.getElementById(`mess${dataMess.id}`).children[1].children[0].children[1].children[0].innerText = "chan.";
-                  document.getElementById(`mess${dataMess.id}`).children[1].children[0].children[1].children[0].style.marginLeft = "10px";
-                  return;
+                  queryClient.setQueryData(['getmessagelist', params.id], (oldData) => {
+                    console.log(oldData[searched_id].text);
+                    console.log(dataMess.text);
+                    return oldData.map(item => 
+                      item.id === dataMess.id ? { ...item, text: dataMess.text, ifChanged: true } : item
+                    );
+                  });
+                  console.log(queryClient.getQueryData(['getmessagelist', params.id]))
                 }
                 
+                return;
             }
             if (dataMess.tip === "send"){
                 setMessage(dataMess.message);
@@ -294,7 +298,7 @@ const messChange = (idd) => {
 
     const [date7, setDate7] = useState(new Date());
     const [message, setData1] = useState({text: '', id: params.id});
-    const [components, setComponents] = useState([]);
+
 
     const [name_of_chat, setData4] = useState(null);
 
@@ -310,7 +314,7 @@ const messChange = (idd) => {
         } catch (err) {
           if (err.response?.status === 401){
             window.location.href = '/log';
-            return null;
+            return;
           }
         }
       },
@@ -350,7 +354,9 @@ const messChange = (idd) => {
           ? data2.chat_name 
           : data2[0]?.chat_name;
         setData4(chatName);
+        setComponentsMess(data2);
       }
+
     }, [data2]);
   
 const ByeButton = () => {
@@ -493,7 +499,7 @@ const addEmoji = (emoji) => {
 
   );
   if (error12) return <p>Error: {error12}</p>;
-  //console.log(data2);
+  console.log(data2);
     return (
         <>
         <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
@@ -577,11 +583,11 @@ const addEmoji = (emoji) => {
           
           return (
             <div style={{display: "flex", flexDirection: "column-reverse"}} key={`divkey`}>
-              {data2.map((da) => (
+              {componentsMess.map((da) => (
                 
                 <Fragment key={`fragment-${da.id}`}>
                   <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link} call_id={da.call_id}/>
-                  {da.i_read && <ScrollToBottom key={`keyscroll${da.id}`} />}
+                  {/*da.i_read && <ScrollToBottom key={`keyscroll${da.id}`} />*/}
                 </Fragment>
                 
                 

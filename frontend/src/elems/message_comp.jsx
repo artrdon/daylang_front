@@ -93,30 +93,24 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
         if (sender === me) {
           return (<>
               <div className='message_comp_my_message' id={`mess${id}`} >
+                  
                   <div className='message_comp_my_message_div'>
                     <div className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
                       <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       <div>
-                        {(() => {
-                          if (changed === true) {
-                              return <span className='message_comp_my_message_inside_chan'>chan.</span>;
-                          } else {
-                              return <span className='message_comp_my_message_inside_not_chan'></span>;
-                          }
-                        })()}
+                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : <span className='message_comp_my_message_inside_chan'></span>}
                         <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
-                        
-                        {(() => {
-                          if (readed === true) {
-                              return <span className='message_comp_my_message_inside_readed'> ✓✓</span>;
-                          } else{
-                              return <span className='message_comp_my_message_inside_readed'> ✓</span>;
-                          }
-                        })()}
+                        {/*readed === true ? <span className='message_comp_my_message_inside_readed'> ✓✓</span> : <span className='message_comp_my_message_inside_readed'> ✓</span>*/}
                       </div>
 
                     </div>
                   </div>
+                {readed === false &&
+                  <div style={{display: "inline-block", width: 50}}>
+                    <div style={{display: "flex", alignItems: 'center', justifyContent: "center", width: "100%"}}>
+                      <div style={{ width: '10px', height: "10px", backgroundColor: "black", borderRadius: "50%"}}></div>
+                    </div>
+                  </div>}
                   
                   {/*visibleId === id && <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
                                             <div className='message_comp_delete_panel_div'>
@@ -155,22 +149,9 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                       <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       
                       <div>
-                        {(() => {
-                          if (readed === true) {
-                              return <span className='message_comp_my_message_inside_readed'>✓✓ </span>;
-                          } else{
-                              return <span className='message_comp_my_message_inside_readed'>✓ </span>;
-                          }
-                        })()}
+                        {readed === true ? <span className='message_comp_my_message_inside_readed'> ✓✓</span> : <span className='message_comp_my_message_inside_readed'> ✓</span>}
                         <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
-                        
-                        {(() => {
-                          if (changed === true) {
-                              return <span className='message_comp_my_message_inside_chan'>chan.</span>;
-                          } else {
-                              return <span className='message_comp_my_message_inside_not_chan'></span>;
-                          }
-                        })()}
+                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : <span className='message_comp_my_message_inside_chan'></span>}
                       </div>
                       
 

@@ -52,7 +52,8 @@ const [theme, setTheme] = useState(getCookie('theme'));
   };
 
   const addEmoji = (emoji) => {
-    document.getElementById("messChange").innerText += emoji.emoji;
+    setData1({ ...message, text: message.text += emoji.emoji });
+    //document.getElementById("messChange").innerText += emoji.emoji;
   };
   
   // Функция для переключения видимости элемента
