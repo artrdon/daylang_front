@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import Message from '/src/pages/message.jsx'
+import CookiesLocal from '/languages/cookies.js'
 
-function Cookie() {
+function Cookie({lang}) {
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -30,9 +31,9 @@ return (
         if (cook != true) {
             return (<>
                 <div style={{ backgroundColor: "white", color: "black", width: "calc(100% - 60px)", height: 160, position: "absolute", bottom: 0, zIndex: 10000, margin: 10, padding: 20, borderRadius: 10}}>
-                    <div>Наш сайт использует куки. </div>
-                    <div style={{ paddingBottom: 10 }}>Продолжая им пользоваться, вы соглашаетесь на обработку персональных данных в соответствии с <Link to={'/privacy/'} style={{color: "blue"}}>политикой конфиденциальности</Link>.</div>
-                    <button onClick={allowCookie} style={{ backgroundColor: "gray", width: "100%", height: 50, fontSize: 30, borderRadius: 10 }}>Понятно</button>
+                    <div>{CookiesLocal[lang]['header']}</div>
+                    <div style={{ paddingBottom: 10 }}>{CookiesLocal[lang]['main_text']}<Link to={'/privacy/'} style={{color: "blue"}}>{CookiesLocal[lang]['policy']}</Link>.</div>
+                    <button onClick={allowCookie} style={{ backgroundColor: "gray", width: "100%", height: 50, fontSize: 30, borderRadius: 10 }}>{CookiesLocal[lang]['ok']}</button>
                 </div>
             </>);
         }

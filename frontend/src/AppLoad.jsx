@@ -76,7 +76,7 @@ function AppLoad({ lang, messNumb, lessons }) {
         
 
         {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
-        <span className="text_in_panel" >My lessons</span>
+        <span className="text_in_panel" >{arrLangNavigPanel[lang]['my_lessons']}</span>
       </Link>
       
       <a className="navig_panel_button"id="only_for_fon">
@@ -109,7 +109,7 @@ function AppLoad({ lang, messNumb, lessons }) {
         <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLangNavigPanel[lang]['about']}</span>
       </Link>
-      <Docks />
+      <Docks lang={lang}/>
     </div>
   </div>
 

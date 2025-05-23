@@ -58,11 +58,11 @@ return (
                         </Link>
                         <div className="show_nav_in_mob_nav_panel_botton_main">
                             <div style={{display: 'block'}}>
-                              <p className='top_panel_balance'>Current balance: {money}₽</p>
+                              <p className='top_panel_balance'>{arrLangNavigPanel[lang]['balance']}: {money}₽</p>
                             </div>
                         </div>
                         <div className="show_nav_in_mob_nav_panel_botton_main">
-                            <p className='top_panel_balance'>Theme </p>
+                            <p className='top_panel_balance'>{arrLangNavigPanel[lang]['theme']} </p>
                             <button className="change_theme_button" onClick={change_theme}>
                             {theme === "dark" ? (
                               <img
@@ -94,7 +94,7 @@ return (
                             <span className='show_nav_in_mob_button_text_color' style={{overflowWrap: 'anywhere', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>{firstname} {lastname}</span>
                         </Link>
                         <div className="show_nav_in_mob_nav_panel_botton_main">
-                            <p className='top_panel_balance'>Theme </p>
+                            <p className='top_panel_balance'>{arrLangNavigPanel[lang]['theme']} </p>
                             <button className="change_theme_button" onClick={change_theme}>
                             {theme === "dark" ? (
                               <img
@@ -147,7 +147,7 @@ return (
                     alt="support"
                     className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
                 />*/}
-                <span className='show_nav_in_mob_button_text_color'>Политика конфиденциальности</span>
+                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['privacy_policy']}</span>
                 </Link>
         </div>
     </div>

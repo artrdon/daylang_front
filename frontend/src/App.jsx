@@ -163,11 +163,11 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
                       {name} {lastname}
                     </span>
                     <div className='show_nav_in_desktop_section_main'>
-                        <p className='top_panel_balance_desktop'>Current balance: {balance}₽</p>
+                        <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['balance']}: {balance}₽</p>
                     </div>
                     <div className='show_nav_in_desktop_section_main'>
                       
-                      <p className='top_panel_balance_desktop'>Theme</p>
+                      <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['theme']}</p>
                       <button className="change_theme_button_desktop" onClick={change_theme}>
                       {theme === "dark" ? (
                         <img
@@ -213,8 +213,8 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
                         </span>
                         <div className='show_nav_in_desktop_section_main'>
                           
-                          <p className='top_panel_balance_desktop'>Theme</p>
-                          <button className="change_theme_button_desktop" onClick={change_theme}>
+                          <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['theme']}</p>
+                          <button className="change_theme_button_desktop" onClick={change_theme} style={{top: 80}}>
                           {theme === "dark" ? (
                             <img
                               src="/src/static/img/moon.png"
@@ -296,7 +296,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
 
             {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
 
-            <span className="text_in_panel">My lessons</span>
+            <span className="text_in_panel">{arrLangNavigPanel[lang]['my_lessons']}</span>
           </Link>
         </>
       }
@@ -345,8 +345,8 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
         <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLangNavigPanel[lang]['about']}</span>
       </Link>
-      <Cookie />
-      <Docks />
+      <Cookie lang={lang}/>
+      <Docks lang={lang}/>
     </div>
   </div>
 

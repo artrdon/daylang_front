@@ -100,7 +100,7 @@ else{
           className="app_navig_panel_img on_desktop_panel"
         />
         {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
-        <span className="text_in_panel" id="not_for_fon">My lessons</span>
+        <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['my_lessons']}</span>
       </Link>
       
       <Link className="navig_panel_button" id="only_for_fon">
@@ -132,7 +132,7 @@ else{
         <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLangNavigPanel[lang]['about']}</span>
       </Link>
-      <Docks />
+      <Docks lang={lang}/>
     </div>
   </div>
 

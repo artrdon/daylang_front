@@ -5,6 +5,7 @@ import arrLangSettings from '/languages/settings.js'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
+import arrLangCreateOffer from '../../languages/create_offer';
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -260,7 +261,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               <span>{arrLangSettings[lang]['name']}</span>
               <input
                 maxLength={30}
-                placeholder="Name"
+                placeholder={arrLangSettings[lang]['name']}
                 name="name"
                 type="text"
                 className="input_field_name"
@@ -274,7 +275,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               <span>{arrLangSettings[lang]['last_name']}</span>
               <input
                 maxLength={30}
-                placeholder="Last name"
+                placeholder={arrLangSettings[lang]['last_name']}
                 type="text"
                 name="surname"
                 className="input_field_name"
@@ -287,7 +288,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               <span>{arrLangSettings[lang]['about_myself']}</span>
               <textarea
                 maxLength={700}
-                placeholder="Description"
+                placeholder={arrLangSettings[lang]['about_myself']}
                 name="about_myself"
                 id=""
                 className="input_field_description"
@@ -317,7 +318,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                 <span>{arrLangSettings[lang]['about_my_degree']}</span>
                 <textarea
                   maxLength={300}
-                  placeholder="Description"
+                  placeholder={arrLangSettings[lang]['about_my_degree']}
                   name="about_my_degree"
                   id=""
                   className="input_field_description"
@@ -349,21 +350,21 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                   />
                 ))}
                 <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
-                <label htmlFor="icon404" className='crt_offer_load_photo'>Загрузить фото</label>
+                <label htmlFor="icon404" className='crt_offer_load_photo'>{arrLangCreateOffer[lang]['load_photo']}</label>
 
               </div>
 
               <div className="crt_offer_name_of_fields">
-                <span>work</span>
+                <span>{arrLangSettings[lang]['Work']}</span>
               </div>
               <div className='crt_offer_work_day_div'>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Monday">Mo</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Tuesday">Tu</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Wednesday">We</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Thirsday">Th</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Friday">Fr</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Saturday">Sa</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Sunday">Su</button>
+                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Monday">{arrLangSettings[lang]['monday']}</button>
+                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Tuesday">{arrLangSettings[lang]['tuesday']}</button>
+                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Wednesday">{arrLangSettings[lang]['wednesday']}</button>
+                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Thirsday">{arrLangSettings[lang]['thursday']}</button>
+                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Friday">{arrLangSettings[lang]['friday']}</button>
+                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Saturday">{arrLangSettings[lang]['saturday']}</button>
+                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Sunday">{arrLangSettings[lang]['sunday']}</button>
               </div>
               <div className='crt_offer_work_day_div'>
                 <select id="beggin_time_of_work" className='crt_offer_work_day_select' name="beggin_time_of_work"  onChange={handleChange} value={settingChange.beggin_time_of_work}>
@@ -423,7 +424,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             )}
 
               <div className="crt_offer_name_of_fields">
-                <span>Sessions</span>
+                <span>{arrLangSettings[lang]['sessions']}</span>
                 <div className="input_field_description">
                   {sessions.map((session) => (
                     <div className='settings_session_div' key={`session${session.id}`} id={`session_id_${session.id}`}>
