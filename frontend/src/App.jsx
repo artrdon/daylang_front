@@ -158,7 +158,6 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
                   <div className='show_nav_in_desktop_section'>
                     <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
                       <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
-                      
                     </Link>
                     <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 90, top: 25, width: "calc(100% - 120px)"}}>
                       {name} {lastname}

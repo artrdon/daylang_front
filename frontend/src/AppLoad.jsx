@@ -46,7 +46,7 @@ function AppLoad({ lang, messNumb, lessons }) {
           alt="main"
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel" id="not_for_fon" key="about">{arrLangNavigPanel[lang]['find']}</span>
+        <span className="text_in_panel" key="about">{arrLangNavigPanel[lang]['find']}</span>
       </Link>
       <Link className="navig_panel_button">
         <img
@@ -54,7 +54,7 @@ function AppLoad({ lang, messNumb, lessons }) {
           alt="saved"
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['saved']}</span>
+        <span className="text_in_panel" >{arrLangNavigPanel[lang]['saved']}</span>
       </Link>
       <Link className="navig_panel_button">
         <img
@@ -65,7 +65,7 @@ function AppLoad({ lang, messNumb, lessons }) {
         
 
         {messNumb > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
-        <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['messages']}</span>
+        <span className="text_in_panel" >{arrLangNavigPanel[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button">
         <img
@@ -76,7 +76,7 @@ function AppLoad({ lang, messNumb, lessons }) {
         
 
         {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
-        <span className="text_in_panel" id="not_for_fon">My lessons</span>
+        <span className="text_in_panel" >My lessons</span>
       </Link>
       
       <a className="navig_panel_button"id="only_for_fon">

@@ -73,7 +73,7 @@
     height: 50px; width: 50px; border-radius: 30px; position: absolute; bottom: 0px; object-fit: contain; background-color: #2a2a2a;
 }
 .message_comp_not_my_message{
-    margin-top: 40px; margin-bottom: 20px; position: relative; display: block; z-index: 1
+    margin-top: 10px; margin-bottom: 5px; position: relative; display: block; z-index: 1
 }
 .message_comp_not_my_message_inside_pre{
     font-size: 18px; position: relative; padding: 10px; background-color: rgb(120 120 120); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; left: 60px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer;
@@ -375,7 +375,8 @@ div *::-webkit-scrollbar-thumb {
         right: 66.66666666666vw;
     }
     .message_comp_not_my_message{
-        margin-top: 7.619047619vw; margin-bottom: 3.8095238095238098vw;
+        margin-top: 1.904761904761905vw;
+        margin-bottom: 0.9523809523809524vw;
     }
     .place_of_mess {
         height: calc(100vh - 38.095238095vw);
