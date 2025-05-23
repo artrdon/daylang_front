@@ -55,16 +55,16 @@ function change_theme() {
     if (document.querySelector('body').className === "dark_theme")
     {
 
-        document.querySelector('body').className = "light_theme";
+        //document.querySelector('body').className = "light_theme";
         document.cookie = "theme=light; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
+        //document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
         location.reload();
     }
     else
     {
-        document.querySelector('body').className = "dark_theme";
+       // document.querySelector('body').className = "dark_theme";
         document.cookie = "theme=dark; path=/;max-age=31556926";
-        document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
+        //document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
         location.reload();
     }
 }

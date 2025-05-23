@@ -9,6 +9,7 @@ import Calendar from 'react-calendar';
 import AppMess from '/src/AppMess.jsx'
 import AppMessLoad from '/src/AppMessLoad.jsx'
 import Message_comp from '/src/elems/message_comp.jsx'
+import Message_load from '/src/load_elems/messages_load.jsx'
 import MessageChange from '/src/elems/change_mess.jsx'
 import Bye_and_call from '/src/elems/bye_and_call_button.jsx'
 import DoBye from '/src/elems/do_bye.jsx'
@@ -427,6 +428,7 @@ const addEmoji = (emoji) => {
     if (loading) return (
       <>
       <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <Message_load />
 </>
 
   );
@@ -435,6 +437,7 @@ const addEmoji = (emoji) => {
     if (loading2) return (
       <>
       <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <Message_load />
 </>
 
   );
@@ -443,6 +446,7 @@ const addEmoji = (emoji) => {
   if (loading12) return (
       <>
       <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <Message_load />
 </>
 
   );

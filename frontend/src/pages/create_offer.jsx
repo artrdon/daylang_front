@@ -76,7 +76,7 @@ function CreateOffer() {
   if (loading1) return (
       <>
       <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
-      <Create_offer_load/>
+      <Create_offer_load arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
 </>
 
   );
