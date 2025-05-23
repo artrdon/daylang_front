@@ -15,6 +15,15 @@
 .create_chat_button_text{
     color: white; font-size: 30px;
 }
+.message_readed_container{
+    display: inline-block; width: 50px;
+}
+.message_readed_centering{
+    display: flex; align-items: center; justify-content: center; width: 100%;
+}
+.message_readed_circle{
+    width: 10px; height: 10px; background-color: #1d6bc0; border-radius: 50%;
+}
 .message_korzina{
     z-index: 101; position: absolute; right: 0px; margin-top: 5px; width: 80px; height: 60px;
 }
@@ -40,7 +49,7 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; width: calc(100% - 240px); margin-left: 10px; font-size: 16px;
 }
 .message_comp_my_message{
-    margin-top: 40px; margin-bottom: 20px; position: relative; display: block; transform: scale(-1, 1); z-index: 1;
+    margin-top: 10px; margin-bottom: 5px; position: relative; display: block; transform: scale(-1, 1); z-index: 1;
 }
 .message_comp_my_message_div{
     max-width: calc(100% - 60px); position: relative; border-radius: 10px; display: inline-block;
@@ -387,8 +396,8 @@ div *::-webkit-scrollbar-thumb {
         font-size: 3.0476190476190476vw;
     }
     .message_comp_my_message {
-        margin-top: 7.619047619vw;
-        margin-bottom: 3.809523809vw;
+        margin-top: 1.904761904761905vw;
+        margin-bottom: 0.9523809523809524vw;
     }
     .create_chat_button{
         height: 9.5238vw;
@@ -399,17 +408,17 @@ div *::-webkit-scrollbar-thumb {
         font-size: 5.7142vw;
     }
     .goback_but{
-        margin-left: 1.9047vw;
+        margin-left: 1.904761904761905vw;
     }
     .message_goback_img{
         height: 9.5238vw;
         width: 13.333vw;
-        margin-top: 1.9047vw;
+        margin-top: 1.904761904761905vw;
     }
     .message_call{
         width: 15.238vw;
         height: 11.4285vw;
-        margin-top: 1.9047vw;
+        margin-top: 1.904761904761905vw;
     }
     .message_call_img{
         height: 9.5238vw;
@@ -423,14 +432,14 @@ div *::-webkit-scrollbar-thumb {
     .message_chat_info_div {
         padding-left: 17.1428vw;
         padding-right: 15.238vw;
-        margin-top: 1.9047vw;
+        margin-top: 1.904761904761905vw;
     }
     .positing_of_micro_chel {
         height: 13.333vw;
     }
     .message_mess_block {
         margin-top: 13.333vw;
-        padding: 1.9047vw;
+        padding: 1.904761904761905vw;
         height: calc(100vh - 34.4761vw);
         width: calc(100% - 3.8095vw);
     }
@@ -501,8 +510,8 @@ div *::-webkit-scrollbar-thumb {
     }
     .message_comp_my_message_inside_pre {
         font-size: 3.4285vw;
-        padding: 1.9047vw;
-        border-radius: 1.9047vw;
+        padding: 1.904761904761905vw;
+        border-radius: 1.904761904761905vw;
     }
     .message_comp_my_message_inside_not_chan {
         font-size: 2.2857vw;
@@ -512,7 +521,7 @@ div *::-webkit-scrollbar-thumb {
     }
     .message_comp_my_message_div {
         max-width: calc(100% - 11.4285vw);
-        border-radius: 1.9047vw;
+        border-radius: 1.904761904761905vw;
     }
     .message_comp_link_to_sender{
         width: 9.5238vw; height: 9.5238vw;
@@ -522,40 +531,52 @@ div *::-webkit-scrollbar-thumb {
     }
     .message_comp_not_my_message_inside_pre {
         font-size: 3.4285vw;
-        padding: 1.9047vw;
-        border-radius: 1.9047vw;
+        padding: 1.904761904761905vw;
+        border-radius: 1.904761904761905vw;
         left: 11.4285vw;
     }
     .message_comp_my_message_inside_chan {
         font-size: 2.2857vw;
-        margin-right: 1.9047vw;
+        margin-right: 1.904761904761905vw;
     }
     .inviz_panel_of_writing {
         height: 17.1428vw;
     }
     .message_comp_delete_panel_div {
         width: 38.0952380952381vw;
-        border-radius: 1.9047vw;
+        border-radius: 1.904761904761905vw;
         top: -9.5238vw;
     }
     .message_comp_delete_panel_div_delete {
         font-size: 4vw;
         height: 9.5238vw;
         border: 0.1904vw solid black;
-        border-top-right-radius: 1.9047vw;
-        border-top-left-radius: 1.9047vw;
+        border-top-right-radius: 1.904761904761905vw;
+        border-top-left-radius: 1.904761904761905vw;
     }
     .message_comp_delete_panel_div_edit {
         font-size: 4vw;
         height: 9.5238vw;
         border: 0.1904vw solid black;
-        border-bottom-right-radius: 1.9047vw;
-        border-bottom-left-radius: 1.9047vw;
+        border-bottom-right-radius: 1.904761904761905vw;
+        border-bottom-left-radius: 1.904761904761905vw;
+    }
+    .message_readed_container{
+        width: 9.523809523809524vw;
+    }
+    .message_readed_circle{
+        width: 1.904761904761905vw; height: 1.904761904761905vw;
     }
 }
 @media only screen and (max-width: 450px)
 {
     .emoji_picker{
         width: 100vw;
+    }
+}
+@media only screen and (max-width: 300px)
+{
+    .message_list_find_panel {
+        height: calc(100% - 13.3333333333vw);
     }
 }

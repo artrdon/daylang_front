@@ -93,37 +93,38 @@ const [messId, setMessId] = useState(null);
             }
             if (dataMess.tip === "delete"){
                 document.getElementById(`mess${dataMess.id}`).remove();
-                
-               // document.getElementById(`sett${dataMess.id}`).remove();
                 return;
             }
 
             if (dataMess.tip === "change"){
-                console.log(components);
                 setIsTyping(false);
+
                 const searched_id = componentsMess.findIndex(item => item.id == dataMess.id);
-                console.log(searched_id);
                 if (searched_id < 0){
-                  const index = components.findIndex(item => item.id == dataMess.id);
-                  console.log(index);
-                  setComponents(prevData =>
-                    prevData.map(item => 
-                      item.id == dataMess.id ? {...item, text: dataMess.text, ifChanged: true } : item
-                    )
-                  );
-                }
-                else{
-                  queryClient.setQueryData(['getmessagelist', params.id], (oldData) => {
-                    console.log(oldData[searched_id].text);
-                    console.log(dataMess.text);
-                    return oldData.map(item => 
-                      item.id === dataMess.id ? { ...item, text: dataMess.text, ifChanged: true } : item
+                  console.log("component");
+                  setComponents(prev => {
+                    const newData = prev.map(item => 
+                      item.id === dataMess.id 
+                        ? { ...item, text: dataMess.text, ifChanged: true }
+                        : item
                     );
+                    return newData;
                   });
-                  console.log(queryClient.getQueryData(['getmessagelist', params.id]))
                 }
+                else {
+                  console.log('componentsMess');
+                  setComponentsMess(prev => {
+                    const newData = prev.map(item => 
+                      item.id === dataMess.id 
+                        ? { ...item, text: dataMess.text, ifChanged: true }
+                        : item
+                    );
+                    queryClient.setQueryData(['getmessagelist', params.id], newData);
+                    return newData;
+                  });
+                }
+
                 
-                return;
             }
             if (dataMess.tip === "send"){
                 setMessage(dataMess.message);
@@ -134,38 +135,18 @@ const [messId, setMessId] = useState(null);
                     id: dataMess.id,
                     text: dataMess.message,
                     sender: dataMess.sender,
+                    readed: false,
                     photo: dataMess.photo,
+                    changed: false,
                     senderIsTeacher: dataMess.senderIsTeacher,
                     hour: dataMess.hour,
                     minute: dataMess.minute, 
+
                 };
                 setComponents((components) => [...components, newComponent]);
                 setIsTyping(false);
                 return;
             }
-            /*if (dataMess.tip === "sendvid"){
-              //setMessage(dataMess.message);
-              if (String(dataMess.minute).length === 1){
-                dataMess.minute = "0" + String(dataMess.minute);
-              }
-              const newComponent = {
-                  //id: dataMess.id,
-                  tip: dataMess.tip,
-                  text: "join to video room",
-                  sender: dataMess.sender,
-                  photo: dataMess.photo,
-                  senderIsTeacher: dataMess.senderIsTeacher,
-                  hour: dataMess.hour,
-                  minute: dataMess.minute, 
-                  link: dataMess.link, 
-                  call_id: dataMess.call_id,
-              };
-              setComponents((components) => [...components, newComponent]);
-              window.open(`${newComponent.link}${call_id}`, '_blank'); 
-              return;
-          }*/
-            
-
         }
         else {
           if (dataMess.tip === "delete"){
@@ -193,37 +174,30 @@ const [messId, setMessId] = useState(null);
   }, [groups]);
 
   const sendVideoRoom = () => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: "sendvid", link: '/call/', id: params.id, sender: data.username  }));
-      //document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-    } else {
-      console.error('WebSocket is not open');
-    }
+    console.log("open room");
   };
 
   const sendMessage = (messageText) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: "send", message: messageText, id: params.id, sender: data.username, isTyping: false }));
     } else {
-      console.error('WebSocket is not open');
+      console.error('I can`t do it, reload page, bro');
     }
   };
 
   const changeMessage = (idd, text) => {
-    //console.log(idd);
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: "change", id: params.id, id_mess: idd, text: text, sender: data.username, isTyping: false }));
     } else {
-      console.error('WebSocket is not open');
+      console.error('I can`t do it, reload page, bro');
     }
   };
 
   const deleteMessage = (idd) => {
-    console.log(idd);
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: "delete", id: params.id, id_mess: idd }));
     } else {
-      console.error('WebSocket is not open');
+      console.error('I can`t do it, reload page, bro');
     }
   };
 
@@ -266,7 +240,7 @@ const messChange = (idd) => {
 
     langua = lang;
 
-        var arrLang = {
+    const arrLang = {
       'English': {
           'message': "Send message",
       },
@@ -499,7 +473,7 @@ const addEmoji = (emoji) => {
 
   );
   if (error12) return <p>Error: {error12}</p>;
-  console.log(data2);
+
     return (
         <>
         <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
@@ -586,7 +560,7 @@ const addEmoji = (emoji) => {
               {componentsMess.map((da) => (
                 
                 <Fragment key={`fragment-${da.id}`}>
-                  <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link} call_id={da.call_id}/>
+                  <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link}/>
                   {/*da.i_read && <ScrollToBottom key={`keyscroll${da.id}`} />*/}
                 </Fragment>
                 
@@ -599,7 +573,7 @@ const addEmoji = (emoji) => {
       })()}
   {components.map((component) => ( 
     <div key={`divkey${component.id}`}>
-      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={false} photo={component.photo} if_teach={component.senderIsTeacher} hour={component.hour} minute={component.minute} tip={component.tip} link={component.link} call_id={component.call_id}/>
+      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={component.readed} photo={component.photo} if_teach={component.senderIsTeacher} changed={component.ifChanged} hour={component.hour} minute={component.minute} tip={component.tip} link={component.link} />
       <ScrollToBottom key={`keyscroll${component.id}`} />
     </div>
     ))}

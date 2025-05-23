@@ -22,31 +22,26 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_teach, changed, hour, minute, tip, link, call_id }) {
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    const csrfToken = getCookie('csrftoken');
-
-    const [confirm, setIsVisible] = useState(false);
+   // const [localText] = useState(int);
     const [position, setPosition] = useState({ y: 0 });
     const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
-    //const text = DOMPurify.sanitize(linkify(int));
-
-
-
+    const [text, setText] = useState(null);
   // Функция для переключения видимости элемента
-  const convertLinksToAnchors = (text) => {
-    const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  
-  return text.replace(urlRegex, function(url) {
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-  });
-  }
-  const [text, setText] = useState(convertLinksToAnchors(int));
-  //console.log(text);
+
+  useEffect(() => {
+      
+    const convertLinksToAnchors = (text) => {
+      const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    
+    return text.replace(urlRegex, function(url) {
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    });
+    }
+
+    setText(convertLinksToAnchors(int));
+
+  }, [int]);
+
   const toggleVisibility = (e, id) => {
     setVisibleId(prevId => prevId === id ? null : id);
     setPosition({ y: e.clientY });
@@ -98,19 +93,19 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                     <div className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
                       <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       <div>
-                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : <span className='message_comp_my_message_inside_chan'></span>}
+                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : null}
                         <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
                         {/*readed === true ? <span className='message_comp_my_message_inside_readed'> ✓✓</span> : <span className='message_comp_my_message_inside_readed'> ✓</span>*/}
                       </div>
 
                     </div>
                   </div>
-                {readed === false &&
-                  <div style={{display: "inline-block", width: 50}}>
-                    <div style={{display: "flex", alignItems: 'center', justifyContent: "center", width: "100%"}}>
-                      <div style={{ width: '10px', height: "10px", backgroundColor: "black", borderRadius: "50%"}}></div>
+                {readed === false ?
+                  <div className='message_readed_container'>
+                    <div className='message_readed_centering'>
+                      <div className='message_readed_circle'></div>
                     </div>
-                  </div>}
+                  </div> : null}
                   
                   {/*visibleId === id && <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
                                             <div className='message_comp_delete_panel_div'>
@@ -149,9 +144,9 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                       <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       
                       <div>
-                        {readed === true ? <span className='message_comp_my_message_inside_readed'> ✓✓</span> : <span className='message_comp_my_message_inside_readed'> ✓</span>}
+                        {/*readed === true ? <span className='message_comp_my_message_inside_readed'> ✓✓</span> : <span className='message_comp_my_message_inside_readed'> ✓</span>*/}
                         <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
-                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : <span className='message_comp_my_message_inside_chan'></span>}
+                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : null}
                       </div>
                       
 

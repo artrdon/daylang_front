@@ -94,8 +94,8 @@ useEffect(() => {
     };
   }, [groups]);
 
-const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
-const [confirm, setIsVisible] = useState(false);
+  const [visibleId, setVisibleId] = useState(null); // Состояние для хранения id видимого элемента
+  const [confirm, setIsVisible] = useState(false);
 
   // Функция, которая будет вызываться при нажатии на кнопку
   const confirming = () => {
