@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery, } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import arrLangMessage from '/languages/message.js'
 import EmojiPicker from 'emoji-picker-react';
 import Calendar from 'react-calendar';
 import AppMess from '/src/AppMess.jsx'
@@ -239,33 +240,6 @@ const messChange = (idd) => {
     let [langua, setData10] = useState(null);
 
     langua = lang;
-
-    const arrLang = {
-      'English': {
-          'message': "Send message",
-      },
-      'Русский': {
-          'message': "Отправить сообщение",
-      },
-      'Srpski': {
-          'message': "Pošaljite poruku",
-      },
-      'Српски': {
-          'message': "Пошаљите поруку",
-      },
-      'Deutsch': {
-          'message': "Nachricht senden",
-      },
-      'Español': {
-          'message': "Enviar mensaje",
-      },
-      'عربي': {
-          'message': "ارسل رسالة",
-      }
-
-    }
-
-
 
 
     document.querySelector("title").textContent = `Message`;
@@ -604,7 +578,7 @@ const addEmoji = (emoji) => {
                   <div
                     translate="no"
                     id="mess"
-                    data-text={arrLang[lang]['message']}
+                    data-text={arrLangMessage[lang]['message']}
                     contentEditable="true"
                     className="input_panel"
                     name="text"

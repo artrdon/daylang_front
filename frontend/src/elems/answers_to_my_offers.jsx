@@ -41,67 +41,6 @@ function AnswersToMyOffers() {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
 
-    const arrLang = {
-      'English': {
-          'create_offer': 'Create offer',
-          'name': 'Name',
-          'description': 'Description',
-          'price': "Price",
-          'load_photo': 'Load photo',
-          'save': 'Save',
-      },
-      'Русский': {
-          'create_offer': 'Создать предложение',
-          'name': 'Название',
-          'description': 'Описание',
-          'price': "Цена",
-          'load_photo': 'Загрузить фото',
-          'save': 'Сохранить',
-      },
-      'Srpski': {
-          'create_offer': 'Napravite predlog',
-          'name': 'Naziv',
-          'description': 'Opis',
-          'price': "Cena",
-          'load_photo': 'Otpremite fotografiju',
-          'save': 'Sačuvaj',
-      },
-      'Српски': {
-          'create_offer': 'Направите предлог',
-          'name': 'Назив',
-          'description': 'Опис',
-          'price': "Цена",
-          'load_photo': 'Отпремите фотографију',
-          'save': 'Сачувај',
-      },
-      'Deutsch': {
-          'create_offer': 'Angebot erstellen',
-          'name': 'Titel',
-          'description': 'Beschreibung',
-          'price': "Preis",
-          'load_photo': 'Foto laden',
-          'save': 'Speichern',
-      },
-      'Español': {
-          'create_offer': 'Crear oferta',
-          'name': 'Nombre',
-          'description': 'Descripción',
-          'price': "Precio",
-          'load_photo': 'Cargar foto',
-          'save': 'Guardar',
-      },
-      'عربي': {
-          'create_offer': 'إنشاء عرض',
-          'name': 'العنوان',
-          'description': 'الوصف',
-          'price': "السعر",
-          'load_photo': 'تحميل الصورة',
-          'save': 'حفظ',
-      }
-
-    }
-
-
     const [search, setSearch] = useState(false);
     document.querySelector("title").textContent = "Offers";
     const params = useParams();

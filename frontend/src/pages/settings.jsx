@@ -12,9 +12,6 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function Settings() {
 
-    
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);

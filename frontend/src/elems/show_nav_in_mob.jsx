@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import arrLangNavigPanel from '/languages/nav_panel.js'
 import Message from '/src/pages/message.jsx'
 import Docks from '/src/elems/docks.jsx'
 
@@ -22,65 +23,6 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   
 
 function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username, ref, money, firstname, lastname, change_theme, theme}) {
-    const arrLang = {
-        'English': {
-            'find': "Find",
-            'messages': 'Messages',
-            'saved': 'Saved',
-            'setting': 'Settings',
-            'support': 'Support',
-            'about': 'About Us',
-        },
-        'Русский': {
-            'find': "Найти",
-            'messages': 'Сообщения',
-            'saved': 'Сохранённые',
-            'setting': 'Настройки',
-            'support': 'Поддержка',
-            'about': 'О нас',
-        },
-        'Srpski': {
-            'find': "Naći",
-            'messages': 'Poruke',
-            'saved': 'Sačuvano',
-            'setting': 'Podešavanja',
-            'support': 'Podrška',
-            'about': 'O nama',
-        },
-        'Српски': {
-            'find': "Наћи",
-            'messages': 'Поруке',
-            'saved': 'Сачувано',
-            'setting': 'Подешавања',
-            'support': 'Подршка',
-            'about': 'О нама',
-        },
-        'Deutsch': {
-            'find': "Finden",
-            'messages': 'Nachrichten',
-            'saved': 'Spielstand',
-            'setting': 'Einstellungen',
-            'support': 'Unterstützung',
-            'about': 'Über uns',
-        },
-        'Español': {
-            'find': "Encuentre",
-            'messages': 'Mensajes',
-            'saved': 'Guardado',
-            'setting': 'Ajustes',
-            'support': 'Ayuda',
-            'about': 'Quiénes somos',
-        },
-        'عربي': {
-            'find': "ابحث عن",
-            'messages': 'الرسائل',
-            'saved': 'تم الحفظ',
-            'setting': 'الإعدادات',
-            'support': 'الدعم',
-            'about': 'نبذة عنا',
-        }
-  
-      }
   
       useEffect(() => {
         let start = 0;
@@ -184,7 +126,7 @@ return (
                     alt="settings"
                     className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
                 />
-                <span className='show_nav_in_mob_button_text_color'>{arrLang[lang]['setting']}</span>
+                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['setting']}</span>
                 </Link>
                 <Link className="show_nav_in_mob_nav_panel_botton" to="/support/">
                 <img
@@ -192,11 +134,11 @@ return (
                     alt="support"
                     className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
                 />
-                <span className='show_nav_in_mob_button_text_color'>{arrLang[lang]['support']}</span>
+                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['support']}</span>
                 </Link>
                 <Link className="show_nav_in_mob_nav_panel_botton" to="/about_us/">
                 <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img" />
-                <span className='show_nav_in_mob_button_text_color'>{arrLang[lang]['about']}</span>
+                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['about']}</span>
                 </Link>
                 <div style={{borderTop: '1px solid'}}></div>
                 <Link className="show_nav_in_mob_nav_panel_botton" to='/src/static/docks/pryvacy.pdf'>

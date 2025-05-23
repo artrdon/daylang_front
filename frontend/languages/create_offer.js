@@ -1,0 +1,51 @@
+const arrLangCreateOffer = {
+    'english': {
+        'create_offer': 'Create offer',
+        'name': 'Name',
+        'description': 'Description',
+        'price': "Price",
+        'load_photo': 'Load photo',
+        'save': 'Save',
+    },
+    'russian': {
+        'create_offer': 'Создать предложение',
+        'name': 'Название',
+        'description': 'Описание',
+        'price': "Цена",
+        'load_photo': 'Загрузить фото',
+        'save': 'Сохранить',
+    },
+    'serbian-lat': {
+        'create_offer': 'Napravite predlog',
+        'name': 'Naziv',
+        'description': 'Opis',
+        'price': "Cena",
+        'load_photo': 'Otpremite fotografiju',
+        'save': 'Sačuvaj',
+    },
+    'serbian-cir': {
+        'create_offer': 'Направите предлог',
+        'name': 'Назив',
+        'description': 'Опис',
+        'price': "Цена",
+        'load_photo': 'Отпремите фотографију',
+        'save': 'Сачувај',
+    },
+    'germany': {
+        'create_offer': 'Angebot erstellen',
+        'name': 'Titel',
+        'description': 'Beschreibung',
+        'price': "Preis",
+        'load_photo': 'Foto laden',
+        'save': 'Speichern',
+    },
+    'spanish': {
+        'create_offer': 'Crear oferta',
+        'name': 'Nombre',
+        'description': 'Descripción',
+        'price': "Precio",
+        'load_photo': 'Cargar foto',
+        'save': 'Guardar',
+    },
+}
+export default arrLangCreateOffer

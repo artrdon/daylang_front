@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
+import arrLangMyProfil from '/languages/my_profil.js'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import Feedback_pup_load from '/src/load_elems/feedback_pup_load.jsx'
@@ -92,52 +93,6 @@ else{
     let [langua, setData10] = useState(null);
 
     langua = lang;
-
-var arrLang = {
-      'English': {
-          'main': "Main",
-          'degree': 'Degree / Certificate',
-          'feedback': 'Reviews',
-          'offers': 'Offers',
-      },
-      'Русский': {
-          'main': "Главная",
-          'degree': 'Диплом / Сертификат',
-          'feedback': 'Отзывы',
-          'offers': 'Предложения',
-      },
-      'Srpski': {
-          'main': "Glavni",
-          'degree': 'Diploma / Sertificat',
-          'feedback': 'Recenzije',
-          'offers': 'Predlozi',
-      },
-      'Српски': {
-          'main': "Главни",
-          'degree': 'Диплома / Сертификат',
-          'feedback': 'Рецензије',
-          'offers': 'Предлози',
-      },
-      'Deutsch': {
-          'main': "Wichtigsten",
-          'degree': 'Abschluss / Zertifikat',
-          'feedback': 'Gästebewertungen',
-          'offers': 'Wohnen',
-      },
-      'Español': {
-          'main': "Principal",
-          'degree': 'Título / Certificado',
-          'feedback': 'Reseñas',
-          'offers': 'Ofertas',
-      },
-      'عربي': {
-          'main': "الرئيسية",
-          'degree': 'درجة / شهادة',
-          'feedback': 'التعليقات',
-          'offers': 'العروض',
-      }
-
-    }
 
 
   const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
@@ -259,7 +214,7 @@ var arrLang = {
   );
   if (error4) return <p>Error: {error4}</p>;
 
-  document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | ${arrLang[lang]['feedback']}`;
+  document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | ${arrLangMyProfil[lang]['feedback']}`;
 
     return (
         <>
@@ -295,7 +250,7 @@ var arrLang = {
     <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
       <div className="me_div_of_button">
         <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['main']}</span>
+          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['main']}</span>
         </span>
       </div>
     </button>
@@ -307,7 +262,7 @@ var arrLang = {
     >
       <div className="me_div_of_button  me_selected">
         <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['feedback']}</span>
+          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['feedback']}</span>
         </span>
       </div>
     </button>
@@ -324,7 +279,7 @@ var arrLang = {
         <span className="ime_review" translate="no">
           {rew.name} {rew.last_name}
         </span>
-        <img src={`/src/static/img/${rew.score}.png`} alt="" className="feedback_review_zvezde" />
+        <img src={`/src/static/img/${rew.score}.png`} alt="score" className="feedback_review_zvezde" />
       </div>
       <p className="feedback_review_text" >
         {rew.text}

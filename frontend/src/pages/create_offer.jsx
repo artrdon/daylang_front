@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
+import Langs from '/languages/langs.js'
+import arrLangCreateOffer from '/languages/create_offer.js'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import Create_offer_load from '/src/load_elems/create_offer_load.jsx'
@@ -43,141 +45,6 @@ function CreateOffer() {
     let [langua, setData10] = useState(null);
 
     langua = lang;
-
-const arrLang = {
-      'English': {
-          'create_offer': 'Create offer',
-          'name': 'Name',
-          'description': 'Description',
-          'price': "Price",
-          'load_photo': 'Load photo',
-          'save': 'Save',
-      },
-      'Русский': {
-          'create_offer': 'Создать предложение',
-          'name': 'Название',
-          'description': 'Описание',
-          'price': "Цена",
-          'load_photo': 'Загрузить фото',
-          'save': 'Сохранить',
-      },
-      'Srpski': {
-          'create_offer': 'Napravite predlog',
-          'name': 'Naziv',
-          'description': 'Opis',
-          'price': "Cena",
-          'load_photo': 'Otpremite fotografiju',
-          'save': 'Sačuvaj',
-      },
-      'Српски': {
-          'create_offer': 'Направите предлог',
-          'name': 'Назив',
-          'description': 'Опис',
-          'price': "Цена",
-          'load_photo': 'Отпремите фотографију',
-          'save': 'Сачувај',
-      },
-      'Deutsch': {
-          'create_offer': 'Angebot erstellen',
-          'name': 'Titel',
-          'description': 'Beschreibung',
-          'price': "Preis",
-          'load_photo': 'Foto laden',
-          'save': 'Speichern',
-      },
-      'Español': {
-          'create_offer': 'Crear oferta',
-          'name': 'Nombre',
-          'description': 'Descripción',
-          'price': "Precio",
-          'load_photo': 'Cargar foto',
-          'save': 'Guardar',
-      },
-      'عربي': {
-          'create_offer': 'إنشاء عرض',
-          'name': 'العنوان',
-          'description': 'الوصف',
-          'price': "السعر",
-          'load_photo': 'تحميل الصورة',
-          'save': 'حفظ',
-      }
-
-    }
-
-const Lang = {
-      'English': {
-          'English': 'English',
-          'Germany': 'Germany',
-          'Russian': 'Russian',
-          'Chinese': 'Chinese',
-          'French':  'French',
-          'Italian': 'Italian',
-          'Spanish': 'Spanish',
-          'Serbian': 'Serbian',
-      },
-      'Русский': {
-          'English': 'Английский',
-          'Germany': 'Немецкий',
-          'Russian': 'Русский',
-          'Chinese': 'Китайский',
-          'French':  'Французский',
-          'Italian': 'Итальянский',
-          'Spanish': 'Испанский',
-          'Serbian': 'Сербский',
-      },
-      'Srpski': {
-          'English': 'Engleski',
-          'Germany': 'Nemačka',
-          'Russian': 'Ruski',
-          'Chinese': 'Kineski',
-          'French':  'Francuski',
-          'Italian': 'Italijanski',
-          'Spanish': 'Španski',
-          'Serbian': 'Srpski',
-      },
-      'Српски': {
-          'English': 'Енглески',
-          'Germany': 'Немачка',
-          'Russian': 'Руски',
-          'Chinese': 'Кинески',
-          'French':  'Француски',
-          'Italian': 'Италијански',
-          'Spanish': 'Шпански',
-          'Serbian': 'Српски',
-      },
-      'Deutsch': {
-          'English': 'Englischsprachig',
-          'Germany': 'Deutschland',
-          'Russian': 'Russisch',
-          'Chinese': 'Chinesisch',
-          'French':  'Französisch',
-          'Italian': 'Italienisch',
-          'Spanish': 'Spanisch',
-          'Serbian': 'Serbisch',
-      },
-      'Español': {
-          'English': 'Inglés',
-          'Germany': 'Alemania',
-          'Russian': 'Ruso',
-          'Chinese': 'Chino',
-          'French':  'Francés',
-          'Italian': 'Italiano',
-          'Spanish': 'Español',
-          'Serbian': 'Serbio',
-      },
-      'عربي': {
-          'English': 'الإنجليزية',
-          'Germany': 'ألمانيا',
-          'Russian': 'الروسية',
-          'Chinese': 'الصينية',
-          'French':  'الفرنسية',
-          'Italian': 'الإيطالية',
-          'Spanish': 'الإسبانية',
-          'Serbian': 'الصربية',
-      }
-
-    }
-
 
     const csrfToken = getCookie('csrftoken');
 
@@ -225,10 +92,10 @@ const Lang = {
 
 {
   data1.i_am_teacher ? (
-    <CreateOffersTeacher arrLang={arrLang} lang={langua} Lang={Lang}/>
+    <CreateOffersTeacher arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
 
   ) : (
-    <CreateOffersPupil arrLang={arrLang} lang={langua} Lang={Lang}/>
+    <CreateOffersPupil arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
   )
 }
 

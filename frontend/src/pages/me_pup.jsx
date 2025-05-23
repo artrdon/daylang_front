@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
+import arrLangMyProfil from '/languages/my_profil.js'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import My_pup_load from '/src/load_elems/me_pup_load.jsx'
@@ -119,55 +120,6 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
   });
 
 
-
-    var arrLang = {
-      'English': {
-          'main': "Main",
-          'degree': 'Degree / Certificate',
-          'feedback': 'Reviews',
-          'offers': 'Offers',
-      },
-      'Русский': {
-          'main': "Главная",
-          'degree': 'Диплом / Сертификат',
-          'feedback': 'Отзывы',
-          'offers': 'Предложения',
-      },
-      'Srpski': {
-          'main': "Glavni",
-          'degree': 'Diploma / Sertificat',
-          'feedback': 'Recenzije',
-          'offers': 'Predlozi',
-      },
-      'Српски': {
-          'main': "Главни",
-          'degree': 'Диплома / Сертификат',
-          'feedback': 'Рецензије',
-          'offers': 'Предлози',
-      },
-      'Deutsch': {
-          'main': "Wichtigsten",
-          'degree': 'Abschluss / Zertifikat',
-          'feedback': 'Gästebewertungen',
-          'offers': 'Wohnen',
-      },
-      'Español': {
-          'main': "Principal",
-          'degree': 'Título / Certificado',
-          'feedback': 'Reseñas',
-          'offers': 'Ofertas',
-      },
-      'عربي': {
-          'main': "الرئيسية",
-          'degree': 'درجة / شهادة',
-          'feedback': 'التعليقات',
-          'offers': 'العروض',
-      }
-
-    }
-
-
-
   if (loading) return (
       <>
       <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
@@ -214,7 +166,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
       </span>
       {(() => {
         if (data.real_man === true) {
-          return <img src="/src/static/img/confirmed.png" alt="" className="me_real_pers" />;
+          return <img src="/src/static/img/confirmed.png" alt="confirmed" className="me_real_pers" />;
         }
       })()}
 
@@ -222,7 +174,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
     {(() => {
         if (data.username === usernow.username) {
           return (<> <Link to="/settings/" className="me_setting_ref">
-                        <img src="/src/static/img/setting.png" alt="" className="me_setting_img"/>
+                        <img src="/src/static/img/setting.png" alt="settings" className="me_setting_img"/>
                      </Link> </>)
         }
       })()}
@@ -235,7 +187,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
     <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
       <div className="me_div_of_button me_selected" >
         <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['main']}</span>
+          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['main']}</span>
         </span>
       </div>
     </button>
@@ -247,7 +199,7 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
     >
       <div className="me_div_of_button">
         <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLang[lang]['feedback']}</span>
+          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['feedback']}</span>
         </span>
       </div>
     </button>

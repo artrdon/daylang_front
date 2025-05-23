@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import arrLangSettings from '/languages/settings.js'
 import Message from '/src/pages/message.jsx'
 
 
@@ -17,103 +18,7 @@ function Settings_load() {
 
     langua = lang;
 
-        var arrLang = {
-      'English': {
-          'main': "Main",
-          'degree': 'Degree / Certificate',
-          'language': 'Language',
-          'name': 'First name',
-          'last_name': 'Last name',
-          'about_myself': 'About myself',
-          'load_photo': 'Load photo',
-          'about_my_degree': 'About my degree',
-          'load_photo_of_degree': 'Load photo of the degree',
-          'exit': 'Exit',
-          'save': 'Save',
-      },
-      'Русский': {
-          'main': "Главная",
-          'degree': 'Диплом / Сертификат',
-          'language': 'Язык',
-          'name': 'Имя',
-          'last_name': 'Фамилия',
-          'about_myself': 'Обо мне',
-          'load_photo': 'Загрузить фото',
-          'about_my_degree': 'О моём образовании',
-          'load_photo_of_degree': 'Загрузить фото диплома',
-          'exit': 'Выйти',
-          'save': 'Сохранить',
-      },
-      'Srpski': {
-          'main': "Glavni",
-          'degree': 'Diploma / Sertificat',
-          'language': 'Jezik',
-          'name': 'Ime',
-          'last_name': 'Prezime',
-          'about_myself': 'O sebi',
-          'load_photo': 'Otpremite fotografiju',
-          'about_my_degree': 'O mojoj naprednoj diplomi',
-          'load_photo_of_degree': 'Otpremite fotografiju diplome',
-          'exit': 'Izlaz',
-          'save': 'Sačuvaj',
-      },
-      'Српски': {
-          'main': "Главни",
-          'degree': 'Диплома / Сертификат',
-          'language': 'Jезик',
-          'name': 'Име',
-          'last_name': 'Презиме',
-          'about_myself': 'О себи',
-          'load_photo': 'Отпремите фотографију',
-          'about_my_degree': 'О мојој напредној дипломи',
-          'load_photo_of_degree': 'Отпремите фотографију дипломе',
-          'exit': 'Излаз',
-          'save': 'Сачувај',
-      },
-      'Deutsch': {
-          'main': "Wichtigsten",
-          'degree': 'Abschluss / Zertifikat',
-          'language': 'Sprachlich',
-          'name': 'Vorname',
-          'last_name': 'Nachname',
-          'about_myself': 'Über mich selbst',
-          'load_photo': 'Foto laden',
-          'about_my_degree': 'Über meinen Abschluss',
-          'load_photo_of_degree': 'Foto des Abschlusses laden',
-          'exit': 'Ausfahrt',
-          'save': 'Speichern',
-      },
-      'Español': {
-          'main': "Principal",
-          'degree': 'Título / Certificado',
-          'language': 'Idioma',
-          'name': 'Nombre',
-          'last_name': 'Apellido',
-          'about_myself': 'Sobre mí',
-          'load_photo': 'Cargar foto',
-          'about_my_degree': 'Sobre mi título',
-          'load_photo_of_degree': 'Cargar foto del título',
-          'exit': 'Salir',
-          'save': 'Guardar',
-      },
-      'عربي': {
-          'main': "الرئيسية",
-          'degree': 'درجة / شهادة',
-          'language': 'اللغة',
-          'name': 'الاسم',
-          'last_name': 'اللقب',
-          'about_myself': 'عن نفسي',
-          'load_photo': 'تحميل الصورة',
-          'about_my_degree': 'حول شهادتي',
-          'load_photo_of_degree': 'تحميل صورة من الدرجة',
-          'exit': 'خروج',
-          'save': 'حفظ',
-      }
-
-    }
-
-
-
+      
     return (
         <>
 
@@ -134,7 +39,7 @@ function Settings_load() {
                 fontSize: 30
               }}
             >
-              {arrLang[lang]['main']}
+              {arrLangSettings[lang]['main']}
             </p>
             <div
               style={{
@@ -146,7 +51,7 @@ function Settings_load() {
                 fontSize: 20
               }}
             >
-              <span>{arrLang[lang]['language']}</span>
+              <span>{arrLangSettings[lang]['language']}</span>
             </div>
             <div id="languages" className="setting_language_selector">
             </div>
@@ -160,7 +65,7 @@ function Settings_load() {
                 fontSize: 20
               }}
             >
-              <span>{arrLang[lang]['name']}</span>
+              <span>{arrLangSettings[lang]['name']}</span>
             </div>
             <div className="input_field_name">
             </div>
@@ -174,7 +79,7 @@ function Settings_load() {
                 fontSize: 20
               }}
             >
-              <span>{arrLang[lang]['last_name']}</span>
+              <span>{arrLangSettings[lang]['last_name']}</span>
             </div>
             <div className="input_field_name"></div>
             <div
@@ -187,7 +92,7 @@ function Settings_load() {
                 fontSize: 20
               }}
             >
-              <span>{arrLang[lang]['about_myself']}</span>
+              <span>{arrLangSettings[lang]['about_myself']}</span>
             </div>
             <div
               className="input_field_description"
@@ -202,7 +107,7 @@ function Settings_load() {
                 fontSize: 20
               }}
             >
-              <span>{arrLang[lang]['load_photo']}</span>
+              <span>{arrLangSettings[lang]['load_photo']}</span>
             </div>
             <input
               accept="image/png"
@@ -253,7 +158,7 @@ function Settings_load() {
                 fontSize: 30
               }}
             >
-              {arrLang[lang]['degree']}
+              {arrLangSettings[lang]['degree']}
             </p>
             <div
               style={{
@@ -265,7 +170,7 @@ function Settings_load() {
                 fontSize: 20
               }}
             >
-              <span>{arrLang[lang]['about_my_degree']}</span>
+              <span>{arrLangSettings[lang]['about_my_degree']}</span>
             </div>
             <div
               className="input_field_description"
@@ -281,7 +186,7 @@ function Settings_load() {
                 fontSize: 20
               }}
             >
-              <span>{arrLang[lang]['load_photo_of_degree']}</span>
+              <span>{arrLangSettings[lang]['load_photo_of_degree']}</span>
             </div>
             <input
               accept="image/png"
@@ -337,7 +242,7 @@ function Settings_load() {
                   fontSize: 30
                 }}
               >
-                {arrLang[lang]['exit']}
+                {arrLangSettings[lang]['exit']}
               </button>
 
               <button
@@ -350,7 +255,7 @@ function Settings_load() {
                 }}
                 type="submit"
               >
-                {arrLang[lang]['save']}
+                {arrLangSettings[lang]['save']}
               </button>
 
             </div>

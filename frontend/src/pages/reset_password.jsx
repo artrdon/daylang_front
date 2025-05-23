@@ -26,9 +26,6 @@ function Log_reset() {
   }
 
 
-  const theme = getCookie('theme');
-  //console.log(getCookie('theme'));
-  
   
   if (getCookie('theme') === "dark"){
       if (document.querySelector('body') != null)

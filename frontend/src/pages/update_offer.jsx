@@ -53,8 +53,8 @@ function UpdateOffer() {
         langua = lang;
     }
     else{
-        document.cookie = `lang=Русский; path=/;max-age=31556926`;
-        langua = "Русский";
+        document.cookie = `lang=russian; path=/;max-age=31556926`;
+        langua = "russian";
     }
 
 

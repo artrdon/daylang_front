@@ -136,7 +136,6 @@ function DoBye({setdate, date, removeDataSetter, name_of_offer, price, photo, re
     </>);
     if (error3) return <p>Error: {error3}</p>;
 
-console.log(data3);
 
 return ( 
     <>

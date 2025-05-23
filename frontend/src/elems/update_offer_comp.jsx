@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
+import Langs from '/languages/langs.js'
+import arrLangCreateOffer from '/languages/create_offer.js'
 import App from '/src/App.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
@@ -46,148 +48,6 @@ function UpdateOfferComp({ name, description, price, id, language, format, targe
         micr = "Yes"
     }
 
-    //langua = lang;
-
-        var arrLang = {
-      'English': {
-          'update_offer': 'Update offer',
-          'name': 'Name',
-          'description': 'Description',
-          'price': "Price",
-          'load_photo': 'Load photo',
-          'update': 'Update',
-          'delete': 'Delete',
-      },
-      'Русский': {
-          'update_offer': 'Обновить предложение',
-          'name': 'Название',
-          'description': 'Описание',
-          'price': "Цена",
-          'load_photo': 'Загрузить фото',
-          'update': 'Обновить',
-          'delete': 'Удалить',
-      },
-      'Srpski': {
-          'update_offer': 'Ažurirajte ponudu',
-          'name': 'Naziv',
-          'description': 'Opis',
-          'price': "Cena",
-          'load_photo': 'Otpremite fotografiju',
-          'update': 'Ažuriranje',
-          'delete': 'Izbriši',
-      },
-      'Српски': {
-          'update_offer': 'Ажурирајте понуду',
-          'name': 'Назив',
-          'description': 'Опис',
-          'price': "Цена",
-          'load_photo': 'Отпремите фотографију',
-          'update': 'Ажурирање',
-          'delete': 'Избриши',
-      },
-      'Deutsch': {
-          'update_offer': 'Angebot aktualisieren',
-          'name': 'Titel',
-          'description': 'Beschreibung',
-          'price': "Preis",
-          'load_photo': 'Foto laden',
-          'update': 'Erneuern',
-          'delete': 'Entfernen',
-      },
-      'Español': {
-          'update_offer': 'Actualizar oferta',
-          'name': 'Nombre',
-          'description': 'Descripción',
-          'price': "Precio",
-          'load_photo': 'Cargar foto',
-          'update': 'Renovar',
-          'delete': 'Eliminar',
-      },
-      'عربي': {
-          'update_offer': 'تحديث العرض',
-          'name': 'العنوان',
-          'description': 'الوصف',
-          'price': "السعر",
-          'load_photo': 'تحميل الصورة',
-          'update': 'تحديث',
-          'delete': 'إزالة',
-      }
-
-    }
-
-var Lang = {
-      'English': {
-          'English': 'English',
-          'Germany': 'Germany',
-          'Russian': 'Russian',
-          'Chinese': 'Chinese',
-          'French':  'French',
-          'Italian': 'Italian',
-          'Spanish': 'Spanish',
-          'Serbian': 'Serbian',
-      },
-      'Русский': {
-          'English': 'Английский',
-          'Germany': 'Немецкий',
-          'Russian': 'Русский',
-          'Chinese': 'Китайский',
-          'French':  'Французский',
-          'Italian': 'Итальянский',
-          'Spanish': 'Испанский',
-          'Serbian': 'Сербский',
-      },
-      'Srpski': {
-          'English': 'Engleski',
-          'Germany': 'Nemačka',
-          'Russian': 'Ruski',
-          'Chinese': 'Kineski',
-          'French':  'Francuski',
-          'Italian': 'Italijanski',
-          'Spanish': 'Španski',
-          'Serbian': 'Srpski',
-      },
-      'Српски': {
-          'English': 'Енглески',
-          'Germany': 'Немачка',
-          'Russian': 'Руски',
-          'Chinese': 'Кинески',
-          'French':  'Француски',
-          'Italian': 'Италијански',
-          'Spanish': 'Шпански',
-          'Serbian': 'Српски',
-      },
-      'Deutsch': {
-          'English': 'Englischsprachig',
-          'Germany': 'Deutschland',
-          'Russian': 'Russisch',
-          'Chinese': 'Chinesisch',
-          'French':  'Französisch',
-          'Italian': 'Italienisch',
-          'Spanish': 'Spanisch',
-          'Serbian': 'Serbisch',
-      },
-      'Español': {
-          'English': 'Inglés',
-          'Germany': 'Alemania',
-          'Russian': 'Ruso',
-          'Chinese': 'Chino',
-          'French':  'Francés',
-          'Italian': 'Italiano',
-          'Spanish': 'Español',
-          'Serbian': 'Serbio',
-      },
-      'عربي': {
-          'English': 'الإنجليزية',
-          'Germany': 'ألمانيا',
-          'Russian': 'الروسية',
-          'Chinese': 'الصينية',
-          'French':  'الفرنسية',
-          'Italian': 'الإيطالية',
-          'Spanish': 'الإسبانية',
-          'Serbian': 'الصربية',
-      }
-
-    }
 
     const [data, setData] = useState({name: name, description: description, price: price, language: language, format: format, target: target, age: age, microphone: micr, photo: photo, message: message});
     const [constData, setConstData] = useState({name: name, description: description, price: price, language: language, format: format, target: target, age: age, microphone: micr, photo: photo, message: message});
@@ -336,14 +196,14 @@ var Lang = {
         <div className="crt_offer_gray_thing">
           <div className="crt_offer_blank">
             <p className="crt_offer_name_of_fields">
-              {arrLang[lang]['update_offer']}
+              {arrLangCreateOffer[lang]['update_offer']}
             </p>
             <div className="crt_offer_name_of_fields">
-              <span>{arrLang[lang]['name']}</span>
+              <span>{arrLangCreateOffer[lang]['name']}</span>
               <input
                 minLength={20}
                 maxLength={40}
-                placeholder={arrLang[lang]['name']}
+                placeholder={arrLangCreateOffer[lang]['name']}
                 name="name"
                 type="text"
                 className="input_field_name"
@@ -356,11 +216,11 @@ var Lang = {
             </div>
 
             <div className="crt_offer_name_of_fields">
-              <span>{arrLang[lang]['description']}</span>
+              <span>{arrLangCreateOffer[lang]['description']}</span>
               <textarea
                 minLength={120}
                 maxLength={700}
-                placeholder={arrLang[lang]['description']}
+                placeholder={arrLangCreateOffer[lang]['description']}
                 name="description"
                 id=""
                 className="input_field_description"
@@ -375,14 +235,14 @@ var Lang = {
             <div className="crt_offer_name_of_fields">
               <span>language</span>  
               <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
-                <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
-                <option id="eng" value="english">{Lang[lang]["English"]}</option>
-                <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
-                <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
-                <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
-                <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
-                <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
-                <option id="franc" value="french">{Lang[lang]["French"]}</option>
+                <option id="rus" value="russian">{Langs[lang]["Russian"]}</option>
+                <option id="eng" value="english">{Langs[lang]["English"]}</option>
+                <option id="srbl" value="serbian">{Langs[lang]["Serbian"]}</option>
+                <option id="germ" value="germany">{Langs[lang]["Germany"]}</option>
+                <option id="span" value="spanish">{Langs[lang]["Spanish"]}</option>
+                <option id="chin" value="chinese">{Langs[lang]["Chinese"]}</option>
+                <option id="ital" value="italian">{Langs[lang]["Italian"]}</option>
+                <option id="franc" value="french">{Langs[lang]["French"]}</option>
                 <option id="rus" value="other">Other</option>
               </select>
               
@@ -429,10 +289,10 @@ var Lang = {
             </div>
 
             <div className="crt_offer_name_of_fields">
-              <span>{arrLang[lang]['price']}</span>
+              <span>{arrLangCreateOffer[lang]['price']}</span>
               <input
                 maxLength={30}
-                placeholder={arrLang[lang]['price']}
+                placeholder={arrLangCreateOffer[lang]['price']}
                 name="price"
                 type="number"
                 min="0"
@@ -446,7 +306,7 @@ var Lang = {
             
 
             <div className="crt_offer_name_of_fields">
-              <span>{arrLang[lang]['load_photo']}</span>
+              <span>{arrLangCreateOffer[lang]['load_photo']}</span>
             </div>
             <div className="crt_offer_photo_div">
               <ImageWithFallback src={photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png" />
@@ -474,14 +334,14 @@ var Lang = {
                 type="submit"
                 disabled={ifSaveButtonDisabled}
               >
-                {arrLang[lang]['update']}
+                {arrLangCreateOffer[lang]['update']}
               </button>
 
                 <button
                 className='crt_offer_save_button'
                 onClick={delete_offer}
               >
-                {arrLang[lang]['delete']}
+                {arrLangCreateOffer[lang]['delete']}
               </button>
           </div>
         </div>

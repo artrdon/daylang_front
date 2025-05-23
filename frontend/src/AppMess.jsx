@@ -2,6 +2,7 @@ import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from
 import { Routes, Route, Link } from 'react-router-dom'
 import Cookie from '/src/elems/cookie.jsx'
 import Docks from '/src/elems/docks.jsx'
+import arrLangNavigPanel from '/languages/nav_panel.js'
 import axios from 'axios';
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -67,68 +68,6 @@ function change_theme() {
         location.reload();
     }
 }
-
-
-var arrLang = {
-      'English': {
-          'find': "Find",
-          'messages': 'Messages',
-          'saved': 'Saved',
-          'setting': 'Settings',
-          'support': 'Support',
-          'about': 'About Us',
-      },
-      'Русский': {
-          'find': "Найти",
-          'messages': 'Сообщения',
-          'saved': 'Сохранённые',
-          'setting': 'Настройки',
-          'support': 'Поддержка',
-          'about': 'О нас',
-      },
-      'Srpski': {
-          'find': "Naći",
-          'messages': 'Poruke',
-          'saved': 'Sačuvano',
-          'setting': 'Podešavanja',
-          'support': 'Podrška',
-          'about': 'O nama',
-      },
-      'Српски': {
-          'find': "Наћи",
-          'messages': 'Поруке',
-          'saved': 'Сачувано',
-          'setting': 'Подешавања',
-          'support': 'Подршка',
-          'about': 'О нама',
-      },
-      'Deutsch': {
-          'find': "Finden",
-          'messages': 'Nachrichten',
-          'saved': 'Spielstand',
-          'setting': 'Einstellungen',
-          'support': 'Unterstützung',
-          'about': 'Über uns',
-      },
-      'Español': {
-          'find': "Encuentre",
-          'messages': 'Mensajes',
-          'saved': 'Guardado',
-          'setting': 'Ajustes',
-          'support': 'Ayuda',
-          'about': 'Quiénes somos',
-      },
-      'عربي': {
-          'find': "ابحث عن",
-          'messages': 'الرسائل',
-          'saved': 'تم الحفظ',
-          'setting': 'الإعدادات',
-          'support': 'الدعم',
-          'about': 'نبذة عنا',
-      }
-
-    }
-//console.log(mess_count);
 
   return (
       <>
@@ -275,7 +214,7 @@ var arrLang = {
           alt="search"
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['find']}</span>
+        <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['find']}</span>
       </Link>
       <Link className="navig_panel_button" to="/saved/">
         <img
@@ -283,7 +222,7 @@ var arrLang = {
           alt="saved"
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['saved']}</span>
+        <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['saved']}</span>
       </Link>
       <Link className="navig_panel_button" to="/message_list/">
         <img
@@ -292,7 +231,7 @@ var arrLang = {
           className="app_navig_panel_img on_desktop_panel"
         />
         {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
-        <span className="text_in_panel" id="not_for_fon">{arrLang[lang]['messages']}</span>
+        <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button" to="/my_lessons/">
         <img
@@ -319,7 +258,7 @@ var arrLang = {
           alt="settings"
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel">{arrLang[lang]['setting']}</span>
+        <span className="text_in_panel">{arrLangNavigPanel[lang]['setting']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon" to="/support/">
         <img
@@ -327,11 +266,11 @@ var arrLang = {
           alt="support"
           className="app_navig_panel_img on_desktop_panel"
         />
-        <span className="text_in_panel">{arrLang[lang]['support']}</span>
+        <span className="text_in_panel">{arrLangNavigPanel[lang]['support']}</span>
       </Link>
       <Link className="navig_panel_button" id="not_for_fon" to="/about_us/">
         <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
-        <span className="text_in_panel">{arrLang[lang]['about']}</span>
+        <span className="text_in_panel">{arrLangNavigPanel[lang]['about']}</span>
       </Link>
       <Cookie />
       <Docks />

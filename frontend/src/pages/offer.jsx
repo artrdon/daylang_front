@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
+import arrLangOffer from '/languages/offer.js'
 import Offer_load from '/src/load_elems/offer_load.jsx'
 import SetReviewBlock from '/src/elems/set_review_block.jsx'
 import UpReviewBlock from '/src/elems/up_review_block.jsx'
@@ -268,59 +269,6 @@ axios.defaults.withCredentials = true;
 
     langua = lang;
 
-        var arrLang = {
-      'English': {
-          'reviews': 'Reviews',
-          'message': "Send message",
-          'update': "Update",
-          'set_review': 'Leave a review',
-          'feedback': 'Feedback'
-      },
-      'Русский': {
-          'reviews': 'Отзывы',
-          'message': "Отправить сообщение",
-          'update': "Обновить",
-          'set_review': 'Оставить отзыв',
-          'feedback': 'Отзыв'
-      },
-      'Srpski': {
-          'reviews': 'Recenzije',
-          'message': "Pošaljite poruku",
-          'update': "Ažuriranje",
-          'set_review': 'Ostavite povratne informacije',
-          'feedback': 'Povratne informacije'
-      },
-      'Српски': {
-          'reviews': 'Рецензије',
-          'message': "Пошаљите поруку",
-          'update': "Ажурирање",
-          'set_review': 'Оставите повратне информације',
-          'feedback': 'Повратне информације'
-      },
-      'Deutsch': {
-          'reviews': 'Gästebewertungen',
-          'message': "Nachricht senden",
-          'update': "Erneuern",
-          'set_review': 'Feedback geben',
-          'feedback': 'Feedback'
-      },
-      'Español': {
-          'reviews': 'Reseñas',
-          'message': "Enviar mensaje",
-          'update': "Renovar",
-          'set_review': 'Deja un comentario',
-          'feedback': 'Comentarios'
-      },
-      'عربي': {
-          'reviews': 'التعليقات',
-          'message': "ارسل رسالة",
-          'update': "تحديث",
-          'set_review': 'اترك مراجعة',
-          'feedback': 'ردود الفعل'
-      }
-
-    }
-
 
 const save_to_fav = async (e) => {
 
@@ -479,13 +427,13 @@ const save_to_fav = async (e) => {
           data1[0].itsme === false ? (
           <Link to={`/create_chat/${params.username}/${params.id}/`}>
               <button className="button_under_foto" id="divoffb_button">
-                {arrLang[lang]['message']}
+                {arrLangOffer[lang]['message']}
               </button>
             </Link>
                 ) : (
           <Link to={`/update_offer/${params.username}/${params.id}/`}>
               <button className="button_under_foto" id="divoffb_button">
-                {arrLang[lang]['update']}
+                {arrLangOffer[lang]['update']}
               </button>
             </Link>
             )
@@ -493,13 +441,13 @@ const save_to_fav = async (e) => {
           data1[0].itsme === false ? (
           <Link to={`/message_list/${data1[0].chat_id}/`}>
               <button className="button_under_foto" id="divoffb_button">
-                {arrLang[lang]['message']}
+                {arrLangOffer[lang]['message']}
               </button>
             </Link>
                 ) : (
           <Link to={`/update_offer/${params.username}/${params.id}/`}>
               <button className="button_under_foto" id="divoffb_button">
-                {arrLang[lang]['update']}
+                {arrLangOffer[lang]['update']}
               </button>
             </Link>
             )
@@ -571,7 +519,7 @@ const save_to_fav = async (e) => {
     <div className="margin_of_offer">
       <div>
         <h1 className="offer_page_reviews_score">
-          {arrLang[lang]['reviews']}{" "}
+          {arrLangOffer[lang]['reviews']}{" "}
           <img
             src="/src/static/img/11.png"
             alt="review score"
@@ -580,7 +528,7 @@ const save_to_fav = async (e) => {
           {data1[0].review}
         </h1>
         {data1[0].itsme === false && !data3[1] && data !== 'undefined' ? (
-          <SetReviewBlock set_rew={arrLang[lang]['set_review']} feedback={arrLang[lang]['feedback']} username={data.username}/>
+          <SetReviewBlock set_rew={arrLangOffer[lang]['set_review']} feedback={arrLangOffer[lang]['feedback']} username={data.username}/>
                 ) : (
                   <UpReviewBlock />
                         )}
@@ -640,7 +588,7 @@ const save_to_fav = async (e) => {
   unmountOnExit
   nodeRef={nodeRev}
 >
-  <ReviewsAll ref={nodeRev} unShowRev={unShowRev} arrLang={arrLang} lang={lang}/>
+  <ReviewsAll ref={nodeRev} unShowRev={unShowRev} arrLang={arrLangOffer} lang={lang}/>
 
 </CSSTransition>
 

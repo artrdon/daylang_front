@@ -1,93 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
+import arrLangOfferType from '/languages/offer_type.js'
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 
 function Type_offer({ lang }) {
-
-
-    var arrLang = {
-      'English': {
-          'english': 'English',
-          'germany': 'Germany',
-          'russian': 'Russian',
-          'chinese': 'Chinese',
-          'french':  'French',
-          'italian': 'Italian',
-          'spanish': 'Spanish',
-          'serbian': 'Serbian',
-          'other': 'Others',
-      },
-      'Русский': {
-          'english': 'Английский',
-          'germany': 'Немецкий',
-          'russian': 'Русский',
-          'chinese': 'Китайский',
-          'french':  'Французский',
-          'italian': 'Итальянский',
-          'spanish': 'Испанский',
-          'serbian': 'Сербский',
-          'other': 'Другие',
-      },
-      'Srpski': {
-          'english': 'Engleski',
-          'germany': 'Nemačka',
-          'russian': 'Ruski',
-          'chinese': 'Kineski',
-          'french':  'Francuski',
-          'italian': 'Italijanski',
-          'spanish': 'Španski',
-          'serbian': 'Srpski',
-          'other': 'Drugi',
-      },
-      'Српски': {
-          'english': 'Енглески',
-          'germany': 'Немачка',
-          'russian': 'Руски',
-          'chinese': 'Кинески',
-          'french':  'Француски',
-          'italian': 'Италијански',
-          'spanish': 'Шпански',
-          'serbian': 'Српски',
-          'other': 'Други',
-      },
-      'Deutsch': {
-          'english': 'Englischsprachig',
-          'germany': 'Deutschland',
-          'russian': 'Russisch',
-          'chinese': 'Chinesisch',
-          'french':  'Französisch',
-          'italian': 'Italienisch',
-          'spanish': 'Spanisch',
-          'serbian': 'Serbisch',
-          'other': 'Others',
-      },
-      'Español': {
-          'english': 'Inglés',
-          'germany': 'Alemania',
-          'russian': 'Ruso',
-          'chinese': 'Chino',
-          'french':  'Francés',
-          'italian': 'Italiano',
-          'spanish': 'Español',
-          'serbian': 'Serbio',
-          'other': 'Otros',
-      },
-      'عربي': {
-          'english': 'الإنجليزية',
-          'germany': 'ألمانيا',
-          'russian': 'الروسية',
-          'chinese': 'الصينية',
-          'french':  'الفرنسية',
-          'italian': 'الإيطالية',
-          'spanish': 'الإسبانية',
-          'serbian': 'الصربية',
-          'other': 'آخرون',
-      }
-
-    }
 
   const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
     queryKey: ['lol'], // Уникальный ключ запроса
@@ -122,10 +41,10 @@ function Type_offer({ lang }) {
 
         <Link to={`/finded/${data.type}/`} key={data.id}>
           <div className="div_of_service" >
-            <img src={data.lang_flag} alt={arrLang[lang][`${data.name_of_lang}`]} className='offer_type_flag_img'/>
+            <img src={data.lang_flag} alt={arrLangOfferType[lang][`${data.name_of_lang}`]} className='offer_type_flag_img'/>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <p className='offer_type_name_of_lang'>
-                {arrLang[lang][`${data.name_of_lang}`]}
+                {arrLangOfferType[lang][`${data.name_of_lang}`]}
               </p>
             </div>
             <img src="/src/static/img/bluefon.png" alt="fon" className="service_img" />

@@ -4,8 +4,6 @@ import Message from '/src/pages/message.jsx'
 
 function Create_offer_load() {
 
-    const [count, setCount] = useState(0)
-
 
     return (
         <>
