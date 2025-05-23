@@ -13,7 +13,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   
     return (
       <img
-        className="avatar_in_panel on_desktop_panel show_nav_in_mob_nav_panel_img"
+        className="avatar_in_panel show_nav_in_mob_nav_panel_img"
         src={imgSrc}
         alt={alt}
         onError={handleError}

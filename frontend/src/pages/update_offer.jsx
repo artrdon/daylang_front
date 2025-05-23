@@ -4,6 +4,8 @@ import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
+import Langs from '/languages/langs.js'
+import arrLangCreateOffer from '/languages/create_offer.js'
 import UpdateOfferComp from '/src/elems/update_offer_comp.jsx'
 import Create_offer_load from '/src/load_elems/create_offer_load.jsx'
 import axios from 'axios';
@@ -119,7 +121,7 @@ function UpdateOffer() {
   if (loading1) return (
       <>
       <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
-      <Create_offer_load/>
+      <Create_offer_load arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
 </>
 
   );
@@ -128,7 +130,7 @@ function UpdateOffer() {
   if (loading2) return (
       <>
       <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
-      <Create_offer_load/>
+      <Create_offer_load arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
 </>
 
   );

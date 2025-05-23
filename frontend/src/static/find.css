@@ -61,7 +61,7 @@ iframe{
     border-radius: 10px;
     box-shadow: 0px 0px 0px #666666;
     cursor: pointer;
-    background-color: #ebebeb;
+    background-color: #dadada;
 }
 .find_pupils_offer_name_answer{
     word-wrap: break-word;
@@ -98,7 +98,7 @@ iframe{
     width: calc(100% - 42px);
     padding: 20px;
     border-radius: 10px;
-    border: 1px solid white;
+    border: 1px solid #666666;
     cursor: pointer;
 
 }
@@ -142,18 +142,18 @@ iframe{
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    background-color: #242424;
+    background-color: #d6d6d6;
 }
 .find_page_up_button_el{
-    background-color: #ebebeb00;
+    background-color: #00000000;
     padding: 10px;
     margin: 5px;
     border-radius: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 20px;
 }
 .find_page_up_button_el.selected{
-    background-color: #ffffff25;
+    background-color: #00000025;
 }
 .horizontal-scroll-container {
     width: 100%;
@@ -269,6 +269,9 @@ iframe{
 .on_desktop_panel{
     filter: brightness(20%)
 }
+.on_desktop_panel.itsava{
+    filter: brightness(100%)
+}
 .app_navig_panel_img{
     width: 45px; height: 45px; margin-left: 10px;
 }
@@ -339,6 +342,7 @@ iframe{
     background-color: #b4b4b4; 
     transition: 0.2s linear;
 }
+
 
 .find_panel{
     width: calc(100% - 330px);
@@ -465,6 +469,7 @@ iframe{
 .change_theme_button_img{
     height: 30px; 
     width: 30px;
+    filter: brightness(10%);
 }
 .my_account_panel{
     position: absolute; 
@@ -541,7 +546,7 @@ iframe{
     position: relative;
 }
 .offer_image{
-    position: absolute; height: 200px; width: 100%; object-fit: contain; background-color: #2a2a2a;
+    position: absolute; height: 200px; width: 100%; object-fit: contain; background-color: #d0d0d0;
 }
 .name_of_offer{
     position: absolute; font-size: 20px; top: 200px; left: 10px; color: rgb(40, 108, 255); white-space: pre-wrap; overflow-wrap: anywhere; width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -577,13 +582,37 @@ iframe{
     background-color: #ebebeb;
     color: black;
 }
+@media only screen and (max-width: 1100px)
+{
+    
+    .navig_panel_button:hover{
+        background-color: rgb(221, 221, 221); 
+    }
+    .offer_of_lang:hover{
+        background-color: #ebebeb;
+    }
+}
 .dark_theme{
 
     background-color: #191919;
     color: #c3c3c3;
+
+    .offer_image{
+        background-color: #2a2a2a;
+    }
     .answer_to_pupil_offer_textarea{
         background-color: #191919;
         color: white;
+    }
+    .find_page_up_buttons{
+        background-color: #242424;
+    }
+    .find_page_up_button_el{
+        background-color: #ebebeb00;
+        color: white;
+    }
+    .find_page_up_button_el.selected{
+        background-color: #ffffff25;
     }
     .find_pupils_offer{
         background-color: #252525;
@@ -640,6 +669,9 @@ iframe{
         .navig_panel_button:hover{
             background-color: #191919; 
         }
+        .offer_of_lang:hover{
+            background-color: #191919;
+        }
     }
     .place_of_teach{
         background-color: #191919; 
@@ -670,6 +702,9 @@ iframe{
     }
     .block_of_review{
          filter: unset;
+    }
+    .change_theme_button_img{
+        filter: brightness(100%);
     }
 }
 html {

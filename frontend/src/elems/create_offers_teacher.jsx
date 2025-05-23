@@ -204,72 +204,72 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
               <span>{arrLang[lang]['name']}</span>
               <input minLength={20} maxLength={40} placeholder={arrLang[lang]['name']} name="name" type="text" className="input_field_name" onChange={handleChange} value={data.name}/>
               <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'} ${allowed.name && 'crt_offer_allowed'}`}>{full.name} / 40</p>
-              {allowed.name === false && <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 20</p>}
+              {allowed.name === false && <p className={`crt_offer_font_size_of_min_length ${allowed.name === false && 'crt_offer_unallowed'}`}>{arrLang[lang]['min_count']} 20</p>}
             </div>
 
             <div className="crt_offer_name_of_fields">
               <span>{arrLang[lang]['description']}</span>
               <textarea minLength={120} maxLength={700} placeholder={arrLang[lang]['description']} name="description" id="description" className="input_field_description" onChange={handleChange} value={data.description}/>
               <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'} ${allowed.description && 'crt_offer_allowed'}`}>{full.description} / 700</p>
-              {allowed.description === false && <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 120</p>}
+              {allowed.description === false && <p className={`crt_offer_font_size_of_min_length ${allowed.description === false && 'crt_offer_unallowed'}`}>{arrLang[lang]['min_count']} 120</p>}
             </div>
 
             <div className="crt_offer_name_of_fields">
-              <span>Language</span>
+              <span>{arrLang[lang]['language']}</span>
               <select id="languages" className="setting_language_selector" onChange={handleChange} value={data.language} name="language">
-                <option id="rus" value="russian">{Lang[lang]["Russian"]}</option>
-                <option id="eng" value="english">{Lang[lang]["English"]}</option>
-                <option id="srbl" value="serbian">{Lang[lang]["Serbian"]}</option>
-                <option id="germ" value="germany">{Lang[lang]["Germany"]}</option>
-                <option id="span" value="spanish">{Lang[lang]["Spanish"]}</option>
-                <option id="chin" value="chinese">{Lang[lang]["Chinese"]}</option>
-                <option id="ital" value="italian">{Lang[lang]["Italian"]}</option>
-                <option id="franc" value="french">{Lang[lang]["French"]}</option>
-                <option id="oth" value="other">Other</option>
+                <option id="rus" value="russian">{Lang[lang]["russian"]}</option>
+                <option id="eng" value="english">{Lang[lang]["english"]}</option>
+                <option id="srbl" value="serbian">{Lang[lang]["serbian"]}</option>
+                <option id="germ" value="germany">{Lang[lang]["germany"]}</option>
+                <option id="span" value="spanish">{Lang[lang]["spanish"]}</option>
+                <option id="chin" value="chinese">{Lang[lang]["chinese"]}</option>
+                <option id="ital" value="italian">{Lang[lang]["italian"]}</option>
+                <option id="franc" value="french">{Lang[lang]["french"]}</option>
+                <option id="oth" value="other">{Lang[lang]["other"]}</option>
               </select>
               
             </div>
             
 
             <div className="crt_offer_name_of_fields">
-              <span>Format</span>
+              <span>{arrLang[lang]['format']}</span>
               <select id="formate" className="setting_language_selector" onChange={handleChange} value={data.format} name="format">
-                <option id="ind" value="individual">Individual</option>
-                <option id="gro" value="group">Group</option>
+                <option id="ind" value="individual">{arrLang[lang]['individual']}</option>
+                <option id="gro" value="group">{arrLang[lang]['group']}</option>
               </select>
 
             </div>
             
 
             <div className="crt_offer_name_of_fields">
-              <span>Target</span>
+              <span>{arrLang[lang]['target']}</span>
               <select id="target" className="setting_language_selector" onChange={handleChange} value={data.target} name="target">
-                <option id="exam" value="exam">Exam</option>
-                <option id="selfdev" value="self_development">Self development</option>
-                <option id="trav" value="travelling">Travelling</option>
+                <option id="exam" value="exam">{arrLang[lang]['exam']}</option>
+                <option id="selfdev" value="self_development">{arrLang[lang]['self_dev']}</option>
+                <option id="trav" value="travelling">{arrLang[lang]['travelling']}</option>
               </select>
 
             </div>
             
 
             <div className="crt_offer_name_of_fields">
-              <span>Age</span>
+              <span>{arrLang[lang]['age']}</span>
               <select id="age" className="setting_language_selector" onChange={handleChange} value={data.age} name="age">
                 <option id="5-12" value="5-12">5-12</option>
                 <option id="13-17" value="13-17">13-17</option>
                 <option id="18-30" value="18-30">18-30</option>
                 <option id="31+" value="31+">31+</option>
-                <option id="all" value="all">all</option>
+                <option id="all" value="all">{arrLang[lang]['all']}</option>
               </select>
               
             </div>
             
 
             <div className="crt_offer_name_of_fields">
-              <span>I have microphone</span>
+              <span>{arrLang[lang]['i_have_microphone']}</span>
               <select id="microphone" className="setting_language_selector" onChange={handleChange} value={data.microphone} name="microphone">
-                <option id="yes" value="yes">Yes</option>
-                <option id="no" value="no">No</option>
+                <option id="yes" value="yes">{arrLang[lang]['yes']}</option>
+                <option id="no" value="no">{arrLang[lang]['no']}</option>
               </select>
 
             </div>
@@ -289,13 +289,13 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
             <div className="crt_offer_photo_div">
               <img alt="offer_photo" className="crt_offer_photo" src="/src/static/img/nema.png" id='image_of_offer'/>
               <input accept="image/png" id="icon404873" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
-              <label htmlFor="icon404873" className='crt_offer_load_photo'> Загрузить фото </label>
+              <label htmlFor="icon404873" className='crt_offer_load_photo'>{arrLang[lang]['load_photo']}</label>
             </div>
             
             
             <div className="crt_offer_photo_div">
               <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handlPhotosLoad} multiple hidden/>
-              <label htmlFor="icon404" className='crt_offer_load_photo'> Загрузить фото </label>
+              <label htmlFor="icon404" className='crt_offer_load_photo'>{arrLang[lang]['load_photo']}</label>
               {photosLink.map((link) => (<img alt="offer_photo" className="crt_offer_photos" src={link} id='image_of_offer'/>
               ))}
             </div>
@@ -303,10 +303,10 @@ function CreateOffersTeacher({arrLang, lang, Lang}) {
             
 
             <div className="crt_offer_name_of_fields">
-              <span>message</span>
-              <textarea minLength={100} maxLength={400} placeholder="message" name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
+              <span>{arrLang[lang]['message']}</span>
+              <textarea minLength={100} maxLength={400} placeholder={arrLang[lang]['message']} name="message" id="" className="input_field_description" onChange={handleChange} value={data.message}/>
               <p className={`crt_offer_font_size_of_min_length ${allowed.message === false && 'crt_offer_unallowed'} ${allowed.message && 'crt_offer_allowed'}`}>{full.message} / 400</p>
-              {allowed.message === false && <p className={`crt_offer_font_size_of_min_length ${allowed.message === false && 'crt_offer_unallowed'}`}>Минимальное количecтво символов - 100</p>}
+              {allowed.message === false && <p className={`crt_offer_font_size_of_min_length ${allowed.message === false && 'crt_offer_unallowed'}`}>{arrLang[lang]['min_count']} 100</p>}
             </div>
 
             <button className="crt_offer_save_button" onClick={handleSubmit1} ref={buttonSaveRef} disabled={ifSaveButtonDisabled}>

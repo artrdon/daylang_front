@@ -18,7 +18,7 @@
 .deep_search_component_form{
     width: 600px;
     height: auto;
-    background-color: #2e2e2e;
+    background-color: #ebebeb;
     position: fixed;
     top: 150px;
     border-radius: 5px;
@@ -55,17 +55,28 @@
     align-items: center;
 }
 .deep_search_component_button_text{
-    color: black;
+    color: rgb(255, 255, 255);
     font-size: 30px;
 }
 .deep_search_component_upper_title{
     font-size: 20px;
 }
-.deep_search_component_div_under_title_fields::-webkit-scrollbar{
-    display: none;
-}
+
 
 .dark_theme{
+    
+    .deep_search_component_close_search{
+        background-color: black;
+    }
+    .deep_search_component_form{
+        background-color: #2e2e2e;
+    }
+    .deep_search_component_form_title{
+        background-color: #004aff;
+    }
+    .deep_search_component_button{
+        background-color: #2854c7;
+    }
     .deep_search_component_button_text {
         color: white;
     }
@@ -74,6 +85,9 @@
 
 @media only screen and (max-width: 1100px)
 {
+    .deep_search_component_div_under_title_fields::-webkit-scrollbar{
+        display: none;
+    }
     .deep_search_component_form{
         width: 100%;
         height: 90%;

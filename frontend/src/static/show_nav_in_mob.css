@@ -29,22 +29,22 @@
     margin: 20px;
 }
 .show_nav_in_desktop{
-    position: fixed; width: 300px; background-color: #202020; right: 40px; top: 70px; border: 1px solid gray; border-radius: 10px;
+    position: fixed; width: 300px; background-color: #f2f2f2; right: 40px; top: 70px; border: 1px solid gray; border-radius: 10px;
 }
 .show_nav_in_desktop_section{
-    min-height: 50px; background-color: #202020; border-radius: 5px; border: 1px solid gray; margin: 20px;
+    min-height: 50px; background-color: #f2f2f2; border-radius: 5px; border: 1px solid gray; margin: 20px;
 }
 .show_nav_in_desktop_section_main{
     margin: 10px;
 }
 .show_nav_in_mob_nav_panel{
-    background-color: #242424; width: 83vw; height: 100%; position: fixed; bottom: 0; left: 0; z-index: 1000;
+    background-color: #e2e2e2; width: 83vw; height: 100%; position: fixed; bottom: 0; left: 0; z-index: 1000;
 }
 .show_nav_in_mob_nav_panel_botton_main{
     height: 50px;
     width: calc(100% - 40px);
     color: rgb(54, 54, 54);
-    background-color: #ebebeb00;
+    background-color: #00000000;
     font-size: 30px;
     justify-content: left;
     align-items: center;
@@ -57,7 +57,7 @@
     height: 50px;
     width: calc(100% - 40px);
     color: rgb(54, 54, 54);
-    background-color: #ebebeb00;
+    background-color: #00000000;
     font-size: 30px;
     justify-content: left;
     align-items: center;
@@ -70,9 +70,33 @@
     margin: 0;
 }
 .show_nav_in_mob_button_text_color{
-    color: white;
+    color: rgb(0, 0, 0);
     margin: 20px;
     font-size: 25px;
+}
+.dark_theme{
+
+    
+    .show_nav_in_desktop{
+        background-color: #202020; border: 1px solid gray;
+    }
+    .show_nav_in_desktop_section{
+        background-color: #202020; border: 1px solid gray;
+    }
+    .show_nav_in_mob_nav_panel{
+        background-color: #242424;
+    }
+    .show_nav_in_mob_nav_panel_botton_main{
+        color: rgb(54, 54, 54);
+        background-color: #ebebeb00;
+    }
+    .show_nav_in_mob_nav_panel_botton{
+        color: rgb(54, 54, 54);
+        background-color: #ebebeb00;
+    }
+    .show_nav_in_mob_button_text_color{
+        color: white;
+    }
 }
 @media screen and (max-width: 1100px) {
     .show_nav_in_desktop{
