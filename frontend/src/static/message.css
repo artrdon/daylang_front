@@ -34,7 +34,7 @@
     z-index: 101; position: absolute; right: 0px; margin-top: 10px; width: 80px; height: 60px;
 }
 .message_call_img{
-    height: 50px; padding-left: 15px;
+    height: 50px; padding-left: 15px; filter: brightness(20%);
 }
 .the_main_position_of_the_delete_edit_panel{
     position: fixed; left: 60vw; width: 50px; height: 50px; z-index: 10000; transform: scale(-1, 1);
@@ -55,7 +55,7 @@
     max-width: calc(100% - 60px); position: relative; border-radius: 10px; display: inline-block;
 }
 .message_comp_my_message_inside_pre{
-    font-size: 18px; position: relative; padding: 10px; background-color: rgb(76 88 167); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer; transform: scale(-1, 1);
+    font-size: 18px; position: relative; padding: 10px; background-color: rgb(96 111 210); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer; transform: scale(-1, 1);
 }
 .message_comp_my_message_inside_readed{
     font-size: 12px; position: relative; right: 0px; bottom: 0px;
@@ -76,7 +76,7 @@
     margin-top: 10px; margin-bottom: 5px; position: relative; display: block; z-index: 1
 }
 .message_comp_not_my_message_inside_pre{
-    font-size: 18px; position: relative; padding: 10px; background-color: rgb(120 120 120); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; left: 60px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer;
+    font-size: 18px; position: relative; padding: 10px; background-color: rgb(139 139 139); color: white; display: inline-block; white-space: pre-wrap; overflow-wrap: anywhere; border-radius: 10px; left: 60px; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; user-select: none; cursor: pointer;
 }
 
 .message_comp_message_inside_chan{
@@ -205,7 +205,7 @@
 }
 
 .panel_of_messages{
-    width: 900px; height: calc(100% - 30px); background-color: #bfbfbf; top: 10px; position: absolute; border-radius: 20px; border: 2px solid #5c5c5c;
+    width: 900px; height: calc(100% - 30px); background-color: #d4d3d3; top: 10px; position: absolute; border-radius: 20px; border: 2px solid #5c5c5c;
 }
 /*message header*/
 .goback_but{
@@ -277,7 +277,7 @@ div *::-webkit-scrollbar {
     height: 0px;
     width: 3px;
 }
-*::-webkit-scrollbar-track,
+/**::-webkit-scrollbar-track,
 div *::-webkit-scrollbar-track {
     background: rgb(70, 70, 70);
 }
@@ -286,8 +286,17 @@ div *::-webkit-scrollbar-thumb {
     background-color: rgb(105, 105, 105);
     border: 0px solid rgb(70, 70, 70);;
 }
-
+*/
 .dark_theme{
+    .message_comp_not_my_message_inside_pre{
+        background-color: rgb(120 120 120); color: white;
+    }
+    .message_comp_my_message_inside_pre{
+        background-color: rgb(76 88 167); color: white;
+    }
+    .message_call_img{
+        filter: brightness(100%);
+    }
     .img_delete{
         filter: brightness(100%);
     }

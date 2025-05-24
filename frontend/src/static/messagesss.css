@@ -111,7 +111,7 @@
 .message_list_delete_chat_panel_button{
     width: 50%; height: 100%;
 }
-div *::-webkit-scrollbar {
+/*div *::-webkit-scrollbar {
     height: 12px;
     width: 3px;
 }
@@ -124,7 +124,7 @@ div *::-webkit-scrollbar-thumb {
     background-color: rgb(105, 105, 105);
     border: 0px solid rgb(70, 70, 70);;
 }
-
+*/
 .dark_theme{
     .message_list_chat_panel_more_button {
         background-color: #3d3d3d;
