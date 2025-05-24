@@ -64,11 +64,6 @@ function AnswersToMyOffers() {
           document.querySelector('body').className = "light_theme";
     }
 
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
-
 
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
       queryKey: ['answers_to_my_offers'], // Уникальный ключ запроса

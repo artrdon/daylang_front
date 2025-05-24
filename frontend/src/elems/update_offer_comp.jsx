@@ -28,7 +28,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 
-function UpdateOfferComp({ name, description, price, id, language, format, target, age, microphone, photo, message}) {
+function UpdateOfferComp({ name, description, price, id, language, format, target, age, microphone, photo, message, lang}) {
 
     const params = useParams();
 
@@ -38,7 +38,7 @@ function UpdateOfferComp({ name, description, price, id, language, format, targe
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    const lang = getCookie('lang');
+   // const lang = getCookie('lang');
    // let [langua, setData10] = useState(getCookie('lang'));
     let micr = null;
     if (microphone === false){

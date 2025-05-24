@@ -48,7 +48,7 @@ function FutureLessons() {
 
     if (loading) return;
     if (error) return <p>Error: {error}</p>;
-    console.log(data);
+    
     return (
         <>
         {(() => {

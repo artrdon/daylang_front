@@ -163,7 +163,7 @@ if (error2) return <p>Error: {error2}</p>;
 if (loading3) return (
   <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
-<SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2}/>
+<Settings_load/>
 
 </>
 
@@ -176,7 +176,7 @@ if (error3) return <p>Error: {error3}</p>;
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
-<SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2} sessions={data3} work_day_begin_int={data1.work_day_begin_int} work_day_end_int={data1.work_day_end_int}/>
+<SettingsForm language={data1.language} name={data.first_name} surname={data.last_name} about_myself={data1.about_myself} about_my_degree={data1.about_my_degree} if_teacher={data.i_am_teacher} photo={data.photo} degree_photo={data2} sessions={data3} work_day_begin_int={data1.work_day_begin_int} work_day_end_int={data1.work_day_end_int} lang={lang}/>
 
 </>
 

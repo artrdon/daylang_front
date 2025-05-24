@@ -24,7 +24,7 @@ const WebSocketProvider = ({ children }) => {
     }
 
 
-    useEffect(() => {
+   useEffect(() => {
       const initCSRF = async () => {
         try {
           await axios.get(`${APIURL}/get_csrf/`, { withCredentials: true });
@@ -95,8 +95,7 @@ const WebSocketProvider = ({ children }) => {
           return response.data; 
         } catch (err) {
           if (err.response?.status === 401){
-            window.location.href = '/log';
-            return null;
+             return 'undefined';
           }
         }
       },
@@ -176,15 +175,21 @@ const WebSocketProvider = ({ children }) => {
     }, [groups]);
 
 
-const [lang, setLang] = useState(getCookie('lang'));
+const [lang, setLang] = useState(getCookie("lang"));
 
     
 useEffect(() => {     
-    if (lang === undefined && data2 !== undefined){
+    if (data2 !== "undefined" && data2 !== undefined && lang != undefined){
+      console.log(data2);
+
       document.cookie = `lang=${data2.language}; path=/;max-age=31556926`;
       setLang(data2.language);
     }
-}, [data2]);
+    else{
+      document.cookie = `lang=russian; path=/;max-age=31556926`;
+      setLang('russian');
+    }
+}, [data2, lang]);
 
 if (loading1 || loading || loading2 || loading12) {
   return null; // or return a loading spinner

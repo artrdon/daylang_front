@@ -30,7 +30,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 
-function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo, sessions, work_day_begin_int, work_day_end_int }) {
+function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo, sessions, work_day_begin_int, work_day_end_int, lang }) {
 
 
      function getCookie(name) {
@@ -39,7 +39,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
     const [pre_degree_photo, setPre_degree_photo] = useState([])
-    const lang = getCookie('lang');
+    //const lang = getCookie('lang');
   //  let [langua, setData10] = useState(null);
     //const [data, setData] = useState({beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
 
@@ -181,6 +181,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
+            console.log(settingChange.language);
             document.cookie = `lang=${settingChange.language}; path=/;max-age=31556926`;
             console.log('Response:', response.data);
            // location.reload();

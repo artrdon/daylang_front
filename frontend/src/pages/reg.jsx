@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import Log from '/src/pages/log.jsx'
 import ReCAPTCHA from "react-google-recaptcha";
+import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import KEY from '/captcha.js';
 import APIURL from '/api.js'
@@ -18,6 +19,7 @@ function Reg() {
     const [isVisibleEmail, setIsVisibleEmail] = useState(false);
     const [ifChel, setIfChel] = useState(false);
     const [confirmation, setConf] = useState(false);
+    const [timehave, setTimehave] = useState(true);
 
 
 
@@ -51,7 +53,6 @@ function Reg() {
 
     const handleChange2 = (e) => {
         setData2({ ...data2, [e.target.name]: e.target.value });
-        console.log(data2);
     };
 
     
@@ -250,7 +251,7 @@ function Reg() {
       <div className="mt-4">
         <div style={{ display: "flex", justifyContent: "center" }}>
           Already have an account?{" "}
-          <Link to="/log/" style={{ marginLeft: 10, color: "white" }}>
+          <Link to="/log/" className='log_reg_other_links'>
             Login
           </Link>
         </div>
@@ -270,7 +271,7 @@ function Reg() {
           <div className="input-group mb-3">
             <div className="input-group-append">
               <span className="input-group-text">
-                <i className="fas fa-user" />
+                Введите код из email
               </span>
             </div>
             <input
@@ -284,22 +285,12 @@ function Reg() {
               onChange={handleChange2}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
-            <input
+          <TwoMinuteTimer setTimehave={setTimehave}/>
+          {timehave > 0 && <input
               className="btn login_btn"
               type="submit"
               defaultValue="Confirm"
-            />
-          </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
-          </div>
+            />}
         </form>
       </div>
     </div>

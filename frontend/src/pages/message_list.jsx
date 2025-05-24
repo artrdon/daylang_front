@@ -142,6 +142,9 @@ else{
 axios.defaults.withCredentials = true;
 
 
+    const [componentGroup, setComponentGroup] = useState([]);
+
+
 const delete_chat = async (e, idd,) => {
   if (ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify({ type: "delete_chat", id: idd }));

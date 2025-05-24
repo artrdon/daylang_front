@@ -1,9 +1,9 @@
 .form-control {
     padding: 5px;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 10px;
     outline: none;
-    color: white;
+    color: rgb(0, 0, 0);
     border: 0px;
     background: #00000000;
     border-bottom: 2px solid;
@@ -12,7 +12,7 @@
 
 .user_card {
     width: 350px;
-    background: #191919;
+    background: #ebebeb;
     position: relative;
     padding: 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -21,10 +21,21 @@
     border-radius: 5px;
     margin: auto;
 }
-
+.input-group-append{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .form_container {
     display: flex;
     justify-content: center;
+}
+.log_reg_other_links{
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+}
+.log_reg_ordinary_text{
+    color: rgb(0, 0, 0);
 }
 
 
@@ -47,19 +58,21 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 .login_btn:focus {
     box-shadow: none !important;
     outline: 0px !important;
 }
 .login_container {
-    padding-top: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: flex;
     justify-content: center;
 
 }
 .input-group-text {
-    color: white !important;
+    color: rgb(0, 0, 0) !important;
     border: 0 !important;
     border-radius: 0.25rem 0 0 0.25rem !important;
 }
@@ -74,4 +87,19 @@
     color: #fff;
     padding: 10px;
     margin-top: 10px;
+}
+
+.dark_theme{
+    .user_card {
+        background: #191919;
+    }
+    .form-control {
+        color: white;
+    }
+    .log_reg_other_links{
+        color: white;
+    }
+    .input-group-text {
+        color: white !important;
+    }
 }

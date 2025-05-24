@@ -191,13 +191,13 @@ function Log() {
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           Don't have an account?{" "}
-          <Link to="/reg/" style={{ marginLeft: 10, color: "white" ,}}>
+          <Link to="/reg/" className='log_reg_other_links'>
             Sign Up
           </Link>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           Forgot the password?{" "}
-          <Link to="/log/reset/" style={{ marginLeft: 10, color: "white" ,}}>
+          <Link to="/log/reset/" className='log_reg_other_links'>
             Reset
           </Link>
         </div>

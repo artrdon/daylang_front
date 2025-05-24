@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { Component } from 'react'
 import Reg from '/src/pages/reg.jsx'
 import ReCAPTCHA from "react-google-recaptcha";
+import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
@@ -18,6 +19,7 @@ function Log_reset() {
     const [confirmation, setConf] = useState(false);
     const [new_password, setNewPassword] = useState(false);
     const [pass_diff, setPassDiff] = useState(false);
+    const [timehave, setTimehave] = useState(true);
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -161,14 +163,14 @@ function Log_reset() {
   <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-        <h3 id="form-title">LOGIN</h3>
+        <h3 id="form-title">Reset password</h3>
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
             <div className="input-group-append">
               <span className="input-group-text">
-                <i className="fas fa-user" />
+                Введите ваш email
               </span>
             </div>
             <input
@@ -179,21 +181,6 @@ function Log_reset() {
               value={data.email}
               onChange={handleChange}
             />
-          </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
-            {/*<input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="form-control"
-              value={data.password}
-            onChange={handleChange}
-            />*/}
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
             <input
@@ -206,8 +193,6 @@ function Log_reset() {
         </form>
 {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
       </div>
-      <div className="mt-4">
-      </div>
     </div>
   </div>
 </div>}
@@ -216,14 +201,14 @@ function Log_reset() {
   <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-        <h3 id="form-title">LOGIN</h3>
+        <h3 id="form-title">Confirm</h3>
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit1}>
           <div className="input-group mb-3">
             <div className="input-group-append">
               <span className="input-group-text">
-                <i className="fas fa-user" />
+              Введите код из email
               </span>
             </div>
             <input
@@ -237,22 +222,12 @@ function Log_reset() {
             onChange={handleChange1}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
-            <input
+          <TwoMinuteTimer setTimehave={setTimehave}/>
+          {timehave > 0 && <input
               className="btn login_btn"
               type="submit"
               defaultValue="Confirm"
-            />
-          </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
-          </div>
+            />}
         </form>
       </div>
     </div>
@@ -262,7 +237,7 @@ function Log_reset() {
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-        <h3 id="form-title">REGISTER ACCOUNT</h3>
+        <h3 id="form-title">New password</h3>
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit2}>
