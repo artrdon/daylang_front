@@ -10,6 +10,7 @@ const queryClient = new QueryClient();
 
 
 
+
 createRoot(document.querySelector('body')).render(
         
         <StrictMode>

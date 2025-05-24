@@ -58,6 +58,7 @@ function Offers_on_main() {
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -94,15 +95,6 @@ else{
   if (document.querySelector('body') != null)
       document.querySelector('body').className = "light_theme";
 }
-
-
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
-
-
 
     
   const { data: real, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
@@ -168,7 +160,7 @@ else{
 
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Offers_main_load/>
 </>
 
@@ -178,7 +170,7 @@ else{
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Offers_main_load/>
 </>
 
@@ -188,7 +180,7 @@ else{
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Offers_main_load/>
 </>
 
@@ -198,7 +190,7 @@ else{
 
   if (loading3) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Offers_main_load/>
 </>
 
@@ -209,7 +201,7 @@ else{
 
     return (
         <>
-<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={usernow.balance}/>
+<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={lang} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={usernow.balance}/>
 
 
 <div className="find_panel">

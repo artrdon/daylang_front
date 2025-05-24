@@ -41,6 +41,7 @@ function Finded_deep() {
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -83,12 +84,6 @@ else{
       document.querySelector('body').className = "light_theme";
 }
 
-
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
 
   const [data2, setData2] = useState({price_min: params.min, price_max: params.max, format: params.format, target: params.target, age: params.age, microphone: params.microphone, language: params.language});
   const handleChange = (e) => {
@@ -141,7 +136,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
 </>
 
   );
@@ -150,7 +145,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading1) return (
       <>
-       <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+       <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
 
 <div className="finded_panel" style={{ width: "100%", display: "flex", justifyContent: "center", left: "unset", backgroundColor: "#00000000"}}>
   <div className="sborishe_chelov">
@@ -186,7 +181,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   return (
       <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className="saved_finded_panel">
   <div className="sborishe_chelov">

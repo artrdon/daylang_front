@@ -20,6 +20,7 @@ function Finded() {
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -58,12 +59,6 @@ function Finded() {
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "light_theme";
     }
-
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
 
 
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
@@ -112,13 +107,13 @@ function Finded() {
     };
 
 
-  if (loading) return <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>;
+  if (loading) return <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>;
   if (error) return <p>Error: {error}</p>;
 
 
   if (loading1) return (
       <>
-       <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+       <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
 
 {/*<div className="finded_panel" style={{ width: "100%", display: "flex", justifyContent: "center", left: "unset", backgroundColor: "#00000000"}}>
   <div className="sborishe_chelov">
@@ -154,7 +149,7 @@ function Finded() {
 
   return (
       <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className="saved_finded_panel">
   <div className="sborishe_chelov">

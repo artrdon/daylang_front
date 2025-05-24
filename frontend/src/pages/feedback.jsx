@@ -57,6 +57,7 @@ function Feedback() {
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -92,13 +93,6 @@ else{
   if (document.querySelector('body') != null)
       document.querySelector('body').className = "light_theme";
 }
-
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
-
 
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['usersettings', params.user], // Уникальный ключ запроса
@@ -171,7 +165,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
  
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Feedback_load/>
 </>
 
@@ -181,7 +175,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Feedback_load/>
 </>
 
@@ -191,7 +185,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Feedback_load/>
 </>
 
@@ -201,7 +195,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading3) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Feedback_load/>
 </>
 
@@ -210,7 +204,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
   if (loading4) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Feedback_load/>
 </>
 
@@ -222,7 +216,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
     return (
         <>
-<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
+<App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={lang} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
 
 <div className="find_panel">
   <div className="me_under_find">

@@ -43,6 +43,7 @@ const [messId, setMessId] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -239,10 +240,6 @@ const messChange = (idd) => {
     const [theme, setTheme] = useState(getCookie('theme'));
 
     const csrfToken = getCookie('csrftoken');
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
 
 
     document.querySelector("title").textContent = `Message`;
@@ -429,7 +426,7 @@ const addEmoji = (emoji) => {
 
     if (loading) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppMessLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Message_load />
 </>
 
@@ -438,7 +435,7 @@ const addEmoji = (emoji) => {
 
     if (loading2) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppMessLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Message_load />
 </>
 
@@ -447,7 +444,7 @@ const addEmoji = (emoji) => {
     
   if (loading12) return (
       <>
-      <AppMessLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppMessLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <Message_load />
 </>
 
@@ -456,7 +453,7 @@ const addEmoji = (emoji) => {
 
     return (
         <>
-        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
+        <AppMess name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
     <div className="message_find_panel">
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className="panel_of_messages">

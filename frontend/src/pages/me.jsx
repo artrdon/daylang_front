@@ -32,12 +32,10 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function Me() {
 
-    
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -83,14 +81,6 @@ function Me() {
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "light_theme";
   }
-  
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
-
-
     
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['usersettings', params.user], // Уникальный ключ запроса
@@ -137,7 +127,7 @@ function Me() {
 
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -147,7 +137,7 @@ function Me() {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -157,7 +147,7 @@ function Me() {
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -169,7 +159,7 @@ function Me() {
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={langua} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
+        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={lang} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
 
   <div className="find_panel">
   <div className="me_under_find">

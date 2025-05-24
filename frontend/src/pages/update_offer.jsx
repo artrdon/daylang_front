@@ -19,6 +19,7 @@ function UpdateOffer() {
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -46,20 +47,6 @@ function UpdateOffer() {
     document.querySelector("title").textContent = "Update Offer";
 
     axios.defaults.withCredentials = true;
-
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    if (lang != undefined){
-        langua = lang;
-    }
-    else{
-        document.cookie = `lang=russian; path=/;max-age=31556926`;
-        langua = "russian";
-    }
-
-
 
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['userinfo'], // Уникальный ключ запроса
@@ -120,8 +107,8 @@ function UpdateOffer() {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
-      <Create_offer_load arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+      <Create_offer_load arrLang={arrLangCreateOffer} lang={lang} Lang={Langs}/>
 </>
 
   );
@@ -129,8 +116,8 @@ function UpdateOffer() {
 
   if (loading2) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
-      <Create_offer_load arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+      <Create_offer_load arrLang={arrLangCreateOffer} lang={lang} Lang={Langs}/>
 </>
 
   );
@@ -139,7 +126,7 @@ function UpdateOffer() {
 
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data1.photo} balance={data1.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={lang} if_teach={data1.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data1.photo} balance={data1.balance}/>
 
 <UpdateOfferComp name={data2[0].name} description={data2[0].description} price={data2[0].price} id={params.index} language={data2[0].lang} format={data2[0].format} target={data2[0].target} age={data2[0].age} microphone={data2[0].microphone} photo={data2[0].photo} message={data2[0].message}/>
 

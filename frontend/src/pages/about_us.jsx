@@ -13,6 +13,8 @@ function About() {
 
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
+  const [lang, setLang] = useState(websocket.lang);
+
     useEffect(() => {
         setMessNumb(websocket.messNumb);
     }, [websocket.messNumb]);
@@ -30,10 +32,6 @@ function getCookie(name) {
 }
 
 
-const theme = getCookie('theme');
-//console.log(getCookie('theme'));
-
-
 if (getCookie('theme') === "dark"){
   if (document.querySelector('body') != null)
       document.querySelector('body').className = "dark_theme";
@@ -42,12 +40,6 @@ else{
   if (document.querySelector('body') != null)
       document.querySelector('body').className = "light_theme";
 }
-
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
 
 
 
@@ -68,7 +60,7 @@ else{
 
   if (loading) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb}/>
+      <AppLoad lang={lang} messNumb={messNumb}/>
 </>
 
   );
@@ -77,7 +69,7 @@ else{
 //console.log(data);
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} photo={data.photo} balance={data.balance}/>
 
 <div className="ctr_offer_find_panel">
   <div style={{ display: "flex", justifyContent: "center" }}>

@@ -17,6 +17,12 @@ const WebSocketProvider = ({ children }) => {
     const [messNumb, setMessNumb] = useState(0);
     axios.defaults.withCredentials = true;
 
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
 
     useEffect(() => {
       const initCSRF = async () => {
@@ -80,6 +86,26 @@ const WebSocketProvider = ({ children }) => {
         refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
       });
       
+    
+    const { data: data2, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
+      queryKey: ['usersettings'], // Уникальный ключ запроса
+      queryFn: async () => {
+        try {
+          const response = await axios.get(`${APIURL}/usersettings/`);
+          return response.data; 
+        } catch (err) {
+          if (err.response?.status === 401){
+            window.location.href = '/log';
+            return null;
+          }
+        }
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+
     
     useEffect(() => {
         const fetchData = async () => {
@@ -150,14 +176,23 @@ const WebSocketProvider = ({ children }) => {
     }, [groups]);
 
 
- /*   if (error12) return (
-      <WebSocketContext.Provider value={{ messNumb, lessons }}>
-        {children}
-      </WebSocketContext.Provider>
-  );
-*/
+const [lang, setLang] = useState(getCookie('lang'));
+
+    
+useEffect(() => {     
+    if (lang === undefined && data2 !== undefined){
+      document.cookie = `lang=${data2.language}; path=/;max-age=31556926`;
+      setLang(data2.language);
+    }
+}, [data2]);
+
+if (loading1 || loading || loading2 || loading12) {
+  return null; // or return a loading spinner
+}
+  
+
     return (
-        <WebSocketContext.Provider value={{ messNumb, lessons }}>
+        <WebSocketContext.Provider value={{ messNumb, lessons, lang }}>
           {children}
         </WebSocketContext.Provider>
     );

@@ -19,6 +19,7 @@ function CreateOffer() {
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
+  const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
     setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
@@ -40,11 +41,6 @@ function CreateOffer() {
       if (document.querySelector('body') != null)
           document.querySelector('body').className = "light_theme";
   }
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
 
     const csrfToken = getCookie('csrftoken');
 
@@ -75,8 +71,8 @@ function CreateOffer() {
 
   if (loading1) return (
       <>
-      <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
-      <Create_offer_load arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
+      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+      <Create_offer_load arrLang={arrLangCreateOffer} lang={lang} Lang={Langs}/>
 </>
 
   );
@@ -88,14 +84,14 @@ function CreateOffer() {
 
     return (
         <>
-<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={langua} if_teach={data1.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data1.photo} balance={data1.balance}/>
+<App name={data1.first_name} lastname={data1.last_name} username={data1.username} lang={lang} if_teach={data1.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data1.photo} balance={data1.balance}/>
 
 {
   data1.i_am_teacher ? (
-    <CreateOffersTeacher arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
+    <CreateOffersTeacher arrLang={arrLangCreateOffer} lang={lang} Lang={Langs}/>
 
   ) : (
-    <CreateOffersPupil arrLang={arrLangCreateOffer} lang={langua} Lang={Langs}/>
+    <CreateOffersPupil arrLang={arrLangCreateOffer} lang={lang} Lang={Langs}/>
   )
 }
 

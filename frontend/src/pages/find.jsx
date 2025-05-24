@@ -21,6 +21,7 @@ function Find() {
     const websocket = useWebSocket();
     const [messNumb, setMessNumb] = useState(websocket.messNumb);
     const [lessons, setLessons] = useState(websocket.lessons);
+    const [lang, setLang] = useState(websocket.lang);
     const [page, setPage] = useState(0);
     const [currentOffer, setCurrentOffer] = useState(null);
     useEffect(() => {
@@ -52,18 +53,6 @@ function Find() {
             document.querySelector('body').className = "light_theme";
     }
     
-  
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    if (lang != undefined){
-        langua = lang;
-    }
-    else{
-        document.cookie = `lang=Русский; path=/;max-age=31556926`;
-        langua = "Русский";
-    }
-    
 
     axios.defaults.withCredentials = true;
 
@@ -82,7 +71,7 @@ function Find() {
 
     if (loading) return (
           <>
-          <AppLoad lang={langua} messNumb={messNumb} lessons={lessons}/>
+          <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
     </>
 
     );
@@ -91,7 +80,7 @@ function Find() {
 
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={langua} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 <div className='find_panel'>
   <div className='find_page_up_buttons'>
     <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
