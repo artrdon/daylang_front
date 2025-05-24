@@ -26,6 +26,12 @@ iframe{
 #only_for_fon{
     display: none;
 }
+.main_load_the_most_first_img{
+    width: 200px; height: 200px; filter: brightness(0%);
+}
+.main_load_the_most_first_text{
+    text-align: center; font-size: 50px; color: rgb(0, 0, 0);
+}
 .find_pupils_offer_button_create_offer{
     display: flex;
     justify-content: center;
@@ -635,6 +641,8 @@ div *::-webkit-scrollbar-thumb {
         background-color: rgb(153, 153, 153);
         border: 0px solid rgb(49, 49, 49);
     }
+    
+    
     .app_message_indicator{
         background-color: #4a76ff;
     }
@@ -1133,6 +1141,12 @@ a{
 
 @media only screen and (max-width: 525px)
 {
+    .main_load_the_most_first_img{
+        width: 38.0952380952381vw; height: 38.0952380952381vw;
+    }
+    .main_load_the_most_first_text{
+        font-size: 9.523809523809524vw;
+    }
     .find_pupils_offer_button_create_offer{
         font-size: 7.619047619047619vw;
         border-radius: 1.9047619047619047vw;

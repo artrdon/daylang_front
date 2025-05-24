@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import MainLoad from '../load_elems/load_main_page';
 import axios from 'axios';
 import WSAPIURL from '/wsapi.js';
 import APIURL from '/api.js';
@@ -192,7 +193,7 @@ useEffect(() => {
 }, [data2, lang]);
 
 if (loading1 || loading || loading2 || loading12) {
-  return null; // or return a loading spinner
+  return <MainLoad theme={getCookie("theme")}/>; // or return a loading spinner
 }
   
 
