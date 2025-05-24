@@ -20,7 +20,7 @@
     border-radius: 20px;
 }
 .me_under_find{
-    width: 100%; height: 191px; background-color: gray; position: absolute;
+    width: 100%; height: 191px; background-color: #bbbbbb; position: absolute;
 }
 .me_avatar{
     width: 150px; height: 150px; position: relative; left: 100px; top: 150px; border-radius: 100px; object-fit: contain; background-color: #2a2a2a;
@@ -56,7 +56,7 @@
     display: inline-block; font-size: 25px; padding: 50px; position: relative; top: 400px; width: 60%; padding-bottom: 100px;
 }
 .degree_page_degree_photos{
-    position: relative; 
+    position: relative; overflow: auto;
 }
 .degree_page_degree_button{
     width: 200px;
@@ -114,6 +114,9 @@
     width: 150px; height: 150px; background-color: rgb(255, 255, 255); border-radius: 50%; margin: auto; display: block; position: absolute; font-size: 140px; text-align: center; color: rgb(0, 0, 0);
 }
 .dark_theme{
+    .me_under_find{
+        background-color: gray;
+    }
     .offer_add_button{
         background-color: #353535;
     }

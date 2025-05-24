@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import Message from '/src/pages/message.jsx'
 
-function Bye_and_call({bye, am_teach}) {
+function Bye_and_call({bye, am_teach, call}) {
 
 
 

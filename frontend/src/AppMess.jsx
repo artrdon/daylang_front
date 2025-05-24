@@ -230,7 +230,10 @@ function change_theme() {
           alt="mess"
           className="app_navig_panel_img on_desktop_panel"
         />
-        {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+
+        {mess_count > 0 && mess_count < 100 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+        {mess_count > 99 && <div className="app_message_indicator handredmore" id="id_of_a_message_count">+99</div>}
+        
         <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button" to="/my_lessons/">
@@ -239,7 +242,10 @@ function change_theme() {
           alt="my lesson"
           className="app_navig_panel_img on_desktop_panel"
         />
-        {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+        
+        {lessons > 0 && lessons < 100 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+        {lessons > 99 && <div className="app_lessons_indicator handredmore" id="id_of_a_message_count">+99</div>}
+        
         <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['my_lessons']}</span>
       </Link>
       

@@ -129,7 +129,9 @@ const WebSocketProvider = ({ children }) => {
             }
     
             if (dataMess.tip === "send"){
+              if (dataMess.sender !== data.username){
                 setMessNumb(prev => prev + 1);
+              }
                 
             }
     

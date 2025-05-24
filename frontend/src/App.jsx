@@ -282,7 +282,8 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
             />
             
 
-            {mess_count > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+            {mess_count > 0 && mess_count < 100 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
+            {mess_count > 99 && <div className="app_message_indicator handredmore" id="id_of_a_message_count">+99</div>}
 
             <span className="text_in_panel">{arrLangNavigPanel[lang]['messages']}</span>
           </Link>
@@ -294,7 +295,8 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
             />
             
 
-            {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+            {lessons > 0 && lessons < 100 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+            {lessons > 99 && <div className="app_lessons_indicator handredmore" id="id_of_a_message_count">+99</div>}
 
             <span className="text_in_panel">{arrLangNavigPanel[lang]['my_lessons']}</span>
           </Link>

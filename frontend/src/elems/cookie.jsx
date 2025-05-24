@@ -12,33 +12,39 @@ function Cookie({lang}) {
     }
 
     const cookie = getCookie('cookie');
-    let cook = null;
+    const [cook, setCook] = useState(null);
+   // let cook = null;
 
-    if (cookie != undefined){
-       // console.log(cookie);
-        cook = true;
-    }
+
+    useEffect(() => {
+        if (cookie != undefined){
+            setCook(true);
+        }
+        else {
+            setCook(false);
+        }
+
+    }, []);
+    
+    
 
     const allowCookie = () =>{
+        console.log(false);
         document.cookie = `cookie=allowed; path=/;max-age=31556926`;
+        console.log(false);
+        setCook(false);
     }
+
+    if (cook === null) return;
 
 
 return (
     <>
-
-    {(() => {
-        if (cook != true) {
-            return (<>
-                <div style={{ backgroundColor: "white", color: "black", width: "calc(100% - 60px)", height: 160, position: "absolute", bottom: 0, zIndex: 10000, margin: 10, padding: 20, borderRadius: 10}}>
-                    <div>{CookiesLocal[lang]['header']}</div>
-                    <div style={{ paddingBottom: 10 }}>{CookiesLocal[lang]['main_text']}<Link to={'/privacy/'} style={{color: "blue"}}>{CookiesLocal[lang]['policy']}</Link>.</div>
-                    <button onClick={allowCookie} style={{ backgroundColor: "gray", width: "100%", height: 50, fontSize: 30, borderRadius: 10 }}>{CookiesLocal[lang]['ok']}</button>
-                </div>
-            </>);
-        }
-    })()}
-
+    {cook !== true && <div style={{ backgroundColor: "white", color: "black", width: "calc(100% - 60px)", height: 160, position: "absolute", bottom: 0, zIndex: 10000, margin: 10, padding: 20, borderRadius: 10}}>
+        <div>{CookiesLocal[lang]['header']}</div>
+        <div style={{ paddingBottom: 10 }}>{CookiesLocal[lang]['main_text']}<Link to={'/privacy/'} style={{color: "blue"}}>{CookiesLocal[lang]['policy']}</Link>.</div>
+        <button onClick={allowCookie} style={{ backgroundColor: "gray", width: "100%", height: 50, fontSize: 30, borderRadius: 10 }}>{CookiesLocal[lang]['ok']}</button>
+    </div>}
     </>
 
   )

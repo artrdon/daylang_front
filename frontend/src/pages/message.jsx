@@ -14,6 +14,7 @@ import MessageChange from '/src/elems/change_mess.jsx'
 import Bye_and_call from '/src/elems/bye_and_call_button.jsx'
 import DoBye from '/src/elems/do_bye.jsx'
 import axios from 'axios';
+import frontURL from '/fronturl.js'
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
@@ -176,7 +177,8 @@ const [messId, setMessId] = useState(null);
   }, [groups]);
 
   const sendVideoRoom = () => {
-    console.log("open room");
+    window.open(`${frontURL}/call/${params.id}/`);
+    
   };
 
   const sendMessage = (messageText) => {

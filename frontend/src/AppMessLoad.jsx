@@ -90,7 +90,10 @@ else{
           alt="mess"
           className="app_navig_panel_img on_desktop_panel"
         />
-        {messNumb > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
+        
+        {messNumb > 0 && messNumb < 100 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
+        {messNumb > 99 && <div className="app_message_indicator handredmore" id="id_of_a_message_count">+99</div>}
+
         <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button">
@@ -99,7 +102,11 @@ else{
           alt="my lesson"
           className="app_navig_panel_img on_desktop_panel"
         />
-        {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+        
+        {lessons > 0 && lessons < 100 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+        {lessons > 99 && <div className="app_lessons_indicator handredmore" id="id_of_a_message_count">+99</div>}
+
+
         <span className="text_in_panel" id="not_for_fon">{arrLangNavigPanel[lang]['my_lessons']}</span>
       </Link>
       

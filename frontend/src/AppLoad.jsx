@@ -64,7 +64,9 @@ function AppLoad({ lang, messNumb, lessons }) {
         />
         
 
-        {messNumb > 0 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
+        {messNumb > 0 && messNumb < 100 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
+        {messNumb > 99 && <div className="app_message_indicator handredmore" id="id_of_a_message_count">+99</div>}
+
         <span className="text_in_panel" >{arrLangNavigPanel[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button">
@@ -75,7 +77,10 @@ function AppLoad({ lang, messNumb, lessons }) {
         />
         
 
-        {lessons > 0 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+        {lessons > 0 && lessons < 100 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
+        {lessons > 99 && <div className="app_lessons_indicator handredmore" id="id_of_a_message_count">+99</div>}
+
+        
         <span className="text_in_panel" >{arrLangNavigPanel[lang]['my_lessons']}</span>
       </Link>
       

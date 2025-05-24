@@ -258,10 +258,13 @@ iframe{
   }
 }
 .app_message_indicator{
-    position: absolute; left: 50px; top: 150px; background-color: gray; font-size: 20px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%;
+    position: absolute; left: 50px; top: 150px; background-color: #6699ff; font-size: 16px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: white;
 }
 .app_lessons_indicator{
-    position: absolute; left: 50px; top: 220px; background-color: gray; font-size: 20px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%;
+    position: absolute; left: 50px; top: 220px; background-color: #6699ff; font-size: 16px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: white;
+}
+.handredmore{
+    font-size: 13px;
 }
 .app_navig_panel_razdel{
     border-bottom: 1px solid rgb(138, 138, 138);
@@ -631,6 +634,12 @@ div *::-webkit-scrollbar-thumb {
     div *::-webkit-scrollbar-thumb {
         background-color: rgb(153, 153, 153);
         border: 0px solid rgb(49, 49, 49);
+    }
+    .app_message_indicator{
+        background-color: #4a76ff;
+    }
+    .app_lessons_indicator{
+        background-color: #4a76ff;
     }
     .offer_image{
         background-color: #2a2a2a;
@@ -1215,7 +1224,10 @@ a{
         border-radius: 50%;
     }
     .app_message_indicator{
-        top: 3.8095238095238095vw; font-size: 3.8095238095238095vw; width: 4.7619vw; height: 4.7619vw; border-radius: 50%;
+        top: 3.8095238095238095vw; font-size: 3.047619047619048vw; width: 4.7619vw; height: 4.7619vw; border-radius: 50%;
+    }
+    .handredmore{
+        font-size: 2.476190476190476vw;
     }
     .navig_panel{
         height: 13.333333333333vw;

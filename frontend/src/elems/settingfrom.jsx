@@ -207,8 +207,8 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                 withCredentials: true,
               }
             );
-            if (response)
-              document.getElementById(`session_id_${response}`).remove();
+            if (response.data)
+              document.getElementById(`session_id_${response.data}`).remove();
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -304,7 +304,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
             <div className="crt_offer_photo_div">
               <ImageWithFallback src={settingChange.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
               <input accept="image" id="icon404873" name="photo" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
-              <label htmlFor="icon404873" className='crt_offer_load_photo'> Загрузить фото </label>
+              <label htmlFor="icon404873" className='crt_offer_load_photo'>{arrLangSettings[lang]['load_photo']}</label>
             </div>
 
             {if_teacher === false ? (
@@ -349,13 +349,13 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                     key={index}
                   />
                 ))}
-                <input accept="image/png" id="icon404" name="icon" type="file" tabIndex={-1} aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
-                <label htmlFor="icon404" className='crt_offer_load_photo'>{arrLangCreateOffer[lang]['load_photo']}</label>
+                <input accept="image/png" id="icon404" name="icon" type="file" aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
+                <label htmlFor="icon404" className='crt_offer_load_photos_more'>{arrLangSettings[lang]['load_photo_of_degree']}</label>
 
               </div>
 
               <div className="crt_offer_name_of_fields">
-                <span>{arrLangSettings[lang]['Work']}</span>
+                <span>{arrLangSettings[lang]['work']}</span>
               </div>
               <div className='crt_offer_work_day_div'>
                 <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Monday">{arrLangSettings[lang]['monday']}</button>
@@ -432,9 +432,9 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
                       <p className='settings_sessiond_div_p'>{session.device}</p>
                       <p className='settings_sessiond_div_p'>{session.os}</p>
                       <p className='settings_sessiond_div_p'>{session.browzer}</p>
-                      <div className='settings_delete_div_button' onClick={(e) => deleteSession(e, session.id)}>
-
-                      </div>
+                      <button className='settings_delete_div_button' onClick={(e) => deleteSession(e, session.id)} type='button'>
+                        {arrLangSettings[lang]['delete']}
+                      </button>
                     </div>
                   ))}
                   
@@ -451,6 +451,7 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 
               <button
                 className='crt_offer_save_button'
+                type='button'
                 onClick={exit}
               >
                 {arrLangSettings[lang]['exit']}
