@@ -32,7 +32,7 @@ function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
     );
   }
 
-function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
+function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher, FindLang, lang}) {
 
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
@@ -149,7 +149,7 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
             return (<>
                 {!ifteacher && <Link to={`/create_offer/`}>
                 <div className='find_pupils_offer_button_create_offer'>
-                        Create offer
+                      {FindLang[lang]['create_offer']}
                     </div>
                     </Link>}
 
@@ -161,20 +161,20 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
                         <div className='find_pupils_offer_price_currency'>₽</div>
                         <div className='find_pupils_offer_price'>{data.price_min} - {data.price_max} ₽</div>
                         <div className='find_pupils_offer_time_logo'>t</div>
-                        <div className='find_pupils_offer_time'> {data.time} минут</div>
+                        <div className='find_pupils_offer_time'> {data.time} {FindLang[lang]['minutes']}</div>
                                       
                         <div className="offer_page_div_of_info" style={{height: "auto", margin: 0}}>
                             <li className="offer_page_div_of_info_li">
-                                <span>Есть микрофон?</span> <span>{data.microphone}</span>
+                                <span>{FindLang[lang]['i_have_microphone']}?</span> <span>{FindLang[lang][`${data.microphone === true ? 'yes' : 'no'}`]}</span>
                             </li>
                             <li className="offer_page_div_of_info_li">
-                                <span>Цели:</span> <span>{data.target}</span>
+                                <span>{FindLang[lang]['goal']}:</span> <span>{FindLang[lang][`${data.target}`]}</span>
                             </li>
                             <li className="offer_page_div_of_info_li">
-                                <span>Возраст:</span> <span>{data.age}</span>
+                                <span>{FindLang[lang]['age']}:</span> <span>{data.age}</span>
                             </li>
                             <li className="offer_page_div_of_info_li">
-                                <span>Формат:</span> <span>{data.format}</span>
+                                <span>{FindLang[lang]['format']}:</span> <span>{FindLang[lang][`${data.format}`]}</span>
                             </li>
                         </div>
                         <Link to={`/p/user/${data.username}/`}>
@@ -190,7 +190,7 @@ function OffersFromPupils({setAnswerToPupilOffer, setCurrentOffer, ifteacher}) {
                         </div>
                         </Link>
                         {ifteacher && <button className='find_pupils_offer_button' onClick={() => {openAnswerToPupilOffer(data.id)}}>
-                          Answer
+                            {FindLang[lang]['answer']}
                         </button>}
                       </div>
                     ))}

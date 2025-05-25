@@ -184,7 +184,7 @@ function Finded() {
   unmountOnExit
   nodeRef={nodeDeep}
 >
-  <DeepSearchComp ref={nodeDeep} closeSearch={closeSearch} />
+  <DeepSearchComp ref={nodeDeep} closeSearch={closeSearch} lang={lang}/>
 
 </CSSTransition>
 

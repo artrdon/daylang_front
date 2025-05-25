@@ -537,7 +537,7 @@ const addEmoji = (emoji) => {
               {componentsMess.map((da) => (
                 
                 <Fragment key={`fragment-${da.id}`}>
-                  <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} tip={da.tip} link={da.link}/>
+                  <Message_comp int={da.text} key={`key${da.id}`} id={da.id} click={messChange} delet={deleteMessage} sender={da.sender} me={data.username} readed={da.readed} photo={da.photo} if_teach={da.senderIsTeacher} changed={da.ifChanged} hour={da.hour} minute={da.minute} arrLangMessage={arrLangMessage} lang={lang}/>
                   {/*da.i_read && <ScrollToBottom key={`keyscroll${da.id}`} />*/}
                 </Fragment>
                 
@@ -550,7 +550,7 @@ const addEmoji = (emoji) => {
       })()}
   {components.map((component) => ( 
     <div key={`divkey${component.id}`}>
-      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={component.readed} photo={component.photo} if_teach={component.senderIsTeacher} changed={component.ifChanged} hour={component.hour} minute={component.minute} tip={component.tip} link={component.link} />
+      <Message_comp int={component.text} key={component.id} id={component.id} click={messChange} delet={deleteMessage} sender={component.sender} me={data.username} readed={component.readed} photo={component.photo} if_teach={component.senderIsTeacher} changed={component.ifChanged} hour={component.hour} minute={component.minute} arrLangMessage={arrLangMessage} lang={lang}/>
       <ScrollToBottom key={`keyscroll${component.id}`} />
     </div>
     ))}

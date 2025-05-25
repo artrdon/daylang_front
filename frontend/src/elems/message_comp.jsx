@@ -20,7 +20,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
   );
 }
 
-function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_teach, changed, hour, minute, tip, link, call_id }) {
+function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_teach, changed, hour, minute, arrLangMessage, lang}) {
 
    // const [localText] = useState(int);
     const [position, setPosition] = useState({ y: 0 });
@@ -75,10 +75,10 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
           <div className={`message_comp_delete_panel sett${id}`} id={`sett${id}`}>
                                             <div className='message_comp_delete_panel_div'>
                                                 <button className='message_comp_delete_panel_div_delete' onClick={() => DELunToggleVisibility(id)}>
-                                                    Delete
+                                                  {arrLangMessage[lang]['delete']}
                                                 </button>
                                                 <button className='message_comp_delete_panel_div_edit' onClick={() => EDunToggleVisibility(id)}>
-                                                    Edit
+                                                  {arrLangMessage[lang]['edit']}
                                                 </button>
                                             </div>
                                         </div>
@@ -93,9 +93,8 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                     <div className='message_comp_my_message_inside_pre' onClick={(e) => toggleVisibility(e, id)}>
                       <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       <div>
-                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : null}
+                        {changed === true ? <span className='message_comp_my_message_inside_chan'>{arrLangMessage[lang]['ed']}</span> : null}
                         <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
-                        {/*readed === true ? <span className='message_comp_my_message_inside_readed'> ✓✓</span> : <span className='message_comp_my_message_inside_readed'> ✓</span>*/}
                       </div>
 
                     </div>
@@ -144,9 +143,8 @@ function Message_comp({ int, id, click, delet, sender, me, readed, photo, if_tea
                       <div dangerouslySetInnerHTML={{ __html: text }}></div>
                       
                       <div>
-                        {/*readed === true ? <span className='message_comp_my_message_inside_readed'> ✓✓</span> : <span className='message_comp_my_message_inside_readed'> ✓</span>*/}
                         <span className='message_comp_my_message_inside_readed'>{hour}:{minute}</span>
-                        {changed === true ? <span className='message_comp_my_message_inside_chan'>chan.</span> : null}
+                        {changed === true ? <span className='message_comp_my_message_inside_chan'>{arrLangMessage[lang]['ed']}</span> : null}
                       </div>
                       
 

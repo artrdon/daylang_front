@@ -6,6 +6,7 @@ import Message_list_load from '/src/load_elems/messlistload.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
+import arrLangChatList from '../../languages/chat_list.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import axios from 'axios';
 import APIURL from '/api.js'
@@ -295,16 +296,10 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
           {(() => {
         if (data1[0].length === 0) {
           return (<>
-                      <NotFoundSave iwant={"messages"}/>
+                      <NotFoundSave iwant={"messages"} lang={lang}/>
                 </>)
         }
         else{
-            if (data1 === "unauthenticated_ttt") {
-              return (<>
-                          <NotFoundSave iwant={"messages"}/>
-                    </>)
-            }
-            else{
                 return (<>
                   {componentGroup.map((component) => ( 
                     
@@ -343,10 +338,10 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                      {visibleId === component.id && <div className={`message_list_chat_delete_panel sett${component.id}`}>
                           <div className='message_list_chat_delete_panel_div'>
                               <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
-                                  Delete
+                                  {arrLangChatList[lang]['delete']}
                               </button>
                               <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(component.id)}>
-                                  Quit
+                                  {arrLangChatList[lang]['quit']}
                               </button>
                           </div>
                       </div>}
@@ -386,10 +381,10 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                          {visibleId === component.id && <div className={`message_list_chat_delete_panel sett${component.id}`}>
                               <div className='message_list_chat_delete_panel_div'>
                                   <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
-                                      Delete
+                                      {arrLangChatList[lang]['delete']}
                                   </button>
                                   <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(component.id)}>
-                                      Quit
+                                      {arrLangChatList[lang]['quit']}
                                   </button>
                               </div>
                           </div>}
@@ -438,10 +433,10 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                            {visibleId === da.id && <div className={`message_list_chat_delete_panel sett${da.id}`}>
                                 <div className='message_list_chat_delete_panel_div'>
                                     <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
-                                        Delete
+                                        {arrLangChatList[lang]['delete']}
                                     </button>
                                     <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(da.id)}>
-                                        Quit
+                                        {arrLangChatList[lang]['quit']}
                                     </button>
                                 </div>
                             </div>}
@@ -481,10 +476,10 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
                                {visibleId === da.id && <div className={`message_list_chat_delete_panel sett${da.id}`}>
                                     <div className='message_list_chat_delete_panel_div'>
                                         <button className='message_list_chat_delete_panel_delete' onClick={confirming}>
-                                            Delete
+                                            {arrLangChatList[lang]['delete']}
                                         </button>
                                         <button className='message_list_chat_delete_panel_quit' onClick={() => toggleVisibility(da.id)}>
-                                            Quit
+                                            {arrLangChatList[lang]['quit']}
                                         </button>
                                     </div>
                                 </div>}
@@ -499,7 +494,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 
                         ))}
                     </>)
-                }
+                
         }
       })()}
 
@@ -513,11 +508,11 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
     <img src="/src/static/img/creep.png" alt="areusure" className='message_list_delete_chat_dark'/>
     <div className='message_list_delete_chat_panel'>
         <div className='message_list_delete_chat_panel_up'>
-            <h3 id="form-title">Are you serious want to delete the chat</h3>
+            <h3 id="form-title">{arrLangChatList[lang]['are_u_want']}</h3>
         </div>
         <div className='message_list_delete_chat_panel_button_panel'>
-            <button className='message_list_delete_chat_panel_button' onClick={(e) => delete_chat(e, visibleId)}>YES</button>
-            <button className='message_list_delete_chat_panel_button' onClick={confirmingF}>NO</button>
+            <button className='message_list_delete_chat_panel_button' onClick={(e) => delete_chat(e, visibleId)}>{arrLangChatList[lang]['yes']}</button>
+            <button className='message_list_delete_chat_panel_button' onClick={confirmingF}>{arrLangChatList[lang]['no']}</button>
         </div>
     </div>
 </div>}

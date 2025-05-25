@@ -128,7 +128,7 @@ else{
     {(() => {
         if (data1.length === 0) {
           return (<>
-                      <NotFoundSave iwant={"saved"}/>
+                      <NotFoundSave iwant={"saved"} lang={lang}/>
                 </>)
         }
         else{

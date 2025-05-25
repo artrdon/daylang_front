@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
+import FindLang from '../../languages/find.js';
 import axios from 'axios';
 import Finded from '/src/pages/finded.jsx'
 import Type_offer from '/src/elems/offer_type.jsx'
@@ -84,10 +85,10 @@ function Find() {
 <div className='find_panel'>
   <div className='find_page_up_buttons'>
     <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      teacher`s offers
+      {FindLang[lang]['teachers_offers']}
     </button>
     <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      pupil`s offers
+      {FindLang[lang]['pupils_offers']}
     </button>
   </div>
   <div className="tag_select_panel">
@@ -100,7 +101,7 @@ function Find() {
 
 
         {page === 0 && <Type_offer lang={lang}/>}
-        {page === 1 && <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer} ifteacher={data.i_am_teacher}/>}
+        {page === 1 && <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer} ifteacher={data.i_am_teacher} FindLang={FindLang} lang={lang}/>}
 
       </div>
     </div>
@@ -116,7 +117,7 @@ function Find() {
   unmountOnExit
   nodeRef={reftoAnswerToPupilOffer}
 >
-  <AnswerToPupilOffer ref={reftoAnswerToPupilOffer} closeSearch={closeAnswerToPupilOffer} data={data} currentOffer={currentOffer}/>
+  <AnswerToPupilOffer ref={reftoAnswerToPupilOffer} closeSearch={closeAnswerToPupilOffer} data={data} currentOffer={currentOffer} FindLang={FindLang} lang={lang}/>
 
 </CSSTransition>
 

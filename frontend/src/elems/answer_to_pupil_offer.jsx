@@ -26,7 +26,7 @@ function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
 }
 
 
-function AnswerToPupilOffer({closeSearch, ref, currentOffer}) {
+function AnswerToPupilOffer({closeSearch, ref, currentOffer, FindLang, lang}) {
 
   const params = useParams();
   
@@ -60,7 +60,7 @@ return (
     <div className="deep_search_component_close_search" onClick={closeSearch}></div>
     <div className="deep_search_component_form" ref={ref}>
         <div className="deep_search_component_form_title">
-            <p id="form-title" className="deep_search_component_upper_title">Answer to offer</p>
+            <p id="form-title" className="deep_search_component_upper_title">{FindLang[lang]['answer']}</p>
         </div>
         <div className="deep_search_component_div_under_title">
             <div className="deep_search_component_div_under_title_fields">
@@ -72,19 +72,19 @@ return (
                         <div className='find_pupils_offer_price_currency'>₽</div>
                         <div className='find_pupils_offer_price'>{currentOffer.price_min} - {currentOffer.price_max} ₽</div>
                         <div className='find_pupils_offer_time_logo'>t</div>
-                        <div className='find_pupils_offer_time'> {currentOffer.time} минут</div>
+                        <div className='find_pupils_offer_time'> {currentOffer.time} {FindLang[lang]['minutes']}</div>
                         <div className="offer_page_div_of_info" style={{height: "auto", margin: 0}}>
-                            <li className="offer_page_div_of_info_li">
-                                <span>Есть микрофон?</span> <span>{currentOffer.microphone}</span>
+                        <li className="offer_page_div_of_info_li">
+                                <span>{FindLang[lang]['i_have_microphone']}?</span> <span>{FindLang[lang][`${currentOffer.microphone === true ? 'yes' : 'no'}`]}</span>
                             </li>
                             <li className="offer_page_div_of_info_li">
-                                <span>Цели:</span> <span>{currentOffer.target}</span>
+                                <span>{FindLang[lang]['goal']}:</span> <span>{FindLang[lang][`${currentOffer.target}`]}</span>
                             </li>
                             <li className="offer_page_div_of_info_li">
-                                <span>Возраст:</span> <span>{currentOffer.age}</span>
+                                <span>{FindLang[lang]['age']}:</span> <span>{currentOffer.age}</span>
                             </li>
                             <li className="offer_page_div_of_info_li">
-                                <span>Формат:</span> <span>{currentOffer.format}</span>
+                                <span>{FindLang[lang]['format']}:</span> <span>{FindLang[lang][`${currentOffer.format}`]}</span>
                             </li>
                         </div>
                         <Link to={`/p/user/${currentOffer.username}/`}>
@@ -99,7 +99,7 @@ return (
                             <div className="offer_author_description">{currentOffer.about_myself}</div>
                         </div>
                         </Link>
-                        <textarea className='answer_to_pupil_offer_textarea' placeholder='Message' onChange={(e) => setMessage(e.target.value)} value={message} maxLength={500} minLength={10}>
+                        <textarea className='answer_to_pupil_offer_textarea' placeholder={FindLang[lang]['message']} onChange={(e) => setMessage(e.target.value)} value={message} maxLength={500} minLength={10}>
                             
                         </textarea>
                         </div>
@@ -109,7 +109,7 @@ return (
             </div>
             
               <button className="deep_search_component_button" onClick={sendMessage}>
-                <p className="deep_search_component_button_text">Send</p>
+                <p className="deep_search_component_button_text">{FindLang[lang]['send']}</p>
               </button>
         </div>
     </div>
