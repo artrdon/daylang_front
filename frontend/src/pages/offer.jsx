@@ -17,7 +17,7 @@ import ReviewsAll from '../elems/all_reviews.jsx';
 import { CSSTransition } from 'react-transition-group';
 
 
-const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
+const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100, lang }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const showMore = () =>{
@@ -41,13 +41,13 @@ const ReviewExpandableText = ({setShowAllOffers, text, maxLength = 100 }) => {
         onClick={showMore}
         className='offer_page_show_more_button_expanded'
       >
-        Показать больше
+        {arrLangOffer[lang]['show_more']}
       </button>
     </div>
   );
 };
 
-const AnimatedExpandableText = ({ text, maxLength = 300 }) => {
+const AnimatedExpandableText = ({ text, maxLength = 300, lang }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
   if (text.length <= maxLength) {
@@ -64,13 +64,13 @@ const AnimatedExpandableText = ({ text, maxLength = 300 }) => {
         onClick={() => setIsExpanded(!isExpanded)}
         className='offer_page_show_more_button'
       >
-        {isExpanded ? 'Скрыть' : 'Показать больше'}
+        {isExpanded ? `${arrLangOffer[lang]['unshow']}` : `${arrLangOffer[lang]['show_more']}`}
       </button>
     </div>
   );
 };
 
-const AnimatedExpandableTextPhone = ({ text, maxLength = 300  }) => {
+const AnimatedExpandableTextPhone = ({ text, maxLength = 300, lang }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
   if (text.length <= maxLength) {
@@ -87,7 +87,7 @@ const AnimatedExpandableTextPhone = ({ text, maxLength = 300  }) => {
         onClick={() => setIsExpanded(!isExpanded)}
         className='offer_page_show_more_button'
       >
-        {isExpanded ? 'Скрыть' : 'Показать больше'}
+        {isExpanded ? `${arrLangOffer[lang]['unshow']}` : `${arrLangOffer[lang]['show_more']}`}
       </button>
     </div>
   );
@@ -287,6 +287,10 @@ const save_to_fav = async (e) => {
 
 
         } catch (error) {
+          if (err.response?.status === 401){
+            window.location.replace(`/log/`);
+            return;
+          }
             console.error('There was an error!', error.response.data);
         }
         
@@ -479,22 +483,22 @@ const save_to_fav = async (e) => {
 
           <div className="offer_page_div_of_info">
               <li className="offer_page_div_of_info_li">
-                  <span>Есть микрофон?</span> <span>{data1[0].microphone}</span>
+                  <span>{arrLangOffer[lang]['i_have_microphone']}?</span> <span>{arrLangOffer[lang][`${data1[0].microphone ? 'yes' : 'no'}`]}</span>
               </li>
               <li className="offer_page_div_of_info_li">
-                  <span>Цели:</span> <span>{data1[0].target}</span>
+                  <span>{arrLangOffer[lang]['goal']}:</span> <span>{arrLangOffer[lang][`${data1[0].target}`]}</span>
               </li>
               <li className="offer_page_div_of_info_li">
-                  <span>Возраст:</span> <span>{data1[0].age}</span>
+                  <span>{arrLangOffer[lang]['age']}:</span> <span>{arrLangOffer[lang][`${data1[0].age}`]}</span>
               </li>
               <li className="offer_page_div_of_info_li">
-                  <span>Формат:</span> <span>{data1[0].format}</span>
+                  <span>{arrLangOffer[lang]['format']}:</span> <span>{arrLangOffer[lang][`${data1[0].format}`]}</span>
               </li>
           </div>
       </div>
     </div>
     <div className="div_description" id="phone">
-      <AnimatedExpandableTextPhone text={data1[0].description} />
+      <AnimatedExpandableTextPhone text={data1[0].description} lang={lang}/>
       <Link to={`/t/user/${data1[0].username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
@@ -534,17 +538,17 @@ const save_to_fav = async (e) => {
                 <span className="ime_review">{rew.name}  {rew.last_name}</span>
                 <img src={`/src/static/img/${rew.score}.png`} alt="score" className="offer_score_img"/>
               </div>
-              <ReviewExpandableText setShowAllOffers={setShowAllOffers} text={rew.text}/>
+              <ReviewExpandableText setShowAllOffers={setShowAllOffers} text={rew.text} lang={lang}/>
             </div>
         ))}
         <p className="offer_page_show_more_reviews_button" onClick={showRev}>
-            <span className="offer_page_show_more_reviews_button_span">Показать больше</span>
+            <span className="offer_page_show_more_reviews_button_span">{arrLangOffer[lang]['show_more']}</span>
         </p>
       </div>
     </div>
   </div>
   <div className="div_description" id="comp">
-    <AnimatedExpandableText text={data1[0].description} />
+    <AnimatedExpandableText text={data1[0].description} lang={lang}/>
     <Link to={`/t/user/${data1[0].username}/`}>
         <div className="offer_about_author_div">
         <div className="offer_about_author">
@@ -568,7 +572,7 @@ const save_to_fav = async (e) => {
   <div className="offer_page_div_of_offer_div">
 
     <div className="offer_div">
-        <p className="offer_page_vozmozno">Возможно вам подойдут</p>
+        <p className="offer_page_vozmozno">{arrLangOffer[lang]['vozmozno_vam_podojdut']}</p>
         <Vozmozno_vam/>
         
     </div>

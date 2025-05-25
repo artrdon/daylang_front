@@ -36,6 +36,7 @@ function AnswersToMyOffers() {
 
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
+  const [lang, setLang] = useState(websocket.lang);
   
     useEffect(() => {
         setMessNumb(websocket.messNumb);
@@ -84,10 +85,10 @@ function AnswersToMyOffers() {
       <>
 {(() => {
         if (!data.isArray) {
-          return <NotFoundSave iwant={"no_offers"}/>;
+          return <NotFoundSave iwant={"no_offers"} lang={lang}/>;
         }
         else if (data.length === 0) {
-          return <NotFoundSave iwant={"no_offers"}/>;
+          return <NotFoundSave iwant={"no_offers"} lang={lang}/>;
         }
         else{
 

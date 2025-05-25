@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
+import arrLangMe from '../../languages/me.js';
 import arrLangMyProfil from '/languages/my_profil.js'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
@@ -50,9 +51,6 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function Feedback_pup() {
 
-    
-  const [groups, setGroup] = useState([0]);
-  const [ws, setWs] = useState(null);
   const websocket = useWebSocket();
   const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
@@ -222,21 +220,11 @@ else{
     <span className="me_name" translate="no" >
         {data.first_name} {data.last_name}
       </span>
-      {(() => {
-        if (data.real_man === true) {
-          return <img src="/src/static/img/confirmed.png" alt="" className="me_real_pers" />;
-        }
-      })()}
-
+      {data.real_man === true && <img src="/src/static/img/confirmed.png" alt="confirmed" className="me_real_pers" />}
     </div>
-    {(() => {
-        if (data.username === usernow.username) {
-          return (<> <Link to="/settings/" className="me_setting_ref">
-                        <img src="/src/static/img/setting.png" alt="" className="me_setting_img"/>
-                     </Link> </>)
-        }
-      })()}
-
+    {data.username === usernow.username && (<> <Link to="/settings/" className="me_setting_ref">
+      <img src="/src/static/img/setting.png" alt="settings" className="me_setting_img"/>
+    </Link> </>)}
   </div>
 
 <div id="feedback_page"  className='horizontal-scroll-container'>
@@ -264,8 +252,16 @@ else{
     </Link>
   </div>
   <div className="feedback_review_score" >
-      <img src="/src/static/img/11.png" alt="review score" className="feedback_review_img" /> 
-      <p className="me_feedback_review_score_text">{data3}</p>
+  {data3 === 'no reviews' ? 
+      <p className="me_feedback_review_score_text">{arrLangMe[lang]['no_reviews']}</p>
+       : 
+      (<>
+        <img src="/src/static/img/11.png" alt="review score" className="feedback_review_img" /> 
+        <p className="me_feedback_review_score_text">{data3}</p>
+      </>)
+      
+      }
+      
     {data4.map((rew) => (
 
     <div className="feedback_review_container" key={rew.id}>

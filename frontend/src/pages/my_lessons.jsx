@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
+import arrLangMyLessons from '../../languages/my_lessons.js';
 import Offer from '/src/pages/offer.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
@@ -111,18 +112,16 @@ else{
       <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
-{
-  page === 0 &&
   <div className="find_panel">
   <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className='find_page_up_button_el selected'>
-      future lessons
+    <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+      {arrLangMyLessons[lang]['future_lessons']}
     </button>
-    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
-      past lessons
+    <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+      {arrLangMyLessons[lang]['past_lessons']}
     </button>
-    {!data.i_am_teacher && <button onClick={() => setPage(2)} className='find_page_up_button_el'>
-      answers from teachers
+    {!data.i_am_teacher && <button onClick={() => setPage(2)} className={page === 2 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+      {arrLangMyLessons[lang]['answers_from_teachers']}
     </button>}
   </div>
 
@@ -131,72 +130,17 @@ else{
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
 
-        <FutureLessons/>
+        {page === 0 && <FutureLessons/>}
+        {page === 1 && <div/>}
+        {page === 2 && !data.i_am_teacher && <AnswersToMyOffers/>}
 
       </div>
     </div>
   </div>
   <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 </div>
-}
-
-{
-  page === 1 &&
-  <div className="find_panel">
-  <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
-      future lessons
-    </button>
-    <button onClick={() => setPage(1)} className='find_page_up_button_el selected'>
-      past lessons
-    </button>
-    {!data.i_am_teacher && <button onClick={() => setPage(2)} className='find_page_up_button_el'>
-      answers from teachers
-    </button>}
-  </div>
 
 
-  <div className="tag_select_panel">
-    <div className='find_page_div_over_offer_types'>
-      <div className='find_page_div_of_offer_types'>
-
-        
-
-      </div>
-    </div>
-  </div>
-  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
-</div>
-}
-
-{
-  page === 2 &&
-  <div className="find_panel">
-  <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className='find_page_up_button_el'>
-      future lessons
-    </button>
-    <button onClick={() => setPage(1)} className='find_page_up_button_el'>
-      past lessons
-    </button>
-    {!data.i_am_teacher && <button onClick={() => setPage(2)} className='find_page_up_button_el selected'>
-      answers from teachers
-    </button>}
-  </div>
-
-
-  <div className="tag_select_panel">
-    <div className='find_page_div_over_offer_types'>
-      <div className='find_page_div_of_offer_types'>
-
-        <AnswersToMyOffers/>
-
-      </div>
-    </div>
-  </div>
-  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
-</div>
-}
 </>
 
   )

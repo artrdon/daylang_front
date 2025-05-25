@@ -85,7 +85,7 @@
 .offer_page_show_more_button_expanded{
     background: none;
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     padding-left: 20px;
     padding-bottom: 20px;
@@ -129,7 +129,7 @@
     display: block;
     width: 500px;
     height: auto;
-    background-color: rgb(46, 46, 46);
+    background-color: #d5d5d5;
     padding: 50px;
     border-radius: 10px;
   }
@@ -156,7 +156,7 @@
     width: auto; aspect-ratio: 1/1; max-height: 630px; background-color: gray;
 }
 .button_under_foto{
-    background-color: #00db76; color: white; font-size: 30px; height: 50px; width: 630px; position: absolute; left: 0px; top: calc(100% + 20px); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0px 0px 0px #666666;
+    background-color: #2854c7; color: white; font-size: 30px; height: 50px; width: 630px; position: absolute; left: 0px; top: calc(100% + 20px); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0px 0px 0px #666666;
 }
 .div_description{
     width: 47%; height: auto;  left: 0px; z-index: 15; position: relative; top: 700px; margin: 50px; margin-top: 100px;
@@ -184,7 +184,7 @@
     font-size: 40px; position: relative; margin-top: 30px;
 }
 .offer_save_to_fav_button{
-    position: absolute; right: 80px; top: 60px; background-color: #00000000; filter: brightness(70%);
+    position: absolute; right: 80px; top: 60px; background-color: #00000000;
 }
 .offer_src_img{
     width: 40px; height: 40px; z-index: 10;
@@ -196,7 +196,7 @@
     position: relative; top: 20px; left: 20px; cursor: pointer; width: calc(100% - 20px);
 }
 .offer_score_img{
-    width: 100px; height: 20px; right: 0px; position: absolute; top: 10px; margin-right: 20px; transform: scale(-1, 1); filter: hue-rotate(340deg);
+    width: 100px; height: 20px; right: 0px; position: absolute; top: 10px; margin-right: 20px; transform: scale(-1, 1); filter: hue-rotate(322deg);
 }
 .offer_review_text{
   padding: 20px;
@@ -249,11 +249,14 @@
 /*feedback moment*/
 
 .dark_theme{
-    .offer_page_show_more_button{
+    .offer_page_show_more_button_expanded{
         color: white;
     }
-    .offer_save_to_fav_button{
-        filter: brightness(100%);
+    .offer_review_modal-content {
+        background-color: rgb(46, 46, 46);
+    }
+    .offer_page_show_more_button{
+        color: white;
     }
     .offer_about_author_div{
         background-color: #191919;
@@ -268,7 +271,7 @@
         color: white;
     }
     .button_under_foto{
-        background-color: #00db76; color: black
+        color: black
     }
     .offer_score_img{
         filter: unset;

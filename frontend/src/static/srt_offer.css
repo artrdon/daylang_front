@@ -84,18 +84,24 @@
 }
 .crt_offer_photo{
     width: 300px; height: 300px; position: relative; top: 50px; display: block; object-fit: contain;
-    background-color: #2a2a2a;
+    background-color: #d5d5d5;
 }
 .crt_offer_photos{
     width: 200px; height: 200px; position: relative; top: 50px; display: inline; object-fit: contain;
     margin: 5px;
-    background-color: #2a2a2a;
+    background-color: #d5d5d5;
 }
 .setting_language_selector{
     color: rgb(0, 0, 0); background-color: #f1f1f1; border-radius: 3px; border: 0px; font-size: 20px; height: 40px; width: 570px; display: block; margin-left: auto; margin-right: auto; margin-top: 50px; outline: none;
 }
 
 .dark_theme{
+    .crt_offer_photo{
+        background-color: #2a2a2a;
+    }
+    .crt_offer_photos{
+        background-color: #2a2a2a;
+    }
     .settings_page_degree_photo{
         background-color: #2a2a2a;
     }

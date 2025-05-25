@@ -11,6 +11,7 @@ import axios from 'axios';
 import APIURL from '/api.js'
 import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import arrLangMe from '../../languages/me.js';
 
 
 function ImageWithFallbackAvatar({ src, fallbackSrc, alt, }) {
@@ -225,21 +226,11 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
       <span className="me_name" translate="no" >
         {data.first_name} {data.last_name}
       </span>
-      {(() => {
-        if (data.real_man === true) {
-          return <img src="/src/static/img/confirmed.png" alt="confirmed" className="me_real_pers" />;
-        }
-      })()}
-
+      {data.real_man === true && <img src="/src/static/img/confirmed.png" alt="confirmed" className="me_real_pers" />}
     </div>
-    {(() => {
-        if (data.username === usernow.username) {
-          return (<> <Link to="/settings/" className="me_setting_ref">
-                        <img src="/src/static/img/setting.png" alt="settings" className="me_setting_img"/>
-                     </Link> </>)
-        }
-      })()}
-
+    {data.username === usernow.username && (<> <Link to="/settings/" className="me_setting_ref">
+      <img src="/src/static/img/setting.png" alt="settings" className="me_setting_img"/>
+    </Link> </>)}
   </div>
 
 <div id="feedback_page"  className='horizontal-scroll-container'>
@@ -290,8 +281,16 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
   </div>
   <div className="feedback_review_score" >
     <div>
-      <img src="/src/static/img/11.png" alt="review score" className="feedback_review_img" /> 
-      <p className="me_feedback_review_score_text">{data3}</p>
+      {data3 === 'no reviews' ? 
+      <p className="me_feedback_review_score_text">{arrLangMe[lang]['no_reviews']}</p>
+       : 
+      (<>
+        <img src="/src/static/img/11.png" alt="review score" className="feedback_review_img" /> 
+        <p className="me_feedback_review_score_text">{data3}</p>
+      </>)
+      
+      }
+      
     </div>
     {data4.map((rew) => (
 

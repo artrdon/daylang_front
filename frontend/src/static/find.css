@@ -495,7 +495,7 @@ iframe{
     display: inline-block;
     margin-right: 10px;
     object-fit: contain;
-    background-color: #2a2a2a;
+    background-color: #d5d5d5;
 }
 .avatar_in_panel{
     width: 50px;
@@ -570,7 +570,7 @@ iframe{
     position: absolute; right: 10px; top: 230px; filter: hue-rotate(340deg);
 }
 .img_of_review{
-    width: 30px; height: 30px; display: inline-block;
+    width: 30px; height: 30px; display: inline-block; filter: hue-rotate(322deg);
 }
 .header_of_review{
     color: rgb(0, 0, 0); display: inline-block; font-size: 30px;
@@ -641,8 +641,12 @@ div *::-webkit-scrollbar-thumb {
         background-color: rgb(153, 153, 153);
         border: 0px solid rgb(49, 49, 49);
     }
-    
-    
+    .img_of_review{
+        filter: unset;
+    }
+    .avatar{
+        background-color: #2a2a2a;
+    }
     .app_message_indicator{
         background-color: #4a76ff;
     }
