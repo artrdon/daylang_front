@@ -493,7 +493,7 @@ const addEmoji = (emoji) => {
 
 
                       })()}
-                      {isTyping && <div style={{fontSize: 15, color: "white", marginLeft: 60, marginTop: -22}}>typing...</div>}
+                      {isTyping && <div className='message_page_typing_status'>typing...</div>}
                 </div>
             </Link>
             );

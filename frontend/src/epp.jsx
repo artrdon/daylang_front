@@ -29,6 +29,7 @@ import Call from '/src/pages/call.jsx'
 import Finded_deep from './pages/finded_deep.jsx'
 import Forbidden from './pages/forbidden.jsx';
 import Privacy from './pages/privacy.jsx';
+import BecomeTeacher from './pages/become_teacher.jsx';
 import pers from '/src/static/docks/pryvacy.pdf'
 import CallbackHandler from './pages/yandex_call_back.jsx'
 import WebSocketProvider from './once/web_socket_provider.jsx'
@@ -42,6 +43,7 @@ export default function Epp({queryClient}){
             <Route path="/auth/yandex/callback" element={<CallbackHandler />} />
     
             <Route path="/" element={<Find />}/>
+            <Route path="/become_teacher/" element={<BecomeTeacher />}/>
             <Route path="/user/undefined/" element={<Log />}/>
             <Route path="/log/" element={<Log />}/>
             <Route path="/log/reset/" element={<Log_reset />}/>

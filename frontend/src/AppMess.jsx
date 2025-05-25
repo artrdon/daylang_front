@@ -280,6 +280,9 @@ function change_theme() {
       </Link>
       <Docks lang={lang}/>
     </div>
+    {!if_teach && <Link className="navig_panel_button" id="not_for_fon" to="/become_teacher/">
+      <span className="text_in_panel">{arrLangNavigPanel[lang]['become_teacher']}</span>
+    </Link>}
   </div>
 
 

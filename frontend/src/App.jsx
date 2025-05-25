@@ -236,9 +236,6 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
                           </button>
                       </div>
                       </div>
-                      <div className='show_nav_in_desktop_section'>
-                        Become te
-                      </div>
                     </div>
                 }
               </>
@@ -350,6 +347,9 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
       <Cookie lang={lang}/>
       <Docks lang={lang} />
     </div>
+    {!if_teach && <Link className="navig_panel_button" id="not_for_fon" to="/become_teacher/">
+      <span className="text_in_panel">{arrLangNavigPanel[lang]['become_teacher']}</span>
+    </Link>}
   </div>
 
 <CSSTransition

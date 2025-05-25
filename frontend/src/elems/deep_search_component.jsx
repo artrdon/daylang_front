@@ -40,7 +40,7 @@ return (
                           </select>
 
                           <div className="finded_crt_offer_name_of_fields">
-                            <span>{DeepSearchLangArr[lang]['target']}</span>
+                            <span>{DeepSearchLangArr[lang]['goal']}</span>
                           </div>
                           <select id="target" className="finded_setting_language_selector" onChange={handleChange} value={data2.target} name="target">
                             <option id="exam" value="exam">{DeepSearchLangArr[lang]['exam']}</option>

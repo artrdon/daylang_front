@@ -305,7 +305,7 @@ const { data: data, isLoading: loading, isError: error, error: errorDetails } = 
 {showPhotoBig && <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", position: "fixed", width: "100vw",zIndex: 10000}}>
   <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 10, position: "fixed"}} onClick={() => toggleVisibility()} ></div>
       
-          <div className="degree_button" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "gray"}}>
+          <div className="degree_button offer_big_photo" style={{ zIndex: 11, height: screen === true ? "95vh":"auto", width: screen === true ? "auto" : "100vw", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center"}}>
               {data3.length > (photoIndex + 1) && 
               <button className='offer_right_next_photo_button' onClick={nextPhoto}>
                 <img src="/src/static/img/next_photo.png" alt="next photo" style={{width: "100%", height: "100%"}}/>

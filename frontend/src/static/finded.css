@@ -40,7 +40,7 @@
     background-color: gray;
 }
 .src_img{
-    width: 40px; height: 40px; position: absolute; top: 20px; right: 20px; filter: brightness(70%);
+    width: 40px; height: 40px; position: absolute; top: 20px; right: 20px;
 }
 .offer_of_lang_finded:hover{
     transition: background-color .2s;
@@ -141,9 +141,6 @@
     .finded_input_field_name {
         color: rgb(207, 207, 207);
         background-color: #181818;
-    }
-    .src_img{
-        filter: brightness(100%);
     }
     .finded_name{
         color: white; 
