@@ -28,11 +28,10 @@ function Cookie({lang}) {
     
     
 
-    const allowCookie = () =>{
-        console.log(false);
+    const allowCookie = () => {
         document.cookie = `cookie=allowed; path=/;max-age=31556926`;
-        console.log(false);
         setCook(false);
+        document.getElementById('id_of_fuking_cookie').remove();
     }
 
     if (cook === null) return;
@@ -40,10 +39,10 @@ function Cookie({lang}) {
 
 return (
     <>
-    {cook !== true && <div style={{ backgroundColor: "white", color: "black", width: "calc(100% - 60px)", height: 160, position: "absolute", bottom: 0, zIndex: 10000, margin: 10, padding: 20, borderRadius: 10}}>
+    {!cook && <div className='cookie_main_div' id='id_of_fuking_cookie'>
         <div>{CookiesLocal[lang]['header']}</div>
-        <div style={{ paddingBottom: 10 }}>{CookiesLocal[lang]['main_text']}<Link to={'/privacy/'} style={{color: "blue"}}>{CookiesLocal[lang]['policy']}</Link>.</div>
-        <button onClick={allowCookie} style={{ backgroundColor: "gray", width: "100%", height: 50, fontSize: 30, borderRadius: 10 }}>{CookiesLocal[lang]['ok']}</button>
+        <div className='cookie_main_child_text' >{CookiesLocal[lang]['main_text']}<Link to={'/privacy/'} className='cookie_main_child_link' >{CookiesLocal[lang]['policy']}</Link>.</div>
+        <button onClick={allowCookie} className='cookie_main_child_button' >{CookiesLocal[lang]['ok']}</button>
     </div>}
     </>
 

@@ -178,7 +178,7 @@
     .degree_page_degree_photos {
         top: 9.52380952380952380952380952380952vw;
         font-size: 3.80952380952380952380952380952381vw;
-        min-height: 96.1904761904761904761904761904762vw;
+       /* min-height: 96.1904761904761904761904761904762vw;*/
         width: 100%;
     }
     .degree_page_degree_button {
@@ -207,7 +207,7 @@
         padding-bottom: 100px;
     }
     .degree_description_about{
-        width: 100%;
+        width: calc(100% - 20px);
     }
     .feedback_review_container{
         width: 100%;

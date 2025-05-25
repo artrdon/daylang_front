@@ -26,6 +26,18 @@ iframe{
 #only_for_fon{
     display: none;
 }
+.cookie_main_div{
+    background-color: white; color: black; width: calc(100% - 60px); height: 160px; position: absolute; bottom: 0px; z-index: 10000; margin: 10px; padding: 20px; border-radius: 10px; font-size: 16px;
+}
+.cookie_main_child_text{
+    padding-bottom: 10px;
+}
+.cookie_main_child_link{
+    color: blue;
+}
+.cookie_main_child_button{
+    background-color: #4a76ff; width: 100%; height: 50px; font-size: 30px; border-radius: 10px;
+}
 .main_load_the_most_first_img{
     width: 200px; height: 200px; filter: brightness(0%);
 }
@@ -505,7 +517,7 @@ iframe{
     display: inline-block;
     margin-right: 10px;
     object-fit: contain;
-    background-color: #2a2a2a;
+    background-color: #d5d5d5;
 }
 .ime{
     color: black;
@@ -640,6 +652,9 @@ div *::-webkit-scrollbar-thumb {
     div *::-webkit-scrollbar-thumb {
         background-color: rgb(153, 153, 153);
         border: 0px solid rgb(49, 49, 49);
+    }
+    .avatar_in_panel{
+        background-color: #2a2a2a;
     }
     .img_of_review{
         filter: unset;
@@ -892,6 +907,12 @@ a{
 
 @media only screen and (max-width: 1100px)
 {
+    .cookie_main_div{
+        height: auto; bottom: 80px;
+    }
+    .cookie_main_child_text{
+        padding-bottom: 10px;
+    }
     .count_of_offers{
         width: calc(100% - 6vw);
         left: 3vw;
@@ -1376,5 +1397,14 @@ a{
     }
     .text_in_panel{
         font-size: 2.857142857142857vw;
+    }
+    .cookie_main_div{
+        width: calc(100% - 11.42857142857143vw); margin: 1.904761904761905vw; padding: 3.80952380952381vw; border-radius: 1.904761904761905vw; font-size: 3.047619047619048vw; bottom: 15.23809523809524vw;
+    }
+    .cookie_main_child_text{
+        padding-bottom: 1.904761904761905vw;
+    }
+    .cookie_main_child_button{
+        height: 9.523809523809524vw; font-size: 5.714285714285714vw; border-radius: 1.904761904761905vw;
     }
 }

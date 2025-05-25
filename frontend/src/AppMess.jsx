@@ -278,7 +278,6 @@ function change_theme() {
         <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLangNavigPanel[lang]['about']}</span>
       </Link>
-      <Cookie lang={lang}/>
       <Docks lang={lang}/>
     </div>
   </div>

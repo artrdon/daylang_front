@@ -322,7 +322,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
       }
 
     </div>
-    <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">
+    <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}>
       {!(username === undefined) &&
         <>
           <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
@@ -348,7 +348,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
         <span className="text_in_panel">{arrLangNavigPanel[lang]['about']}</span>
       </Link>
       <Cookie lang={lang}/>
-      <Docks lang={lang}/>
+      <Docks lang={lang} />
     </div>
   </div>
 
