@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон */
+    /*background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон */
     z-index: 1000; /* Чтобы быть поверх других элементов */
   }
   
