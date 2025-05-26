@@ -24,6 +24,7 @@ import CreateOffer from '/src/pages/create_offer.jsx'
 import UpdateOffer from '/src/pages/update_offer.jsx'
 import ChatCreate from '/src/pages/chat_create.jsx'
 import MyLessons from '/src/pages/my_lessons.jsx'
+import TestAI from './pages/test_ai.jsx';
 import App from './App.jsx'
 import Call from '/src/pages/call.jsx'
 import Finded_deep from './pages/finded_deep.jsx'
@@ -43,6 +44,7 @@ export default function Epp({queryClient}){
             <Route path="/auth/yandex/callback" element={<CallbackHandler />} />
     
             <Route path="/" element={<Find />}/>
+            <Route path="/test/" element={<TestAI />}/>
             <Route path="/become_teacher/" element={<BecomeTeacher />}/>
             <Route path="/user/undefined/" element={<Log />}/>
             <Route path="/log/" element={<Log />}/>
