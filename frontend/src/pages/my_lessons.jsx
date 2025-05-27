@@ -1,17 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
 import arrLangMyLessons from '../../languages/my_lessons.js';
-import Offer from '/src/pages/offer.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
-import NotFoundSave from '/src/elems/not_found_save.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
-import AnswersToMyOffers from '/src/elems/answers_to_my_offers.jsx';
 import FutureLessons from '/src/elems/future_lessons.jsx';
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -132,7 +127,6 @@ else{
 
         {page === 0 && <FutureLessons/>}
         {page === 1 && <div/>}
-        {page === 2 && !data.i_am_teacher && <AnswersToMyOffers/>}
 
       </div>
     </div>

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {

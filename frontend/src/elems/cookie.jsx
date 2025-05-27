@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import Message from '/src/pages/message.jsx'
 import CookiesLocal from '/languages/cookies.js'
 
 function Cookie({lang}) {

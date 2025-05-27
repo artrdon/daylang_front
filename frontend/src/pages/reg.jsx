@@ -1,13 +1,11 @@
-import { useState, useEffect, state, handleChange, handleSubmit, setState, useRef }  from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import React, { Component } from 'react'
-import Log from '/src/pages/log.jsx'
+import { useState, useRef }  from 'react'
+import { Link } from 'react-router-dom'
+import React from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import KEY from '/captcha.js';
 import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
 
 function Reg() {
 

@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import arrLangOfferType from '/languages/offer_type.js'
 import axios from 'axios';
 import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
 
 function Type_offer({ lang }) {
 

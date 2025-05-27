@@ -1,12 +1,9 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { useState } from 'react'
 import arrLangMyProfil from '/languages/my_profil.js'
-import Message from '/src/pages/message.jsx'
 
 
 function My_load() {
 
-    const [count, setCount] = useState(0)
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;

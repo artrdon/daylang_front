@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import arrLangNavigPanel from '/languages/nav_panel.js'
-import Message from '/src/pages/message.jsx'
-import Docks from '/src/elems/docks.jsx'
 
 function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
     const [imgSrc, setImgSrc] = useState(src);

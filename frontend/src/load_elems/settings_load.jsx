@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { useState } from 'react'
 import arrLangSettings from '/languages/settings.js'
-import Message from '/src/pages/message.jsx'
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);

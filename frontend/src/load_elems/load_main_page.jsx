@@ -1,7 +1,3 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import arrLangMyProfil from '/languages/my_profil.js'
-import Message from '/src/pages/message.jsx'
 
 
 function MainLoad({theme}) {

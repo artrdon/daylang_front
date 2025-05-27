@@ -1,13 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
-import Offer_load from '/src/load_elems/offer_load.jsx'
-import SetReviewBlock from '/src/elems/set_review_block.jsx'
-import UpReviewBlock from '/src/elems/up_review_block.jsx'
-import Vozmozno_vam from '../elems/vozmozno_vam_podojdut';
-import App from '/src/App.jsx'
-import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from './not_found_save';
 import axios from 'axios';
 import APIURL from '/api.js'

@@ -1,18 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import FindLang from '../../languages/find.js';
 import axios from 'axios';
-import Finded from '/src/pages/finded.jsx'
 import Type_offer from '/src/elems/offer_type.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
-import OffersFromPupils from '/src/elems/offers_from_pupils.jsx'
-import AnswerToPupilOffer from '/src/elems/answer_to_pupil_offer.jsx'
 import { CSSTransition } from 'react-transition-group';
 
 
@@ -83,14 +78,6 @@ function Find() {
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
 <div className='find_panel'>
-  <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {FindLang[lang]['teachers_offers']}
-    </button>
-    <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {FindLang[lang]['pupils_offers']}
-    </button>
-  </div>
   <div className="tag_select_panel">
     {/*<h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
     <p className='find_page_teacher_description'>
@@ -100,27 +87,13 @@ function Find() {
       <div className='find_page_div_of_offer_types'>
 
 
-        {page === 0 && <Type_offer lang={lang}/>}
-        {page === 1 && <OffersFromPupils setAnswerToPupilOffer={setAnswerToPupilOffer} setCurrentOffer={setCurrentOffer} ifteacher={data.i_am_teacher} FindLang={FindLang} lang={lang}/>}
+        <Type_offer lang={lang}/>
 
       </div>
     </div>
   </div>
   <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 </div>
-
-
-<CSSTransition
-  in={answerToPupilOffer}
-  timeout={300}
-  classNames="deep_search_component_form"
-  unmountOnExit
-  nodeRef={reftoAnswerToPupilOffer}
->
-  <AnswerToPupilOffer ref={reftoAnswerToPupilOffer} closeSearch={closeAnswerToPupilOffer} data={data} currentOffer={currentOffer} FindLang={FindLang} lang={lang}/>
-
-</CSSTransition>
-
 
 </>
 

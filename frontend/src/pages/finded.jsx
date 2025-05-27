@@ -1,15 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
-import Offer from '/src/pages/offer.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import NotFoundSave from '/src/elems/not_found_save.jsx'
-import DeepSearchComp from '../elems/deep_search_component.jsx';
+import DeepSearchComp from '../elems/finded_deep_search_component.jsx';
 import axios from 'axios';
 import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
 import FindedAndSavedOffers from '/src/elems/finded_and_saved_offers.jsx'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import { CSSTransition } from 'react-transition-group';

@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
 import arrLangNotFound from '/languages/not_found_and_so.js';
-import axios from 'axios';
 
 function NotFoundSave({ iwant , lang}) {
 

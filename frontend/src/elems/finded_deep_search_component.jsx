@@ -1,11 +1,6 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { useState } from 'react'
 import DeepSearchLangArr from '../../languages/deep_search';
 import { useParams } from "react-router";
-import Message from '/src/pages/message.jsx'
-import Calendar from 'react-calendar';
-import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
 
 function DeepSearchComp({closeSearch, ref, price_min, price_max, format, target, age, microphone, lang}) {
 

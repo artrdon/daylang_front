@@ -1,6 +1,3 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import Message from '/src/pages/message.jsx'
 import arrLangNavigPanel from '/languages/nav_panel.js'
 
 

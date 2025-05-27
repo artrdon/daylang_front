@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react'
 import arrLangSettings from '/languages/settings.js'
 import axios from 'axios';
 import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
-import arrLangCreateOffer from '../../languages/create_offer';
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {

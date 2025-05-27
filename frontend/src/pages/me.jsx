@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
 import arrLangMyProfil from '/languages/my_profil.js'
@@ -8,7 +8,6 @@ import AppLoad from '/src/AppLoad.jsx'
 import My_load from '/src/load_elems/me_load.jsx'
 import axios from 'axios';
 import APIURL from '/api.js'
-import WSAPIURL from '/wsapi.js';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
