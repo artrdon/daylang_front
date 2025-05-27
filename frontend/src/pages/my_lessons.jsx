@@ -96,7 +96,7 @@ axios.defaults.withCredentials = true;
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
 
-        {page === 0 && <FutureLessons/>}
+        {page === 0 && <FutureLessons lang={lang}/>}
         {page === 1 && <div/>}
 
       </div>

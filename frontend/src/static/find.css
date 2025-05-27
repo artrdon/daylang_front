@@ -3,47 +3,40 @@
     margin: 0px;
     -webkit-tap-highlight-color: transparent;
     font-family: 'Roboto', sans-serif;
-    /*-webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;*/
 }
-/*.loading_element {
-    animation: changeColor 2s infinite;
-    width: 100%;
-    height: 100%;
-  }
-  @keyframes changeColor {
-    0% {
-      background-color: red;
-    }
-    100% {
-      background-color: blue;
-    }
-  }*/
+
 iframe{
     width: auto;
 }
+
 #only_for_fon{
     display: none;
 }
+
 .cookie_main_div{
     background-color: white; color: black; width: calc(100% - 60px); height: 160px; position: absolute; bottom: 0px; z-index: 10000; margin: 10px; padding: 20px; border-radius: 10px; font-size: 16px;
 }
+
 .cookie_main_child_text{
     padding-bottom: 10px;
 }
+
 .cookie_main_child_link{
     color: blue;
 }
+
 .cookie_main_child_button{
     background-color: #4a76ff; width: 100%; height: 50px; font-size: 30px; border-radius: 10px;
 }
+
 .main_load_the_most_first_img{
     width: 200px; height: 200px; filter: brightness(0%);
 }
+
 .main_load_the_most_first_text{
     text-align: center; font-size: 50px; color: rgb(0, 0, 0);
 }
+
 .find_pupils_offer_button_create_offer{
     display: flex;
     justify-content: center;
@@ -57,6 +50,7 @@ iframe{
     width: 980px;
     height: 60px;
 }
+
 .answer_to_pupil_offer_textarea{
     background-color: #ebebeb;
     color: black;
@@ -70,6 +64,7 @@ iframe{
     resize: none;
     outline: none;
 }
+
 .find_pupils_offer{
     width: 980px;
     height: auto;
@@ -81,51 +76,56 @@ iframe{
     cursor: pointer;
     background-color: #dadada;
 }
+
 .find_pupils_offer_name_answer{
     word-wrap: break-word;
     font-size: 30px;
     margin-bottom: 20px;
 }
+
 .find_pupils_offer_description_answer{
     word-wrap: break-word;
     font-size: 16px;
 }
+
 .find_pupils_offer_name{
     word-wrap: break-word;
     font-size: 30px;
 }
+
 .find_pupils_offer_description{
     word-wrap: break-word;
     font-size: 16px;
     padding: 20px;
 }
+
 .find_pupils_offer_price{
     font-size: 16px;
     display: inline-block;
     color: #00d600;
 }
+
 .find_pupils_offer_time{
     font-size: 16px;
     display: inline-block;
     color: #0087d6;
 }
-.find_pupils_offer_time{
-    font-size: 16px;
-}
+
 .find_pupils_offer_info_about_chel{
     width: calc(100% - 42px);
     padding: 20px;
     border-radius: 10px;
     border: 1px solid #666666;
     cursor: pointer;
-
 }
+
 .find_pupils_offer_info_about_chel_img{
     width: 70px;
     height: 70px;
     object-fit: cover;
     border-radius: 50%;
 }
+
 .find_pupils_offer_button{
     width: 100%;
     height: 80px;
@@ -135,6 +135,7 @@ iframe{
     border-radius: 10px;
     margin-top: 20px;
 }
+
 .find_pupils_offer_price_currency{
     border-radius: 50%;
     border: 1px solid;
@@ -145,6 +146,7 @@ iframe{
     margin: 20px;
     font-size: 16px;
 }
+
 .find_pupils_offer_time_logo{
     border-radius: 50%;
     border: 1px solid;
@@ -162,6 +164,7 @@ iframe{
     margin-bottom: 20px;
     background-color: #d6d6d6;
 }
+
 .find_page_up_button_el{
     background-color: #00000000;
     padding: 10px;
@@ -170,9 +173,11 @@ iframe{
     color: rgb(0, 0, 0);
     font-size: 20px;
 }
+
 .find_page_up_button_el.selected{
     background-color: #00000025;
 }
+
 .horizontal-scroll-container {
     width: 100%;
     white-space: nowrap; 
@@ -196,125 +201,88 @@ iframe{
         border: 0px solid rgb(70, 70, 70);;
     }
 }
+
 #searchtel{
     border: 0px;
 }
+
 #nobblol{
     display: none;
 }
+
 .find_page_teacher{
     width: auto; margin-left: 30px;
 }
+
 .find_page_teacher_description{
     width: auto; margin: 30px; overflow-wrap: anywhere; margin-top: 10px; font-size: 20px;
 }
+
 .find_page_div_over_offer_types{
     margin: 20px; margin-bottom: 50px; width: calc(100% - 40px); height: auto;
 }
+
 .find_page_div_of_offer_types{
     overflow: hidden; width: 100%; height: 100%; overflow-wrap: anywhere;
 }
+
 .app_policy_text_color{
     color: black;
 }
-.privacy-container {
-  background-color: #f8f9fa;
-  padding: 40px 0;
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.6;
-  color: #212529;
-}
 
-.privacy-content {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px;
-  background: #ffffff;
-  box-shadow: 0 0 20px rgba(0,0,0,0.05);
-  border-radius: 8px;
-}
-
-.privacy-title {
-  font-size: 28px;
-  color: white;
-  text-align: center;
-  margin-bottom: 40px;
-  font-weight: 600;
-}
-
-.privacy-section {
-  margin-bottom: 40px;
-}
-
-.section-title {
-  font-size: 22px;
-  color: white;
-  margin: 30px 0 20px;
-  font-weight: 500;
-}
-
-.policy-list {
-  padding-left: 20px;
-  margin: 15px 0;
-}
-
-.policy-list li {
-  margin-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-  .privacy-content {
-    padding: 20px;
-  }
-
-  .privacy-title {
-    font-size: 24px;
-  }
-
-  .section-title {
-    font-size: 20px;
-  }
-}
 .app_message_indicator{
     position: absolute; left: 50px; top: 150px; background-color: #6699ff; font-size: 16px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: white;
 }
+
 .app_lessons_indicator{
     position: absolute; left: 50px; top: 95px; background-color: #6699ff; font-size: 16px; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: white;
 }
+
 .handredmore{
     font-size: 13px;
 }
+
 .app_navig_panel_razdel{
     border-bottom: 1px solid rgb(138, 138, 138);
 }
+
 .on_desktop_panel{
     filter: brightness(20%)
 }
+
 .on_desktop_panel.itsava{
     filter: brightness(100%)
 }
+
 .app_navig_panel_img{
     width: 45px; height: 45px; margin-left: 10px;
 }
+
 .div_of_service{
     position: relative; display: inline-block; margin: 10px;
 }
+
 .service_img{
     height: auto; width: 200px; aspect-ratio: 2/2.5; display: inline; border-radius: 4px; filter: brightness(95%);
 }
+
 .count_of_offers{
     height: auto; width: 130px; aspect-ratio: 13/5; background-color: rgb(235, 235, 235); position: absolute; bottom: 15px; left: 35px; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 30px; color: black;
 }
+
 .services_types{
     height: 200px; width: 170px; display: inline-block;
 }
+
 .text_in_panel{
     margin-left: 20px;
     font-size: 25px;
 }
+
 .img_exapt_text{
     width: 40px; height: 40px; left: 50%; top: 50%; transform: translate(-50%, -50%); position: relative; display: none;
 }
+
 .top_banner{
     width: 100%;
     position: fixed;
@@ -324,6 +292,7 @@ iframe{
     left: 0px;
     z-index: 101;
 }
+
 .navig_panel{
     display: block;
     position: fixed;
@@ -335,6 +304,7 @@ iframe{
     border-right: 2px solid #666666;
     z-index: 100;
 }
+
 .message_navig_panel{
     display: block;
     position: fixed;
@@ -346,6 +316,7 @@ iframe{
     border-right: 2px solid #666666;
     z-index: 100;
 }
+
 .navig_panel_button{
     height: 50px;
     width: calc(100% - 20px); 
@@ -359,11 +330,11 @@ iframe{
     cursor: pointer;
     border-radius: 10px;
 }
+
 .navig_panel_button:hover{
     background-color: #b4b4b4; 
     transition: 0.2s linear;
 }
-
 
 .find_panel{
     width: calc(100% - 330px);
@@ -373,6 +344,7 @@ iframe{
     position: absolute;
     background-color: #ebebeb;
 }
+
 .tag{
     margin: 10px;
     border-radius: 15px;
@@ -388,6 +360,7 @@ iframe{
     user-select: none;
     box-shadow: 0px 0px 10px #666666;
 }
+
 .offer_of_lang{
     width: 220px;
     height: 320px;
@@ -398,15 +371,18 @@ iframe{
     cursor: pointer;
     transition: transform .2s;
 }
+
 .offer_of_lang:hover{
     background-color: #c4c4c4
 }
+
 .name_of_comp{
     font-size: 50px;
     color: rgb(54, 54, 54);
     width: auto;
     cursor: pointer;
 }
+
 .tag_select_panel{
     width: calc(100% - 100px);
     top: 10px; 
@@ -414,9 +390,11 @@ iframe{
     margin-right: 50px;
     position: relative;
 }
+
 .under_crt_offer_blank{
     width: 570px; margin-left: auto; margin-right: auto; position: relative; font-size: 20px;
 }
+
 .clear_mes_butt{
     border-top-left-radius: 20px; 
     border-bottom-left-radius: 20px; 
@@ -430,10 +408,12 @@ iframe{
     height: 50px; 
     width: 50px;
 }
+
 .clear_mes_butt_img{
     height: 25px; 
     width: 23px;
 }
+
 .search_butt{
     width: 70px; 
     height: 50px; 
@@ -448,10 +428,12 @@ iframe{
     top: 12px; 
     border: 1px solid rgb(0, 0, 0);
 }
+
 .search_butt_img{
     height: 40px; 
     width: 40px;
 }
+
 .search_input_field{
     font-size: 20px; 
     padding: 11.5px; 
@@ -465,6 +447,7 @@ iframe{
     left: -78px; 
     border: 1px solid black;
 }
+
 .change_theme_button_desktop{
     height: 30px; 
     width: 30px; 
@@ -476,6 +459,7 @@ iframe{
     margin-right: 20px;
     outline: none;
 }
+
 .change_theme_button{
     height: 30px; 
     width: 30px; 
@@ -487,11 +471,13 @@ iframe{
     margin-right: 20px;
     outline: none;
 }
+
 .change_theme_button_img{
     height: 30px; 
     width: 30px;
     filter: brightness(10%);
 }
+
 .my_account_panel{
     position: absolute; 
     right: 10px; 
@@ -499,6 +485,7 @@ iframe{
     cursor: pointer; 
     margin-right: 20px;
 }
+
 .avatar{
     width: 50px; 
     height: 50px; 
@@ -509,6 +496,7 @@ iframe{
     object-fit: contain;
     background-color: #d5d5d5;
 }
+
 .avatar_in_panel{
     width: 50px;
     height: 50px;
@@ -519,19 +507,23 @@ iframe{
     object-fit: contain;
     background-color: #d5d5d5;
 }
+
 .ime{
     color: black;
     top: 10px; 
     position: absolute;
 }
+
 .ime_i{
     color: white;
     top: 10px;
     position: absolute;
 }
+
 .familija{
     color: white;
 }
+
 .ime_review{
     width: 50%;
     color: rgb(0, 0, 0); 
@@ -542,9 +534,11 @@ iframe{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .familija_review{
     color: rgb(0, 0, 0);
 }
+
 .place_of_teach{
     background-color: #ebebeb; 
     height: auto; 
@@ -552,97 +546,98 @@ iframe{
     margin-left: 35px;
     white-space: normal;
 }
+
 .telef_search{
     display: none;
 }
+
 .search_all_pos{
     display: flex; justify-content: center;
 }
-
-/*block of offers parts*/
 
 .first_sloj{
     width: 100%; 
     height: 100%; 
     position: relative;
 }
+
 .offer_image{
     position: absolute; height: 200px; width: 100%; object-fit: contain; background-color: #d0d0d0;
 }
+
 .name_of_offer{
     position: absolute; font-size: 20px; top: 200px; left: 10px; color: rgb(40, 108, 255); white-space: pre-wrap; overflow-wrap: anywhere; width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+
 .block_of_price_and_status{
     position: absolute; top: 230px; left: 10px;
 }
+
 .price_and_status{
     display: block; left: 0px; font-size: 20px; position: relative;  color: rgb(0, 0, 0);
 }
+
 .block_of_review{
     position: absolute; right: 10px; top: 230px; filter: hue-rotate(340deg);
 }
+
 .img_of_review{
     width: 30px; height: 30px; display: inline-block; filter: hue-rotate(322deg);
 }
+
 .header_of_review{
     color: rgb(0, 0, 0); display: inline-block; font-size: 30px;
 }
+
 .description{
     position: absolute; font-size: 20px; color: rgb(0, 0, 0); white-space: pre-wrap; overflow-wrap: anywhere; bottom: 40px; padding: 10px;
 }
+
 .block_of_button{
     position: absolute; bottom: 0px; width: 100%; height: 40px;
 }
+
 .button_lol{
     width: 100%; height: 100%; padding: 0px; font-size: 20px;
 }
-/*block of offers parts*/
 
 .light_theme{
     font-family: "NimbusSanL-Bol", sans-serif;
     background-color: #ebebeb;
     color: black;
 }
-@media only screen and (max-width: 1100px)
-{
-    
-    .navig_panel_button:hover{
-        background-color: rgb(221, 221, 221); 
-    }
-    .offer_of_lang:hover{
-        background-color: #ebebeb;
-    }
-}
 
 body::-webkit-scrollbar {
-    width: 12px;               /* ширина scrollbar */
+    width: 12px;
 }
+
 body::-webkit-scrollbar-track {
-    background: rgb(85, 85, 85);        /* цвет дорожки */
+    background: rgb(85, 85, 85);
 }
+
 body::-webkit-scrollbar-thumb {
-    background-color: rgb(163, 163, 163);    /* цвет плашки */
-    /*border-radius: 20px;       /* закругления плашки */
-    /*border: 0px solid orange;  /* padding вокруг плашки */
+    background-color: rgb(163, 163, 163);
 }
+
 div *::-webkit-scrollbar {
     height: 12px;
     width: 10px;
 }
+
 *::-webkit-scrollbar-track,
 div *::-webkit-scrollbar-track {
     background: #d4d3d3;
 }
+
 *::-webkit-scrollbar-thumb,
 div *::-webkit-scrollbar-thumb {
     background-color: rgb(153, 153, 153);
     border: 0px solid #d4d3d3;
 }
-.dark_theme{
 
+.dark_theme{
     background-color: #191919;
     color: #c3c3c3;
-
     
     *::-webkit-scrollbar-track,
     div *::-webkit-scrollbar-track {
@@ -736,7 +731,6 @@ div *::-webkit-scrollbar-thumb {
     }
     @media only screen and (max-width: 1100px)
     {
-        
         .navig_panel_button:hover{
             background-color: #191919; 
         }
@@ -778,19 +772,24 @@ div *::-webkit-scrollbar-thumb {
         filter: brightness(100%);
     }
 }
+
 html {
     height: 100%;
-  }
+}
+
 body {
     min-height: 100%;
 }
+
 img {
     pointer-events: none;
 }
+
 button{
     cursor: pointer;
     border-width: 0px;
 }
+
 .crt_offer_blank{
     display: block; 
     margin: auto; 
@@ -810,19 +809,21 @@ button{
     *::-webkit-scrollbar-thumb,
     div *::-webkit-scrollbar-thumb {
         background-color: rgb(153, 153, 153);
-        
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
-        border: 0px solid rgb(70, 70, 70);;
+        border: 0px solid rgb(70, 70, 70);
     }
 }
+
 a{
     color: #191919;
     text-decoration: none;
 }
+
 [contentEditable=true]:empty:not(:focus):before {
     content: attr(data-text)
 }
+
 @media screen and (max-width: 1550px) {
     .find_pupils_offer {
         width: calc(100% - 80px);
@@ -831,11 +832,7 @@ a{
         width: calc(100% - 80px);
     }
 }
-/*@media screen and (max-width: 1400px) {
-    .find_pupils_offer{
-        width: calc(100% - 20px);
-    }
-}*/
+
 @media only screen and (max-width: 1230px)
 {
     #search_all{
@@ -868,6 +865,7 @@ a{
         width: calc(100% - 310px);
     }
 }
+
 @media only screen and (max-width: 1180px)
 {
     .name_of_comp{
@@ -989,7 +987,6 @@ a{
         width: 43px;
         left: 205px;
     }
-
     .change_theme_button{
         position: relative;
         margin-left: 3vw;
@@ -1039,8 +1036,7 @@ a{
     .place_of_teach{
         margin: auto;
         padding: 0px;
-         padding-bottom: 100px;
-        
+        padding-bottom: 100px;
     }
     .my_account_panel{
         display: none;
@@ -1075,12 +1071,10 @@ a{
         width: 43px;
         left: 154px;
     }
-
 }
 
 @media only screen and (max-width: 750px)
 {
-    
     #search_all{
         width: 500px;
     }
@@ -1111,12 +1105,10 @@ a{
     .count_of_offers{
         font-size: 4vw;
     }
-    
 }
 
 @media only screen and (max-width: 700px)
 {
-
     .name_of_comp{
         position: static;
         font-size: 30px;
@@ -1142,18 +1134,13 @@ a{
         top: 0px;
         right: 450px
     }
-    
 }
-
 
 @media only screen and (max-width: 600px)
 {
     .service_img{
         width: calc(((100vw - 40px)/2) - 20px);
     }
-    /*.find_page_div_over_offer_types{
-        width: calc(100% - 20px);
-    }*/
     .count_of_offers{
         font-size: 6vw;
         width: calc(100% - 12vw);
@@ -1358,7 +1345,6 @@ a{
         top: 1.9047619047619047vw;
         font-size: 3.8095238095238095vw;
     }
-    
     .img_of_review{
         width: 6.525vw;
         height: 6.525vw;

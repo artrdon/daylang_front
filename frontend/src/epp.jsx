@@ -23,13 +23,13 @@ export default function Epp(){
             <Route path="/auth/yandex/callback" element={<CallbackHandler />} />
     
             <Route path="/" element={<Find />}/>
-            <Route path="/test/" element={<TestAI />}/>
+            <Route path="/ai_speak/" element={<TestAI />}/>
             <Route path="/user/undefined/" element={<Log />}/>
             <Route path="/log/" element={<Log />}/>
             <Route path="/log/reset/" element={<Log_reset />}/>
             <Route path="/reg/" element={<Reg />}/>
-            <Route path="/finded/:language/" element={<Finded />}/>
-            <Route path="/t/user/:user/" element={<Me />}/>
+            <Route path="/:language/" element={<Finded />}/>
+            <Route path="/user/:user/" element={<Me />}/>
             <Route path="/settings/" element={<Settings />}/>
             <Route path="/about_us/" element={<About />}/>
             <Route path='/my_lessons/' element={<MyLessons />} />

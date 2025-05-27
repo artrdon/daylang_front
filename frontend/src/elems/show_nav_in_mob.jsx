@@ -47,7 +47,7 @@ return (
     <div className={`show_nav_in_mob_nav_panel`} ref={ref}>
         <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
         <div className='show_nav_in_mob_main_info'>
-                        <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/t/user/${username}/`}>
+                        <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/user/${username}/`}>
                             <ImageWithFallbackPanel src={myphoto} alt='me' fallbackSrc="/src/static/img/nema.png"/>
                             <span className='show_nav_in_mob_button_text_color' style={{overflowWrap: 'anywhere', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>{firstname} {lastname}</span>
                             

@@ -24,7 +24,10 @@ return (
 <div className="find_panel not_found_all_container_404_positing" >
     <div className='not_found_all_container_404'>
         <div className='not_found_font_404'>
-            404
+            <p>404</p>
+            <Link to={'/'}>
+              main page
+            </Link>
         </div>
     </div>
 </div>

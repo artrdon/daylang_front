@@ -21,31 +21,31 @@
     border-radius: 5px;
     margin: auto;
 }
+
 .input-group-append{
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 .form_container {
     display: flex;
     justify-content: center;
 }
+
 .log_reg_other_links{
     margin-left: 10px;
     color: rgb(0, 0, 0);
 }
-.log_reg_ordinary_text{
-    color: rgb(0, 0, 0);
-}
-
 
 #form-title{
     color: #fff;
-
 }
+
 .mt-4{
     padding-bottom: 30px;
 }
+
 .login_btn {
     width: 100%;
     background: #2854c7;
@@ -60,22 +60,25 @@
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
 .login_btn:focus {
     box-shadow: none !important;
     outline: 0px !important;
 }
+
 .login_container {
     padding-top: 10px;
     padding-bottom: 10px;
     display: flex;
     justify-content: center;
-
 }
+
 .input-group-text {
     color: rgb(0, 0, 0) !important;
     border: 0 !important;
     border-radius: 0.25rem 0 0 0.25rem !important;
 }
+
 .input_user,
 .input_pass:focus {
     box-shadow: none !important;

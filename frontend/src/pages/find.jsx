@@ -60,7 +60,16 @@ function Find() {
       <div className='find_page_div_of_offer_types'>
 
 
-        <Type_offer lang={lang}/>
+        <Type_offer lang={lang} language_name={"english"} flag={"/src/static/lang_flag/us.jpg"}/>
+        <Type_offer lang={lang} language_name={"russian"} flag={"/src/static/lang_flag/rus.png"}/>
+        <Type_offer lang={lang} language_name={"french"} flag={"/src/static/lang_flag/france.png"}/>
+        <Type_offer lang={lang} language_name={"chinese"} flag={"/src/static/lang_flag/china.jpg"}/>
+        <Type_offer lang={lang} language_name={"spanish"} flag={"/src/static/lang_flag/spain.png"}/>
+        <Type_offer lang={lang} language_name={"italian"} flag={"/src/static/lang_flag/italian.jpg"}/>
+        <Type_offer lang={lang} language_name={"germany"} flag={"/src/static/lang_flag/germany.png"}/>
+        
+        
+
 
       </div>
     </div>

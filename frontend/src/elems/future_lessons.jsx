@@ -23,7 +23,7 @@ function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
     );
   }
 
-function FutureLessons() {
+function FutureLessons({lang}) {
 
   const params = useParams();    
   const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({

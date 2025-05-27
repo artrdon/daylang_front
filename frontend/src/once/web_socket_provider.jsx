@@ -117,17 +117,11 @@ const [lang, setLang] = useState(getCookie("lang"));
 
     
 useEffect(() => {     
-    if (data2 !== "undefined" && data2 !== undefined && lang != undefined){
-      console.log(data2);
-
+    if (data2 !== "undefined" && data2 !== undefined){
       document.cookie = `lang=${data2.language}; path=/;max-age=31556926`;
       setLang(data2.language);
     }
-    else{
-      document.cookie = `lang=russian; path=/;max-age=31556926`;
-      setLang('russian');
-    }
-}, [data2, lang]);
+}, [data2]);
 
 if (loading1 || loading || loading2) {
   return <MainLoad theme={getCookie("theme")}/>; // or return a loading spinner

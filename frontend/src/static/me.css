@@ -1,24 +1,3 @@
-.me_feedback_review_score_text{
-    font-size: 30px;
-    display: inline-block;
-}
-.me_page_place_of_teach {
-    background-color: #ebebeb;
-    height: auto;
-    padding: 20px;
-    margin-left: 35px;
-    white-space: normal;
-    position: relative;
-    top: 400px;
-}
-.page_of_type{
-    padding-left: 40px;
-    width: calc(100% - 40px); height: 50px; background-color: #ebebeb; position: absolute; top: 340px;
-}
-.me_selected {
-    background-color: #00000038;
-    border-radius: 20px;
-}
 .me_under_find{
     width: 100%; height: 191px; background-color: #bbbbbb; position: absolute;
 }
@@ -43,121 +22,20 @@
 .me_setting_img{
     height: 30px; width: 30px; filter: brightness(10%);
 }
-.me_div_of_button{
-    height: 100%; width: auto; display: inline-block; padding-left: 20px; padding-right: 20px;
-}
-.me_span_of_button{
-    display: flex; justify-content: center; align-items: center; height: 100%; width: auto;
-}
-.me_span_of_button_text{
-    font-size: 30px; color: black;
-}
 .me_description_offer{
     display: inline-block; font-size: 25px; padding: 50px; position: relative; top: 400px; width: 60%; padding-bottom: 100px;
 }
-.degree_page_degree_photos{
-    position: relative; overflow: auto;
-}
-.degree_page_degree_button{
-    width: 200px;
-    height: auto;
-    aspect-ratio: 1/1;
-    object-fit: contain;
-    display: inline-block;
-    margin: 10px;
-    background-color: #d6d6d6;
-}
-.degree_description_about{
-    display: inline-block; font-size: 25px; width: 60%; margin: 10px;
-}
-.degree_img{
-    width: 200px; height: auto; aspect-ratio: 1/1; object-fit: contain;
-}
-.degree_button{
-    display: inline-block;
-    margin: 10px;
-}
-.degree_page_around{
-    position: relative; top: 400px; padding: 50px; padding-bottom: 100px;
-}
-.feedback_review_score{
-    position: relative; top: 400px; width: calc(100% - 80px); padding: 40px; padding-bottom: 100px;
-}
-.feedback_review_img{
-    width: 30px; height: 30px; filter: hue-rotate(322deg);
-}
-.feedback_review_container{
-    width: 60%; height: auto; border: 1px solid gray; margin-top: 10px;
-}
-.feedback_review_div_container{
-    position: relative; top: 20px; left: 20px; cursor: pointer; width: calc(100% - 20px);
-}
-.feedback_review_zvezde{
-    width: 100px; height: 20px; right: 0px; position: absolute; top: 10px; margin-right: 20px; transform: scale(-1, 1); filter: hue-rotate(322deg);
-}
-.feedback_review_text{
-    padding: 20px; margin-top: 20px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 18px;
-}
-.feedback_review_down_block{
-    position: relative; top: 10px;
-}
-.feedback_review_price_text{
-    color: rgb(0, 0, 0); font-weight: bold;
-}
-.offer_add_button{
-    width: 218px; height: 318px; background-color: #bdbdbd; display: inline-block; margin: 5px; border-radius: 30px;
-}
-.offer_plus_container{
-    margin-top: 85px; margin-left: 35px;
-}
-.offer_plus{
-    width: 150px; height: 150px; background-color: rgb(255, 255, 255); border-radius: 50%; margin: auto; display: block; position: absolute; font-size: 140px; text-align: center; color: rgb(0, 0, 0);
-}
 .dark_theme{
-    .feedback_review_img{
-        filter: unset;
-    }
-    .feedback_review_zvezde{
-        filter: unset;
-    }
     .me_avatar{
         background-color: #2a2a2a;
     }
     .me_under_find{
         background-color: gray;
     }
-    .offer_add_button{
-        background-color: #353535;
-    }
-    .offer_plus{
-        background-color: black; color: white;
-    }
-    .degree_page_degree_button{
-        background-color: #2a2a2a;
-    }
-    .page_of_type{
-        background-color: #191919;
-    }
-    .me_span_of_button_text{
-        color: white;
-    }
-    .me_selected{
-        background-color: #ffffff38;
-    }
-    .offer_add_button{
-        border-color: white;
-    }
-    .offer_plus{
-        background-color: white; color: black;
-    }
     .me_setting_img{
         filter: unset;
     }
-    .me_page_place_of_teach {
-        background-color: #191919;
-    }
 }
-
 
 @media only screen and (max-width: 1200px)
 {
@@ -165,61 +43,23 @@
         left: calc(100% - 300px);
     }
 }
-@media only screen and (max-width: 1100px)
-{
-    .degree_img{
-        width: 100%;
-    }
-    .me_page_place_of_teach {
-        margin: auto;
-        padding: 0px;
-        padding-bottom: 100px;
-    }
-    .degree_page_degree_photos {
-        top: 9.52380952380952380952380952380952vw;
-        font-size: 3.80952380952380952380952380952381vw;
-       /* min-height: 96.1904761904761904761904761904762vw;*/
-        width: 100%;
-    }
-    .degree_page_degree_button {
-        width: calc(50% - 3.80vw);
-        margin: 1.90vw;
-    }
-}
-
 
 @media only screen and (max-width: 1000px)
 {
     .me_setting_ref{
         left: calc(100% - 250px);
     }
-    .me_span_of_button_text{
-        font-size: 25px;
-    }
 }
 @media only screen and (max-width: 900px)
 {
-    /*.crt_offer_blank{
-        margin-bottom: 100px;
-    }*/
     .me_description_offer{
         width: calc(100% - 100px);
         padding-bottom: 100px;
     }
-    .degree_description_about{
-        width: calc(100% - 20px);
-    }
-    .feedback_review_container{
-        width: 100%;
-    }
 }
-
 
 @media only screen and (max-width: 660px)
 {
-    .me_div_of_button{
-        padding-left: 10px; padding-right: 10px;
-    }
     .me_avatar{
         left: 40px;
         width: 130px;
@@ -241,10 +81,6 @@
 }
 @media only screen and (max-width: 560px)
 {
-    .page_of_type{
-        padding-left: 10px;
-        width: calc(100% - 10px);
-    }
     .me_name{
         left: 50px;
     }
@@ -263,54 +99,12 @@
         width: calc(100% - 40px);
         padding-bottom: 100px;
     }
-    .degree_button{
-        margin: 2vw;
-    }
-    .degree_page_around{
-        padding: 3.8vw;
-        padding-bottom: 100px;
-    }
-    .feedback_review_score{
-        padding: 3.8vw;
-        width: calc(100% - 7.6vw);
-        padding-bottom: 100px;
-    }
 }
 @media only screen and (max-width: 525px)
 {
-    .offer_plus {
-        width: 28.571428571428573vw;
-        height: 28.571428571428573vw;
-        font-size: 26.666666666666668vw;
-    }
-    .offer_plus_container {
-        margin-top: calc(((47.8vw - 0.19047619047619047vw) / 11 * 16 - 28.571428571428573vw) / 2);
-        margin-left: calc((47.8vw - 0.19047619047619047vw - 28.571428571428573vw) / 2);
-    }
-    .offer_add_button{
-        aspect-ratio: 11 / 16;
-        width: calc(47.8vw - 0.19047619047619047vw);
-        height: auto;
-        margin: 1.08vw;
-        border: 0px;
-        border-radius: 5.714285714285714vw;
-    }
-    .me_span_of_button_text {
-        font-size: 4.761904761904762vw;
-    }
     .me_under_find{
         width: 100%; height: 32.38095238095238vw;
     }
-    .page_of_type{
-        padding-left: 1.9047619047619047vw;
-        width: calc(100% - 1.9047619047619047vw);
-        top: 51.42857142857143vw;
-    }
-    .me_div_of_button {
-        padding-left: 1.9047619047619047vw;
-        padding-right: 1.9047619047619047vw;
-    }
-
     .me_avatar{
         top: 24.761904761904762vw;
         left: 5.714285714285714vw;
@@ -353,51 +147,5 @@
         top: 68.57142857142857vw;
         font-size: 3.8095238095238095vw;
         padding-bottom: 19.047619047619047vw;
-    }
-    .degree_page_around{
-        padding: 3vw;
-        padding-bottom: 19.047619047619047vw;
-        top: 76.19047619047619vw;
-    }
-    .feedback_review_score{
-        padding: 3vw;
-        width: calc(100% - 6vw);
-        padding-bottom: 19.047619047619047vw;
-        top: 76.19047619047619vw;
-    }
-    .degree_description_about {
-        font-size: 4.761904761904762vw;
-    }
-    .feedback_review_img {
-        width: 5.714285714285714vw;
-        height: 5.714285714285714vw;
-    }
-    .me_feedback_review_score_text{
-        font-size: 5.714285714285714vw;
-    }
-    .feedback_review_div_container {
-        top: 3.8095238095238095vw;
-        left: 3.8095238095238095vw;
-        width: calc(100% - 3.8095238095238095vw);
-    }
-    .feedback_review_zvezde {
-        width: 19.047619047619047vw;
-        height: 3.8095238095238095vw;
-        right: 0px;
-        top: 1.9047619047619047vw;
-        margin-right: 3.8095238095238095vw;
-    }
-    
-    .feedback_review_text {
-        padding: 3.8095238095238095vw;
-        margin-top: 3.8095238095238095vw;
-        font-size: 3.4285714285714286vw;
-    }
-    .feedback_review_container {
-        border: 0.19047619047619047vw solid;
-        margin-top: 1.9047619047619047vw;
-    }
-    .me_page_place_of_teach {
-        top: 76.19047619047619vw;
     }
 }

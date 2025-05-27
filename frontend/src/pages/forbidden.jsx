@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import { Link } from 'react-router';
 
 
 function Forbidden() {
@@ -20,8 +21,12 @@ return (
 <div className="find_panel not_found_all_container_404_positing" >
     <div className='not_found_all_container_404'>
         <div className='not_found_font_404'>
-            403
+            <p>403</p>
+            <Link to={'/'}>
+              main page
+            </Link>
         </div>
+        
     </div>
 </div>
 </>

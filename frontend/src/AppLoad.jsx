@@ -6,18 +6,7 @@ import axios from 'axios';
 
 
 function AppLoad({ lang, lessons }) {
-
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    const theme = getCookie('theme');
-
     
-//console.log(if_teach);
-
   return (
       <>
   <div className="top_banner">
