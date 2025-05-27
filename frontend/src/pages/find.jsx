@@ -12,43 +12,16 @@ import { CSSTransition } from 'react-transition-group';
 
 
 function Find() {
-    const [answerToPupilOffer, setAnswerToPupilOffer] = useState(false);
-    const reftoAnswerToPupilOffer = useRef(null);
     const websocket = useWebSocket();
-    const [messNumb, setMessNumb] = useState(websocket.messNumb);
     const [lessons, setLessons] = useState(websocket.lessons);
     const [lang, setLang] = useState(websocket.lang);
-    const [page, setPage] = useState(0);
-    const [currentOffer, setCurrentOffer] = useState(null);
     useEffect(() => {
-      setMessNumb(websocket.messNumb);
       setLessons(websocket.lessons);
-  }, [websocket.messNumb, websocket.lessons]);
-    const queryClient = useQueryClient();
+  }, [websocket.lessons]);
 
-    const closeAnswerToPupilOffer = () => {
-      setAnswerToPupilOffer(false);
-      document.querySelector('body').style.overflow = 'unset';
-    }
 
     document.querySelector("title").textContent = "DayLang";
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    
-    if (getCookie('theme') === "dark"){
-        if (document.querySelector('body') != null)
-            document.querySelector('body').className = "dark_theme";
-    }
-    else{
-        if (document.querySelector('body') != null)
-            document.querySelector('body').className = "light_theme";
-    }
-    
 
     axios.defaults.withCredentials = true;
 
@@ -67,7 +40,7 @@ function Find() {
 
     if (loading) return (
           <>
-          <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+          <AppLoad lang={lang} lessons={lessons}/>
     </>
 
     );
@@ -76,7 +49,7 @@ function Find() {
 
     return (
         <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
 <div className='find_panel'>
   <div className="tag_select_panel">
     {/*<h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>

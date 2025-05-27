@@ -9,13 +9,8 @@ const WebSocketContext = createContext(null);
 
 const WebSocketProvider = ({ children }) => {
 
-    const [groups, setGroup] = useState([]);
     const [lessons, setLessons] = useState(0)
-    const [error12, setError12] = useState(null);
-    const [loading12, setLoading12] = useState(true);
-    const [data12, setData12] = useState([]);
 
-    const [messNumb, setMessNumb] = useState(0);
     axios.defaults.withCredentials = true;
 
     function getCookie(name) {
@@ -23,7 +18,18 @@ const WebSocketProvider = ({ children }) => {
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
+    useEffect(() => {     
+      if (getCookie('theme') === "dark"){
+        if (document.querySelector('body') != null)
+            document.querySelector('body').className = "dark_theme";
+      }
+      else{
+        if (document.querySelector('body') != null)
+            document.querySelector('body').className = "light_theme";
+      }
+    }, []);
+    
+    
 
    useEffect(() => {
       const initCSRF = async () => {
@@ -106,75 +112,6 @@ const WebSocketProvider = ({ children }) => {
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
 
-    
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await axios.get(`${APIURL}/getchatlist/`);
-            if (response.data != null){
-                let group = [];
-                for (let i = 0; i < response.data[0].length; i++){
-                    //setGroup((groups) => [...groups, response.data[0][i].id]);
-                    group.unshift(response.data[0][i].id);
-                }
-                setGroup(group);
-                //console.log(group);
-            }
-            setData12(response.data);
-            setMessNumb(response.data[1]);
-          } catch (err) {
-            setError12(err.message);
-          } finally {
-            setLoading12(false);
-          }
-        };
-        fetchData();
-    }, []);
-
-    
-    useEffect(() => {
-        const socket = new WebSocket(`${WSAPIURL}/ws/some_path/${groups.join(',')}/`);
-
-        socket.onopen = () => {
-            console.log('WebSocket connected');
-        };
-
-        socket.onmessage = (event) => {
-            const dataMess = JSON.parse(event.data);
-            //console.log(dataMess);
-    
-            if (dataMess.tip === "delete"){
-                let i_read = true;
-                for (let i = 0; dataMess.if_readed.length > i; i++){
-                    if (dataMess.if_readed[i] === data.username){
-                      i_read = false;
-                    }
-                }
-                if (i_read)
-                    setMessNumb(prev => prev - 1);
-            }
-    
-            if (dataMess.tip === "send"){
-              if (dataMess.sender !== data.username){
-                setMessNumb(prev => prev + 1);
-              }
-                
-            }
-    
-             //   document.getElementById("mesfield").scrollTo(0, document.getElementById("mesfield").scrollHeight);
-        };
-    
-
-        socket.onclose = () => {
-            console.log('WebSocket disconnected');
-        };
-
-        // Очистка при размонтировании компонента
-        return () => {
-            socket.close();
-        };
-    }, [groups]);
-
 
 const [lang, setLang] = useState(getCookie("lang"));
 
@@ -192,13 +129,13 @@ useEffect(() => {
     }
 }, [data2, lang]);
 
-if (loading1 || loading || loading2 || loading12) {
+if (loading1 || loading || loading2) {
   return <MainLoad theme={getCookie("theme")}/>; // or return a loading spinner
 }
   
 
     return (
-        <WebSocketContext.Provider value={{ messNumb, lessons, lang }}>
+        <WebSocketContext.Provider value={{ lessons, lang }}>
           {children}
         </WebSocketContext.Provider>
     );

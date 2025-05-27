@@ -5,7 +5,7 @@ import arrLangNavigPanel from '/languages/nav_panel.js'
 import axios from 'axios';
 
 
-function AppLoad({ lang, messNumb, lessons }) {
+function AppLoad({ lang, lessons }) {
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -47,27 +47,6 @@ function AppLoad({ lang, messNumb, lessons }) {
           className="app_navig_panel_img on_desktop_panel"
         />
         <span className="text_in_panel" key="about">{arrLangNavigPanel[lang]['find']}</span>
-      </Link>
-      <Link className="navig_panel_button">
-        <img
-          src="/src/static/img/srce.png"
-          alt="saved"
-          className="app_navig_panel_img on_desktop_panel"
-        />
-        <span className="text_in_panel" >{arrLangNavigPanel[lang]['saved']}</span>
-      </Link>
-      <Link className="navig_panel_button">
-        <img
-          src="/src/static/img/messagebutwhite.png"
-          alt="message"
-          className="app_navig_panel_img on_desktop_panel"
-        />
-        
-
-        {messNumb > 0 && messNumb < 100 && <div className="app_message_indicator" id="id_of_a_message_count">{messNumb}</div>}
-        {messNumb > 99 && <div className="app_message_indicator handredmore" id="id_of_a_message_count">+99</div>}
-
-        <span className="text_in_panel" >{arrLangNavigPanel[lang]['messages']}</span>
       </Link>
       <Link className="navig_panel_button">
         <img

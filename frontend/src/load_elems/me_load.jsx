@@ -31,42 +31,6 @@ function My_load() {
   </div>
 
 <div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
-  <div className="page_of_type horizontal-scroll-content">
-    <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
-      <div className="me_div_of_button  me_selected">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['main']}</span>
-        </span>
-      </div>
-    </button>
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['degree']}</span>
-        </span>
-      </div>
-    </button>
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['feedback']}</span>
-        </span>
-      </div>
-    </button>
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['offers']}</span>
-        </span>
-      </div>
-    </button>
-  </div>
   <div className="me_description_offer" >
   </div>
 </div>

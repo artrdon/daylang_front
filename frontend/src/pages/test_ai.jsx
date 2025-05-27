@@ -37,14 +37,6 @@ function TestAI() {
         } else {
             console.log("Распознавание речи НЕ поддерживается");
         }
-        if (getCookie('theme') === "dark"){
-            if (document.querySelector('body') != null)
-                document.querySelector('body').className = "dark_theme";
-        }
-        else{
-            if (document.querySelector('body') != null)
-                document.querySelector('body').className = "light_theme";
-        }
     
     }, []);
 

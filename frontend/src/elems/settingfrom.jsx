@@ -26,77 +26,18 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 
-function SettingsForm({ language, name, surname, about_myself, about_my_degree, if_teacher, photo, degree_photo, sessions, work_day_begin_int, work_day_end_int, lang }) {
+function SettingsForm({ language, name, surname, about_myself, photo, sessions, lang }) {
 
-
-     function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
     }
-    const [pre_degree_photo, setPre_degree_photo] = useState([])
-    //const lang = getCookie('lang');
-  //  let [langua, setData10] = useState(null);
-    //const [data, setData] = useState({beggin_time_of_work: "8", end_time_of_work: "16", workday: '', break_betwen_lessons: '30', lesson_time: '30'});
-
- //   langua = lang;
-
-
-    const handleDegreeLoad = (e) => {
-      setComponents([]);
-      setPre_degree_photo([]);
-      for (let i = 0; i < e.target.files.length; i++){
-        setComponents((components) => [...components, e.target.files[i]]);
-        setPre_degree_photo((pre_degree_photo) => [...pre_degree_photo, URL.createObjectURL(e.target.files[i])]);
-       // console.log(e.target.files[i]);
-      }
-    };
-    const AddTimeToBye = () =>{
-      let time_to_work = 60 * (Number(settingChange.end_time_of_work) - Number(settingChange.beggin_time_of_work));
-      const lesson_time = Number(settingChange.lesson_time);
-      const break_betwen_lessons = Number(settingChange.break_betwen_lessons);
-      let array_of_components = [];
-      let beg_time = Number(settingChange.beggin_time_of_work) * 60;
-      let end_time = Number(settingChange.end_time_of_work) * 60;
-      console.log(time_to_work);
-      for (let i = 0; i < time_to_work; time_to_work -= (lesson_time + break_betwen_lessons)){
-        if (time_to_work - lesson_time >= 0){
-          if (beg_time + lesson_time > end_time){
-            break;
-          }
-          let beg_time_hour = Math.floor(beg_time / 60);
-          let beg_time_minute = beg_time % 60;
-          let end_time_hour = Math.floor((beg_time + lesson_time) / 60);
-          let end_time_minute = (beg_time + lesson_time) % 60;
-          const newComponent = {
-            time: `${beg_time_hour}:${beg_time_minute} - ${end_time_hour}:${end_time_minute}`,
-          };
-          array_of_components.push(newComponent);
-          beg_time += lesson_time + break_betwen_lessons;
-        }
-      }
-      setComponents(array_of_components);
-      return;
-    }
+    const [settingChange, setData1] = useState({language: language, name: name, surname: surname, about_myself: about_myself, photo: photo});
     
-
-
-    //const [data, setData] = useState(null);
-    //const [loading, setLoading] = useState(true);
-    //const [error, setError] = useState(null);
-    const [settingChange, setData1] = useState({language: language, name: name, surname: surname, about_myself: about_myself, about_my_degree: about_my_degree, photo: photo, beggin_time_of_work: work_day_begin_int, end_time_of_work: work_day_end_int, workday: '',});
-    const [components, setComponents] = useState([]);
-    let sett = [];
-
-    //axios.defaults.withCredentials = true;
-
-
     const [file, setFile] = useState(photo);
 
     
-    const ChangeWorkDay = (e) => {
-        setData1({ ...settingChange, ['workday']: e.target.name });
-    };
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -129,35 +70,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
     };
 
 
-    
-  const handleSubmitDegreePhoto = async (e) => {
-      e.preventDefault();
-      console.log("beggining of degree");
-      const formData = new FormData();
-      for (let i = 0; i < components.length; i++){
-        formData.append(`image_${i}`, components[i]);
-        console.log(components[i]);
-      }
-      if (components.length === 0)
-        return;
-      console.log("zagruzaju photo");
-      console.log(formData);
-      try {
-          const response = await axios.post(`${APIURL}/degree_load/`, formData, {
-              headers: {
-                 // 'Content-Type': 'multipart/form-data',
-                  'X-CSRFToken': getCookie('csrftoken'),
-              },
-          });
-          console.log(response.data);
-          /*settingChange.photo = response.data;
-          console.log(settingChange);*/
-      } catch (error) {
-          console.error('Ошибка при загрузке фото:', error);
-      }
-  };
-
-
 //onLoad = () => setData1({ ...settingChange, about_myself: "lol" });
 
     const handleChange = (e) => {
@@ -170,7 +82,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
 
         try {
             await handleSubmitPhoto(e);
-            await handleSubmitDegreePhoto(e);
             const response = await axios.post(`${APIURL}/usersettings/`, settingChange, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -304,121 +215,6 @@ function SettingsForm({ language, name, surname, about_myself, about_my_degree, 
               <label htmlFor="icon404873" className='crt_offer_load_photo'>{arrLangSettings[lang]['load_photo']}</label>
             </div>
 
-            {if_teacher === false ? (
-              null
-            ) : (
-                <>
-              <p className="crt_offer_name_of_fields">
-                {arrLangSettings[lang]['degree']}
-              </p>
-              <div className="crt_offer_name_of_fields">
-                <span>{arrLangSettings[lang]['about_my_degree']}</span>
-                <textarea
-                  maxLength={300}
-                  placeholder={arrLangSettings[lang]['about_my_degree']}
-                  name="about_my_degree"
-                  id=""
-                  className="input_field_description"
-                  value={settingChange.about_my_degree}
-                  onChange={handleChange}
-                />
-
-              </div>
-              
-              <div className="crt_offer_name_of_fields">
-                <span>{arrLangSettings[lang]['load_photo_of_degree']}</span>
-              </div>
-              
-              <div className="crt_offer_photo_div">
-                {degree_photo.map((photo) => (
-                  <img
-                    alt="degree photo"
-                    className="settings_page_degree_photo"
-                    src={photo.photo}
-                    key={photo.id}
-                  />
-                ))}
-                {pre_degree_photo.map((photo, index) => (
-                  <img
-                    alt="degree photo"
-                    className="settings_page_degree_photo"
-                    src={photo}
-                    key={index}
-                  />
-                ))}
-                <input accept="image/png" id="icon404" name="icon" type="file" aria-hidden="true" onChange={handleDegreeLoad} multiple hidden/>
-                <label htmlFor="icon404" className='crt_offer_load_photos_more'>{arrLangSettings[lang]['load_photo_of_degree']}</label>
-
-              </div>
-
-              <div className="crt_offer_name_of_fields">
-                <span>{arrLangSettings[lang]['work']}</span>
-              </div>
-              <div className='crt_offer_work_day_div'>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Monday">{arrLangSettings[lang]['monday']}</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Tuesday">{arrLangSettings[lang]['tuesday']}</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Wednesday">{arrLangSettings[lang]['wednesday']}</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Thirsday">{arrLangSettings[lang]['thursday']}</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Friday">{arrLangSettings[lang]['friday']}</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Saturday">{arrLangSettings[lang]['saturday']}</button>
-                <button className='crt_offer_work_day_days' onClick={ChangeWorkDay} name="Sunday">{arrLangSettings[lang]['sunday']}</button>
-              </div>
-              <div className='crt_offer_work_day_div'>
-                <select id="beggin_time_of_work" className='crt_offer_work_day_select' name="beggin_time_of_work"  onChange={handleChange} value={settingChange.beggin_time_of_work}>
-                  <option id="0hb" value="0">00:00</option>
-                  <option id="1hb" value="1">01:00</option>
-                  <option id="2hb" value="2">02:00</option>
-                  <option id="3hb" value="3">03:00</option>
-                  <option id="4hb" value="4">04:00</option>
-                  <option id="5hb" value="5">05:00</option>
-                  <option id="6hb" value="6">06:00</option>
-                  <option id="7hb" value="7">07:00</option>
-                  <option id="8hb" value="8">08:00</option>
-                  <option id="9hb" value="9">09:00</option>
-                  <option id="10hb" value="10">10:00</option>
-                  <option id="11hb" value="11">11:00</option>
-                  <option id="12hb" value="12">12:00</option>
-                  <option id="13hb" value="13">13:00</option>
-                  <option id="14hb" value="14">14:00</option>
-                  <option id="15hb" value="15">15:00</option>
-                  <option id="16hb" value="16">16:00</option>
-                  <option id="17hb" value="17">17:00</option>
-                  <option id="18hb" value="18">18:00</option>
-                  <option id="19hb" value="19">19:00</option>
-                  <option id="20hb" value="20">20:00</option>
-                  <option id="21hb" value="21">21:00</option>
-                  <option id="22hb" value="22">22:00</option>
-                  <option id="23hb" value="23">23:00</option>
-                </select>
-                <select id="end_time_of_work" className='crt_offer_work_day_select' name="end_time_of_work" onChange={handleChange} value={settingChange.end_time_of_work}>
-                  <option id="0he" value="0">00:00</option>
-                  <option id="1he" value="1">01:00</option>
-                  <option id="2he" value="2">02:00</option>
-                  <option id="3he" value="3">03:00</option>
-                  <option id="4he" value="4">04:00</option>
-                  <option id="5he" value="5">05:00</option>
-                  <option id="6he" value="6">06:00</option>
-                  <option id="7he" value="7">07:00</option>
-                  <option id="8he" value="8">08:00</option>
-                  <option id="9he" value="9">09:00</option>
-                  <option id="10he" value="10">10:00</option>
-                  <option id="11he" value="11">11:00</option>
-                  <option id="12he" value="12">12:00</option>
-                  <option id="13he" value="13">13:00</option>
-                  <option id="14he" value="14">14:00</option>
-                  <option id="15he" value="15">15:00</option>
-                  <option id="16he" value="16">16:00</option>
-                  <option id="17he" value="17">17:00</option>
-                  <option id="18he" value="18">18:00</option>
-                  <option id="19he" value="19">19:00</option>
-                  <option id="20he" value="20">20:00</option>
-                  <option id="21he" value="21">21:00</option>
-                  <option id="22he" value="22">22:00</option>
-                  <option id="23he" value="23">23:00</option>
-                </select>
-              </div>
-              </>
-            )}
 
               <div className="crt_offer_name_of_fields">
                 <span>{arrLangSettings[lang]['sessions']}</span>

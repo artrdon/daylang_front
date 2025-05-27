@@ -32,27 +32,12 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 function Me() {
 
   const websocket = useWebSocket();
-  const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
   const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
-    setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
-}, [websocket.messNumb, websocket.lessons]);
+}, [websocket.lessons]);
     
-  const [showDegree, setShowDegree] = useState(false);
-  const showDeg = () =>{
-    setShowDegree(true);
-  }
-  const showMain = () =>{
-    setShowDegree(false);
-  }
-  const showRev = () =>{
-    setShowDegree(true);
-  }
-  const showOffer = () =>{
-    setShowDegree(false);
-  }
   
     const params = useParams();
 
@@ -65,21 +50,6 @@ function Me() {
         window.location.replace(`/log/`);
         return;
     }
-    function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-  
-  if (getCookie('theme') === "dark"){
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "dark_theme";
-  }
-  else{
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "light_theme";
-  }
     
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['usersettings', params.user], // Уникальный ключ запроса
@@ -98,10 +68,6 @@ function Me() {
       queryKey: ['userinfo', params.user], // Уникальный ключ запроса
       queryFn: async () => {
         const response = await axios.get(`${APIURL}/userinfo/${params.user}/`);
-        if (response.data.i_am_teacher === false)
-        {
-            window.location.replace(`/p/user/${params.user}/`)
-        }
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:
@@ -126,7 +92,7 @@ function Me() {
 
   if (loading) return (
       <>
-      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -136,7 +102,7 @@ function Me() {
 
   if (loading1) return (
       <>
-      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -146,7 +112,7 @@ function Me() {
 
   if (loading2) return (
       <>
-      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} lessons={lessons}/>
       <My_load/>
 </>
 
@@ -158,7 +124,7 @@ function Me() {
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (
         <>
-        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={lang} if_teach={usernow.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
+        <App name={usernow.first_name} lastname={usernow.last_name} username={usernow.username} lang={lang} lessons={lessons} photo={usernow.photo} balance={usernow.balance}/>
 
   <div className="find_panel">
   <div className="me_under_find">
@@ -167,72 +133,16 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
       <span className="me_name" translate="no" >
         {data.first_name} {data.last_name}
       </span>
-      {(() => {
-        if (data.real_man === true) {
-          return <img src="/src/static/img/confirmed.png" alt="" className="me_real_pers" />;
-        }
-      })()}
+      {data.real_man === true && <img src="/src/static/img/confirmed.png" alt="confirmed" className="me_real_pers" />}
 
     </div>
-    {(() => {
-        if (data.username === usernow.username) {
-          return (<> <Link to="/settings/" className="me_setting_ref">
-                        <img src="/src/static/img/setting.png" alt="" className="me_setting_img"/>
-                     </Link> </>)
-        }
-      })()}
+    {data.username === usernow.username && (<> <Link to="/settings/" className="me_setting_ref">
+      <img src="/src/static/img/setting.png" alt="settings" className="me_setting_img"/>
+    </Link> </>)}
 
   </div>
 
 <div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
-  <div className="page_of_type horizontal-scroll-content" >
-  <Link to={`/t/user/${data.username}/degree`} >
-    <button style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}>
-        <div className="me_div_of_button me_selected" >
-          <span className="me_span_of_button" >
-            <span className="me_span_of_button_text">{arrLangMyProfil[lang]['main']}</span>
-          </span>
-        </div>
-      </button>
-  </Link>
-    
-    
-    <Link to={`/t/user/${data.username}/degree`} >
-      <button
-        style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-      >
-        <div className="me_div_of_button">
-          <span className="me_span_of_button" >
-            <span className="me_span_of_button_text">{arrLangMyProfil[lang]['degree']}</span>
-          </span>
-        </div>
-      </button>
-    </Link>
-    
-
-    <Link to={`/t/user/${data.username}/feedback`} >
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['feedback']}</span>
-        </span>
-      </div>
-    </button>
-    </Link>
-    <Link to={`/t/user/${data.username}/offers`} >
-    <button
-      style={{ backgroundColor: "rgba(240, 248, 255, 0)" }}
-    >
-      <div className="me_div_of_button">
-        <span className="me_span_of_button" >
-          <span className="me_span_of_button_text">{arrLangMyProfil[lang]['offers']}</span>
-        </span>
-      </div>
-    </button>
-    </Link>
-  </div>
   <div className="me_description_offer" >
     {data1.about_myself}
   </div>

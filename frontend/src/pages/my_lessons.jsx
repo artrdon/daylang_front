@@ -32,46 +32,17 @@ function MyLessons() {
 
   const[page, setPage] = useState(0);
   const websocket = useWebSocket();
-  const [messNumb, setMessNumb] = useState(websocket.messNumb);
   const [lessons, setLessons] = useState(websocket.lessons);
   const [lang, setLang] = useState(websocket.lang);
   useEffect(() => {
-    setMessNumb(websocket.messNumb);
     setLessons(websocket.lessons);
-}, [websocket.messNumb, websocket.lessons]);
+}, [websocket.lessons]);
   
-
-
-    const [search, setSearch] = useState(false);
-    const openSearch = () =>{
-      setSearch(true);
-    }
-    const closeSearch = () =>{
-      setSearch(false);
-    }
-    
-    document.querySelector("title").textContent = "Offers";
+  
+    document.querySelector("title").textContent = "My lessons";
     const params = useParams();
 
 axios.defaults.withCredentials = true;
-
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-
-
-if (getCookie('theme') === "dark"){
-  if (document.querySelector('body') != null)
-      document.querySelector('body').className = "dark_theme";
-}
-else{
-  if (document.querySelector('body') != null)
-      document.querySelector('body').className = "light_theme";
-}
 
 
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
@@ -97,7 +68,7 @@ else{
 
   if (loading) return (
       <>
-      <AppLoad lang={lang} messNumb={messNumb} lessons={lessons}/>
+      <AppLoad lang={lang} lessons={lessons}/>
 </>
 
   );
@@ -105,7 +76,7 @@ else{
 
   return (
       <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} if_teach={data.i_am_teacher} mess_count={messNumb} lessons={lessons} photo={data.photo} balance={data.balance}/>
+<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
   <div className="find_panel">
   <div className='find_page_up_buttons'>

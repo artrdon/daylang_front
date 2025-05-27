@@ -44,7 +44,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 
 
 
-function App({ name, lastname, username, lang, if_teach, mess_count, lessons, photo, balance }) {
+function App({ name, lastname, username, lang, lessons, photo, balance }) {
 
   const nodeRef = useRef(null);
   const [showOtherInNav, setshowOtherInNav] = useState(false);
@@ -135,115 +135,67 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
   </div>*/}
     
 
-          {username === undefined ? (
-          <Link to={`/log/`}>
-              <div className="my_account_panel" style={{ right: 40 }}>
-                <img src="/src/static/img/nema.png" alt="log" className="avatar" />
-                <span className="ime_i" translate="no" style={{ top: 15, fontSize: 20 }}>
-                  Login
-                </span>
-              </div>
-            </Link>
-                ) :
-              (
-              if_teach === true ? (
-            <>
-              <button onClick={ShowDesktop}>
-                <div className="my_account_panel">
-                  <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
-                </div>
-              </button>
-              {showDesktopPanel &&
-                <div className='show_nav_in_desktop'>
-                  <div className='show_nav_in_desktop_section'>
-                    <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
-                      <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
-                    </Link>
-                    <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 90, top: 25, width: "calc(100% - 120px)"}}>
-                      {name} {lastname}
-                    </span>
-                    <div className='show_nav_in_desktop_section_main'>
-                        <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['balance']}: {balance}₽</p>
-                    </div>
-                    <div className='show_nav_in_desktop_section_main'>
-                      
-                      <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['theme']}</p>
-                      <button className="change_theme_button_desktop" onClick={change_theme}>
-                      {theme === "dark" ? (
-                        <img
-                          src="/src/static/img/moon.png"
-                          alt="dark"
-                          className="change_theme_button_img"
-                          id="theme_img"
-                        />
-                        )
-                        :
-                        (
-                        <img
-                          src="/src/static/img/sunce.png"
-                          alt="light"
-                          className="change_theme_button_img"
-                          id="theme_img"
-                        />
-                        )
-                      }
-                      </button>
-                  </div>
-                  </div>
-                </div>
-              }
-            </>
-                ) :
-              (
-              <>
-                <button onClick={ShowDesktop}>
-                  <div className="my_account_panel">
-                    <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
-                  </div>
-                </button>
-                {showDesktopPanel &&
-                    <div className='show_nav_in_desktop'>
-                      <div className='show_nav_in_desktop_section'>
-                        <Link to={`/p/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
-                          <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
-                          
-                        </Link>
-                        <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 90, top: 25, width: "calc(100% - 120px)"}}>
-                          {name} {lastname}
-                        </span>
-                        <div className='show_nav_in_desktop_section_main'>
-                          
-                          <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['theme']}</p>
-                          <button className="change_theme_button_desktop" onClick={change_theme} style={{top: 80}}>
-                          {theme === "dark" ? (
-                            <img
-                              src="/src/static/img/moon.png"
-                              alt="dark"
-                              className="change_theme_button_img"
-                              id="theme_img"
-                            />
-                            )
-                            :
-                            (
-                            <img
-                              src="/src/static/img/sunce.png"
-                              alt="light"
-                              className="change_theme_button_img"
-                              id="theme_img"
-                            />
-                            )
-                          }
-                          </button>
-                      </div>
-                      </div>
-                    </div>
-                }
-              </>
-              )
-                )
-
-
-                }
+                                            {username === undefined ? 
+                                            (
+                                              <Link to={`/log/`}>
+                                                <div className="my_account_panel" style={{ right: 40 }}>
+                                                  <img src="/src/static/img/nema.png" alt="log" className="avatar" />
+                                                  <span className="ime_i" translate="no" style={{ top: 15, fontSize: 20 }}>
+                                                    Login
+                                                  </span>
+                                                </div>
+                                              </Link>
+                                            )
+                                             :
+                                            (
+                                              <>
+                                                  <button onClick={ShowDesktop}>
+                                                    <div className="my_account_panel">
+                                                      <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+                                                    </div>
+                                                  </button>
+                                                  {showDesktopPanel &&
+                                                    <div className='show_nav_in_desktop'>
+                                                      <div className='show_nav_in_desktop_section'>
+                                                        <Link to={`/t/user/${username}/`} style={{width: 50, display: "inline-block", left: 10, position: "relative", borderRadius: "50%"}}>
+                                                          <ImageWithFallback src={photo} alt={username} fallbackSrc="/src/static/img/nema.png" style={{position: "relative", display: "block"}}/>
+                                                        </Link>
+                                                        <span className="ime message_list_span_of_mess" translate="no" style={{position: "absolute", left: 90, top: 25, width: "calc(100% - 120px)"}}>
+                                                          {name} {lastname}
+                                                        </span>
+                                                        <div className='show_nav_in_desktop_section_main'>
+                                                            <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['balance']}: {balance}₽</p>
+                                                        </div>
+                                                        <div className='show_nav_in_desktop_section_main'>
+                                                          
+                                                          <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['theme']}</p>
+                                                          <button className="change_theme_button_desktop" onClick={change_theme}>
+                                                          {theme === "dark" ? (
+                                                            <img
+                                                              src="/src/static/img/moon.png"
+                                                              alt="dark"
+                                                              className="change_theme_button_img"
+                                                              id="theme_img"
+                                                            />
+                                                            )
+                                                            :
+                                                            (
+                                                            <img
+                                                              src="/src/static/img/sunce.png"
+                                                              alt="light"
+                                                              className="change_theme_button_img"
+                                                              id="theme_img"
+                                                            />
+                                                            )
+                                                          }
+                                                          </button>
+                                                      </div>
+                                                      </div>
+                                                    </div>
+                                                  }
+                                                </>
+                                            )
+                                            }
   </div>
   <div className="navig_panel">
     <div className="app_navig_panel_razdel">
@@ -263,27 +215,6 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
       }
       {!(username === undefined) &&
         <>
-          <Link className="navig_panel_button" to="/saved/">
-            <img
-              src="/src/static/img/srce.png"
-              alt="saved"
-              className="app_navig_panel_img on_desktop_panel"
-            />
-            <span className="text_in_panel">{arrLangNavigPanel[lang]['saved']}</span>
-          </Link>
-          <Link className="navig_panel_button" to="/message_list/">
-            <img
-              src="/src/static/img/messagebutwhite.png"
-              alt="message"
-              className="app_navig_panel_img on_desktop_panel"
-            />
-            
-
-            {mess_count > 0 && mess_count < 100 && <div className="app_message_indicator" id="id_of_a_message_count">{mess_count}</div>}
-            {mess_count > 99 && <div className="app_message_indicator handredmore" id="id_of_a_message_count">+99</div>}
-
-            <span className="text_in_panel">{arrLangNavigPanel[lang]['messages']}</span>
-          </Link>
           <Link className="navig_panel_button" to="/my_lessons/">
             <img
               src="/src/static/img/my_lessons.png"
@@ -347,9 +278,6 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
       <Cookie lang={lang}/>
       <Docks lang={lang} />
     </div>
-    {!if_teach && <Link className="navig_panel_button" id="not_for_fon" to="/become_teacher/">
-      <span className="text_in_panel">{arrLangNavigPanel[lang]['become_teacher']}</span>
-    </Link>}
   </div>
 
 <CSSTransition
@@ -359,7 +287,7 @@ function App({ name, lastname, username, lang, if_teach, mess_count, lessons, ph
   unmountOnExit
   nodeRef={nodeRef}
 >
-    <ShowNavInMob setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} ifteach={if_teach} username={username} money={balance} firstname={name} lastname={lastname} change_theme={change_theme} theme={theme}/>
+    <ShowNavInMob setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} username={username} money={balance} firstname={name} lastname={lastname} change_theme={change_theme} theme={theme}/>
 
 </CSSTransition>
 

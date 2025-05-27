@@ -23,14 +23,6 @@ function Log() {
       if (parts.length === 2) return parts.pop().split(';').shift();
   }
   
-  if (getCookie('theme') === "dark"){
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "dark_theme";
-  }
-  else{
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "light_theme";
-  }
 
     document.querySelector("title").textContent = "Authentication";
 

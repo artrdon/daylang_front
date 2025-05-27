@@ -46,9 +46,7 @@ return (
     <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 1000, position: "fixed"}} onClick={show} ></div>
     <div className={`show_nav_in_mob_nav_panel`} ref={ref}>
         <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
-                {ifteach === true ? 
-                    (
-                      <div className='show_nav_in_mob_main_info'>
+        <div className='show_nav_in_mob_main_info'>
                         <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/t/user/${username}/`}>
                             <ImageWithFallbackPanel src={myphoto} alt='me' fallbackSrc="/src/static/img/nema.png"/>
                             <span className='show_nav_in_mob_button_text_color' style={{overflowWrap: 'anywhere', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>{firstname} {lastname}</span>
@@ -83,40 +81,6 @@ return (
                             </button>
                         </div>
                       </div>
-                    ) 
-                    : 
-                    (
-                      <div className='show_nav_in_mob_main_info'>
-                        <Link className="show_nav_in_mob_nav_panel_botton_main" to={`/p/user/${username}/`}>
-                            <ImageWithFallbackPanel src={myphoto} alt='me' fallbackSrc="/src/static/img/nema.png"/>
-                            <span className='show_nav_in_mob_button_text_color' style={{overflowWrap: 'anywhere', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>{firstname} {lastname}</span>
-                        </Link>
-                        <div className="show_nav_in_mob_nav_panel_botton_main">
-                            <p className='top_panel_balance'>{arrLangNavigPanel[lang]['theme']} </p>
-                            <button className="change_theme_button" onClick={change_theme}>
-                            {theme === "dark" ? (
-                              <img
-                                src="/src/static/img/moon.png"
-                                alt="dark"
-                                className="change_theme_button_img"
-                                id="theme_img"
-                              />
-                              )
-                              :
-                              (
-                              <img
-                                src="/src/static/img/sunce.png"
-                                alt="light"
-                                className="change_theme_button_img"
-                                id="theme_img"
-                              />
-                              )
-                            }
-                            </button>
-                        </div>
-                      </div>
-                    )
-                }
                 
                 <Link className="show_nav_in_mob_nav_panel_botton" to="/settings/">
                 <img

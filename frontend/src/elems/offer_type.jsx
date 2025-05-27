@@ -46,7 +46,6 @@ function Type_offer({ lang }) {
               </p>
             </div>
             <img src="/src/static/img/bluefon.png" alt="fon" className="service_img" />
-            <p className="count_of_offers">{data.number_of_offers}</p>
           </div>
         </Link>
 
