@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import APIURL from '/api.js'
+import vars from '/api.js'
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -59,7 +59,7 @@ function DoBye({setdate, date, removeDataSetter, name_of_offer, price, photo, re
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${APIURL}/bye/`, data, {
+            const response = await axios.post(`${vars['APIURL']}/bye/`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -79,7 +79,7 @@ function DoBye({setdate, date, removeDataSetter, name_of_offer, price, photo, re
     const { data: data3, isLoading: loading3, isError: error3, error: errorDetails3 } = useQuery({
       queryKey: ['offerinfo_bychat', params.id], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${APIURL}/offerinfo_bychat/${params.id}/`);
+        const response = await axios.get(`${vars['APIURL']}/offerinfo_bychat/${params.id}/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:

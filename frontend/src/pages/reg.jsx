@@ -4,8 +4,7 @@ import React from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
-import KEY from '/captcha.js';
-import APIURL from '/api.js'
+import vars from '/api.js'
 
 function Reg() {
 
@@ -62,7 +61,7 @@ function Reg() {
             setData({ ...data, captcha: token });
             if (token != null)
             {
-                const response = await axios.post(`${APIURL}/reg/`, { username: data.username, email: data.email, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name, captcha: token}, {
+                const response = await axios.post(`${vars['APIURL']}/reg/`, { username: data.username, email: data.email, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': getCookie('csrftoken'),
@@ -80,7 +79,7 @@ function Reg() {
                 }
                 else{
                     setConf(true);
-                    const email = await axios.post(`${APIURL}/email/${response.data}`, data, {
+                    const email = await axios.post(`${vars['APIURL']}/email/${response.data}`, data, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': getCookie('csrftoken'),
@@ -106,7 +105,7 @@ function Reg() {
     const handleSubmit2 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${APIURL}/confirmreg/`, data2, {
+            const response = await axios.post(`${vars['APIURL']}/confirmreg/`, data2, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -242,7 +241,7 @@ function Reg() {
             <label htmlFor="reg_button" className="btn login_btn">Registration</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={KEY} ref={recaptchaRef} size='invisible' theme='dark'/>
+            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme='dark'/>
           </div>
         </form>
       </div>

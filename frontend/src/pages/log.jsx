@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
-import KEY from '/captcha.js';
 import TwoMinuteTimer from '../elems/timer2min';
-import APIURL from '/api.js'
+import vars from '/api.js'
 
 
 
@@ -50,7 +49,7 @@ function Log() {
         try {
           if (token != null)
           {
-            const response = await axios.post(`${APIURL}/log/`, { username: data.username, password: data.password, captcha: token}, {
+            const response = await axios.post(`${vars['APIURL']}/log/`, { username: data.username, password: data.password, captcha: token}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -59,7 +58,7 @@ function Log() {
             console.log(response.data);
             if (response.data != 'username or password is incorrect'){
               setConf(true);
-              const to_email = await axios.post(`${APIURL}/email/${response.data}`, { username: data.username, password: data.password, captcha: token}, {
+              const to_email = await axios.post(`${vars['APIURL']}/email/${response.data}`, { username: data.username, password: data.password, captcha: token}, {
                   headers: {
                       'Content-Type': 'application/json',
                       'X-CSRFToken': getCookie('csrftoken'),
@@ -85,7 +84,7 @@ function Log() {
     const handleSubmit1 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${APIURL}/confirm/`, data1, {
+            const response = await axios.post(`${vars['APIURL']}/confirm/`, data1, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -163,7 +162,7 @@ function Log() {
             <label htmlFor="login_button" className="btn login_btn">Login</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={KEY} ref={recaptchaRef} size='invisible' theme='dark'/>
+            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme='dark'/>
           </div>
           <button onClick={handleYandexLogin}>
             Войти через Яндекс

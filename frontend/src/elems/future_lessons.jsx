@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
 import NotFoundSave from './not_found_save';
 import axios from 'axios';
-import APIURL from '/api.js'
+import vars from '/api.js'
 
 function ImageWithFallbackAuthor({ src, fallbackSrc, alt, }) {
     const [imgSrc, setImgSrc] = useState(src);
@@ -29,7 +29,7 @@ function FutureLessons({lang}) {
   const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
     queryKey: [`future_lessons_offer`], // Уникальный ключ запроса
     queryFn: async () => {
-      const response = await axios.get(`${APIURL}/bye/`);
+      const response = await axios.get(`${vars['APIURL']}/bye/`);
       return response.data; // Возвращаем только данные
     },
     // Опциональные параметры:

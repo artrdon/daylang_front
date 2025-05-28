@@ -2,7 +2,8 @@ import React from 'react';
 import LoadingSpinner from '../elems/loading_spinner.jsx';
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
-import APIURL from '/api.js'
+import vars from '/api.js'
+import '/src/static/ai_speak.css'
 
 function TestAI() {
 
@@ -95,7 +96,7 @@ function TestAI() {
 
         try {
             setWaitForAnswer(true);
-            const response = await axios.post(`${APIURL}/airequest/`, formData, {
+            const response = await axios.post(`${vars['APIURL']}/airequest/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -206,10 +207,6 @@ function TestAI() {
             // Создаем WAV файл
             const wavBlob = await audioBufferToWav(audioBuffer);
             
-            /*const audioUrl = URL.createObjectURL(wavBlob);
-            const audio = new Audio(audioUrl);
-            audio.play();
-            console.log("igra");*/
             await send_request(wavBlob);
             audioChunksRef.current = [];
         };
@@ -231,11 +228,11 @@ function TestAI() {
         {!isSpeaking && <> 
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
-        {!isRecording && <button onClick={startRecording} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>start recording</button>}
-        {isRecording && <button onClick={stopRecording} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>end recording</button>} </>}
-        <button onClick={pause} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>pause</button>
-        <button onClick={resume} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>resume</button>
-        <button onClick={cancel} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>cancel</button>
+        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >start talking</button>}
+        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >end talking</button>} </>}
+        {isSpeaking && <> <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>pause</button>
+        <button onClick={resume} className='ai_speak_stop_resume_cancel_button'>resume</button>
+        <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>cancel</button> </>}
     </>}
     {waitForAnswer && <LoadingSpinner/>}
 </div>

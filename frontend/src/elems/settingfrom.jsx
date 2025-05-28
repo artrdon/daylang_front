@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import arrLangSettings from '/languages/settings.js'
 import axios from 'axios';
-import APIURL from '/api.js'
+import vars from '/api.js'
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -42,12 +42,9 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
         const file = e.target.files[0]
-        //console.log(file);
         if (file) {
           document.getElementById('avatarka').src = URL.createObjectURL(file)
-          //console.log(URL.createObjectURL(file));
         }
-       // await handleSubmitPhoto(e);
     };
 
     const handleSubmitPhoto = async (e) => {
@@ -55,15 +52,13 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
 
         const formData = new FormData();
         formData.append('image', file);
-        console.log("zagruzaju photo");
         try {
-            const response = await axios.post(`${APIURL}/change_avatar/`, formData, {
+            const response = await axios.post(`${vars['APIURL']}/change_avatar/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log(response.data);
         } catch (error) {
             console.error('Ошибка при загрузке фото:', error);
         }
@@ -82,17 +77,15 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
 
         try {
             await handleSubmitPhoto(e);
-            const response = await axios.post(`${APIURL}/usersettings/`, settingChange, {
+            const response = await axios.post(`${vars['APIURL']}/usersettings/`, settingChange, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log(settingChange.language);
             document.cookie = `lang=${settingChange.language}; path=/;max-age=31556926`;
-            console.log('Response:', response.data);
-           // location.reload();
-
+            if (response?.status === 200)
+              location.reload();
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
@@ -102,11 +95,9 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
     
     const deleteSession = async (e, id) => {
         e.preventDefault();
-        console.log('Current cookies:', document.cookie);
         const csrfToken = getCookie('csrftoken');
-        console.log('Extracted CSRF token:', csrfToken);
         try {
-            const response = await axios.post(`${APIURL}/delete_session/`, id,
+            const response = await axios.post(`${vars['APIURL']}/delete_session/`, id,
               {
                 headers: {
                   'Content-Type': 'application/json',
@@ -127,7 +118,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
     const exit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${APIURL}/logout/`, {
+            const response = await axios.post(`${vars['APIURL']}/logout/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),

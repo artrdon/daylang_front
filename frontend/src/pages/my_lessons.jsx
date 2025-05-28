@@ -5,7 +5,7 @@ import arrLangMyLessons from '../../languages/my_lessons.js';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
-import APIURL from '/api.js'
+import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import FutureLessons from '/src/elems/future_lessons.jsx';
 
@@ -49,7 +49,7 @@ axios.defaults.withCredentials = true;
       queryKey: ['userinfo'], // Уникальный ключ запроса
       queryFn: async () => {
         try {
-          const response = await axios.get(`${APIURL}/userinfo/`);
+          const response = await axios.get(`${vars['APIURL']}/userinfo/`);
           return response.data;
         } catch (err) {
           if (err.response?.status === 401){

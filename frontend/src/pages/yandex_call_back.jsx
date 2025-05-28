@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import APIURL from '/api.js'
+import vars from '/api.js'
 
 const CallbackHandler = () => {
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const CallbackHandler = () => {
         const code = params.get('code');
 
         if (code) {
-            axios.post( `${APIURL}/auth/yandex/callback/`, { code })
+            axios.post( `${vars['APIURL']}/auth/yandex/callback/`, { code })
                 .then((res) => {
                     localStorage.setItem('token', res.data.access_token);
                     navigate('/');

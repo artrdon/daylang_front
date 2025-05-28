@@ -1,8 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query';
 import arrLangOfferType from '/languages/offer_type.js'
-import axios from 'axios';
-import APIURL from '/api.js'
 
 function Type_offer({ lang, language_name, flag }) {
 

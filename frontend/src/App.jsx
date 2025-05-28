@@ -67,13 +67,13 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
   }
 
   
-  if (window.trustedTypes?.createPolicy) {
+  /*if (window.trustedTypes?.createPolicy) {
     trustedTypes.createPolicy('defaults', {
         createHTML: (html) => html.replace(/<iframe[^>]*onload\s*=[^>]+>/gi, ''),
         createScriptURL: url => url.replace(/javascript:/gi, 'blocked:')
     });
   }
-
+*/
 
 
     function getCookie(name) {

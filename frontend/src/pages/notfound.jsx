@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query';
-import App from '/src/App.jsx'
-import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
-import APIURL from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 

@@ -1,4 +1,4 @@
-const frontURL = "http://localhost:5173";
-//const frontURL = "https://daylang.ru";
+const frontURL = ;
+//const frontURL = ;
 
 export default frontURL

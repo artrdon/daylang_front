@@ -4,8 +4,7 @@ import React from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
-import APIURL from '/api.js'
-import KEY from '/captcha.js';
+import vars from '/api.js'
 
 
 function Log_reset() {
@@ -86,7 +85,7 @@ function Log_reset() {
         try {
             
           setConf(true);
-              const to_email = await axios.post(`${APIURL}/email/${data.email}`, data, {
+              const to_email = await axios.post(`${vars['APIURL']}/email/${data.email}`, data, {
                   headers: {
                       'Content-Type': 'application/json',
                       'X-CSRFToken': getCookie('csrftoken'),
@@ -106,7 +105,7 @@ function Log_reset() {
         try {
             //if (captcha != null)
             //{
-                const response = await axios.post(`${APIURL}/forgot_password/`, data1, {
+                const response = await axios.post(`${vars['APIURL']}/forgot_password/`, data1, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': getCookie('csrftoken'),
@@ -130,7 +129,7 @@ function Log_reset() {
         try {
             //if (captcha != null)
             //{
-                const response = await axios.post(`${APIURL}/forgot_password_reset/`, { email: data.email, password1: data.password1, password2: data.password2, captcha: token}, {
+                const response = await axios.post(`${vars['APIURL']}/forgot_password_reset/`, { email: data.email, password1: data.password1, password2: data.password2, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': getCookie('csrftoken'),
@@ -266,7 +265,7 @@ function Log_reset() {
             />
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={KEY} ref={recaptchaRef} size='invisible' theme='dark'/>
+            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme='dark'/>
           </div>
         </form>
       </div>
