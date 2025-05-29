@@ -135,6 +135,7 @@ useEffect(() => {
     }
     else{
       document.cookie = `lang=russian; path=/;max-age=31556926`;
+      setLang("russian");
     }
 }, [data2]);
 
