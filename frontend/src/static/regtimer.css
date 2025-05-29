@@ -11,7 +11,7 @@
 }
 
 .user_card {
-    width: 350px;
+    width: 400px;
     background: #ebebeb;
     position: relative;
     padding: 0px;
@@ -21,7 +21,10 @@
     border-radius: 5px;
     margin: auto;
 }
-
+.input-group{
+    width: 250px;
+    margin: 5px;
+}
 .input-group-append{
     text-align: center;
     margin-top: 20px;

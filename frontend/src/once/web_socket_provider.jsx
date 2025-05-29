@@ -20,11 +20,15 @@ const WebSocketProvider = ({ children }) => {
     useEffect(() => {     
       if (getCookie('theme') === "dark"){
         if (document.querySelector('body') != null)
-            document.querySelector('body').className = "dark_theme";
+        {
+          document.querySelector('body').className = "dark_theme";
+        }          
       }
       else{
         if (document.querySelector('body') != null)
-            document.querySelector('body').className = "light_theme";
+        {
+          document.querySelector('body').className = "light_theme";
+        }   
       }
     }, []);
     
@@ -129,15 +133,18 @@ useEffect(() => {
       document.cookie = `lang=${data2.language}; path=/;max-age=31556926`;
       setLang(data2.language);
     }
+    else{
+      document.cookie = `lang=russian; path=/;max-age=31556926`;
+    }
 }, [data2]);
 
-if (loading1 || loading || loading2) {
-  return <MainLoad theme={getCookie("theme")}/>; // or return a loading spinner
-}
-  
+const theme = getCookie("theme");
 
+if (loading1 || loading || loading2) {
+  return <MainLoad theme={theme}/>; // or return a loading spinner
+}
     return (
-        <WebSocketContext.Provider value={{ lessons, lang }}>
+        <WebSocketContext.Provider value={{ lessons, lang, theme }}>
           {children}
         </WebSocketContext.Provider>
     );

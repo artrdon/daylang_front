@@ -493,7 +493,7 @@ iframe{
     top: 0px; 
     display: inline-block;
     margin-right: 10px;
-    object-fit: contain;
+    object-fit: cover;
     background-color: #d5d5d5;
 }
 
@@ -504,7 +504,7 @@ iframe{
     top: 0px;
     display: inline-block;
     margin-right: 10px;
-    object-fit: contain;
+    object-fit: cover;
     background-color: #d5d5d5;
 }
 

@@ -5,6 +5,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import vars from '/api.js'
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
 function Log_reset() {
@@ -16,51 +17,16 @@ function Log_reset() {
     const [new_password, setNewPassword] = useState(false);
     const [pass_diff, setPassDiff] = useState(false);
     const [timehave, setTimehave] = useState(true);
+    const websocket = useWebSocket();
+    const theme = useState(websocket.theme);
+
 
     function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-
-  
-  if (getCookie('theme') === "dark"){
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "dark_theme";
-  }
-  else{
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "light_theme";
-  }
-  
-  
-  function change_theme() {
-      if (document.querySelector('body').className === "dark_theme")
-      {
-  
-          document.querySelector('body').className = "light_theme";
-          document.cookie = "theme=light; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/sunce.png`);
-      }
-      else
-      {
-          document.querySelector('body').className = "dark_theme";
-          document.cookie = "theme=dark; path=/;max-age=31556926";
-          document.getElementById('theme_img').setAttribute("src", `/src/static/img/moon.png`);
-      }
-  }
-
-
-    const onChange = (value) => {
-      console.log("Captcha value:", value);
-      if (value === null){
-        setIfChel(false); //strannosti
-      }
-      setCaptcha(value);
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
-
+    
     document.querySelector("title").textContent = "Authentication";
 
     const [data, setData] = useState({ email: '', password1: '', password2: ''});
@@ -265,7 +231,7 @@ function Log_reset() {
             />
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme='dark'/>
+            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme}/>
           </div>
         </form>
       </div>

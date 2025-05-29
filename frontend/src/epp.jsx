@@ -24,11 +24,11 @@ export default function Epp(){
     
             <Route path="/" element={<Find />}/>
             <Route path="/ai_speak/" element={<TestAI />}/>
-            <Route path="/user/undefined/" element={<Log />}/>
+            {/*<Route path="/user/undefined/" element={<Log />}/>*/}
             <Route path="/log/" element={<Log />}/>
             <Route path="/log/reset/" element={<Log_reset />}/>
             <Route path="/reg/" element={<Reg />}/>
-            <Route path="/:language/" element={<Finded />}/>
+            {/*<Route path="/:language/" element={<Finded />}/>*/}
             <Route path="/user/:user/" element={<Me />}/>
             <Route path="/settings/" element={<Settings />}/>
             <Route path="/about_us/" element={<About />}/>

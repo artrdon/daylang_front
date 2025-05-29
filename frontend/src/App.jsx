@@ -92,7 +92,7 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
     const change_theme = () => {
         if (document.querySelector('body').className === "dark_theme")
         {
-           document.cookie = "theme=light; path=/;max-age=31556926";
+            document.cookie = "theme=light; path=/;max-age=31556926";
             location.reload();
         }
         else

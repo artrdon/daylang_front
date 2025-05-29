@@ -2,7 +2,7 @@
     width: 100%; height: 191px; background-color: #bbbbbb; position: absolute;
 }
 .me_avatar{
-    width: 150px; height: 150px; position: relative; left: 100px; top: 150px; border-radius: 100px; object-fit: contain; background-color: #d5d5d5;
+    width: 150px; height: 150px; position: relative; left: 100px; top: 150px; border-radius: 100px; object-fit: cover; background-color: #d5d5d5;
 }
 .me_name_surname_panel{
     position: absolute; left: 130px; top: 130px;

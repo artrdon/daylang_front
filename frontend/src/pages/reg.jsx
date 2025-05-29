@@ -5,6 +5,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import vars from '/api.js'
+import { useWebSocket } from '../once/web_socket_provider.jsx';
+
 
 function Reg() {
 
@@ -17,34 +19,25 @@ function Reg() {
     const [ifChel, setIfChel] = useState(false);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
+    const websocket = useWebSocket();
+    const theme = useState(websocket.theme);
 
 
-
-    const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
+    const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: '', checkbox: false});
     const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
 
     function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-  
-  if (getCookie('theme') === "dark"){
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "dark_theme";
-  }
-  else{
-      if (document.querySelector('body') != null)
-          document.querySelector('body').className = "light_theme";
-  }
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
         setData2({ ...data2, [e.target.name]: e.target.value });
         setIsVisible(false);
         setIsVisibleEmail(false);
-        //console.log(data);
-        //console.log(data2);
     };
 
 
@@ -55,8 +48,13 @@ function Reg() {
     
 
     const handleSubmit = async (e) => {
+        
         e.preventDefault();
         try {
+            if (!data.checkbox){
+              alert("Вы должны согласиться на обработку персональных данных, нажав на флажок");
+              return;
+            }
             const token = await recaptchaRef.current.executeAsync();
             setData({ ...data, captcha: token });
             if (token != null)
@@ -86,8 +84,6 @@ function Reg() {
                         },
                     });
                 }
-
-                console.log('Response:', response.data);
 
             }
             else{
@@ -134,12 +130,8 @@ function Reg() {
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit}>
-          <div className="input-group mb-3">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-user" />
-              </span>
-            </div>
+          <div className="input-group">
+            
             <input
               type="text"
               name="username"
@@ -147,75 +139,54 @@ function Reg() {
               placeholder="Username"
               className="form-control"
               value={data.username}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-envelope-square" />
-              </span>
-            </div>
+          <div className="input-group">
+            
             <input
               type="email"
               name="email"
               placeholder="Email"
               className="form-control"
               value={data.login}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
+          <div className="input-group">
+            
             <input
               type="password"
               name="password1"
               placeholder="Password"
               className="form-control"
               value={data.password}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
+          <div className="input-group">
+            
             <input
               type="password"
               name="password2"
               placeholder="Confirm password"
               className="form-control"
               value={data.password}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
+          <div className="input-group">
             <input
               type="text"
               name="first_name"
               placeholder="First name"
               className="form-control"
               value={data.name}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
-          <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
+          <div className="input-group">
+            
             <input
               type="text"
               name="last_name"
@@ -226,7 +197,18 @@ function Reg() {
             />
 
           </div>
-          <div>
+          <div className="input-group">
+            
+            <input
+              type="checkbox"
+              name='checkbox'
+              id='i_agree'
+              value={data.checkbox}
+              onChange={handleChange}
+            />
+            <label htmlFor="i_agree">Я даю согласие на обработку моих персональных данных 
+            в соответствии с <Link to={'/privacy/'} className='cookie_main_child_link' >политикой обработки персональных данных</Link></label>
+
           </div>
           {isVisible && <div style={{ zIndex: 150, width: 100, height: 30, }}>user ima</div>}
           {isVisibleEmail && <div style={{ zIndex: 150, width: 100, height: 30, }}>imail ima</div>}
@@ -241,7 +223,7 @@ function Reg() {
             <label htmlFor="reg_button" className="btn login_btn">Registration</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme='dark'/>
+            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme}/>
           </div>
         </form>
       </div>
@@ -265,7 +247,7 @@ function Reg() {
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit2}>
-          <div className="input-group mb-3">
+          <div className="input-group">
             <div className="input-group-append">
               <span className="input-group-text">
                 Введите код из email

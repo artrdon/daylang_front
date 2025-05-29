@@ -6,7 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
 import TwoMinuteTimer from '../elems/timer2min';
 import vars from '/api.js'
-
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
 function Log() {
@@ -15,6 +15,8 @@ function Log() {
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
     const recaptchaRef = useRef(null);
+    const websocket = useWebSocket();
+    const theme = useState(websocket.theme);
 
     function getCookie(name) {
       const value = `; ${document.cookie}`;
@@ -58,7 +60,7 @@ function Log() {
             console.log(response.data);
             if (response.data != 'username or password is incorrect'){
               setConf(true);
-              const to_email = await axios.post(`${vars['APIURL']}/email/${response.data}`, { username: data.username, password: data.password, captcha: token}, {
+              const to_email = await axios.post(`${vars['APIURL']}/email/`, { username: data.username, password: data.password, captcha: token, email: response.data}, {
                   headers: {
                       'Content-Type': 'application/json',
                       'X-CSRFToken': getCookie('csrftoken'),
@@ -103,17 +105,16 @@ function Log() {
 
       const handleYandexLogin = () => {
           const clientId = '4fc7bce46ef14fcf9ee912093e44fa1c';
-          const redirectUri = encodeURIComponent('http://localhost:5173/auth/yandex/callback');
+          const redirectUri = encodeURIComponent(`${vars['FRONT_URL']}/auth/yandex/callback`);
           const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
           window.location.href = url;
       };
 
-
     return (
         <>
 
-{!confirmation && <div style={{ width: "100vw", height: "100vh" }}>
-  <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+{!confirmation && <div style={{ width: "100vw", height: "100svh" }}>
+  <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
         <h3 id="form-title">LOGIN</h3>
@@ -162,7 +163,7 @@ function Log() {
             <label htmlFor="login_button" className="btn login_btn">Login</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme='dark'/>
+            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
           </div>
           <button onClick={handleYandexLogin}>
             Войти через Яндекс
@@ -196,7 +197,7 @@ function Log() {
 </div>}
 
 {confirmation && <div style={{ width: "100vw", height: "100vh" }}>
-  <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+  <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
         <h3 id="form-title">LOGIN</h3>

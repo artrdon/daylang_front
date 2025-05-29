@@ -59,6 +59,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
+            console.log(response.data);
         } catch (error) {
             console.error('Ошибка при загрузке фото:', error);
         }
@@ -84,8 +85,8 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
                 },
             });
             document.cookie = `lang=${settingChange.language}; path=/;max-age=31556926`;
-            if (response?.status === 200)
-              location.reload();
+            /*if (response?.status === 200)
+              location.reload();*/
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
@@ -202,7 +203,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
             
             <div className="crt_offer_photo_div">
               <ImageWithFallback src={settingChange.photo} alt="nekicovek nekicovekovic" fallbackSrc="/src/static/img/nema.png"/>
-              <input accept="image" id="icon404873" name="photo" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
+              <input accept="image/png" id="icon404873" name="photo" type="file" tabIndex={-1} aria-hidden="true" onChange={handleFileChange} hidden/>
               <label htmlFor="icon404873" className='crt_offer_load_photo'>{arrLangSettings[lang]['load_photo']}</label>
             </div>
 
