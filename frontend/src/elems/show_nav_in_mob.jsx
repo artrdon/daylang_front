@@ -20,7 +20,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   }
   
 
-function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username, ref, money, firstname, lastname, change_theme, theme}) {
+function ShowNavInMob({setByeFunc, setshowOtherInNav, show, lang, myphoto, username, ref, money, firstname, lastname, change_theme, theme}) {
   
       useEffect(() => {
         let start = 0;
@@ -43,7 +43,7 @@ function ShowNavInMob({setshowOtherInNav, show, lang, myphoto, ifteach, username
 
 return (
     <>
-    <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 1000, position: "fixed"}} onClick={show} ></div>
+    <div style={{ height: "100vh", width: "100vw", backgroundColor: "black", opacity: "30%", zIndex: 1000, position: "fixed"}} onClick={show} />
     <div className={`show_nav_in_mob_nav_panel`} ref={ref}>
         <div style={{ overflow: "auto", width: "100%", height: "100%" }}>
         <div className='show_nav_in_mob_main_info'>
@@ -57,6 +57,11 @@ return (
                               <p className='top_panel_balance'>{arrLangNavigPanel[lang]['balance']}: {money}₽</p>
                             </div>
                         </div>
+                        <button className="show_nav_in_mob_nav_panel_botton_main" onClick={setByeFunc}>
+                            <div style={{display: 'block'}}>
+                              <p className='top_panel_balance'>пополнить</p>
+                            </div>
+                        </button>
                         <div className="show_nav_in_mob_nav_panel_botton_main">
                             <p className='top_panel_balance'>{arrLangNavigPanel[lang]['theme']} </p>
                             <button className="change_theme_button" onClick={change_theme}>

@@ -24,11 +24,24 @@ const WebSocketProvider = ({ children }) => {
           document.querySelector('body').className = "dark_theme";
         }          
       }
-      else{
+      else if (getCookie('theme') === "light"){
         if (document.querySelector('body') != null)
         {
           document.querySelector('body').className = "light_theme";
-        }   
+        }          
+      }
+      else{
+        const systemSettingDark = window.matchMedia("(prefers-color-scheme: dark)");  
+        if (systemSettingDark.matches) {  
+          document.querySelector('body').className = "dark_theme";
+        } 
+        else{
+          if (document.querySelector('body') != null)
+          {
+            document.querySelector('body').className = "light_theme";
+          }
+        }
+           
       }
     }, []);
     

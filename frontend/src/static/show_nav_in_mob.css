@@ -35,7 +35,7 @@
     min-height: 50px; background-color: #f2f2f2; border-radius: 5px; border: 1px solid gray; margin: 20px;
 }
 .show_nav_in_desktop_section_main{
-    margin: 10px;
+    margin: 10px; background-color: #00000000;
 }
 .show_nav_in_mob_nav_panel{
     background-color: #e2e2e2; width: 83vw; height: 100%; position: fixed; bottom: 0; left: 0; z-index: 1000;

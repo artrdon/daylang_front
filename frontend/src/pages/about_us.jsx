@@ -42,20 +42,20 @@ axios.defaults.withCredentials = true;
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} photo={data.photo} balance={data.balance}/>
 
 <div className="ctr_offer_find_panel">
-  <div style={{ display: "flex", justifyContent: "center" }}>
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <div className="crt_offer_gray_thing">
-        <div className="crt_offer_blank">
-          <div className='under_crt_offer_blank'>
-            <span translate="no">ООО "ДЭЙЛЭНГ"</span>
-            <span style={{ display: "block" }} translate="no">
-              ИНН: 218283626, ОГРН: 6232322727237
-            </span>
-          </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+            <div className="crt_offer_gray_thing">
+                <div className="crt_offer_blank">
+                    <div className='under_crt_offer_blank'>
+                        <span translate="no">ООО "ДЭЙЛЭНГ"</span>
+                        <span style={{ display: "block" }} translate="no">
+                            ИНН: 218283626, ОГРН: 6232322727237
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 </>

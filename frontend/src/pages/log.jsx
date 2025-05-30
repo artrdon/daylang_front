@@ -78,6 +78,10 @@ function Log() {
             setIfChel(false);
           }
         } catch (error) {
+          if (error.response?.status === 403){
+            window.location.replace('/forbidden/');
+            return;
+          }
           console.error('There was an error!', error.response.data);
         }
         recaptchaRef.current.reset();

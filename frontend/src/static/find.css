@@ -454,7 +454,7 @@ iframe{
     background-color: #2ab92a00; 
     position: absolute;
     left: 110px;
-    top: 110px; 
+    top: 160px; 
     cursor: pointer; 
     margin-right: 20px;
     outline: none;
@@ -905,6 +905,11 @@ a{
 
 @media only screen and (max-width: 1100px)
 {
+    
+    .navig_panel_button:hover{
+        background-color: #00000000; 
+        transition: 0.2s linear;
+    }
     .cookie_main_div{
         height: auto; bottom: 80px;
     }

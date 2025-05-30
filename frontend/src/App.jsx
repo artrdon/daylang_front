@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group';
 import Cookie from '/src/elems/cookie.jsx'
 import Docks from '/src/elems/docks.jsx'
+import DoBye from './elems/do_bye';
 import ShowNavInMob from '/src/elems/show_nav_in_mob.jsx'
 import arrLangNavigPanel from '/languages/nav_panel.js'
 import axios from 'axios';
@@ -47,11 +48,17 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 function App({ name, lastname, username, lang, lessons, photo, balance }) {
 
   const nodeRef = useRef(null);
+  const refForBye = useRef(null)
   const [showOtherInNav, setshowOtherInNav] = useState(false);
   const [showDesktopPanel, setshowDesktopPanel] = useState(false);
+  const [bye, setBye] = useState(false);
 
   const ShowDesktop = () =>{
     setshowDesktopPanel(!showDesktopPanel);
+  }
+
+  const setByeFunc = () =>{
+    setBye(!bye);
   }
 
   const showNav = () =>{
@@ -152,6 +159,9 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
                 <div className='show_nav_in_desktop_section_main'>
                     <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['balance']}: {balance}₽</p>
                 </div>
+                <button className='show_nav_in_desktop_section_main' onClick={setByeFunc}>
+                    <p className='top_panel_balance_desktop'>пополнить</p>
+                </button>
                 <div className='show_nav_in_desktop_section_main'>
                   
                   <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['theme']}</p>
@@ -273,7 +283,18 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
   unmountOnExit
   nodeRef={nodeRef}
 >
-    <ShowNavInMob setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} username={username} money={balance} firstname={name} lastname={lastname} change_theme={change_theme} theme={theme}/>
+    <ShowNavInMob setByeFunc={setByeFunc} setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} username={username} money={balance} firstname={name} lastname={lastname} change_theme={change_theme} theme={theme}/>
+
+</CSSTransition>
+
+<CSSTransition
+  in={bye}
+  timeout={300}
+  classNames="do_bye_panel"
+  unmountOnExit
+  nodeRef={refForBye}
+>
+    <DoBye bye={bye} ref={refForBye} setBye={setBye} lang={lang} />
 
 </CSSTransition>
 

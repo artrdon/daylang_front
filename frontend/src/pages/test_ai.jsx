@@ -11,20 +11,11 @@ function TestAI() {
     const mediaRecorderRef = useRef(null);
     const audioChunksRef = useRef([]);
     const [isRecording, setIsRecording] = useState(false);
-    const [speech, setSpeech] = useState(new webkitSpeechRecognition());
     const [isSpeaking, setIsSpeaking] = useState(false);
-    const [voices, setVoices] = useState([]);
-    const [selectedVoice, setSelectedVoice] = useState(null);
     const [speechStatus, setSpeechStatus] = useState('Ready');
     const [waitForAnswer, setWaitForAnswer] = useState(false);
     const lang = "Английского"
-    const [promt, setPromt] = useState({promt: ""});
     const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${lang} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${lang} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
-    const handleInput = (e) => {
-        setPromt({ ...promt, [e.target.name]: e.target.value });
-    }
-    const recognition = new webkitSpeechRecognition();
-    let index = 0;
     
     
     function getCookie(name) {
@@ -33,20 +24,6 @@ function TestAI() {
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
         
-    useEffect(() => {
-        if (window.speechSynthesis) {
-            console.log("Синтез речи поддерживается");
-        } 
-        else {
-            console.log("Синтез речи НЕ поддерживается");
-        }
-        if (window.webkitSpeechRecognition) {
-            console.log("Распознавание речи поддерживается");
-        } else {
-            console.log("Распознавание речи НЕ поддерживается");
-        }
-    
-    }, []);
 
     const speak = (text) => {
         if (audio.current) {
@@ -102,7 +79,6 @@ function TestAI() {
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log('Response:', response.data);    
             const newAnswer = {
                 myPromt: response.data['myText'],
                 AIAnswer: response.data['text'],
@@ -112,17 +88,14 @@ function TestAI() {
             if (typeof response.data === 'string') {
                 speak(response.data)
                 
-                setPromt({promt: ""});
                 setWaitForAnswer(false);
             } else if (response.data.text) {
                 speak(response.data)
 
-                setPromt({promt: ""});
                 setWaitForAnswer(false);
             } else {
                 speak(response.data)
                 
-                setPromt({promt: ""});
                 setWaitForAnswer(false);
             }
             
