@@ -20,7 +20,7 @@ function Find() {
   }, [websocket.lessons]);
 
 
-    document.querySelector("title").textContent = "DayLang";
+    
 
 
     axios.defaults.withCredentials = true;
@@ -38,14 +38,9 @@ function Find() {
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
 
-    if (loading) return (
-          <>
-          <AppLoad lang={lang} lessons={lessons}/>
-    </>
-
-    );
+    if (loading) return <AppLoad lang={lang}/>;
     if (error) return <p>Error: {error}</p>;
-
+    document.querySelector("title").textContent = "DayLang";
 
     return (
         <>

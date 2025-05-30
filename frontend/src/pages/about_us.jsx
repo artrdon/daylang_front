@@ -13,7 +13,7 @@ function About() {
   const [lang, setLang] = useState(websocket.lang);
 
 
-    document.querySelector("title").textContent = "About us";
+    
 
 
 axios.defaults.withCredentials = true;
@@ -33,15 +33,10 @@ axios.defaults.withCredentials = true;
   
 
 
-  if (loading) return (
-      <>
-      <AppLoad lang={lang}/>
-</>
-
-  );
+  if (loading) return <AppLoad lang={lang}/>;
   if (error) return <p>Error: {error}</p>;
+  document.querySelector("title").textContent = "About us";
 
-//console.log(data);
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} photo={data.photo} balance={data.balance}/>

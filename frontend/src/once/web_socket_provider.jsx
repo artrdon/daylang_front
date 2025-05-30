@@ -46,7 +46,6 @@ const WebSocketProvider = ({ children }) => {
       initCSRF();
   }, []);
     
-  useEffect(() => {
     if (window.trustedTypes?.createPolicy) {
       window.trustedTypes.createPolicy('defaults', {
         createHTML: (html) => {html.replace(/<iframe[^>]*onload\s*=[^>]+>/gi, ''); console.log("fuck u")},
@@ -54,7 +53,6 @@ const WebSocketProvider = ({ children }) => {
       });
     }
   
-  }, [])
 
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: [`future_lessons_offer`], // Уникальный ключ запроса
@@ -114,7 +112,7 @@ const WebSocketProvider = ({ children }) => {
           return response.data; 
         } catch (err) {
           if (err.response?.status === 401){
-             return 'undefined';
+            return 'undefined';
           }
         }
       },

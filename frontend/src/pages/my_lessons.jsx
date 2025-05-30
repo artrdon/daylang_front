@@ -30,85 +30,80 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function MyLessons() {
 
-  const[page, setPage] = useState(0);
-  const websocket = useWebSocket();
-  const [lessons, setLessons] = useState(websocket.lessons);
-  const [lang, setLang] = useState(websocket.lang);
-  useEffect(() => {
-    setLessons(websocket.lessons);
-}, [websocket.lessons]);
+    const[page, setPage] = useState(0);
+    const websocket = useWebSocket();
+    const [lessons, setLessons] = useState(websocket.lessons);
+    const [lang, setLang] = useState(websocket.lang);
+    useEffect(() => {
+        setLessons(websocket.lessons);
+    }, [websocket.lessons]);
+    
   
-  
-    document.querySelector("title").textContent = "My lessons";
     const params = useParams();
 
-axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
 
 
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
-      queryKey: ['userinfo'], // Уникальный ключ запроса
-      queryFn: async () => {
-        try {
-          const response = await axios.get(`${vars['APIURL']}/userinfo/`);
-          return response.data;
-        } catch (err) {
-          if (err.response?.status === 401){
-            window.location.href = '/log';
-            return null;
-          }
-        }
-      },
-      // Опциональные параметры:
-      retry: 2, // Количество попыток повтора при ошибке
-      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+        queryKey: ['userinfo'], // Уникальный ключ запроса
+        queryFn: async () => {
+            try {
+                const response = await axios.get(`${vars['APIURL']}/userinfo/`);
+                return response.data;
+            } catch (err) {
+                if (err.response?.status === 401){
+                    window.location.href = '/log';
+                    return null;
+                }
+            }
+        },
+        // Опциональные параметры:
+        retry: 2, // Количество попыток повтора при ошибке
+        staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+        refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
 
 
 
-  if (loading) return (
-      <>
-      <AppLoad lang={lang} lessons={lessons}/>
-</>
+    if (loading) return <AppLoad lang={lang}/>;
+    if (error) return <p>Error: {error}</p>;
+    document.querySelector("title").textContent = "My lessons";
+        
+    return (
+        <>
+        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
-  );
-  if (error) return <p>Error: {error}</p>;
+        <div className="find_panel">
+        <div className='find_page_up_buttons'>
+            <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+            {arrLangMyLessons[lang]['future_lessons']}
+            </button>
+            <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+            {arrLangMyLessons[lang]['past_lessons']}
+            </button>
+            {!data.i_am_teacher && <button onClick={() => setPage(2)} className={page === 2 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+            {arrLangMyLessons[lang]['answers_from_teachers']}
+            </button>}
+        </div>
 
-  return (
-      <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
+        
+        <div className="tag_select_panel">
+            <div className='find_page_div_over_offer_types'>
+            <div className='find_page_div_of_offer_types'>
 
-  <div className="find_panel">
-  <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {arrLangMyLessons[lang]['future_lessons']}
-    </button>
-    <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {arrLangMyLessons[lang]['past_lessons']}
-    </button>
-    {!data.i_am_teacher && <button onClick={() => setPage(2)} className={page === 2 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {arrLangMyLessons[lang]['answers_from_teachers']}
-    </button>}
-  </div>
+                {page === 0 && <FutureLessons lang={lang}/>}
+                {page === 1 && <div/>}
 
-  
-  <div className="tag_select_panel">
-    <div className='find_page_div_over_offer_types'>
-      <div className='find_page_div_of_offer_types'>
-
-        {page === 0 && <FutureLessons lang={lang}/>}
-        {page === 1 && <div/>}
-
-      </div>
-    </div>
-  </div>
-  <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
-</div>
+            </div>
+            </div>
+        </div>
+        <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}/>
+        </div>
 
 
-</>
+        </>
 
-  )
+    )
 }
 
 export default MyLessons

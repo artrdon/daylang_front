@@ -41,7 +41,6 @@ function Me() {
   
     const params = useParams();
 
-    document.querySelector("title").textContent = "Me";
 
     axios.defaults.withCredentials = true;
 
@@ -119,7 +118,6 @@ function Me() {
   );
   if (error2) return <p>Error: {error2}</p>;
 
-//console.log(data1.i_am_teacher);
 
 document.querySelector("title").textContent = `${data.first_name} ${data.last_name}`;
     return (

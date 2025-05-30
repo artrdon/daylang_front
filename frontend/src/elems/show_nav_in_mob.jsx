@@ -103,14 +103,9 @@ return (
                 <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['about']}</span>
                 </Link>
                 <div style={{borderTop: '1px solid'}}></div>
-                <Link className="show_nav_in_mob_nav_panel_botton" to='/src/static/docks/pryvacy.pdf'>
-                {/*<img
-                    src="/src/static/img/support.png"
-                    alt="support"
-                    className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
-                />*/}
-                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['privacy_policy']}</span>
-                </Link>
+                <a className="show_nav_in_mob_nav_panel_botton" to='/privacy/' target='_blank'>
+                  <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['privacy_policy']}</span>
+                </a>
         </div>
     </div>
 
