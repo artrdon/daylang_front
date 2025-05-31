@@ -117,12 +117,12 @@ function Log_reset() {
 {!confirmation && <div style={{ width: "100vw", height: "100vh" }}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+      <div className='reg_log_the_main_header'>
         <h3 id="form-title">{arrLangLogin[lang]['reset_password']}</h3>
       </div>
-      <div className="d-flex justify-content-center form_container">
+      <div className="form_container">
         <form onSubmit={handleSubmit}>
-          <div className="input-group mb-3">
+          <div className="input-group">
             <div className="input-group-append">
               <span className="input-group-text">
                 {arrLangLogin[lang]['enter_ur_email']}
@@ -137,33 +137,32 @@ function Log_reset() {
               onChange={handleChange}
             />
           </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
+          <div className="login_container">
             <input
-              className="btn login_btn"
+              className="login_btn"
               type="submit"
               defaultValue="Login"
             />
           </div>
-          
         </form>
-{ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['confirm_u_r_human']}</div>}
+        {ifChel && <div className='reg_log_error_text'>{arrLangLogin[lang]['confirm_u_r_human']}</div>}
       </div>
     </div>
   </div>
 </div>}
 
-{confirmation && !new_password && <div style={{ width: "100vw", height: "100vh" }}>
-  <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+{confirmation && !new_password && <div style={{ width: "100vw", height: "100svh" }}>
+  <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+      <div className='reg_log_the_main_header'>
         <h3 id="form-title">{arrLangLogin[lang]['reset_password']}</h3>
       </div>
-      <div className="d-flex justify-content-center form_container">
+      <div className="form_container">
         <form onSubmit={handleSubmit1}>
-          <div className="input-group mb-3">
+          <div className="input-group">
             <div className="input-group-append">
               <span className="input-group-text">
-              {arrLangLogin[lang]['email_send_code']} <b>{data.email}</b>
+                {arrLangLogin[lang]['email_send_code']} <b>{data.email}</b>
               </span>
             </div>
             <input
@@ -185,7 +184,7 @@ function Log_reset() {
               hidden
             />
           {timehave > 0 && 
-            <label htmlFor='button_to_confirm_email' className='btn login_btn'>{arrLangLogin[lang]['confirm']}</label>
+            <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
           }
         </form>
       </div>
@@ -195,12 +194,12 @@ function Log_reset() {
 {new_password && <div style={{ width: "100vw", height: "100vh" }}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+      <div className='reg_log_the_main_header'>
         <h3 id="form-title">{arrLangLogin[lang]['new_password']}</h3>
       </div>
-      <div className="d-flex justify-content-center form_container">
+      <div className="form_container">
         <form onSubmit={handleSubmit2}>
-          <div className="input-group mb-2">
+          <div className="input-group">
             <input
               type="password"
               name="password1"
@@ -210,7 +209,7 @@ function Log_reset() {
               onChange={handleChange}
             />
           </div>
-          <div className="input-group mb-2">
+          <div className="input-group">
             <input
               type="password"
               name="password2"
@@ -220,13 +219,13 @@ function Log_reset() {
               onChange={handleChange}
             />
           </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
+          <div className="login_container">
             <input
-              className="btn login_btn"
+              className="login_btn"
               type="submit"
             />
           </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
+          <div className="login_container">
             <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
           </div>
         </form>

@@ -124,12 +124,12 @@ function Log() {
 {!confirmation && <div style={{ width: "100vw", height: "100svh" }}>
   <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+      <div className='reg_log_the_main_header'>
         <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
       </div>
-      <div className="d-flex justify-content-center form_container">
+      <div className="form_container">
         <form onSubmit={handleSubmit}>
-          <div className="input-group mb-3">
+          <div className="input-group">
             <input
               type="text"
               name="username"
@@ -140,7 +140,7 @@ function Log() {
               onChange={handleChange}
             />
           </div>
-          <div className="input-group mb-2">
+          <div className="input-group">
             <input
               type="password"
               name="password"
@@ -150,42 +150,40 @@ function Log() {
               onChange={handleChange}
             />
           </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
+          <div className="login_container">
             <input
               type="submit"
               defaultValue="Login"
               id='login_button'
               hidden
             />
-            <label htmlFor="login_button" className="btn login_btn">{arrLangLogin[lang]['login']}</label>
+            <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>
           </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
+          <div className="login_container">
             <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
           </div>
           <button onClick={handleYandexLogin}>
             Войти через Яндекс
-        </button>
+          </button>
         </form>
-
-
       </div>
       <div className="mt-4">
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {ifChel === false && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['confirm_u_r_human']}</div>}
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {passIncor && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['username_or_password_is_incorrect']}</div>}
-        </div>
+        {ifChel === false && <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className='reg_log_error_text' >{arrLangLogin[lang]['confirm_u_r_human']}</div>
+        </div>}
+        {passIncor && <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className='reg_log_error_text' >{arrLangLogin[lang]['username_or_password_is_incorrect']}</div>
+        </div>}
         <div style={{ display: "flex", justifyContent: "center" }}>
-        {arrLangLogin[lang]['dont_have_an_account']}
+          {arrLangLogin[lang]['dont_have_an_account']}
           <Link to="/reg/" className='log_reg_other_links'>
-          {arrLangLogin[lang]['sign_up']}
+            {arrLangLogin[lang]['sign_up']}
           </Link>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-        {arrLangLogin[lang]['forgot_the_password']}
+          {arrLangLogin[lang]['forgot_the_password']}
           <Link to="/log/reset/" className='log_reg_other_links'>
-          {arrLangLogin[lang]['reset']}
+            {arrLangLogin[lang]['reset']}
           </Link>
         </div>
       </div>
@@ -196,12 +194,12 @@ function Log() {
 {confirmation && <div style={{ width: "100vw", height: "100vh" }}>
   <div style={{ width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+      <div className='reg_log_the_main_header'>
         <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
       </div>
-      <div className="d-flex justify-content-center form_container">
+      <div className="form_container">
         <form onSubmit={handleSubmit1}>
-          <div className="input-group mb-3">
+          <div className="input-group">
             <div className="input-group-append">
               <span className="input-group-text">
                 {arrLangLogin[lang]['email_send_code']} <b>{emailForCode}</b>
@@ -226,7 +224,7 @@ function Log() {
               hidden
             />
           {timehave > 0 && 
-            <label htmlFor='button_to_confirm_email' className='btn login_btn'>{arrLangLogin[lang]['confirm']}</label>
+            <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
           }
         </form>
       </div>
@@ -236,9 +234,7 @@ function Log() {
 
 <script src="https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js"></script>
 
-
 </>
-
   )
 }
 

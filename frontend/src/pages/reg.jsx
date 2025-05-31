@@ -121,14 +121,13 @@ function Reg() {
 
     return (
         <>
-
 {!confirmation && <div style={{ width: "100vw", height: "100vh" }}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+      <div className='reg_log_the_main_header'>
         <h3 id="form-title">{arrLangLogin[lang]['reg']}</h3>
       </div>
-      <div className="d-flex justify-content-center form_container">
+      <div className="form_container">
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <input
@@ -142,7 +141,6 @@ function Reg() {
             />
           </div>
           <div className="input-group">
-            
             <input
               type="email"
               name="email"
@@ -153,7 +151,6 @@ function Reg() {
             />
           </div>
           <div className="input-group">
-            
             <input
               type="password"
               name="password1"
@@ -164,7 +161,6 @@ function Reg() {
             />
           </div>
           <div className="input-group">
-            
             <input
               type="password"
               name="password2"
@@ -185,7 +181,6 @@ function Reg() {
             />
           </div>
           <div className="input-group">
-            
             <input
               type="text"
               name="last_name"
@@ -194,40 +189,38 @@ function Reg() {
               value={data.second_name}
               onChange={handleChange}
             />
-
           </div>
           <div className="input-group">
-            
             <input
+              className='reg_log_agree_with_privacy_checkbox'
               type="checkbox"
               name='checkbox'
               id='i_agree'
               value={data.checkbox}
               onChange={handleChange}
             />
-            <label htmlFor="i_agree">{arrLangLogin[lang]['i_agree_with']}<Link to={'/privacy/'} className='cookie_main_child_link' >{arrLangLogin[lang]['privacy']}</Link></label>
-
+            <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span>{arrLangLogin[lang]['i_agree_with']}</span><Link to={'/privacy/'} className='log_reg_other_links' ><span>{arrLangLogin[lang]['privacy']}</span></Link></label>
           </div>
-          {isVisible && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['user_exist']}</div>}
-          {isVisibleEmail && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['email_exist']}</div>}
-          {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['confirm_u_r_human']}</div>}
-          <div className="d-flex justify-content-center mt-3 login_container">
+          {isVisible && <div className='reg_log_error_text' >{arrLangLogin[lang]['user_exist']}</div>}
+          {isVisibleEmail && <div className='reg_log_error_text' >{arrLangLogin[lang]['email_exist']}</div>}
+          {ifChel && <div className='reg_log_error_text' >{arrLangLogin[lang]['confirm_u_r_human']}</div>}
+          <div className="login_container">
             <input
               type="submit"
               defaultValue="Register Account"
               id='reg_button'
               hidden
             />
-            <label htmlFor="reg_button" className="btn login_btn">{arrLangLogin[lang]['registration']}</label>
+            <label htmlFor="reg_button" className="login_btn">{arrLangLogin[lang]['registration']}</label>
           </div>
-          <div className="d-flex justify-content-center mt-3 login_container">
+          <div className="login_container">
             <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
           </div>
         </form>
       </div>
       <div className="mt-4">
         <div style={{ display: "flex", justifyContent: "center" }}>
-        {arrLangLogin[lang]['already_have_an_account']}
+          {arrLangLogin[lang]['already_have_an_account']}
           <Link to="/log/" className='log_reg_other_links'>
             {arrLangLogin[lang]['log']}
           </Link>
@@ -238,12 +231,12 @@ function Reg() {
 </div>}
 
 {confirmation && <div style={{ width: "100vw", height: "100vh" }}>
-  <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+  <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
+      <div className='reg_log_the_main_header'>
         <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
       </div>
-      <div className="d-flex justify-content-center form_container">
+      <div className="form_container">
         <form onSubmit={handleSubmit2}>
           <div className="input-group">
             <div className="input-group-append">
@@ -270,18 +263,14 @@ function Reg() {
               hidden
             />
           {timehave > 0 && 
-            <label htmlFor='button_to_confirm_email' className='btn login_btn'>{arrLangLogin[lang]['confirm']}</label>
+            <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
           }
         </form>
       </div>
     </div>
   </div>
 </div>}
-
-
-
 </>
-
   )
 }
 
