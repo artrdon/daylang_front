@@ -1,4 +1,4 @@
-const arrLangCreateOffer = {
+/*const arrLangCreateOffer = {
     'english': {
         'create_offer': 'Create offer',
         'update_offer': 'Update offer',
@@ -174,4 +174,4 @@ const arrLangCreateOffer = {
         'delete': 'Eliminar',
     },
 };
-export default arrLangCreateOffer
+export default arrLangCreateOffer*/

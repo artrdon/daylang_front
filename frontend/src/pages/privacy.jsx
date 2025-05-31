@@ -1,11 +1,14 @@
-import { Document, Page, pdfjs } from 'react-pdf';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
-import { useState } from 'react';
+import arrLangNavigPanel from "../../languages/nav_panel";
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
 export default function Privacy() {
+
+  const websocket = useWebSocket();
+  const lang = websocket.lang;
   
+
+  document.querySelector("title").textContent = arrLangNavigPanel[lang]['privacy_policy'];  
 
   return (
     <div style={{

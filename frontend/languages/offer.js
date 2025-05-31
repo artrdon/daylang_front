@@ -1,4 +1,4 @@
-const arrLangOffer = {
+/*const arrLangOffer = {
     'english': {
         'reviews': 'Reviews',
         'message': "Send message",
@@ -131,5 +131,5 @@ const arrLangOffer = {
         'travelling': "Viajes",
         'age': "Edad"
     }
-};
+};*/
 export default arrLangOffer

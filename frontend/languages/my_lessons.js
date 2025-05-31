@@ -1,4 +1,4 @@
-const arrLangMyLessons = {
+/*const arrLangMyLessons = {
     'english': {
         'future_lessons': "Future lessons",
         'past_lessons': "Past lessons",
@@ -30,4 +30,4 @@ const arrLangMyLessons = {
         'answers_from_teachers': "Respuestas de profesores",
     }
 };
-export default arrLangMyLessons
+export default arrLangMyLessons*/

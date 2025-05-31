@@ -1,8 +1,10 @@
 import React from 'react';
 import LoadingSpinner from '../elems/loading_spinner.jsx';
+import arrLangNavigPanel from '../../languages/nav_panel.js';
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import vars from '/api.js'
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 import '/src/static/ai_speak.css'
 
 function TestAI() {
@@ -14,9 +16,10 @@ function TestAI() {
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [speechStatus, setSpeechStatus] = useState('Ready');
     const [waitForAnswer, setWaitForAnswer] = useState(false);
-    const lang = "Английского"
-    const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${lang} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${lang} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
-    
+    const language = "Английского"
+    const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
+    const websocket = useWebSocket();
+    const [lang, setLang] = useState(websocket.lang);
     
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -193,6 +196,7 @@ function TestAI() {
         mediaRecorderRef.current.stop();
         setIsRecording(false);
     };
+    document.querySelector("title").textContent = arrLangNavigPanel[lang]['ai'];
 
     return (
         <>

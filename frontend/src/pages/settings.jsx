@@ -7,6 +7,7 @@ import Settings_load from '/src/load_elems/settings_load.jsx'
 import axios from 'axios';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import arrLangNavigPanel from '../../languages/nav_panel.js';
 
 function Settings() {
 
@@ -25,7 +26,7 @@ function Settings() {
 
     const csrfToken = getCookie('csrftoken');*/
 
-    document.querySelector("title").textContent = "Settings";
+    
 
 
 axios.defaults.withCredentials = true;
@@ -122,7 +123,7 @@ if (loading3) return (
 if (error3) return <p>Error: {error3}</p>;
 
 
-  document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | Настройки`;
+  document.querySelector("title").textContent = `${data.first_name} ${data.last_name} | ${arrLangNavigPanel[lang]['setting']}`;
 
     return (
         <>

@@ -6,6 +6,7 @@ import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import arrLangNavigPanel from '../../languages/nav_panel.js';
 
 function About() {
 
@@ -35,7 +36,7 @@ axios.defaults.withCredentials = true;
 
   if (loading) return <AppLoad lang={lang}/>;
   if (error) return <p>Error: {error}</p>;
-  document.querySelector("title").textContent = "About us";
+  document.querySelector("title").textContent = arrLangNavigPanel[lang]['about'];
 
     return (
         <>

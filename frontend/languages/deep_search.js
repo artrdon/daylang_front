@@ -1,4 +1,4 @@
-const DeepSearchLangArr = {
+/*const DeepSearchLangArr = {
     'english': {
         'format': "Format",
         'individual': "Individual",
@@ -108,4 +108,4 @@ const DeepSearchLangArr = {
         'find': "Encontrar"
     }
 };
-export default DeepSearchLangArr
+export default DeepSearchLangArr*/

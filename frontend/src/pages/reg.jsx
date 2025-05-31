@@ -6,20 +6,23 @@ import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import arrLangLogin from '../../languages/login_translate.js';
 
 
 function Reg() {
 
     axios.defaults.withCredentials = true;
 
-    document.querySelector("title").textContent = "Registration";
+    
     const recaptchaRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleEmail, setIsVisibleEmail] = useState(false);
     const [ifChel, setIfChel] = useState(false);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
+    const [emailForCode, setEmailForCode] = useState('');
     const websocket = useWebSocket();
+    const [lang, setLang] = useState(websocket.lang);
     const theme = useState(websocket.theme);
 
 
@@ -52,7 +55,7 @@ function Reg() {
         e.preventDefault();
         try {
             if (!data.checkbox){
-              alert("Вы должны согласиться на обработку персональных данных, нажав на флажок");
+              alert(arrLangLogin[lang]['u_must_agree_with']);
               return;
             }
             const token = await recaptchaRef.current.executeAsync();
@@ -65,7 +68,7 @@ function Reg() {
                         'X-CSRFToken': getCookie('csrftoken'),
                     },
                 });
-
+                setEmailForCode(response.data);
                 console.log(response.data);
                 if (response.data === "ima")
                 {
@@ -77,7 +80,7 @@ function Reg() {
                 }
                 else{
                     setConf(true);
-                    const email = await axios.post(`${vars['APIURL']}/email/${response.data}`, data, {
+                    const email = await axios.post(`${vars['APIURL']}/email/`, { username: data.username, email: response.data, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name}, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': getCookie('csrftoken'),
@@ -89,10 +92,6 @@ function Reg() {
             else{
                 setIfChel(true);
             }
-            //window.history.back();
-
-           // tut dolzna bitj avtomaticheskaja login
-
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
@@ -110,7 +109,6 @@ function Reg() {
             if (response.data["if"] === "yes"){
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
                 window.location.replace('/'); // Нет возможности вернуться
-
             }
             console.log('Response:', response.data);
 
@@ -119,6 +117,8 @@ function Reg() {
         }
     };
 
+    document.querySelector("title").textContent = arrLangLogin[lang]['reg'];
+
     return (
         <>
 
@@ -126,17 +126,16 @@ function Reg() {
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-        <h3 id="form-title">REGISTER ACCOUNT</h3>
+        <h3 id="form-title">{arrLangLogin[lang]['reg']}</h3>
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            
             <input
               type="text"
               name="username"
               pattern="[a-zA-Z0-9]{1,140}"
-              placeholder="Username"
+              placeholder={arrLangLogin[lang]['username']}
               className="form-control"
               value={data.username}
               onChange={handleChange}
@@ -147,7 +146,7 @@ function Reg() {
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={arrLangLogin[lang]['email']}
               className="form-control"
               value={data.login}
               onChange={handleChange}
@@ -158,7 +157,7 @@ function Reg() {
             <input
               type="password"
               name="password1"
-              placeholder="Password"
+              placeholder={arrLangLogin[lang]['password']}
               className="form-control"
               value={data.password}
               onChange={handleChange}
@@ -169,7 +168,7 @@ function Reg() {
             <input
               type="password"
               name="password2"
-              placeholder="Confirm password"
+              placeholder={arrLangLogin[lang]['confirm_password']}
               className="form-control"
               value={data.password}
               onChange={handleChange}
@@ -179,7 +178,7 @@ function Reg() {
             <input
               type="text"
               name="first_name"
-              placeholder="First name"
+              placeholder={arrLangLogin[lang]['first_name']}
               className="form-control"
               value={data.name}
               onChange={handleChange}
@@ -190,7 +189,7 @@ function Reg() {
             <input
               type="text"
               name="last_name"
-              placeholder="Last name"
+              placeholder={arrLangLogin[lang]['last_name']}
               className="form-control"
               value={data.second_name}
               onChange={handleChange}
@@ -206,13 +205,12 @@ function Reg() {
               value={data.checkbox}
               onChange={handleChange}
             />
-            <label htmlFor="i_agree">Я даю согласие на обработку моих персональных данных 
-            в соответствии с <Link to={'/privacy/'} className='cookie_main_child_link' >политикой обработки персональных данных</Link></label>
+            <label htmlFor="i_agree">{arrLangLogin[lang]['i_agree_with']}<Link to={'/privacy/'} className='cookie_main_child_link' >{arrLangLogin[lang]['privacy']}</Link></label>
 
           </div>
-          {isVisible && <div style={{ zIndex: 150, width: 100, height: 30, }}>user ima</div>}
-          {isVisibleEmail && <div style={{ zIndex: 150, width: 100, height: 30, }}>imail ima</div>}
-          {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
+          {isVisible && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['user_exist']}</div>}
+          {isVisibleEmail && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['email_exist']}</div>}
+          {ifChel && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['confirm_u_r_human']}</div>}
           <div className="d-flex justify-content-center mt-3 login_container">
             <input
               type="submit"
@@ -220,18 +218,18 @@ function Reg() {
               id='reg_button'
               hidden
             />
-            <label htmlFor="reg_button" className="btn login_btn">Registration</label>
+            <label htmlFor="reg_button" className="btn login_btn">{arrLangLogin[lang]['registration']}</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
-            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme}/>
+            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
           </div>
         </form>
       </div>
       <div className="mt-4">
         <div style={{ display: "flex", justifyContent: "center" }}>
-          Already have an account?{" "}
+        {arrLangLogin[lang]['already_have_an_account']}
           <Link to="/log/" className='log_reg_other_links'>
-            Login
+            {arrLangLogin[lang]['log']}
           </Link>
         </div>
       </div>
@@ -243,14 +241,14 @@ function Reg() {
   <div style={{  width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-        <h3 id="form-title">LOGIN</h3>
+        <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit2}>
           <div className="input-group">
             <div className="input-group-append">
               <span className="input-group-text">
-                Введите код из email
+                {arrLangLogin[lang]['email_send_code']} <b>{emailForCode}</b>
               </span>
             </div>
             <input
@@ -258,18 +256,22 @@ function Reg() {
               max={999999}
               min={100000}
               name="code"
-              placeholder="code from email"
+              placeholder={arrLangLogin[lang]['code_from_email']}
               className="form-control"
               value={data2.code}
               onChange={handleChange2}
             />
           </div>
           <TwoMinuteTimer setTimehave={setTimehave}/>
-          {timehave > 0 && <input
-              className="btn login_btn"
+          <input
               type="submit"
+              id='button_to_confirm_email'
               defaultValue="Confirm"
-            />}
+              hidden
+            />
+          {timehave > 0 && 
+            <label htmlFor='button_to_confirm_email' className='btn login_btn'>{arrLangLogin[lang]['confirm']}</label>
+          }
         </form>
       </div>
     </div>

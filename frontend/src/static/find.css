@@ -1158,6 +1158,9 @@ a{
 
 @media only screen and (max-width: 525px)
 {
+    .find_panel {
+        top: 13.33333333333333vw;
+    }
     .main_load_the_most_first_img{
         width: 38.0952380952381vw; height: 38.0952380952381vw;
     }

@@ -1,4 +1,4 @@
-const arrLangMessage = {
+/*const arrLangMessage = {
     'english': {
         'message': "Send message",          // Отправить сообщение
         'delete': "Delete",                 // Удалить
@@ -36,4 +36,4 @@ const arrLangMessage = {
         'ed': "edit.",                     // ред. (сокращение)
     },
 };
-export default arrLangMessage
+export default arrLangMessage*/

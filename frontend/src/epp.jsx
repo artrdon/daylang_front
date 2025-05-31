@@ -8,10 +8,11 @@ import About from '/src/pages/about_us.jsx'
 import NotFound from '/src/pages/notfound.jsx'
 import Reg from '/src/pages/reg.jsx'
 import Log from '/src/pages/log.jsx'
-import MyLessons from '/src/pages/my_lessons.jsx'
+import MyWords from '/src/pages/my_words.jsx'
 import TestAI from './pages/test_ai.jsx';
 import Forbidden from './pages/forbidden.jsx';
 import Privacy from './pages/privacy.jsx';
+import Support from './pages/support.jsx'
 import CallbackHandler from './pages/yandex_call_back.jsx'
 
 
@@ -32,8 +33,8 @@ export default function Epp(){
             <Route path="/user/:user/" element={<Me />}/>
             <Route path="/settings/" element={<Settings />}/>
             <Route path="/about_us/" element={<About />}/>
-            <Route path='/my_lessons/' element={<MyLessons />} />
-            <Route path='/support/' element={<MyLessons />} />
+            <Route path='/my_words/' element={<MyWords />} />
+            <Route path='/support/' element={<Support />} />
             <Route path="/privacy/" element={<Privacy />} />
             <Route path="/forbidden/" element={<Forbidden />} />
             <Route path="/not_found/" element={<NotFound />} />

@@ -43,13 +43,9 @@ function AppLoad({ lang, lessons }) {
           alt="my lessons"
           className="app_navig_panel_img on_desktop_panel"
         />
-        
-
-        {lessons > 0 && lessons < 100 && <div className="app_lessons_indicator" id="id_of_a_message_count">{lessons}</div>}
-        {lessons > 99 && <div className="app_lessons_indicator handredmore" id="id_of_a_message_count">+99</div>}
 
         
-        <span className="text_in_panel" >{arrLangNavigPanel[lang]['my_lessons']}</span>
+        <span className="text_in_panel" >{arrLangNavigPanel[lang]['my_words']}</span>
       </Link>
       
       <a className="navig_panel_button"id="only_for_fon">

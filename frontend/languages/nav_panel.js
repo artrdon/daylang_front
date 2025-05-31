@@ -5,12 +5,13 @@ const arrLangNavigPanel = {
         'saved': 'Saved',
         'setting': 'Settings',
         'support': 'Support',
-        'my_lessons': "My lessons",
+        'my_words': "My words",
         'balance': 'Current balance',
         'become_teacher': 'Become a teacher',
         'theme': 'Theme',
         'privacy_policy': "Privacy Policy",
         'about': 'About Us',
+        'ai': 'AI'
     },
     'russian': {
         'find': "Найти",
@@ -18,12 +19,13 @@ const arrLangNavigPanel = {
         'saved': 'Сохранённые',
         'setting': 'Настройки',
         'support': 'Поддержка',
-        'my_lessons': "Мои занятия",
+        'my_words': "Мои слова",
         'balance': 'Текущий баланс',
         'become_teacher': 'Стать преподавателем',
         'theme': 'Тема',
         'privacy_policy': "Политика конфиденциальности",
         'about': 'О нас',
+        'ai': "ИИ"
     },
     'serbian-lat': {
         'find': "Naći",
@@ -31,12 +33,13 @@ const arrLangNavigPanel = {
         'saved': 'Sačuvano',
         'setting': 'Podešavanja',
         'support': 'Podrška',
-        'my_lessons': "Moje lekcije",
+        'my_words': "Moje reči",
         'balance': 'Trenutni saldo',
         'become_teacher': 'Postani predavač',
         'theme': 'Tema',
         'privacy_policy': "Politika privatnosti",
         'about': 'O nama',
+        'ai': "AI"
     },
     'serbian-cir': {
         'find': "Наћи",
@@ -44,12 +47,13 @@ const arrLangNavigPanel = {
         'saved': 'Сачувано',
         'setting': 'Подешавања',
         'support': 'Подршка',
-        'my_lessons': "Моје лекције",
+        'my_words': "Моје речи",
         'balance': 'Тренутни салдо',
         'become_teacher': 'Постани предавач',
         'theme': 'Тема',
         'privacy_policy': "Политика приватности",
         'about': 'О нама',
+        'ai': "АИ"
     },
     'germany': {
         'find': "Finden",
@@ -57,12 +61,13 @@ const arrLangNavigPanel = {
         'saved': 'Gespeichert',
         'setting': 'Einstellungen',
         'support': 'Unterstützung',
-        'my_lessons': "Meine Lektionen",
+        'my_words': "Meine Wörter",
         'balance': 'Aktueller Kontostand',
         'become_teacher': 'Lehrer werden',
         'theme': 'Thema',
         'privacy_policy': "Datenschutzrichtlinie",
         'about': 'Über uns',
+        'ai': "KI" // Künstliche Intelligenz (common German abbreviation)
     },
     'spanish': {
         'find': "Encontrar",
@@ -70,12 +75,13 @@ const arrLangNavigPanel = {
         'saved': 'Guardado',
         'setting': 'Ajustes',
         'support': 'Soporte',
-        'my_lessons': "Mis lecciones",
+        'my_words': "Mis palabras",
         'balance': 'Saldo actual',
         'become_teacher': 'Convertirse en profesor',
         'theme': 'Tema',
         'privacy_policy': "Política de privacidad",
         'about': 'Sobre nosotros',
-    },
+        'ai': "IA" // Inteligencia Artificial
+    }
 };
 export default arrLangNavigPanel

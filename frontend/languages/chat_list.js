@@ -1,4 +1,4 @@
-const arrLangChatList = {
+/*const arrLangChatList = {
     'english': {
         'delete': "Delete",
         'quit': "Cancel",
@@ -42,4 +42,4 @@ const arrLangChatList = {
         'no': 'No'
     }
 };
-export default arrLangChatList
+export default arrLangChatList*/

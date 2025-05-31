@@ -1,34 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
-import arrLangMyLessons from '../../languages/my_lessons.js';
+import arrLangNavigPanel from '../../languages/nav_panel.js';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
-import FutureLessons from '/src/elems/future_lessons.jsx';
-
-function ImageWithFallback({ src, fallbackSrc, alt, }) {
-  const [imgSrc, setImgSrc] = useState(src);
-
-  const handleError = () => {
-    setImgSrc(fallbackSrc);
-  };
-
-  return (
-    <img
-      className="finded_img"
-      src={imgSrc}
-      alt={alt}
-      onError={handleError}
-    />
-  );
-}
+import NotFoundSave from '../elems/not_found_save.jsx';
 
 
-
-function MyLessons() {
+function MyWords() {
 
     const[page, setPage] = useState(0);
     const websocket = useWebSocket();
@@ -67,32 +49,20 @@ function MyLessons() {
 
     if (loading) return <AppLoad lang={lang}/>;
     if (error) return <p>Error: {error}</p>;
-    document.querySelector("title").textContent = "My lessons";
+    document.querySelector("title").textContent = arrLangNavigPanel[lang]['my_words'];
         
     return (
         <>
         <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
         <div className="find_panel">
-        <div className='find_page_up_buttons'>
-            <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-            {arrLangMyLessons[lang]['future_lessons']}
-            </button>
-            <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-            {arrLangMyLessons[lang]['past_lessons']}
-            </button>
-            {!data.i_am_teacher && <button onClick={() => setPage(2)} className={page === 2 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-            {arrLangMyLessons[lang]['answers_from_teachers']}
-            </button>}
-        </div>
 
         
         <div className="tag_select_panel">
             <div className='find_page_div_over_offer_types'>
             <div className='find_page_div_of_offer_types'>
 
-                {page === 0 && <FutureLessons lang={lang}/>}
-                {page === 1 && <div/>}
+                <NotFoundSave iwant={"soon"} lang={lang}/>;
 
             </div>
             </div>
@@ -106,4 +76,4 @@ function MyLessons() {
     )
 }
 
-export default MyLessons
+export default MyWords

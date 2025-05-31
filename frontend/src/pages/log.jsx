@@ -7,6 +7,7 @@ import axios from 'axios';
 import TwoMinuteTimer from '../elems/timer2min';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import arrLangLogin from '../../languages/login_translate.js';
 
 
 function Log() {
@@ -14,8 +15,10 @@ function Log() {
     const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
+    const [emailForCode, setEmailForCode] = useState('');
     const recaptchaRef = useRef(null);
     const websocket = useWebSocket();
+    const [lang, setLang] = useState(websocket.lang);
     const theme = useState(websocket.theme);
 
     function getCookie(name) {
@@ -24,9 +27,6 @@ function Log() {
       if (parts.length === 2) return parts.pop().split(';').shift();
   }
   
-
-    document.querySelector("title").textContent = "Authentication";
-
     const [data, setData] = useState({ username: '', password: '', captcha: ''});
     const [data1, setData1] = useState({ code: '', username: data.username, password: data.username});
     const [passIncor, setPassIncor] = useState(false);
@@ -58,6 +58,7 @@ function Log() {
                 },
             });
             console.log(response.data);
+            setEmailForCode(response.data);
             if (response.data != 'username or password is incorrect'){
               setConf(true);
               const to_email = await axios.post(`${vars['APIURL']}/email/`, { username: data.username, password: data.password, captcha: token, email: response.data}, {
@@ -66,6 +67,7 @@ function Log() {
                       'X-CSRFToken': getCookie('csrftoken'),
                   },
               });
+
               console.log('Response:', to_email.data);
 
             }
@@ -98,8 +100,7 @@ function Log() {
             });
             if (response.data["if"] === "yes"){
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
-                window.location.replace('/'); // Нет возможности вернуться
-
+                window.location.replace('/');
             }
             console.log('Response:', response.data);
         } catch (error) {
@@ -114,6 +115,9 @@ function Log() {
           window.location.href = url;
       };
 
+
+    document.querySelector("title").textContent = arrLangLogin[lang]['log'];
+
     return (
         <>
 
@@ -121,50 +125,39 @@ function Log() {
   <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-        <h3 id="form-title">LOGIN</h3>
+        <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-user" />
-              </span>
-            </div>
             <input
               type="text"
               name="username"
-              placeholder="username"
+              placeholder={arrLangLogin[lang]['username']}
               pattern="[a-zA-Z0-9]{1,140}"
               className="form-control"
               value={data.username}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
           <div className="input-group mb-2">
-            <div className="input-group-append">
-              <span className="input-group-text">
-                <i className="fas fa-key" />
-              </span>
-            </div>
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder={arrLangLogin[lang]['password']}
               className="form-control"
               value={data.password}
-            onChange={handleChange}
+              onChange={handleChange}
             />
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
             <input
-              
               type="submit"
               defaultValue="Login"
               id='login_button'
               hidden
             />
-            <label htmlFor="login_button" className="btn login_btn">Login</label>
+            <label htmlFor="login_button" className="btn login_btn">{arrLangLogin[lang]['login']}</label>
           </div>
           <div className="d-flex justify-content-center mt-3 login_container">
             <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
@@ -178,21 +171,21 @@ function Log() {
       </div>
       <div className="mt-4">
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {ifChel === false && <div style={{ zIndex: 150, width: 100, height: 30, }}>podtverdi sto to chelovek</div>}
+          {ifChel === false && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['confirm_u_r_human']}</div>}
         </div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {passIncor && <div style={{ zIndex: 150, width: 100, height: 30, }}>username or password is incorrect</div>}
+          {passIncor && <div style={{ zIndex: 150, width: 100, height: 30, }}>{arrLangLogin[lang]['username_or_password_is_incorrect']}</div>}
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          Don't have an account?{" "}
+        {arrLangLogin[lang]['dont_have_an_account']}
           <Link to="/reg/" className='log_reg_other_links'>
-            Sign Up
+          {arrLangLogin[lang]['sign_up']}
           </Link>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          Forgot the password?{" "}
+        {arrLangLogin[lang]['forgot_the_password']}
           <Link to="/log/reset/" className='log_reg_other_links'>
-            Reset
+          {arrLangLogin[lang]['reset']}
           </Link>
         </div>
       </div>
@@ -201,17 +194,17 @@ function Log() {
 </div>}
 
 {confirmation && <div style={{ width: "100vw", height: "100vh" }}>
-  <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+  <div style={{ width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div style={{ display: "flex", justifyContent: "center", width: "100%", background: "#004aff", height: "70px", alignItems: "center", borderTopRightRadius: 5,  borderTopLeftRadius: 5}}>
-        <h3 id="form-title">LOGIN</h3>
+        <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
       </div>
       <div className="d-flex justify-content-center form_container">
         <form onSubmit={handleSubmit1}>
           <div className="input-group mb-3">
             <div className="input-group-append">
               <span className="input-group-text">
-                Введите код из email
+                {arrLangLogin[lang]['email_send_code']} <b>{emailForCode}</b>
               </span>
             </div>
             <input
@@ -219,20 +212,22 @@ function Log() {
               max={999999}
               min={100000}
               name="code"
-              placeholder="code from email"
+              placeholder={arrLangLogin[lang]['code_from_email']}
               className="form-control"
               value={data1.code}
-            onChange={handleChange1}
+              onChange={handleChange1}
             />
           </div>
           <TwoMinuteTimer setTimehave={setTimehave}/>
-          {timehave > 0 && <input
-              className="btn login_btn"
+          <input
               type="submit"
+              id='button_to_confirm_email'
               defaultValue="Confirm"
-            />}
-          
-        
+              hidden
+            />
+          {timehave > 0 && 
+            <label htmlFor='button_to_confirm_email' className='btn login_btn'>{arrLangLogin[lang]['confirm']}</label>
+          }
         </form>
       </div>
     </div>
