@@ -2,7 +2,10 @@
     height: auto; width: 160px; aspect-ratio: 16/10; position: absolute; z-index: 10; top: 30px; left: 20px
 }
 .offer_type_name_of_lang{
-    position: absolute; font-size: 28px; z-index: 10; font-weight: 600; top: 170px; color: white;
+    position: absolute; font-size: 28px; z-index: 10; font-weight: 600; top: 140px; color: white;
+}
+.offer_type_price{
+    position: absolute; font-size: 28px; z-index: 10; font-weight: 600; top: 180px; color: white;
 }
 
 
@@ -15,17 +18,39 @@
     }
     .offer_type_name_of_lang{
         font-size: 2.545454545454545vw;
-        top: 15.45454545454545vw;
+        top: 14.72727272727273vw;
+    }
+    .offer_type_price{
+        font-size: 2.545454545454545vw;
+        top: 18.18181818181818vw;
     }
 }
 @media (max-width: 900px) {
     .offer_type_name_of_lang{
+        font-size: 3.5vw;
+        top: 18.18181818181818vw;
+    }
+    .offer_type_price{
+        font-size: 3.5vw;
+        top: 23.63636363636363vw;
+    }
+}
+@media (max-width: 751px) {
+    .offer_type_name_of_lang{
+        font-size: 3.5vw;
+        top: 20.45454545454545vw;
+    }
+    .offer_type_price{
         font-size: 3.5vw;
         top: 25vw;
     }
 }
 @media (max-width: 600px) {
     .offer_type_name_of_lang{
+        font-size: 6vw;
+        top: 30vw;
+    }
+    .offer_type_price{
         font-size: 6vw;
         top: 38vw;
     }

@@ -62,7 +62,7 @@ function MyWords() {
             <div className='find_page_div_over_offer_types'>
             <div className='find_page_div_of_offer_types'>
 
-                <NotFoundSave iwant={"soon"} lang={lang}/>;
+                <NotFoundSave iwant={"soon"} lang={lang}/>
 
             </div>
             </div>

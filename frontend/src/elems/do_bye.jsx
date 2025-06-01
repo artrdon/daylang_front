@@ -41,21 +41,21 @@ function DoBye({ bye, ref, setBye, lang }) {
     const params = useParams();
 
     const setSelectedTarif = (e) => {
-      setTarif(e.target.name);
+      setTarif(e.currentTarget.name);
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${vars['APIURL']}/bye/`, data, {
+            const response = await axios.post(`${vars['APIURL']}/bye/`, {summa: tarif}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
                 },
             });
-            /*console.log('Response:', response.data);
-            if (response.data === "serializer.data"){
+            console.log('Response:', response.data);
+            if (response.status === 200){
                 location.reload();
-            }*/
+            }
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -69,20 +69,44 @@ return (
             <div className='do_bye_transparency_fon' onClick={setByeFunc} />
             <div className='do_bye_panel' ref={ref}>
               <div className='do_bye_overflow_of_ready_offers'>
+                <div className='do_bye_ready_offers_title'>
+                  <p>Выберите сумму пополнения</p>
+                </div>
                 <button className={`do_bye_ready_offer_to_bye${tarif === "100" ? ' do_bye_offer_to_bye_selected' : ''}`} name='100' onClick={setSelectedTarif}>
-
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                    <span >
+                      <p>100</p>
+                    </span>
+                    <span >
+                      <p>рублей</p>
+                    </span>
+                  </div>
                 </button>
 
                 <button className={`do_bye_ready_offer_to_bye${tarif === "300" ? ' do_bye_offer_to_bye_selected' : ''}`} name='300' onClick={setSelectedTarif}>
-
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                    <span >
+                      <p>300</p>
+                    </span>
+                    <span >
+                      <p>рублей</p>
+                    </span>
+                  </div>
                 </button>
 
                 <button className={`do_bye_ready_offer_to_bye${tarif === "500" ? ' do_bye_offer_to_bye_selected' : ''}`} name='500' onClick={setSelectedTarif}>
-
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                    <span >
+                      <p>500</p>
+                    </span>
+                    <span >
+                      <p>рублей</p>
+                    </span>
+                  </div>
                 </button>
               </div>
               {tarif === '' ? null : (<>
-                <button className='do_bye_bye_button'>
+                <button className='do_bye_bye_button' onClick={handleSubmit}>
                   пополнить на {tarif} рублей
                 </button>
               </>)}

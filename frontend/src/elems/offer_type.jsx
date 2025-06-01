@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import arrLangOfferType from '/languages/offer_type.js'
 
-function Type_offer({ lang, language_name, flag }) {
+function Type_offer({ lang, language_name, flag, price }) {
 
   
     return (
@@ -14,6 +14,11 @@ function Type_offer({ lang, language_name, flag }) {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <p className='offer_type_name_of_lang'>
             {arrLangOfferType[lang][language_name]}
+          </p>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <p className='offer_type_price'>
+            {price}
           </p>
         </div>
         <img src="/src/static/img/bluefon.png" alt="fon" className="service_img" />

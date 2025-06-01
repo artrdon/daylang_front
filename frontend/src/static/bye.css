@@ -19,28 +19,31 @@
 
 .do_bye_panel{
     background-color: #e8e8e8; width: 600px; height: 700px; position: fixed; z-index: 1000; border-radius: 10px;
-    box-shadow: 0px 0px 50px #878787; padding: 10px;
+    box-shadow: 0px 0px 50px #878787;
+}
+.do_bye_ready_offers_title{
+    width: calc(100% - 30px); height: 30px; color: #000000; border-radius: 10px; margin: 15px; font-size: 25px;
 }
 .do_bye_transparency_fon{
     width: 100vw; height: 100svh; position: fixed; top: 0; left: 0; z-index: 1000; background-color: #00000030; backdrop-filter: blur(3px);
 }
 .do_bye_ready_offer_to_bye{
-    width: 100%; height: 80px; background-color: #bbbbbb; border-radius: 10px;
+    width: 100%; height: 80px; border-top: 1px solid #bbbbbb; border-bottom: 1px solid #bbbbbb; padding: 15px; background-color: #ffffff00;
 }
 .do_bye_offer_to_bye_selected{
-    background-color: #929292;
+    background-color: #bbbbbb;
 }
 .do_bye_overflow_of_ready_offers{
-    height: calc(100% - 80px);
+    width: 100%; height: calc(100% - 80px); position: absolute; top: 0px;
 }
 .do_bye_bye_button{
-    width: 100%; height: 80px; background-color: #2854c7; border-radius: 10px;
+    width: 100%; height: 80px; background-color: #2854c7; border-radius: 10px; color: #ffffff; font-size: 25px; position: absolute; bottom: 0px;
 }
 
 @media only screen and (max-width: 1100px) 
 {
     .do_bye_panel{
-        width: calc(100% - 20px); height: 80svh; bottom: 0px; left: 0px;
+        width: 100%; height: 80svh; bottom: 0px; left: 0px;
     }
     
 }
