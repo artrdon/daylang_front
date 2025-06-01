@@ -1,25 +1,37 @@
 import { useState, useEffect, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query';
-import { useQueryClient } from '@tanstack/react-query';
+import { CSSTransition } from 'react-transition-group';
 import FindLang from '../../languages/find.js';
 import axios from 'axios';
 import Type_offer from '/src/elems/offer_type.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
+import MoreInfoFromFind from '../elems/moreinfofromfind.jsx';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
-import { CSSTransition } from 'react-transition-group';
 
 
 function Find() {
+    const [data1, setData1] = useState([
+      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 100},
+      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 100},
+    ])
     const websocket = useWebSocket();
     const [lessons, setLessons] = useState(websocket.lessons);
     const [lang, setLang] = useState(websocket.lang);
+    const node = useRef(null);
     useEffect(() => {
-      setLessons(websocket.lessons);
-  }, [websocket.lessons]);
+        setLessons(websocket.lessons);
+    }, [websocket.lessons]);
 
-
+    const [moreinfo, setMoreInfo] = useState(false);
+    const [idOfInfo, setIdOfInfo] = useState('');
+    const getMoreInfo = (id) => {
+      let idd = Number(id);
+      
+      setIdOfInfo(idd);
+      setMoreInfo(true);
+    }
     
 
 
@@ -53,24 +65,27 @@ function Find() {
     </p>*/}
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
-
-
-        <Type_offer lang={lang} language_name={"english"} flag={"/src/static/lang_flag/us.jpg"} price={100}/>
-        <Type_offer lang={lang} language_name={"russian"} flag={"/src/static/lang_flag/rus.png"} price={100}/>
-        <Type_offer lang={lang} language_name={"french"} flag={"/src/static/lang_flag/france.png"} price={100}/>
-        <Type_offer lang={lang} language_name={"chinese"} flag={"/src/static/lang_flag/china.jpg"} price={100}/>
-        <Type_offer lang={lang} language_name={"spanish"} flag={"/src/static/lang_flag/spain.png"} price={100}/>
-        <Type_offer lang={lang} language_name={"italian"} flag={"/src/static/lang_flag/italian.jpg"} price={100}/>
-        <Type_offer lang={lang} language_name={"germany"} flag={"/src/static/lang_flag/germany.png"} price={100}/>
-        
-        
-
+      {data1.map((data, index) => (
+        <Type_offer lang={lang} language_name={data.name} flag={data.destination} price={data.price} getMoreInfo={getMoreInfo} index={index} key={index}/>
+      ))}
 
       </div>
     </div>
   </div>
   <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}></div>
 </div>
+
+<CSSTransition
+  in={moreinfo}
+  timeout={300}
+  classNames="do_bye_panel"
+  unmountOnExit
+  nodeRef={node}
+>
+    <MoreInfoFromFind ref={node} setBye={setMoreInfo} lang={lang} idOfInfo={idOfInfo} moreinfo={data1}/>
+
+</CSSTransition>
+
 
 </>
 

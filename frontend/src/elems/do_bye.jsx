@@ -23,7 +23,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
   }
   
 
-function DoBye({ bye, ref, setBye, lang }) {
+function DoBye({ ref, setBye, lang }) {
 
     const [data, setData] = useState(null);
     const [tarif, setTarif] = useState('');

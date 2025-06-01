@@ -6,6 +6,7 @@ import Docks from '/src/elems/docks.jsx'
 import DoBye from './elems/do_bye';
 import ShowNavInMob from '/src/elems/show_nav_in_mob.jsx'
 import arrLangNavigPanel from '/languages/nav_panel.js'
+import HistoryOfTopUpComp from './elems/history_of_topup';
 import axios from 'axios';
 
 function ImageWithFallback({ src, fallbackSrc, alt, style}) {
@@ -48,10 +49,16 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 function App({ name, lastname, username, lang, lessons, photo, balance }) {
 
   const nodeRef = useRef(null);
-  const refForBye = useRef(null)
+  const refForBye = useRef(null);
+  const refHistoryTopUp = useRef(null)
   const [showOtherInNav, setshowOtherInNav] = useState(false);
   const [showDesktopPanel, setshowDesktopPanel] = useState(false);
   const [bye, setBye] = useState(false);
+  const [historyOfTopUp, setHistoryOfTopUp] = useState(false);
+
+  const showHistoryOfTopUp = () => {
+    setHistoryOfTopUp(!historyOfTopUp);
+  }
 
   const ShowDesktop = () =>{
     setshowDesktopPanel(!showDesktopPanel);
@@ -160,7 +167,10 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
                     <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['balance']}: {balance}₽</p>
                 </div>
                 <button className='show_nav_in_desktop_section_main' onClick={setByeFunc}>
-                    <p className='top_panel_balance_desktop'>пополнить</p>
+                    <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['top_up']}</p>
+                </button>
+                <button className='show_nav_in_desktop_section_main' onClick={showHistoryOfTopUp}>
+                    <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['history_of_operations']}</p>
                 </button>
                 <div className='show_nav_in_desktop_section_main'>
                   
@@ -235,6 +245,7 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
           (
             <button className="navig_panel_button" id="only_for_fon" onClick={showNav}>
               <ImageWithFallbackPanel src={photo} alt={username} fallbackSrc="/src/static/img/nema.png"/>
+              <span className="text_in_panel" key="about">{arrLangNavigPanel[lang]['me']}</span>
             </button>
           )
 
@@ -279,7 +290,7 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
   unmountOnExit
   nodeRef={nodeRef}
 >
-    <ShowNavInMob setByeFunc={setByeFunc} setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} username={username} money={balance} firstname={name} lastname={lastname} change_theme={change_theme} theme={theme}/>
+    <ShowNavInMob showHistoryOfTopUp={showHistoryOfTopUp} setByeFunc={setByeFunc} setshowOtherInNav={setshowOtherInNav} ref={nodeRef} show={showNav} lang={lang} myphoto={photo} username={username} money={balance} firstname={name} lastname={lastname} change_theme={change_theme} theme={theme}/>
 
 </CSSTransition>
 
@@ -290,7 +301,19 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
   unmountOnExit
   nodeRef={refForBye}
 >
-    <DoBye bye={bye} ref={refForBye} setBye={setBye} lang={lang} />
+    <DoBye ref={refForBye} setBye={setBye} lang={lang} />
+
+</CSSTransition>
+
+
+<CSSTransition
+  in={historyOfTopUp}
+  timeout={300}
+  classNames="do_bye_panel"
+  unmountOnExit
+  nodeRef={refHistoryTopUp}
+>
+    <HistoryOfTopUpComp ref={refHistoryTopUp} setBye={setHistoryOfTopUp} lang={lang} />
 
 </CSSTransition>
 

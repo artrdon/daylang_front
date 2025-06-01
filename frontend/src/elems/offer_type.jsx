@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 import arrLangOfferType from '/languages/offer_type.js'
 
-function Type_offer({ lang, language_name, flag, price }) {
+function Type_offer({ lang, language_name, flag, price, getMoreInfo, index }) {
 
   
     return (
             <>
             
 
-    <Link to={`/${language_name}/`}>
+    <button onClick={() => getMoreInfo(index)} style={{backgroundColor: "#00000000"}}>
       <div className="div_of_service" >
         <img src={flag} alt={arrLangOfferType[lang][language_name]} className='offer_type_flag_img'/>
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -23,7 +23,7 @@ function Type_offer({ lang, language_name, flag, price }) {
         </div>
         <img src="/src/static/img/bluefon.png" alt="fon" className="service_img" />
       </div>
-    </Link>
+    </button>
 
         </>
     )

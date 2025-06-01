@@ -20,7 +20,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
   }
   
 
-function ShowNavInMob({setByeFunc, setshowOtherInNav, show, lang, myphoto, username, ref, money, firstname, lastname, change_theme, theme}) {
+function ShowNavInMob({setByeFunc, setshowOtherInNav, show, lang, myphoto, username, ref, money, firstname, lastname, change_theme, theme, showHistoryOfTopUp}) {
   
       useEffect(() => {
         let start = 0;
@@ -59,7 +59,12 @@ return (
                         </div>
                         <button className="show_nav_in_mob_nav_panel_botton_main" onClick={setByeFunc}>
                             <div style={{display: 'block'}}>
-                              <p className='top_panel_balance'>пополнить</p>
+                              <p className='top_panel_balance'>{arrLangNavigPanel[lang]['top_up']}</p>
+                            </div>
+                        </button>
+                        <button className="show_nav_in_mob_nav_panel_botton_main" onClick={showHistoryOfTopUp}>
+                            <div style={{display: 'block'}}>
+                              <p className='top_panel_balance'>{arrLangNavigPanel[lang]['history_of_operations']}</p>
                             </div>
                         </button>
                         <div className="show_nav_in_mob_nav_panel_botton_main">

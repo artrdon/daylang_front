@@ -48,13 +48,14 @@ function AppLoad({ lang, lessons }) {
         <span className="text_in_panel" >{arrLangNavigPanel[lang]['my_words']}</span>
       </Link>
       
-      <a className="navig_panel_button"id="only_for_fon">
+      <div className="navig_panel_button" id="only_for_fon">
         <img
           src="/src/static/img/nema.png"
           alt="nema"
           className="avatar_in_panel"
         />
-      </a>
+        <span className="text_in_panel" key="about">{arrLangNavigPanel[lang]['me']}</span>
+      </div>
 
     </div>
     <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}  id="not_for_fon">

@@ -131,7 +131,6 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
             console.error('There was an error!', error.response.data);
         }
     };
-    console.log(getCookie('csrftoken'));
 
     return (
         <>
