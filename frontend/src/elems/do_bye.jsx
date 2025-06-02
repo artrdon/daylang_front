@@ -73,7 +73,7 @@ return (
                   <p>Выберите сумму пополнения</p>
                 </div>
                 <button className={`do_bye_ready_offer_to_bye${tarif === "100" ? ' do_bye_offer_to_bye_selected' : ''}`} name='100' onClick={setSelectedTarif}>
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
                       <p>100</p>
                     </span>
@@ -84,7 +84,7 @@ return (
                 </button>
 
                 <button className={`do_bye_ready_offer_to_bye${tarif === "300" ? ' do_bye_offer_to_bye_selected' : ''}`} name='300' onClick={setSelectedTarif}>
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
                       <p>300</p>
                     </span>
@@ -95,7 +95,7 @@ return (
                 </button>
 
                 <button className={`do_bye_ready_offer_to_bye${tarif === "500" ? ' do_bye_offer_to_bye_selected' : ''}`} name='500' onClick={setSelectedTarif}>
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
                       <p>500</p>
                     </span>

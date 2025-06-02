@@ -11,6 +11,10 @@ function TestAI() {
 
     const audio = useRef(null);
     const mediaRecorderRef = useRef(null);
+    const canvasRef = useRef(null);
+    const animationRef = useRef(null);
+    const analyserRef = useRef(null);
+    const audioContextRef = useRef(null);
     const audioChunksRef = useRef([]);
     const [isRecording, setIsRecording] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
@@ -26,18 +30,66 @@ function TestAI() {
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
+
+    
+
+
+    const visualize = (analyser) => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
         
+        const draw = () => {
+          animationRef.current = requestAnimationFrame(draw);
+          
+          analyser.getByteFrequencyData(dataArray);
+          const volume = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length;
+          
+          // Очищаем canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          // Рисуем пульсирующий круг
+          const centerX = canvas.width / 2;
+          const centerY = canvas.height / 2;
+          const baseRadius = Math.min(canvas.width, canvas.height) * 0.2;
+          const pulseRadius = baseRadius + (volume / 255) * baseRadius * 0.5;
+          
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, pulseRadius, 0, 2 * Math.PI);
+          ctx.fillStyle = `rgba(100, 149, 237, ${0.5 + (volume / 255) * 0.5})`;
+          ctx.fill();
+        };
+        
+        draw();
+      };
+    
 
     const speak = (text) => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        let dataArray;
+        console.log(0);
         if (audio.current) {
             audio.current.pause();
             audio.current = null;
         }
-
+        console.log(1);
         const audioSrc = `data:${text['format']};base64,${text['audio']}`;
         audio.current = new Audio(audioSrc);
         audio.current.play();
         setIsSpeaking(true);
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 32;
+        
+        const source = audioContext.createMediaElementSource(audio.current);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+        
+        audioContextRef.current = audioContext;
+        analyserRef.current = analyser;
+        visualize(analyser);
 
         audio.current.onended = () => {
             console.log("Воспроизведение завершено");
@@ -76,89 +128,94 @@ function TestAI() {
 
         try {
             setWaitForAnswer(true);
+            console.log(1);
             const response = await axios.post(`${vars['APIURL']}/airequest/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
+            console.log(2);
             const newAnswer = {
                 myPromt: response.data['myText'],
                 AIAnswer: response.data['text'],
             };
             setAnswers((answers) => [...answers, newAnswer]);
-            
+            console.log(3);
             if (typeof response.data === 'string') {
+                console.log(5);
                 speak(response.data)
                 
                 setWaitForAnswer(false);
             } else if (response.data.text) {
+                console.log(5);
                 speak(response.data)
 
                 setWaitForAnswer(false);
             } else {
+                console.log(5);
                 speak(response.data)
                 
                 setWaitForAnswer(false);
             }
-            
+            console.log(4);
         } catch (error) {
-            console.error('There was an error!', error.request.data);
+            console.error('There was an error!', error.request);
         }
     };
 
-        // Функция для конвертации AudioBuffer в WAV
-        const audioBufferToWav = async (buffer) => {
-            const numOfChan = buffer.numberOfChannels;
-            const length = buffer.length * numOfChan * 2;
-            const buffer2 = new ArrayBuffer(44 + length);
-            const view = new DataView(buffer2);
-            const channels = [];
-            let offset = 0;
-            let pos = 0;
-    
-            // write WAVE header
-            setUint32(0x46464952);                         // "RIFF"
-            setUint32(36 + length);                        // file length - 8
-            setUint32(0x45564157);                         // "WAVE"
-            setUint32(0x20746d66);                         // "fmt " chunk
-            setUint32(16);                                 // length = 16
-            setUint16(1);                                  // PCM (uncompressed)
-            setUint16(numOfChan);
-            setUint32(buffer.sampleRate);
-            setUint32(buffer.sampleRate * 2 * numOfChan);  // avg. bytes/sec
-            setUint16(numOfChan * 2);                      // block-align
-            setUint16(16);                                 // 16-bit
-            setUint32(0x61746164);                         // "data" - chunk
-            setUint32(length);                             // chunk length
-    
-            // write interleaved data
-            for(let i = 0; i < buffer.numberOfChannels; i++) {
-                channels.push(buffer.getChannelData(i));
-            }
-    
-            while(pos < buffer.length) {
-                for(let i = 0; i < numOfChan; i++) {
-                    let sample = Math.max(-1, Math.min(1, channels[i][pos]));
-                    sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
-                    view.setInt16(44 + offset, sample, true);
-                    offset += 2;
-                }
-                pos++;
-            }
-    
-            function setUint16(data) {
-                view.setUint16(pos, data, true);
-                pos += 2;
-            }
-    
-            function setUint32(data) {
-                view.setUint32(pos, data, true);
-                pos += 4;
-            }
-    
-            return new Blob([buffer2], { type: 'audio/wav' });
+    // Функция для конвертации AudioBuffer в WAV
+    const audioBufferToWav = async (buffer) => {
+        const numOfChan = buffer.numberOfChannels;
+        const length = buffer.length * numOfChan * 2;
+        const buffer2 = new ArrayBuffer(44 + length);
+        const view = new DataView(buffer2);
+        const channels = [];
+        let offset = 0;
+        let pos = 0;
+
+        // write WAVE header
+        setUint32(0x46464952);                         // "RIFF"
+        setUint32(36 + length);                        // file length - 8
+        setUint32(0x45564157);                         // "WAVE"
+        setUint32(0x20746d66);                         // "fmt " chunk
+        setUint32(16);                                 // length = 16
+        setUint16(1);                                  // PCM (uncompressed)
+        setUint16(numOfChan);
+        setUint32(buffer.sampleRate);
+        setUint32(buffer.sampleRate * 2 * numOfChan);  // avg. bytes/sec
+        setUint16(numOfChan * 2);                      // block-align
+        setUint16(16);                                 // 16-bit
+        setUint32(0x61746164);                         // "data" - chunk
+        setUint32(length);                             // chunk length
+
+        // write interleaved data
+        for(let i = 0; i < buffer.numberOfChannels; i++) {
+            channels.push(buffer.getChannelData(i));
         }
+
+        while(pos < buffer.length) {
+            for(let i = 0; i < numOfChan; i++) {
+                let sample = Math.max(-1, Math.min(1, channels[i][pos]));
+                sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
+                view.setInt16(44 + offset, sample, true);
+                offset += 2;
+            }
+            pos++;
+        }
+
+        function setUint16(data) {
+            view.setUint16(pos, data, true);
+            pos += 2;
+        }
+
+        function setUint32(data) {
+            view.setUint32(pos, data, true);
+            pos += 4;
+        }
+
+        return new Blob([buffer2], { type: 'audio/wav' });
+    }
     
 
     const startRecording = async () => {
@@ -201,6 +258,9 @@ function TestAI() {
     return (
         <>
 <div>
+    <div style={{width: "100vw", height: "100svh", position: "fixed", display: "flex", flexWrap: "wrap", justifyContent: "center", alignContent: "center"}}>
+        <canvas ref={canvasRef} width={4000} height={4000} style={{width: "40vw", height: "40vw"}}></canvas>
+    </div>
     {!waitForAnswer && <> 
         {!isSpeaking && <> 
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>

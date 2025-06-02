@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
+import arrLangOfferType from '/languages/offer_type.js'
 import { useQuery } from '@tanstack/react-query';
 import vars from '/api.js'
 
@@ -52,6 +53,9 @@ return (
             <div className='do_bye_transparency_fon' onClick={setByeFunc} />
             <div className='do_bye_panel' ref={ref}>
                 <div className='do_bye_overflow_of_ready_offers'>
+                <div className='do_bye_ready_offers_title'>
+                  <p>{arrLangOfferType[lang][`${moreinfo[idOfInfo].name}`]}</p>
+                </div>
                 {moreinfo[idOfInfo] && (
                     <div>
                     <h3>{moreinfo[idOfInfo].name}</h3>

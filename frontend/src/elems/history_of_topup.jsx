@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
+import arrLangNavigPanel from '../../languages/nav_panel';
 import { useQuery } from '@tanstack/react-query';
 import vars from '/api.js'
 
@@ -59,11 +60,11 @@ return (
             <div className='do_bye_panel' ref={ref}>
                 <div className='do_bye_overflow_of_ready_offers'>
                 <div className='do_bye_ready_offers_title'>
-                  <p>История операций</p>
+                  <p>{arrLangNavigPanel[lang]['history_of_operations']}</p>
                 </div>
                 {data.map((data, index) => (
                     <button className={`do_bye_ready_offer_to_bye`} key={index}>
-                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                         <span >
                             <p>{data.price} {data.currency}</p>
                         </span>

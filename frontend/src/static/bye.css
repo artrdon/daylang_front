@@ -24,6 +24,9 @@
 .do_bye_ready_offers_title{
     width: calc(100% - 30px); height: 30px; color: #000000; border-radius: 10px; margin: 15px; font-size: 25px;
 }
+.do_bye_small_titles{
+    font-size: 20px;
+}
 .do_bye_transparency_fon{
     width: 100vw; height: 100svh; position: fixed; top: 0; left: 0; z-index: 1000; background-color: #00000030; backdrop-filter: blur(3px);
 }
@@ -61,4 +64,26 @@
         width: 100%; height: 80svh; bottom: 0px; left: 0px;
     }
     
+}
+@media only screen and (max-width: 525px) 
+{
+    .do_bye_panel{
+        height: 80svh; border-radius: 1.904761904761905vw;
+        box-shadow: 0px 0px 9.523809523809524vw;
+    }
+    .do_bye_ready_offers_title{
+        width: calc(100vw - 5.714285714285714vw); height: 5.714285714285714vw; border-radius: 1.904761904761905; margin: 2.857142857142857vw; font-size: 4.761904761904762vw;
+    }
+    .do_bye_ready_offer_to_bye{
+        width: 100vw; height: 15.23809523809524vw; padding: 2.857142857142857vw; 
+    }
+    .do_bye_overflow_of_ready_offers{
+        height: calc(100% - 15.23809523809524vw);
+    }
+    .do_bye_bye_button{
+        height: 15.23809523809524vw; border-radius: 1.904761904761905vw; font-size: 4.761904761904762vw;
+    }
+    .do_bye_small_titles{
+        font-size: 3.80952380952381vw;
+    }
 }
