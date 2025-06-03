@@ -101,6 +101,7 @@
     color: rgb(0, 0, 0) !important;
     border: 0 !important;
     border-radius: 0.25rem 0 0 0.25rem !important;
+    font-size: 16px;
 }
 
 .input_user,
@@ -132,8 +133,10 @@
     }    
     .reg_log_agree_with_privacy{
         font-size: 3.047619047619048vw;
+    }    
+    .input-group-text {
+        font-size: 3.047619047619048vw;
     }
-    
     .reg_log_error_text{
         width: 19.04761904761905vw; height: 5.714285714285714vw;
     }

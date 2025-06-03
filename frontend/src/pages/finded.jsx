@@ -14,9 +14,6 @@ function Finded() {
   const websocket = useWebSocket();
   const [lessons, setLessons] = useState(websocket.lessons);
   const [lang, setLang] = useState(websocket.lang);
-  useEffect(() => {
-    setLessons(websocket.lessons);
-}, [websocket.lessons]);
 
     const params = useParams();
 

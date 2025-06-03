@@ -57,16 +57,15 @@ return (
                   <p>{arrLangOfferType[lang][`${moreinfo[idOfInfo].name}`]}</p>
                 </div>
                 {moreinfo[idOfInfo] && (
-                    <div>
-                    <h3>{moreinfo[idOfInfo].name}</h3>
-                    <p>Направление: {moreinfo[idOfInfo].destination}</p>
-                    <p>Цена: {moreinfo[idOfInfo].price}</p>
+                    <div className='more_into_to_bye_main_part'>
+                        <p>{moreinfo[idOfInfo].description}</p>
                     </div>
                 )}
                 </div>
+                <button className='do_bye_bye_button' onClick={handleSubmit}>
+                  Перейти за {moreinfo[idOfInfo].price} рублей
+                </button>
             </div>
-            
-
           </div>
 
     </>

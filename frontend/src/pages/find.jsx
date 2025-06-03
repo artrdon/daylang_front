@@ -13,8 +13,9 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 function Find() {
     const [data1, setData1] = useState([
-      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 100},
-      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 100},
+      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 50, 'minutes': 20, 'description': 'Практикуйте общение на иностранном языке в комфортной и безопасной среде! Нейросеть выступает в роли собеседника, помогая вам улучшить разговорные навыки, расширить словарный запас и преодолеть языковой барьер.'},
+      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 80, 'minutes': 40, 'description': 'Практикуйте общение на иностранном языке в комфортной и безопасной среде! Нейросеть выступает в роли собеседника, помогая вам улучшить разговорные навыки, расширить словарный запас и преодолеть языковой барьер.'},
+      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 100, 'minutes': 60, 'description': 'Практикуйте общение на иностранном языке в комфортной и безопасной среде! Нейросеть выступает в роли собеседника, помогая вам улучшить разговорные навыки, расширить словарный запас и преодолеть языковой барьер.'},
     ])
     const websocket = useWebSocket();
     const [lessons, setLessons] = useState(websocket.lessons);
@@ -66,7 +67,7 @@ function Find() {
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
       {data1.map((data, index) => (
-        <Type_offer lang={lang} language_name={data.name} flag={data.destination} price={data.price} getMoreInfo={getMoreInfo} index={index} key={index}/>
+        <Type_offer lang={lang} language_name={data.name} flag={data.destination} price={data.price} getMoreInfo={getMoreInfo} index={index} key={index} minutes={data.minutes}/>
       ))}
 
       </div>

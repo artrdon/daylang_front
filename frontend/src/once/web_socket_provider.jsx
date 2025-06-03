@@ -140,7 +140,7 @@ const [lang, setLang] = useState(getCookie("lang"));
 
     
 useEffect(() => {     
-    if (data2 !== "undefined" && data2 !== undefined){
+    if (data2 !== undefined && data2 !== 'undefined'){
       document.cookie = `lang=${data2.language}; path=/;max-age=31556926`;
       setLang(data2.language);
     }

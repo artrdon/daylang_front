@@ -68,12 +68,10 @@ function TestAI() {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         let dataArray;
-        console.log(0);
         if (audio.current) {
             audio.current.pause();
             audio.current = null;
         }
-        console.log(1);
         const audioSrc = `data:${text['format']};base64,${text['audio']}`;
         audio.current = new Audio(audioSrc);
         audio.current.play();
@@ -128,37 +126,30 @@ function TestAI() {
 
         try {
             setWaitForAnswer(true);
-            console.log(1);
             const response = await axios.post(`${vars['APIURL']}/airequest/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log(2);
             const newAnswer = {
                 myPromt: response.data['myText'],
                 AIAnswer: response.data['text'],
             };
             setAnswers((answers) => [...answers, newAnswer]);
-            console.log(3);
             if (typeof response.data === 'string') {
-                console.log(5);
                 speak(response.data)
                 
                 setWaitForAnswer(false);
             } else if (response.data.text) {
-                console.log(5);
                 speak(response.data)
 
                 setWaitForAnswer(false);
             } else {
-                console.log(5);
                 speak(response.data)
                 
                 setWaitForAnswer(false);
             }
-            console.log(4);
         } catch (error) {
             console.error('There was an error!', error.request);
         }
@@ -258,7 +249,7 @@ function TestAI() {
     return (
         <>
 <div>
-    <div style={{width: "100vw", height: "100svh", position: "fixed", display: "flex", flexWrap: "wrap", justifyContent: "center", alignContent: "center"}}>
+    <div style={{width: "100vw", height: "calc(100svh - 100px)", position: "fixed", display: "flex", flexWrap: "wrap", justifyContent: "center", alignContent: "center"}}>
         <canvas ref={canvasRef} width={4000} height={4000} style={{width: "40vw", height: "40vw"}}></canvas>
     </div>
     {!waitForAnswer && <> 

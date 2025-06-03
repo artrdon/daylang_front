@@ -1,20 +1,12 @@
 import { useState } from 'react'
 import arrLangMyProfil from '/languages/my_profil.js'
+import { useWebSocket } from '../once/web_socket_provider.jsx';
+
 
 
 function My_load() {
-
-
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    const lang = getCookie('lang');
-    let [langua, setData10] = useState(null);
-
-    langua = lang;
+    const websocket = useWebSocket();
+    const [lang, setLang] = useState(websocket.lang);
 
     return (
         <>

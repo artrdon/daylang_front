@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import arrLangSettings from '/languages/settings.js'
+import { useWebSocket } from '../once/web_socket_provider.jsx';
+
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -24,16 +26,8 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function Settings_load() {
 
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    const lang = getCookie('lang');
-    //let [langua, setData10] = useState(null);
-
-    //langua = lang;
+  const websocket = useWebSocket();
+  const [lang, setLang] = useState(websocket.lang);
 
       
     return (
