@@ -12,11 +12,7 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
 function Find() {
-    const [data1, setData1] = useState([
-      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 50, 'minutes': 20, 'description': 'Практикуйте общение на иностранном языке в комфортной и безопасной среде! Нейросеть выступает в роли собеседника, помогая вам улучшить разговорные навыки, расширить словарный запас и преодолеть языковой барьер.'},
-      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 80, 'minutes': 40, 'description': 'Практикуйте общение на иностранном языке в комфортной и безопасной среде! Нейросеть выступает в роли собеседника, помогая вам улучшить разговорные навыки, расширить словарный запас и преодолеть языковой барьер.'},
-      {'name': "english", 'destination': "/src/static/lang_flag/us.jpg", 'price': 100, 'minutes': 60, 'description': 'Практикуйте общение на иностранном языке в комфортной и безопасной среде! Нейросеть выступает в роли собеседника, помогая вам улучшить разговорные навыки, расширить словарный запас и преодолеть языковой барьер.'},
-    ])
+    
     const websocket = useWebSocket();
     const [lessons, setLessons] = useState(websocket.lessons);
     const [lang, setLang] = useState(websocket.lang);
@@ -51,8 +47,23 @@ function Find() {
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
 
+    const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+      queryKey: ['lol'], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${vars['APIURL']}/lol/`);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+
     if (loading) return <AppLoad lang={lang}/>;
     if (error) return <p>Error: {error}</p>;
+    
+    if (loading1) return <AppLoad lang={lang}/>;
+    if (error1) return <p>Error: {error1}</p>;
     document.querySelector("title").textContent = "DayLang";
 
     return (

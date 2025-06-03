@@ -9,7 +9,6 @@ import vars from '/api.js'
 
 function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
 
-    const [data, setData] = useState(null);
     const [tarif, setTarif] = useState('');
     const setByeFunc = () =>{
       setBye(false);
@@ -24,13 +23,10 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
     const csrfToken = getCookie('csrftoken');
     const params = useParams();
 
-    const setSelectedTarif = (e) => {
-      setTarif(e.currentTarget.name);
-    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${vars['APIURL']}/bye/`, {summa: tarif}, {
+            const response = await axios.post(`${vars['APIURL']}/bye_access/`, {language: moreinfo[idOfInfo].name, price: moreinfo[idOfInfo].price}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,
@@ -38,7 +34,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
             });
             console.log('Response:', response.data);
             if (response.status === 200){
-                location.reload();
+             //   location.reload();
             }
 
         } catch (error) {

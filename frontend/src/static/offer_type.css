@@ -5,7 +5,7 @@
     position: absolute; font-size: 28px; z-index: 10; font-weight: 600; top: 140px; color: white;
 }
 .offer_type_price{
-    position: absolute; font-size: 28px; z-index: 10; font-weight: 600; top: 180px; color: white;
+    position: absolute; font-size: 20px; z-index: 10; font-weight: 600; top: 180px; color: white;
 }
 
 
@@ -21,7 +21,7 @@
         top: 14.72727272727273vw;
     }
     .offer_type_price{
-        font-size: 2.545454545454545vw;
+        font-size: 1.818181818181818vw;
         top: 18.18181818181818vw;
     }
 }
@@ -31,7 +31,7 @@
         top: 18.18181818181818vw;
     }
     .offer_type_price{
-        font-size: 3.5vw;
+        font-size: 2.222222222222222vw;
         top: 23.63636363636363vw;
     }
 }
@@ -41,7 +41,7 @@
         top: 20.45454545454545vw;
     }
     .offer_type_price{
-        font-size: 3.5vw;
+        font-size: 2.663115845539281vw;
         top: 25vw;
     }
 }
@@ -51,7 +51,7 @@
         top: 30vw;
     }
     .offer_type_price{
-        font-size: 6vw;
+        font-size: 4vw;
         top: 38vw;
     }
 }
