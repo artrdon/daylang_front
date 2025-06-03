@@ -51,7 +51,7 @@ function HistoryOfTopUpComp({ ref, setBye, lang }) {
           </div>
       </>);
       if (error) return <p>Error: {error}</p>;
-  
+  console.log(data);
     
 return ( 
     <>
@@ -66,7 +66,7 @@ return (
                     <button className={`do_bye_ready_offer_to_bye`} key={index}>
                         <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                         <span >
-                            <p>{data.price} {data.currency}</p>
+                           <p>{data.isBye === true ? "-" : "+"} {data.price} {data.currency}</p>
                         </span>
                         <span >
                             <p>{data.date} {data.time}</p>

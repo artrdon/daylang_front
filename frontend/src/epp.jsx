@@ -24,7 +24,7 @@ export default function Epp(){
             <Route path="/auth/yandex/callback" element={<CallbackHandler />} />
     
             <Route path="/" element={<Find />}/>
-            <Route path="/ai_speak/" element={<TestAI />}/>
+            <Route path="/ai_speak/:id/" element={<TestAI />}/>
             {/*<Route path="/user/undefined/" element={<Log />}/>*/}
             <Route path="/log/" element={<Log />}/>
             <Route path="/log/reset/" element={<Log_reset />}/>

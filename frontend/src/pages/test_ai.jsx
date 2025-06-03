@@ -1,4 +1,6 @@
 import React from 'react';
+import { useParams } from "react-router";
+import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../elems/loading_spinner.jsx';
 import arrLangNavigPanel from '../../languages/nav_panel.js';
 import { useState, useEffect, useRef } from 'react'
@@ -24,6 +26,7 @@ function TestAI() {
     const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
+    const params = useParams();
     
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -244,6 +247,28 @@ function TestAI() {
         mediaRecorderRef.current.stop();
         setIsRecording(false);
     };
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`${vars['APIURL']}/check_access/${params.id}/`);
+            setData(response.data);
+          } catch (err) {
+            setError(err.message);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchData();
+    }, []);
+
+  
+    
+    if (loading) return <LoadingSpinner/>;
+    if (error) return <p>Error: {error}</p>;
+    
     document.querySelector("title").textContent = arrLangNavigPanel[lang]['ai'];
 
     return (
