@@ -1,8 +1,15 @@
 import React from 'react';
+import { useState, useEffect } from 'react'
 import '../static/about_us_page.css';
+import arrLangNavigPanel from '../../languages/nav_panel.js';
+import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 const About = () => {
-  
+  const websocket = useWebSocket();
+  const [lang, setLang] = useState(websocket.lang);
+ 
+  document.querySelector("title").textContent = arrLangNavigPanel[lang]['about'];
+
   return (
     <>
     <div className="about-us-container">

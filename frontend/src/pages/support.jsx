@@ -1,69 +1,69 @@
+import React from 'react';
 import { useState, useEffect } from 'react'
-import { useParams } from "react-router";
-import { useQuery } from '@tanstack/react-query';
+import '../static/support.css';
 import arrLangNavigPanel from '../../languages/nav_panel.js';
-import App from '/src/App.jsx'
-import AppLoad from '/src/AppLoad.jsx'
-import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
-import NotFoundSave from '../elems/not_found_save.jsx';
 
 
 function Support() {
 
-    const[page, setPage] = useState(0);
     const websocket = useWebSocket();
-    const [lessons, setLessons] = useState(websocket.lessons);
     const [lang, setLang] = useState(websocket.lang);
-    useEffect(() => {
-        setLessons(websocket.lessons);
-    }, [websocket.lessons]);
-    
-  
-    const params = useParams();
-
-    axios.defaults.withCredentials = true;
-
-
-    const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
-        queryKey: ['userinfo'], // Уникальный ключ запроса
-        queryFn: async () => {
-            try {
-                const response = await axios.get(`${vars['APIURL']}/userinfo/`);
-                return response.data;
-            } catch (err) {
-                if (err.response?.status === 401){
-                    window.location.href = '/log';
-                    return null;
-                }
-            }
-        },
-        // Опциональные параметры:
-        retry: 2, // Количество попыток повтора при ошибке
-        staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-        refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-    });
-
-
-
-    if (loading) return <AppLoad lang={lang}/>;
-    if (error) return <p>Error: {error}</p>;
+   
     document.querySelector("title").textContent = arrLangNavigPanel[lang]['support'];
         
     return (
-        <>
-        <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
-
-        <div className="find_panel">
-
-        <div style={{ width: "100%", height: 100, backgroundColor: "#25252500" }}/>
+        <div className="support-container">
+          <div className="support-hero">
+            <h1>Мы здесь, чтобы помочь</h1>
+            <p className="hero-subtitle">Наша команда поддержки готова ответить на ваши вопросы</p>
+          </div>
+          
+          <div className="support-content">
+            <div className="contact-methods">
+              <div className="contact-card">
+                <div className="contact-icon">✉️</div>
+                <h3>Электронная почта</h3>
+                <p>Пишите нам по любым вопросам</p>
+                <a href="mailto:support@yourstartup.com" className="contact-link">support@yourstartup.com</a>
+              </div>
+              
+              <div className="contact-card">
+                <div className="contact-icon">📱</div>
+                <h3>Telegram</h3>
+                <p>Быстрые ответы в мессенджере</p>
+                <a href="https://t.me/yourstartup_support" target="_blank" rel="noopener noreferrer" className="contact-link">@yourstartup_support</a>
+              </div>
+              
+              <div className="contact-card">
+                <div className="contact-icon">📚</div>
+                <h3>База знаний</h3>
+                <p>Ответы на частые вопросы</p>
+                <a href="#" className="contact-link">Перейти к FAQ</a>
+              </div>
+            </div>
+            
+            <div className="support-info">
+              <h2>Когда вы получите ответ?</h2>
+              <p>
+                Мы стремимся отвечать на все обращения в течение 24 часов в рабочие дни.
+                На вопросы, заданные в выходные, мы ответим в понедельник.
+              </p>
+              
+              <div className="response-time">
+                <div className="time-card">
+                  <h4>Электронная почта</h4>
+                  <p>До 24 часов</p>
+                </div>
+                <div className="time-card">
+                  <h4>Telegram</h4>
+                  <p>До 8 часов</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-
-        </>
-
-    )
+      );
 }
 
 export default Support
