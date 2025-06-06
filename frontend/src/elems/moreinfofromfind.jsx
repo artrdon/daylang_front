@@ -34,7 +34,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
             });
             console.log('Response:', response.data);
             if (response.status === 200){
-             //   location.reload();
+                window.open(`${window.location.origin}${response.data}`, '_blank')
             }
 
         } catch (error) {

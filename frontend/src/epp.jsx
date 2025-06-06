@@ -14,6 +14,7 @@ import Forbidden from './pages/forbidden.jsx';
 import Privacy from './pages/privacy.jsx';
 import Support from './pages/support.jsx'
 import CallbackHandler from './pages/yandex_call_back.jsx'
+import SmileTest from './pages/smile.jsx'
 
 
 export default function Epp(){
@@ -25,6 +26,7 @@ export default function Epp(){
     
             <Route path="/" element={<Find />}/>
             <Route path="/ai_speak/:id/" element={<TestAI />}/>
+            <Route path="/smile/" element={<SmileTest />}/>
             {/*<Route path="/user/undefined/" element={<Log />}/>*/}
             <Route path="/log/" element={<Log />}/>
             <Route path="/log/reset/" element={<Log_reset />}/>

@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
+import SmileTest from './smile.jsx';
 import '/src/static/ai_speak.css'
 
 function TestAI() {
@@ -27,6 +28,8 @@ function TestAI() {
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const params = useParams();
+
+    const [upValue, setUpValue] = useState(-0.01);
     
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -38,29 +41,31 @@ function TestAI() {
 
 
     const visualize = (analyser) => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
+       // const canvas = canvasRef.current;
+       // const ctx = canvas.getContext('2d');
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         
         const draw = () => {
-          animationRef.current = requestAnimationFrame(draw);
-          
-          analyser.getByteFrequencyData(dataArray);
-          const volume = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length;
-          
-          // Очищаем canvas
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          
-          // Рисуем пульсирующий круг
-          const centerX = canvas.width / 2;
-          const centerY = canvas.height / 2;
-          const baseRadius = Math.min(canvas.width, canvas.height) * 0.2;
-          const pulseRadius = baseRadius + (volume / 255) * baseRadius * 0.5;
-          
-          ctx.beginPath();
-          ctx.arc(centerX, centerY, pulseRadius, 0, 2 * Math.PI);
-          ctx.fillStyle = `rgba(100, 149, 237, ${0.5 + (volume / 255) * 0.5})`;
-          ctx.fill();
+            //console.log(1);
+            animationRef.current = requestAnimationFrame(draw);
+            //console.log(2);
+            analyser.getByteFrequencyData(dataArray);
+            const volume = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length;
+            //console.log(3);
+            // Очищаем canvas
+        //      ctx.clearRect(0, 0, canvas.width, canvas.height);
+       // console.log(4);
+            // Рисуем пульсирующий круг
+           /* const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;*/
+            const baseRadius = Math.min(400, 400) * 0.2;
+            const pulseRadius = baseRadius + (volume / 255) * baseRadius * 0.5;
+            const lol = (100 - pulseRadius) / (-200) - 0.1;
+            setUpValue(lol);
+            /*  ctx.beginPath();
+            ctx.arc(centerX, centerY, pulseRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = `rgba(100, 149, 237, ${0.5 + (volume / 255) * 0.5})`;
+            ctx.fill();*/
         };
         
         draw();
@@ -68,26 +73,26 @@ function TestAI() {
     
 
     const speak = (text) => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        let dataArray;
+        console.log(11);
+        console.log(12);
         if (audio.current) {
             audio.current.pause();
             audio.current = null;
         }
+        console.log(13);
         const audioSrc = `data:${text['format']};base64,${text['audio']}`;
         audio.current = new Audio(audioSrc);
         audio.current.play();
         setIsSpeaking(true);
-
+        console.log(14);
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const analyser = audioContext.createAnalyser();
         analyser.fftSize = 32;
-        
+        console.log(15);
         const source = audioContext.createMediaElementSource(audio.current);
         source.connect(analyser);
         analyser.connect(audioContext.destination);
-        
+        console.log(16);
         audioContextRef.current = audioContext;
         analyserRef.current = analyser;
         visualize(analyser);
@@ -135,24 +140,30 @@ function TestAI() {
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
+            console.log(response.data);
             const newAnswer = {
                 myPromt: response.data['myText'],
                 AIAnswer: response.data['text'],
             };
+            console.log(21);
             setAnswers((answers) => [...answers, newAnswer]);
             if (typeof response.data === 'string') {
+                console.log(31);
                 speak(response.data)
-                
+                console.log(32);
                 setWaitForAnswer(false);
             } else if (response.data.text) {
+                console.log(41);
                 speak(response.data)
-
+                console.log(42);
                 setWaitForAnswer(false);
             } else {
+                console.log(51);
                 speak(response.data)
-                
+                console.log(52);
                 setWaitForAnswer(false);
             }
+            console.log(29);
         } catch (error) {
             console.error('There was an error!', error.request);
         }
@@ -275,7 +286,7 @@ function TestAI() {
         <>
 <div>
     <div style={{width: "100vw", height: "calc(100svh - 100px)", position: "fixed", display: "flex", flexWrap: "wrap", justifyContent: "center", alignContent: "center"}}>
-        <canvas ref={canvasRef} width={4000} height={4000} style={{width: "40vw", height: "40vw"}}></canvas>
+        <SmileTest upValue={upValue}/>
     </div>
     {!waitForAnswer && <> 
         {!isSpeaking && <> 
