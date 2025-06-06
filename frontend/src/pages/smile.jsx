@@ -27,7 +27,7 @@ function Smiley({upValue}) {
       isHappy.current = !isHappy.current
       emotionTimer.current = 0
     }
-    console.log("upValue: ", upValue);
+   // console.log("upValue: ", upValue);
     // Плавно меняем рот между улыбкой и грустью
     if (mouthRefUp.current) {
       mouthRefUp.current.position.y = THREE.MathUtils.lerp(

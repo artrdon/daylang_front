@@ -1,67 +1,62 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query';
-import App from '/src/App.jsx'
-import AppLoad from '/src/AppLoad.jsx'
-import axios from 'axios';
-import vars from '/api.js'
-import { useWebSocket } from '../once/web_socket_provider.jsx';
-import arrLangNavigPanel from '../../languages/nav_panel.js';
+import '../static/about_us_page.css';
 
-function About() {
-
-  const websocket = useWebSocket();
-  const [lang, setLang] = useState(websocket.lang);
-
-
-    
-
-
-axios.defaults.withCredentials = true;
-
-
-    const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
-      queryKey: ['userinfo'], // Уникальный ключ запроса
-      queryFn: async () => {
-        const response = await axios.get(`${vars['APIURL']}/userinfo/`);
-        return response.data; // Возвращаем только данные
-      },
-      // Опциональные параметры:
-      retry: 2, // Количество попыток повтора при ошибке
-      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
-      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
-    });
+const About = () => {
   
-
-
-  if (loading) return <AppLoad lang={lang}/>;
-  if (error) return <p>Error: {error}</p>;
-  document.querySelector("title").textContent = arrLangNavigPanel[lang]['about'];
-
-    return (
-        <>
-<App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} photo={data.photo} balance={data.balance}/>
-
-<div className="ctr_offer_find_panel">
-    <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-            <div className="crt_offer_gray_thing">
-                <div className="crt_offer_blank">
-                    <div className='under_crt_offer_blank'>
-                        <span translate="no">ООО "ДЭЙЛЭНГ"</span>
-                        <span style={{ display: "block" }} translate="no">
-                            ИНН: 218283626, ОГРН: 6232322727237
-                        </span>
-                    </div>
-                </div>
-            </div>
+  return (
+    <>
+    <div className="about-us-container">
+      <div className="about-us-hero">
+        <h1>Превращаем изучение английского в естественный процесс</h1>
+        <p className="hero-subtitle">Практикуйте разговорную речь так, как это происходит в реальной жизни</p>
+      </div>
+      
+      <div className="about-us-content">
+        <div className="mission-section">
+          <h2>Наша миссия</h2>
+          <p>
+            Мы создали платформу, где вы можете практиковать английский язык в комфортной обстановке, 
+            без страха ошибиться. Наша технология искусственного интеллекта понимает вас, 
+            поддерживает беседу и помогает улучшать произношение и грамматику естественным образом.
+          </p>
         </div>
+        
+        <div className="features-section">
+          <div className="feature-card">
+            <div className="feature-icon">💬</div>
+            <h3>Живое общение</h3>
+            <p>Разговаривайте на любые темы, как с настоящим собеседником</p>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">🔄</div>
+            <h3>Мгновенная обратная связь</h3>
+            <p>Получайте корректные варианты ваших фраз и полезные подсказки</p>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">🌎</div>
+            <h3>Доступно в любое время</h3>
+            <p>Практикуйтесь когда удобно - не нужно подстраиваться под чужое расписание</p>
+          </div>
+        </div>
+        
+        <div className="future-section">
+          <h2>Что дальше?</h2>
+          <p>
+            Мы постоянно работаем над улучшением нашего сервиса, чтобы сделать изучение английского 
+            языка максимально эффективным и приятным. Ваш прогресс и комфорт - наш главный приоритет.
+          </p>
+        </div>
+      </div>
     </div>
-</div>
 
-</>
+    <div className='about_page_down_panel'>
 
-  )
-}
+    </div>
+    </>
+    
+  );
+};
 
-export default About
+export default About;
