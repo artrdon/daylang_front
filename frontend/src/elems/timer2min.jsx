@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TwoMinuteTimer = ({ setTimehave }) => {
+const TwoMinuteTimer = ({ setTimehave, handleSubmit }) => {
   const [timeLeft, setTimeLeft] = useState(120); // 2 минуты = 120 секунд
   const [isActive, setIsActive] = useState(true);
 
@@ -19,7 +19,8 @@ const TwoMinuteTimer = ({ setTimehave }) => {
     return () => clearInterval(interval);
   }, [isActive, timeLeft]);
 
-  const resetTimer = () => {
+  const resetTimer = async () => {
+    await handleSubmit();
     setIsActive(false);
     setTimeLeft(120);
     setTimehave(true);

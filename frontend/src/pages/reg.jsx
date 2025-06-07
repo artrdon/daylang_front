@@ -255,7 +255,7 @@ function Reg() {
               onChange={handleChange2}
             />
           </div>
-          <TwoMinuteTimer setTimehave={setTimehave}/>
+          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit}/>
           <input
               type="submit"
               id='button_to_confirm_email'

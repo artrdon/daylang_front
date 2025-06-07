@@ -180,12 +180,12 @@ function Log() {
             {arrLangLogin[lang]['sign_up']}
           </Link>
         </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        {/*<div style={{ display: "flex", justifyContent: "center" }}>
           {arrLangLogin[lang]['forgot_the_password']}
           <Link to="/log/reset/" className='log_reg_other_links'>
             {arrLangLogin[lang]['reset']}
           </Link>
-        </div>
+        </div>*/}
       </div>
     </div>
   </div>
@@ -216,7 +216,7 @@ function Log() {
               onChange={handleChange1}
             />
           </div>
-          <TwoMinuteTimer setTimehave={setTimehave}/>
+          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit}/>
           <input
               type="submit"
               id='button_to_confirm_email'

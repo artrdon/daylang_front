@@ -29,7 +29,7 @@ export default function Epp(){
             <Route path="/smile/" element={<SmileTest />}/>
             {/*<Route path="/user/undefined/" element={<Log />}/>*/}
             <Route path="/log/" element={<Log />}/>
-            <Route path="/log/reset/" element={<Log_reset />}/>
+            {/*<Route path="/log/reset/" element={<Log_reset />}/>*/}
             <Route path="/reg/" element={<Reg />}/>
             {/*<Route path="/:language/" element={<Finded />}/>*/}
             <Route path="/user/:user/" element={<Me />}/>
