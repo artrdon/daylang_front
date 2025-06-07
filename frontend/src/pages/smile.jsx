@@ -26,6 +26,8 @@ function Smiley({upValue}) {
   const isRandom = useRef(true);
   const leftminiEye = useRef();
   const rightminiEye = useRef();
+  const meshleftminiEye = useRef();
+  const meshrightminiEye = useRef();
   const leftEyeRef = useRef();
   const rightEyeRef = useRef();
   const blinkTimer = useRef(0);
@@ -35,6 +37,23 @@ function Smiley({upValue}) {
   }
   
   useFrame((state, delta) => {
+
+    const x = (state.mouse.x * 0.5) / 2;
+    const y = (state.mouse.y * 0.5) / 2;
+    // Применяем к глазам с ограничением, чтобы не выходили за границы
+    if (meshleftminiEye.current && meshrightminiEye.current) {
+      meshleftminiEye.current.position.set(
+        -0.3 + x * 0.1,
+        0.3 + y * 0.1,
+        meshleftminiEye.current.position.z
+      );
+      
+      meshrightminiEye.current.position.set(
+        0.3 + x * 0.1,
+        0.3 + y * 0.1,
+        meshrightminiEye.current.position.z
+      );
+    }
   
     blinkTimer.current += delta
     
@@ -44,8 +63,8 @@ function Smiley({upValue}) {
       isRandom.current = false;
     }
     if (blinkTimer.current > random.current) {
-      leftEyeRef.current.color.set('yellow'); 
-      rightEyeRef.current.color.set('yellow');
+      leftEyeRef.current.color.set('#fff911'); 
+      rightEyeRef.current.color.set('#fff911');
       leftminiEye.current.visible = false;
       rightminiEye.current.visible = false;
     }
@@ -82,7 +101,7 @@ function Smiley({upValue}) {
         <sphereGeometry args={[0.2, 16, 16]} />
         <meshStandardMaterial ref={leftEyeRef} color={"white"} />
       </mesh>
-      <mesh position={[-0.3, 0.3, 0.95]}>
+      <mesh ref={meshleftminiEye} position={[-0.3, 0.3, 0.95]}>
         <sphereGeometry args={[0.07, 16, 16]} />
         <meshStandardMaterial ref={leftminiEye} map={smallEyeTexture} />
       </mesh>
@@ -92,7 +111,7 @@ function Smiley({upValue}) {
         <sphereGeometry args={[0.2, 16, 16]} />
         <meshStandardMaterial ref={rightEyeRef} color={"white"} />
       </mesh>
-      <mesh position={[0.3, 0.3, 0.95]}>
+      <mesh ref={meshrightminiEye} position={[0.3, 0.3, 0.95]}>
         <sphereGeometry args={[0.07, 16, 16]} />
         <meshStandardMaterial ref={rightminiEye} map={smallEyeTexture} />
       </mesh>
@@ -131,7 +150,7 @@ function createMouthCanvas(size, color) {
   canvas.height = size/2
   const ctx = canvas.getContext('2d')
   ctx.strokeStyle = color
-  ctx.lineWidth = 8
+  ctx.lineWidth = 16
   ctx.beginPath()
   ctx.arc(size/2, size/2, size/3, 0, Math.PI)
   ctx.stroke()
@@ -145,7 +164,13 @@ function SmileTest({upValue}) {
         <ambientLight intensity={1.2} />
         <pointLight position={[10, 10, 10]} />
         <Smiley upValue={upValue}/>
-        <OrbitControls />
+        <OrbitControls 
+          minPolarAngle={Math.PI/2}
+          maxPolarAngle={Math.PI/2}
+
+          minAzimuthAngle={-Math.PI / 3}  
+          maxAzimuthAngle={Math.PI / 3} 
+        />
       </Canvas>
     </div>
   )

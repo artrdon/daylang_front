@@ -23,6 +23,7 @@ function TestAI() {
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [speechStatus, setSpeechStatus] = useState('Ready');
     const [waitForAnswer, setWaitForAnswer] = useState(false);
+    const [whatHeSaid, setWhatHeSaid] = useState(false);
     const language = "Английского"
     const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
     const websocket = useWebSocket();
@@ -36,36 +37,24 @@ function TestAI() {
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
+    const ShowWhatHeSaid = () => {
+        setWhatHeSaid(!whatHeSaid);
+    }
     
 
 
     const visualize = (analyser) => {
-       // const canvas = canvasRef.current;
-       // const ctx = canvas.getContext('2d');
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         
         const draw = () => {
-            //console.log(1);
             animationRef.current = requestAnimationFrame(draw);
-            //console.log(2);
             analyser.getByteFrequencyData(dataArray);
             const volume = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length;
-            //console.log(3);
-            // Очищаем canvas
-        //      ctx.clearRect(0, 0, canvas.width, canvas.height);
-       // console.log(4);
-            // Рисуем пульсирующий круг
-           /* const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;*/
             const baseRadius = Math.min(400, 400) * 0.2;
             const pulseRadius = baseRadius + (volume / 255) * baseRadius * 0.5;
             const lol = (100 - pulseRadius) / (-200) - 0.1;
             setUpValue(lol);
-            /*  ctx.beginPath();
-            ctx.arc(centerX, centerY, pulseRadius, 0, 2 * Math.PI);
-            ctx.fillStyle = `rgba(100, 149, 237, ${0.5 + (volume / 255) * 0.5})`;
-            ctx.fill();*/
+            
         };
         
         draw();
@@ -73,32 +62,25 @@ function TestAI() {
     
 
     const speak = (text) => {
-        console.log(11);
-        console.log(12);
         if (audio.current) {
             audio.current.pause();
             audio.current = null;
         }
-        console.log(13);
         const audioSrc = `data:${text['format']};base64,${text['audio']}`;
         audio.current = new Audio(audioSrc);
         audio.current.play();
         setIsSpeaking(true);
-        console.log(14);
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const analyser = audioContext.createAnalyser();
         analyser.fftSize = 32;
-        console.log(15);
         const source = audioContext.createMediaElementSource(audio.current);
         source.connect(analyser);
         analyser.connect(audioContext.destination);
-        console.log(16);
         audioContextRef.current = audioContext;
         analyserRef.current = analyser;
         visualize(analyser);
 
         audio.current.onended = () => {
-            console.log("Воспроизведение завершено");
             audio.current = null;
             setIsSpeaking(false);
         };
@@ -140,30 +122,21 @@ function TestAI() {
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log(response.data);
             const newAnswer = {
                 myPromt: response.data['myText'],
                 AIAnswer: response.data['text'],
             };
-            console.log(21);
             setAnswers((answers) => [...answers, newAnswer]);
             if (typeof response.data === 'string') {
-                console.log(31);
                 speak(response.data)
-                console.log(32);
                 setWaitForAnswer(false);
             } else if (response.data.text) {
-                console.log(41);
                 speak(response.data)
-                console.log(42);
                 setWaitForAnswer(false);
             } else {
-                console.log(51);
                 speak(response.data)
-                console.log(52);
                 setWaitForAnswer(false);
             }
-            console.log(29);
         } catch (error) {
             console.error('There was an error!', error.request);
         }
@@ -285,7 +258,22 @@ function TestAI() {
     return (
         <>
 <div>
-    <div style={{width: "100vw", height: "calc(100svh - 100px)", position: "fixed", display: "flex", flexWrap: "wrap", justifyContent: "center", alignContent: "center"}}>
+    <button className='ai_speak_what_he_said_button' onClick={ShowWhatHeSaid}>
+        what he said
+    </button>
+    {whatHeSaid && <>
+        <div className='ai_speak_what_he_said_panel_div'>
+            <div style={{overflow: "auto", height: "100%"}}>
+                {answers.map((data, index) => (
+                    <p className='ai_speak_what_he_said_panel_p' key={index}>{data.AIAnswer}</p>
+                ))}
+            </div>
+            <button className='ai_speak_what_he_said_panel_close_button' onClick={ShowWhatHeSaid}>
+                close
+            </button>
+        </div>
+    </>}
+    <div style={{width: "100vw", height: "100svh", position: "fixed", display: "flex", flexWrap: "wrap", justifyContent: "center", alignContent: "center"}}>
         <SmileTest upValue={upValue}/>
     </div>
     {!waitForAnswer && <> 
@@ -294,9 +282,13 @@ function TestAI() {
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
         {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >start talking</button>}
         {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >end talking</button>} </>}
-        {isSpeaking && <> <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>pause</button>
-        <button onClick={resume} className='ai_speak_stop_resume_cancel_button'>resume</button>
-        <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>cancel</button> </>}
+        {isSpeaking && <> 
+        <div style={{width: "100%", position: "absolute", bottom: 0}}>
+            <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>pause</button>
+            <button onClick={resume} className='ai_speak_stop_resume_cancel_button'>resume</button>
+            <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>cancel</button>
+        </div>
+         </>}
     </>}
     {waitForAnswer && <LoadingSpinner/>}
 </div>
