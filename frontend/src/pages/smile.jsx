@@ -3,11 +3,17 @@ import { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
+import { color } from 'three/tsl'
 
 function Smiley({upValue}) {
   // Создаем текстуру для глаза (черный круг)
+
+  const smallEyeTexture = new THREE.CanvasTexture(
+    createCircleCanvas(12, '#221000')
+  );
+
   const eyeTexture = new THREE.CanvasTexture(
-    createCircleCanvas(32, 'black')
+    createCircleCanvas(42, 'white')
   );
   
   // Создаем текстуру для рта (улыбка)
@@ -16,24 +22,49 @@ function Smiley({upValue}) {
   );
   const mouthRefUp = useRef();
   const mouthRefDown = useRef();
-  const emotionTimer = useRef(0);
-  const isHappy = useRef(true);
+  const random = useRef(0);
+  const isRandom = useRef(true);
+  const leftminiEye = useRef();
+  const rightminiEye = useRef();
+  const leftEyeRef = useRef();
+  const rightEyeRef = useRef();
+  const blinkTimer = useRef(0);
+  const isBlinking = useRef(false);
+  function randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
   
   useFrame((state, delta) => {
-    emotionTimer.current += delta
+  
+    blinkTimer.current += delta
     
-    // Каждые 5 секунд меняем эмоцию
-    if (emotionTimer.current > 5) {
-      isHappy.current = !isHappy.current
-      emotionTimer.current = 0
+    // Каждые 3 секунды запускаем мигание
+    if (isRandom.current){
+      random.current = randomIntFromInterval(2, 7);
+      isRandom.current = false;
     }
+    if (blinkTimer.current > random.current) {
+      leftEyeRef.current.color.set('yellow'); 
+      rightEyeRef.current.color.set('yellow');
+      leftminiEye.current.visible = false;
+      rightminiEye.current.visible = false;
+    }
+    if (blinkTimer.current > random.current + 0.3) {
+      leftEyeRef.current.color.set('white'); 
+      rightEyeRef.current.color.set('white');
+      leftminiEye.current.visible = true;
+      rightminiEye.current.visible = true;
+      blinkTimer.current = 0;
+      isRandom.current = true;
+    }
+    
    // console.log("upValue: ", upValue);
     // Плавно меняем рот между улыбкой и грустью
     if (mouthRefUp.current) {
       mouthRefUp.current.position.y = THREE.MathUtils.lerp(
         mouthRefUp.current.position.y,
         upValue,
-        delta * 2
+        1
       )
     }
   })
@@ -47,15 +78,23 @@ function Smiley({upValue}) {
       </mesh>
 
       {/* Левый глаз */}
-      <mesh position={[-0.35, 0.3, 0.8]}>
-        <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial map={eyeTexture} />
+      <mesh position={[-0.3, 0.3, 0.8]} rotation={[Math.PI/2, 0, 0]}>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshStandardMaterial ref={leftEyeRef} color={"white"} />
+      </mesh>
+      <mesh position={[-0.3, 0.3, 0.95]}>
+        <sphereGeometry args={[0.07, 16, 16]} />
+        <meshStandardMaterial ref={leftminiEye} map={smallEyeTexture} />
       </mesh>
 
       {/* Правый глаз */}
-      <mesh position={[0.35, 0.3, 0.8]}>
-        <sphereGeometry args={[0.15, 16, 16]} />
-        <meshStandardMaterial map={eyeTexture} />
+      <mesh position={[0.3, 0.3, 0.8]} rotation={[Math.PI/2, 0, 0]}>
+        <sphereGeometry args={[0.2, 16, 16]} />
+        <meshStandardMaterial ref={rightEyeRef} color={"white"} />
+      </mesh>
+      <mesh position={[0.3, 0.3, 0.95]}>
+        <sphereGeometry args={[0.07, 16, 16]} />
+        <meshStandardMaterial ref={rightminiEye} map={smallEyeTexture} />
       </mesh>
 
       {/* Рот (используем тор) */}
@@ -76,7 +115,7 @@ function Smiley({upValue}) {
 function createCircleCanvas(size, color) {
   const canvas = document.createElement('canvas')
   canvas.width = size
-  canvas.height = size
+  canvas.height = size * 2
   const ctx = canvas.getContext('2d')
   ctx.fillStyle = color
   ctx.beginPath()
@@ -102,8 +141,8 @@ function createMouthCanvas(size, color) {
 function SmileTest({upValue}) {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <Canvas camera={{ position: [0, 0, 3], fov: 50 }}>
-        <ambientLight intensity={0.5} />
+      <Canvas camera={{ position: [0, 0, 3], fov: 70 }}>
+        <ambientLight intensity={1.2} />
         <pointLight position={[10, 10, 10]} />
         <Smiley upValue={upValue}/>
         <OrbitControls />
