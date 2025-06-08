@@ -22,7 +22,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
 
     const csrfToken = getCookie('csrftoken');
     const params = useParams();
-
+    const [error, setError] = useState(0);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -36,11 +36,20 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
             if (response.status === 200){
                 window.open(`${window.location.origin}${response.data}`, '_blank')
             }
+            
 
         } catch (error) {
-            console.error('There was an error!', error.response.data);
+            if (error.response?.status === 401){
+                window.location.href = '/log';
+                return;
+            }
+            console.error('There was an error!', error.response?.data);
         }
 
+    };
+
+    const topUp = () => {
+        setBye(false);
     };
     
 return ( 
@@ -58,9 +67,12 @@ return (
                     </div>
                 )}
                 </div>
-                <button className='do_bye_bye_button' onClick={handleSubmit}>
+                {error === 0 && <button className='do_bye_bye_button' onClick={handleSubmit}>
                   Перейти за {moreinfo[idOfInfo].price} рублей
-                </button>
+                </button>}
+                {error === 1 && <button className='do_bye_bye_button' onClick={topUp}>
+                  Пополнить
+                </button>}
             </div>
           </div>
 

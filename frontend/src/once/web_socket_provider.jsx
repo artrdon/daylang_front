@@ -51,7 +51,7 @@ const WebSocketProvider = ({ children }) => {
       const initCSRF = async () => {
         try {
           await axios.get(`${vars['APIURL']}/get_csrf/`, { withCredentials: true });
-          console.log('CSRF token initialized');
+         // console.log('CSRF token initialized');
         } catch (error) {
           console.error('CSRF init failed:', error);
         }
@@ -59,13 +59,13 @@ const WebSocketProvider = ({ children }) => {
       initCSRF();
   }, []);
     
-    if (window.trustedTypes?.createPolicy) {
+ /*   if (window.trustedTypes?.createPolicy) {
       window.trustedTypes.createPolicy('defaults', {
         createHTML: (html) => {html.replace(/<iframe[^>]*onload\s*=[^>]+>/gi, ''); console.log("fuck u")},
         createScriptURL: url => {url.replace(/javascript:/gi, 'blocked:'); console.log("fuck u")}
       });
     }
-  
+  */
 
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: [`future_lessons_offer`], // Уникальный ключ запроса
@@ -102,7 +102,7 @@ const WebSocketProvider = ({ children }) => {
             return response.data;
           } catch (err) {
             if (err.response?.status === 401){
-              return "undefined";
+              return undefined;
             }
             throw new Error(
               err.response?.data?.message || 

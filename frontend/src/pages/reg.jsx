@@ -2,19 +2,20 @@ import { useState, useRef }  from 'react'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
+import { InvisibleSmartCaptcha } from '@yandex/smart-captcha';
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
+import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 
 
 function Reg() {
 
     axios.defaults.withCredentials = true;
 
-    
-    const recaptchaRef = useRef(null);
+    const { executeCaptcha, captchaReady } = useSmartCaptcha(vars['KEY']);
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleEmail, setIsVisibleEmail] = useState(false);
     const [ifChel, setIfChel] = useState(false);
@@ -58,7 +59,7 @@ function Reg() {
               alert(arrLangLogin[lang]['u_must_agree_with']);
               return;
             }
-            const token = await recaptchaRef.current.executeAsync();
+            const token = await executeCaptcha();
             setData({ ...data, captcha: token });
             if (token != null)
             {
@@ -213,9 +214,6 @@ function Reg() {
             />
             <label htmlFor="reg_button" className="login_btn">{arrLangLogin[lang]['registration']}</label>
           </div>
-          <div className="login_container">
-            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
-          </div>
         </form>
       </div>
       <div className="mt-4">
@@ -229,7 +227,6 @@ function Reg() {
     </div>
   </div>
 </div>}
-
 {confirmation && <div style={{ width: "100vw", height: "100vh" }}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">

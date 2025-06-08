@@ -3,29 +3,30 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import React from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
+import { InvisibleSmartCaptcha } from '@yandex/smart-captcha';
 import axios from 'axios';
 import TwoMinuteTimer from '../elems/timer2min';
 import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
+import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 
 
 function Log() {
-
+    const { executeCaptcha, captchaReady } = useSmartCaptcha(vars['KEY']);
     const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
     const [emailForCode, setEmailForCode] = useState('');
-    const recaptchaRef = useRef(null);
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const theme = useState(websocket.theme);
 
     function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-  }
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
   
     const [data, setData] = useState({ username: '', password: '', captcha: ''});
     const [data1, setData1] = useState({ code: '', username: data.username, password: data.username});
@@ -46,8 +47,7 @@ function Log() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await recaptchaRef.current.executeAsync();
-        setData({ ...data, captcha: token });
+        const token = await executeCaptcha();
         try {
           if (token != null)
           {
@@ -86,7 +86,6 @@ function Log() {
           }
           console.error('There was an error!', error.response.data);
         }
-        recaptchaRef.current.reset();
     };
 
     const handleSubmit1 = async (e) => {
@@ -160,7 +159,7 @@ function Log() {
             <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>
           </div>
           <div className="login_container">
-            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
+            
           </div>
           <button onClick={handleYandexLogin}>
             Войти через Яндекс
@@ -190,7 +189,6 @@ function Log() {
     </div>
   </div>
 </div>}
-
 {confirmation && <div style={{ width: "100vw", height: "100vh" }}>
   <div style={{ width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
@@ -231,7 +229,7 @@ function Log() {
     </div>
   </div>
 </div>}
-
+<script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
 {/*<script src="https://yastatic.net/s3/passport-sdk/autofill/v1/sdk-suggest-with-polyfills-latest.js"></script>*/}
 
 </>

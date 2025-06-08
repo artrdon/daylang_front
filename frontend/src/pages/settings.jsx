@@ -42,7 +42,7 @@ axios.defaults.withCredentials = true;
       } catch (err) {
         if (err.response?.status === 401){
           window.location.href = '/log';
-          return null;
+          return;
         }
       }
     },

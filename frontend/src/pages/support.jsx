@@ -25,14 +25,14 @@ function Support() {
                 <div className="contact-icon">✉️</div>
                 <h3>Электронная почта</h3>
                 <p>Пишите нам по любым вопросам</p>
-                <a href="mailto:support@yourstartup.com" className="contact-link">support@yourstartup.com</a>
+                <a href="mailto:sinmak.show@bk.com" className="contact-link">sinmak.show@bk.com</a>
               </div>
               
               <div className="contact-card">
                 <div className="contact-icon">📱</div>
                 <h3>Telegram</h3>
                 <p>Быстрые ответы в мессенджере</p>
-                <a href="https://t.me/yourstartup_support" target="_blank" rel="noopener noreferrer" className="contact-link">@yourstartup_support</a>
+                <a href="https://t.me/kontroverzan" target="_blank" rel="noopener noreferrer" className="contact-link">@kontroverzan</a>
               </div>
               
               <div className="contact-card">
