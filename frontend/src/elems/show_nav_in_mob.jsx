@@ -116,6 +116,9 @@ return (
                 <a className="show_nav_in_mob_nav_panel_botton" href='/privacy/' target='_blank'>
                   <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['privacy_policy']}</span>
                 </a>
+                <a className="show_nav_in_mob_nav_panel_botton" href='/public_oferta/' target='_blank'>
+                  <span className='show_nav_in_mob_button_text_color'>Оферта</span>
+                </a>
         </div>
     </div>
 
