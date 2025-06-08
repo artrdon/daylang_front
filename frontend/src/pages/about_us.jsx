@@ -61,6 +61,7 @@ const About = () => {
     <div className='about_page_down_panel'>
       <p>ИП Макарова Любовь Валерьевна</p>
       <p>Email: sinmak.show@bk.ru</p>
+      <p>ЧР. г. Канаш, пр. Ленина, д. 2</p>
       <p>ОГРНИП: 325210000040272</p>
       <p>ИНН: 210802936290</p>
     </div>

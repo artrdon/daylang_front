@@ -15,6 +15,7 @@ import Privacy from './pages/privacy.jsx';
 import Support from './pages/support.jsx'
 import CallbackHandler from './pages/yandex_call_back.jsx'
 import SmileTest from './pages/smile.jsx'
+import Public_oferta from './pages/public_oferta.jsx'
 
 
 export default function Epp(){
@@ -37,10 +38,13 @@ export default function Epp(){
             <Route path="/about_us/" element={<About />}/>
             <Route path='/my_words/' element={<MyWords />} />
             <Route path='/support/' element={<Support />} />
-            <Route path="/privacy/" element={<Privacy />} />
+            
             <Route path="/forbidden/" element={<Forbidden />} />
             <Route path="/not_found/" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
+
+            <Route path="/privacy/" element={<Privacy />} />
+            <Route path="/public_oferta/" element={<Public_oferta />} />
         </Routes>
     
     )

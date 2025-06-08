@@ -25,9 +25,9 @@ function Reg() {
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const theme = useState(websocket.theme);
+    const [isChecked, setIsChecked] = useState(false);
 
-
-    const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: '', checkbox: false});
+    const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
     const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
 
     function getCookie(name) {
@@ -55,7 +55,7 @@ function Reg() {
         
         e.preventDefault();
         try {
-            if (!data.checkbox){
+            if (!isChecked){
               alert(arrLangLogin[lang]['u_must_agree_with']);
               return;
             }
@@ -197,8 +197,8 @@ function Reg() {
               type="checkbox"
               name='checkbox'
               id='i_agree'
-              value={data.checkbox}
-              onChange={handleChange}
+              checked={isChecked}
+              onChange={() => setIsChecked(!isChecked)}
             />
             <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span>{arrLangLogin[lang]['i_agree_with']}</span><Link to={'/privacy/'} className='log_reg_other_links' ><span>{arrLangLogin[lang]['privacy']}</span></Link></label>
           </div>

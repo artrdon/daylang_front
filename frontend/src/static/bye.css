@@ -37,10 +37,13 @@
     background-color: #bbbbbb;
 }
 .do_bye_overflow_of_ready_offers{
-    width: 100%; height: calc(100% - 80px); position: absolute; top: 0px; overflow: auto;
+    width: 100%; height: calc(100% - 140px); position: absolute; top: 0px; overflow: auto;
 }
 .do_bye_bye_button{
     width: 100%; height: 80px; background-color: #2854c7; border-radius: 10px; color: #ffffff; font-size: 25px; position: absolute; bottom: 0px;
+}
+.do_bye_oferta_agreement{
+    width: calc(100% - 40px); height: 20px; color: #ffffff; font-size: 20px; position: absolute; bottom: 80px; padding: 20px;
 }
 .more_into_to_bye_main_part{
     padding: 15px;
@@ -85,10 +88,13 @@
         width: 100vw; height: 15.23809523809524vw; padding: 2.857142857142857vw; 
     }
     .do_bye_overflow_of_ready_offers{
-        height: calc(100% - 15.23809523809524vw);
+        height: calc(100% - 26.66666666666667vw);
     }
     .do_bye_bye_button{
         height: 15.23809523809524vw; border-radius: 1.904761904761905vw; font-size: 4.761904761904762vw;
+    }
+    .do_bye_oferta_agreement{
+        width: calc(100% - 7.619047619047619vw); height: 3.80952380952381vw; font-size: 3.80952380952381vw; bottom: 15.23809523809524vw; padding: 3.80952380952381vw;
     }
     .do_bye_small_titles{
         font-size: 3.80952380952381vw;

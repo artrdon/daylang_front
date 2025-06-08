@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import arrLangOfferType from '/languages/offer_type.js'
-import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom'
 import vars from '/api.js'
 
 
 
 function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
 
-    const [tarif, setTarif] = useState('');
+    const [isChecked, setIsChecked] = useState(false);
     const setByeFunc = () =>{
       setBye(false);
     }
@@ -25,6 +25,10 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
     const [error, setError] = useState(0);
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!isChecked)
+        {
+            return;
+        }
         try {
             const response = await axios.post(`${vars['APIURL']}/bye_access/`, {language: moreinfo[idOfInfo].name, price: moreinfo[idOfInfo].price}, {
                 headers: {
@@ -67,9 +71,25 @@ return (
                     </div>
                 )}
                 </div>
-                {error === 0 && <button className='do_bye_bye_button' onClick={handleSubmit}>
-                  Перейти за {moreinfo[idOfInfo].price} рублей
-                </button>}
+                {error === 0 && 
+                <>
+                    <div className='do_bye_oferta_agreement'>
+                    <input
+                        className='reg_log_agree_with_privacy_checkbox'
+                        type="checkbox"
+                        name='checkbox'
+                        id='i_agree'
+                        checked={isChecked}
+                        onChange={() => setIsChecked(!isChecked)}
+                    />
+                    <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span> я согласен(на) с</span><Link to={'/public_oferta/'} className='log_reg_other_links' ><span>офертой</span></Link></label>    
+                    </div>
+
+                    <button className='do_bye_bye_button' onClick={handleSubmit}>
+                        Перейти за {moreinfo[idOfInfo].price} рублей
+                    </button>
+
+                </>}
                 {error === 1 && <button className='do_bye_bye_button' onClick={topUp}>
                   Пополнить
                 </button>}

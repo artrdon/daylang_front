@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom'
 import vars from '/api.js'
 
 
@@ -25,7 +25,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function DoBye({ ref, setBye, lang }) {
 
-    const [data, setData] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
     const [tarif, setTarif] = useState('');
     const setByeFunc = () =>{
       setBye(false);
@@ -45,6 +45,10 @@ function DoBye({ ref, setBye, lang }) {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!isChecked)
+        {
+          return;
+        }
         try {
             const response = await axios.post(`${vars['APIURL']}/bye/`, {summa: tarif}, {
                 headers: {
@@ -106,6 +110,17 @@ return (
                 </button>
               </div>
               {tarif === '' ? null : (<>
+                <div className='do_bye_oferta_agreement'>
+                  <input
+                    className='reg_log_agree_with_privacy_checkbox'
+                    type="checkbox"
+                    name='checkbox'
+                    id='i_agree'
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
+                  />
+                  <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span> я согласен(на) с</span><Link to={'/public_oferta/'} className='log_reg_other_links' ><span>офертой</span></Link></label>    
+                </div>
                 <button className='do_bye_bye_button' onClick={handleSubmit}>
                   пополнить на {tarif} рублей
                 </button>
