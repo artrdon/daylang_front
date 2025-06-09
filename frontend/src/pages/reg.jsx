@@ -1,8 +1,6 @@
 import { useState, useRef }  from 'react'
 import { Link } from 'react-router-dom'
 import React from 'react'
-import ReCAPTCHA from "react-google-recaptcha";
-import { InvisibleSmartCaptcha } from '@yandex/smart-captcha';
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import vars from '/api.js'

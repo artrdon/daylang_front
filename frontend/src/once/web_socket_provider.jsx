@@ -102,7 +102,7 @@ const WebSocketProvider = ({ children }) => {
             return response.data;
           } catch (err) {
             if (err.response?.status === 401){
-              return undefined;
+              return "unauthorised";
             }
             throw new Error(
               err.response?.data?.message || 
@@ -125,7 +125,7 @@ const WebSocketProvider = ({ children }) => {
           return response.data; 
         } catch (err) {
           if (err.response?.status === 401){
-            return undefined;
+            return "unauthorised";
           }
         }
       },
@@ -140,7 +140,7 @@ const [lang, setLang] = useState(getCookie("lang"));
 
     
 useEffect(() => {     
-    if (data2 !== undefined){
+    if (data2 !== "unauthorised" && data2 !== undefined){
       document.cookie = `lang=${data2.language}; path=/;max-age=31556926`;
       setLang(data2.language);
     }
