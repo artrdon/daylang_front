@@ -7,7 +7,6 @@ import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import My_load from '/src/load_elems/me_load.jsx'
 import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
@@ -31,6 +30,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 function Me() {
 
+  const env = import.meta.env;
   const websocket = useWebSocket();
   const [lessons, setLessons] = useState(websocket.lessons);
   const [lang, setLang] = useState(websocket.lang);
@@ -53,7 +53,7 @@ function Me() {
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['usersettings', params.user], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${[vars['APIURL']]}/usersettings/${params.user}/`);
+        const response = await axios.get(`${env.VITE_APIURL}/usersettings/${params.user}/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:
@@ -66,7 +66,7 @@ function Me() {
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
       queryKey: ['userinfo', params.user], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${vars['APIURL']}/userinfo/${params.user}/`);
+        const response = await axios.get(`${env.VITE_APIURL}/userinfo/${params.user}/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:
@@ -79,7 +79,7 @@ function Me() {
     const { data: usernow, isLoading: loading2, isError: error2, error: errorDetails2 } = useQuery({
       queryKey: ['userinfo'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${vars['APIURL']}/userinfo/`);
+        const response = await axios.get(`${env.VITE_APIURL}/userinfo/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:

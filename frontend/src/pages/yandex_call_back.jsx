@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import arrLangLogin from '../../languages/login_translate.js';
 import TwoMinuteTimer from '../elems/timer2min';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
-import vars from '/api.js'
 
 const CallbackHandler = () => {
+    const env = import.meta.env;
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const [confirmation, setConf] = useState(false);
@@ -24,7 +24,7 @@ const CallbackHandler = () => {
         const code = params.get('code');
 
         if (code) {
-            axios.post( `${vars['APIURL']}/auth/yandex/callback/`, { code })
+            axios.post( `${env.APIURL}/auth/yandex/callback/`, { code })
                 .then((res) => {
                     localStorage.setItem('token', res.data.access_token);
                    // navigate('/');
@@ -32,7 +32,7 @@ const CallbackHandler = () => {
                 .catch((err) => console.error(err));
 
                 try {
-                    const response = axios.post(`${vars['APIURL']}/auth/yandex/callback/`, { code }, {
+                    const response = axios.post(`${env.VITE_APIURL}/auth/yandex/callback/`, { code }, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': getCookie('csrftoken'),
@@ -55,7 +55,7 @@ const CallbackHandler = () => {
     const handleSubmit1 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${vars['APIURL']}/confirm_yandex/`, data1, {
+            const response = await axios.post(`${env.VITE_APIURL}/confirm_yandex/`, data1, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),

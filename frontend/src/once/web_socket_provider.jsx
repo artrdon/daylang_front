@@ -2,12 +2,12 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import MainLoad from '../load_elems/load_main_page';
 import axios from 'axios';
-import vars from '/api.js';
 
 const WebSocketContext = createContext(null);
 
 const WebSocketProvider = ({ children }) => {
 
+  const env = import.meta.env;
     const [lessons, setLessons] = useState(0)
 
     axios.defaults.withCredentials = true;
@@ -50,7 +50,7 @@ const WebSocketProvider = ({ children }) => {
    useEffect(() => {
       const initCSRF = async () => {
         try {
-          await axios.get(`${vars['APIURL']}/get_csrf/`, { withCredentials: true });
+          await axios.get(`${env.VITE_APIURL}/get_csrf/`, { withCredentials: true });
          // console.log('CSRF token initialized');
         } catch (error) {
           console.error('CSRF init failed:', error);
@@ -71,7 +71,7 @@ const WebSocketProvider = ({ children }) => {
       queryKey: [`future_lessons_offer`], // Уникальный ключ запроса
       queryFn: async () => {
         try {
-          const response = await axios.get(`${vars['APIURL']}/bye/`);
+          const response = await axios.get(`${env.VITE_APIURL}/bye/`);
           return response.data;
         } catch {
           return 0;
@@ -98,7 +98,7 @@ const WebSocketProvider = ({ children }) => {
         queryKey: ['userinfo'], // Уникальный ключ запроса
         queryFn: async () => {
           try {
-            const response = await axios.get(`${vars['APIURL']}/userinfo/`);
+            const response = await axios.get(`${env.VITE_APIURL}/userinfo/`);
             return response.data;
           } catch (err) {
             if (err.response?.status === 401){
@@ -121,7 +121,7 @@ const WebSocketProvider = ({ children }) => {
       queryKey: ['usersettings'], // Уникальный ключ запроса
       queryFn: async () => {
         try {
-          const response = await axios.get(`${vars['APIURL']}/usersettings/`);
+          const response = await axios.get(`${env.VITE_APIURL}/usersettings/`);
           return response.data; 
         } catch (err) {
           if (err.response?.status === 401){

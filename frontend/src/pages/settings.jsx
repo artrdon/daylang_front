@@ -5,12 +5,12 @@ import AppLoad from '/src/AppLoad.jsx'
 import SettingsForm from '/src/elems/settingfrom.jsx'
 import Settings_load from '/src/load_elems/settings_load.jsx'
 import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangNavigPanel from '../../languages/nav_panel.js';
 
 function Settings() {
 
+  const env = import.meta.env;
   const websocket = useWebSocket();
   const [lessons, setLessons] = useState(websocket.lessons);
   const [lang, setLang] = useState(websocket.lang);
@@ -37,7 +37,7 @@ axios.defaults.withCredentials = true;
     queryKey: ['userinfo'], // Уникальный ключ запроса
     queryFn: async () => {
       try {
-        const response = await axios.get(`${vars['APIURL']}/userinfo/`);
+        const response = await axios.get(`${env.VITE_APIURL}/userinfo/`);
         return response.data; 
       } catch (err) {
         if (err.response?.status === 401){
@@ -57,7 +57,7 @@ axios.defaults.withCredentials = true;
     queryKey: ['usersettings'], // Уникальный ключ запроса
     queryFn: async () => {
       try {
-        const response = await axios.get(`${vars['APIURL']}/usersettings/`);
+        const response = await axios.get(`${env.VITE_APIURL}/usersettings/`);
         return response.data; 
       } catch (err) {
         if (err.response?.status === 401){
@@ -76,7 +76,7 @@ axios.defaults.withCredentials = true;
     queryKey: ['my_sessions'], // Уникальный ключ запроса
     queryFn: async () => {
       try {
-        const response = await axios.get(`${vars['APIURL']}/get_sessions/`);
+        const response = await axios.get(`${env.VITE_APIURL}/get_sessions/`);
         return response.data;
       } catch (err) {
         if (err.response?.status === 401){

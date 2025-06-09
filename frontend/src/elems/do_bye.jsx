@@ -2,29 +2,11 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import vars from '/api.js'
 
-
-function ImageWithFallback({ src, fallbackSrc, alt, }) {
-    const [imgSrc, setImgSrc] = useState(src);
-  
-    const handleError = () => {
-      setImgSrc(fallbackSrc);
-    };
-  
-    return (
-      <img
-        className="finded_img"
-        src={imgSrc}
-        alt={alt}
-        onError={handleError}
-      />
-    );
-  }
-  
 
 function DoBye({ ref, setBye, lang }) {
 
+    const env = import.meta.env;
     const [isChecked, setIsChecked] = useState(false);
     const [tarif, setTarif] = useState('');
     const setByeFunc = () =>{
@@ -50,7 +32,7 @@ function DoBye({ ref, setBye, lang }) {
           return;
         }
         try {
-            const response = await axios.post(`${vars['APIURL']}/bye/`, {summa: tarif}, {
+            const response = await axios.post(`${env.VITE_APIURL}/bye/`, {summa: tarif}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

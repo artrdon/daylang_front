@@ -4,9 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
-import { CSSTransition } from 'react-transition-group';
 
 function Finded() {
 
@@ -14,7 +12,7 @@ function Finded() {
   const websocket = useWebSocket();
   const [lessons, setLessons] = useState(websocket.lessons);
   const [lang, setLang] = useState(websocket.lang);
-
+  const env = import.meta.env;
     const params = useParams();
 
 
@@ -23,7 +21,7 @@ function Finded() {
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
       queryKey: ['userinfo'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${vars['APIURL']}/userinfo/`);
+        const response = await axios.get(`${env.VITE_APIURL}/userinfo/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:

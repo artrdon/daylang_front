@@ -4,13 +4,12 @@ import React from 'react'
 import ReCAPTCHA from "react-google-recaptcha";
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
 
 
 function Log_reset() {
-
+  const env = import.meta.env;
     const recaptchaRef = useRef(null);
     const [ifChel, setIfChel] = useState(false);
     const [emailForCode, setEmailForCode] = useState('');
@@ -50,7 +49,7 @@ function Log_reset() {
         
         try {
             setConf(true);
-            const to_email = await axios.post(`${vars['APIURL']}/email/`, { email: data.email, password1: data.password1, password2: data.password2}, {
+            const to_email = await axios.post(`${env.VITE_APIURL}/email/`, { email: data.email, password1: data.password1, password2: data.password2}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -65,7 +64,7 @@ function Log_reset() {
     const handleSubmit1 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${vars['APIURL']}/forgot_password/`, data1, {
+            const response = await axios.post(`${env.VITE_APIURL}/forgot_password/`, data1, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -87,7 +86,7 @@ function Log_reset() {
         try {
             if (token != null)
             {
-                const response = await axios.post(`${vars['APIURL']}/forgot_password_reset/`, { email: data.email, password1: data.password1, password2: data.password2, captcha: token}, {
+                const response = await axios.post(`${env.VITE_APIURL}/forgot_password_reset/`, { email: data.email, password1: data.password1, password2: data.password2, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': getCookie('csrftoken'),
@@ -226,7 +225,7 @@ function Log_reset() {
             />
           </div>
           <div className="login_container">
-            <ReCAPTCHA sitekey={vars['KEY']} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
+            <ReCAPTCHA sitekey={env.VITE_KEY} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
           </div>
         </form>
       </div>

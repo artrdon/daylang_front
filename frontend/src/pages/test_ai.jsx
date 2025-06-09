@@ -5,13 +5,13 @@ import LoadingSpinner from '../elems/loading_spinner.jsx';
 import arrLangNavigPanel from '../../languages/nav_panel.js';
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import SmileTest from './smile.jsx';
 import '/src/static/ai_speak.css'
 
 function TestAI() {
 
+    const env = import.meta.env;
     const audio = useRef(null);
     const mediaRecorderRef = useRef(null);
     const canvasRef = useRef(null);
@@ -116,7 +116,7 @@ function TestAI() {
 
         try {
             setWaitForAnswer(true);
-            const response = await axios.post(`${vars['APIURL']}/airequest/`, formData, {
+            const response = await axios.post(`${env.VITE_APIURL}/airequest/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -237,7 +237,7 @@ function TestAI() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`${vars['APIURL']}/check_access/${params.id}/`);
+            const response = await axios.get(`${env.VITE_APIURL}/check_access/${params.id}/`);
             setData(response.data);
           } catch (err) {
             setError(err.message);

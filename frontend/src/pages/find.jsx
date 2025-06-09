@@ -7,12 +7,11 @@ import Type_offer from '/src/elems/offer_type.jsx'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import MoreInfoFromFind from '../elems/moreinfofromfind.jsx';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 
 function Find() {
-    
+  const env = import.meta.env;
     const websocket = useWebSocket();
     const [lessons, setLessons] = useState(websocket.lessons);
     const [lang, setLang] = useState(websocket.lang);
@@ -38,7 +37,7 @@ function Find() {
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
       queryKey: ['userinfo'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${vars['APIURL']}/userinfo/`);
+        const response = await axios.get(`${env.VITE_APIURL}/userinfo/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:
@@ -50,7 +49,7 @@ function Find() {
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
       queryKey: ['lol'], // Уникальный ключ запроса
       queryFn: async () => {
-        const response = await axios.get(`${vars['APIURL']}/lol/`);
+        const response = await axios.get(`${env.VITE_APIURL}/lol/`);
         return response.data; // Возвращаем только данные
       },
       // Опциональные параметры:

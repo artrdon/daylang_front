@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react'
 import axios from 'axios';
 import TwoMinuteTimer from '../elems/timer2min';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 
 
 function Log() {
-    const { executeCaptcha, captchaReady } = useSmartCaptcha(vars['KEY']);
+  const env = import.meta.env;
+    const { executeCaptcha, captchaReady } = useSmartCaptcha(env.VITE_KEY);
     const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
@@ -49,7 +49,7 @@ function Log() {
         try {
           if (token != null)
           {
-            const response = await axios.post(`${vars['APIURL']}/log/`, { username: data.username, password: data.password, captcha: token}, {
+            const response = await axios.post(`${env.APIURL}/log/`, { username: data.username, password: data.password, captcha: token}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -59,7 +59,7 @@ function Log() {
             setEmailForCode(response.data);
             if (response.data != 'username or password is incorrect'){
               setConf(true);
-              const to_email = await axios.post(`${vars['APIURL']}/email/`, { username: data.username, password: data.password, captcha: token, email: response.data}, {
+              const to_email = await axios.post(`${env.APIURL}/email/`, { username: data.username, password: data.password, captcha: token, email: response.data}, {
                   headers: {
                       'Content-Type': 'application/json',
                       'X-CSRFToken': getCookie('csrftoken'),
@@ -89,7 +89,7 @@ function Log() {
     const handleSubmit1 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${vars['APIURL']}/confirm/`, data1, {
+            const response = await axios.post(`${env.APIURL}/confirm/`, data1, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -107,7 +107,7 @@ function Log() {
 
       const handleYandexLogin = () => {
           const clientId = '4fc7bce46ef14fcf9ee912093e44fa1c';
-          const redirectUri = encodeURIComponent(`${vars['FRONT_URL']}/auth/yandex/callback`);
+          const redirectUri = encodeURIComponent(`${env.FRONT_URL}/auth/yandex/callback`);
           const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
           window.location.href = url;
       };

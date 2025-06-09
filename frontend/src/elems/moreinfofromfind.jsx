@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import arrLangOfferType from '/languages/offer_type.js'
 import { Link } from 'react-router-dom'
-import vars from '/api.js'
-
 
 
 function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
@@ -22,6 +20,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
 
     const csrfToken = getCookie('csrftoken');
     const params = useParams();
+    const env = import.meta.env;
     const [error, setError] = useState(0);
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +29,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
             return;
         }
         try {
-            const response = await axios.post(`${vars['APIURL']}/bye_access/`, {language: moreinfo[idOfInfo].name, price: moreinfo[idOfInfo].price}, {
+            const response = await axios.post(`${env.VITE_APIURL}/bye_access/`, {language: moreinfo[idOfInfo].name, price: moreinfo[idOfInfo].price}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,

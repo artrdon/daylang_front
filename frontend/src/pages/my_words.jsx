@@ -5,13 +5,13 @@ import arrLangNavigPanel from '../../languages/nav_panel.js';
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import NotFoundSave from '../elems/not_found_save.jsx';
 
 
 function MyWords() {
 
+    const env = import.meta.env;
     const[page, setPage] = useState(0);
     const websocket = useWebSocket();
     const [lessons, setLessons] = useState(websocket.lessons);
@@ -30,7 +30,7 @@ function MyWords() {
         queryKey: ['userinfo'], // Уникальный ключ запроса
         queryFn: async () => {
             try {
-                const response = await axios.get(`${vars['APIURL']}/userinfo/`);
+                const response = await axios.get(`${env.VITE_APIURL}/userinfo/`);
                 return response.data;
             } catch (err) {
                 if (err.response?.status === 401){

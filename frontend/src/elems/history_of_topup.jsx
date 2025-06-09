@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import arrLangNavigPanel from '../../languages/nav_panel';
 import { useQuery } from '@tanstack/react-query';
-import vars from '/api.js'
-
 
 
 function HistoryOfTopUpComp({ ref, setBye, lang }) {
@@ -22,14 +20,14 @@ function HistoryOfTopUpComp({ ref, setBye, lang }) {
 
     const csrfToken = getCookie('csrftoken');
     const params = useParams();
-
+    const env = import.meta.env;
     const setSelectedTarif = (e) => {
       setTarif(e.currentTarget.name);
     }
     const { data: data, isLoading: loading, isError: error, error: errorDetails } = useQuery({
         queryKey: ['transactions_history'], // Уникальный ключ запроса
         queryFn: async () => {
-          const response = await axios.get(`${vars['APIURL']}/bye/`);
+          const response = await axios.get(`${env.VITE_APIURL}/bye/`);
           return response.data; // Возвращаем только данные
         },
         // Опциональные параметры:

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import arrLangSettings from '/languages/settings.js'
 import axios from 'axios';
-import vars from '/api.js'
 
 
 function ImageWithFallback({ src, fallbackSrc, alt, }) {
@@ -27,7 +26,7 @@ function ImageWithFallback({ src, fallbackSrc, alt, }) {
 
 
 function SettingsForm({ language, name, surname, about_myself, photo, sessions, lang }) {
-
+  const env = import.meta.env;
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
@@ -53,7 +52,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
         const formData = new FormData();
         formData.append('image', file);
         try {
-            const response = await axios.post(`${vars['APIURL']}/change_avatar/`, formData, {
+            const response = await axios.post(`${env.VITE_APIURL}/change_avatar/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -78,7 +77,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
 
         try {
             await handleSubmitPhoto(e);
-            const response = await axios.post(`${vars['APIURL']}/usersettings/`, settingChange, {
+            const response = await axios.post(`${env.APIURL}/usersettings/`, settingChange, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -98,7 +97,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
         e.preventDefault();
         const csrfToken = getCookie('csrftoken');
         try {
-            const response = await axios.post(`${vars['APIURL']}/delete_session/`, id,
+            const response = await axios.post(`${env.APIURL}/delete_session/`, id,
               {
                 headers: {
                   'Content-Type': 'application/json',
@@ -119,7 +118,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
     const exit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${vars['APIURL']}/logout/`, {
+            const response = await axios.post(`${env.APIURL}/logout/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),

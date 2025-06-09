@@ -3,17 +3,16 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
-import vars from '/api.js'
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 
 
 function Reg() {
-
+  const env = import.meta.env;
     axios.defaults.withCredentials = true;
 
-    const { executeCaptcha, captchaReady } = useSmartCaptcha(vars['KEY']);
+    const { executeCaptcha, captchaReady } = useSmartCaptcha(env.VITE_KEY);
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleEmail, setIsVisibleEmail] = useState(false);
     const [ifChel, setIfChel] = useState(false);
@@ -61,7 +60,7 @@ function Reg() {
             setData({ ...data, captcha: token });
             if (token != null)
             {
-                const response = await axios.post(`${vars['APIURL']}/reg/`, { username: data.username, email: data.email, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name, captcha: token}, {
+                const response = await axios.post(`${env.VITE_APIURL}/reg/`, { username: data.username, email: data.email, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': getCookie('csrftoken'),
@@ -79,7 +78,7 @@ function Reg() {
                 }
                 else{
                     setConf(true);
-                    const email = await axios.post(`${vars['APIURL']}/email/`, { username: data.username, email: response.data, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name}, {
+                    const email = await axios.post(`${env.VITE_APIURL}/email/`, { username: data.username, email: response.data, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name}, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': getCookie('csrftoken'),
@@ -99,7 +98,7 @@ function Reg() {
     const handleSubmit2 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${vars['APIURL']}/confirmreg/`, data2, {
+            const response = await axios.post(`${env.VITE_APIURL}/confirmreg/`, data2, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
