@@ -23,6 +23,7 @@ function Reg() {
     const [lang, setLang] = useState(websocket.lang);
     const theme = useState(websocket.theme);
     const [isChecked, setIsChecked] = useState(false);
+    const [requestWasSended, setRequestWasSended] = useState(false);
 
     const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
     const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
@@ -60,6 +61,7 @@ function Reg() {
             setData({ ...data, captcha: token });
             if (token != null)
             {
+                setRequestWasSended(true);
                 const response = await axios.post(`${env.VITE_APIURL}/reg/`, { username: data.username, email: data.email, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name, captcha: token}, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -67,7 +69,7 @@ function Reg() {
                     },
                 });
                 setEmailForCode(response.data);
-                console.log(response.data);
+               // console.log(response.data);
                 if (response.data === "ima")
                 {
                     setIsVisible(true);
@@ -93,11 +95,13 @@ function Reg() {
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
+        setRequestWasSended(false);
     };
 
     const handleSubmit2 = async (e) => {
         e.preventDefault();
         try {
+          setRequestWasSended(true);
             const response = await axios.post(`${env.VITE_APIURL}/confirmreg/`, data2, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,11 +112,12 @@ function Reg() {
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
                 window.location.replace('/'); // Нет возможности вернуться
             }
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
+        setRequestWasSended(false);
     };
 
     document.querySelector("title").textContent = arrLangLogin[lang]['reg'];
@@ -209,7 +214,8 @@ function Reg() {
               id='reg_button'
               hidden
             />
-            <label htmlFor="reg_button" className="login_btn">{arrLangLogin[lang]['registration']}</label>
+            {!requestWasSended && <label htmlFor="reg_button" className="login_btn">{arrLangLogin[lang]['registration']}</label>}
+            {requestWasSended && <div className="login_btn"></div>}
           </div>
         </form>
       </div>
@@ -256,8 +262,11 @@ function Reg() {
               defaultValue="Confirm"
               hidden
             />
-          {timehave > 0 && 
+          {timehave > 0 && !requestWasSended &&
             <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
+          }
+          {timehave > 0 && requestWasSended &&
+            <div className="login_btn">{arrLangLogin[lang]['confirm']}</div>
           }
         </form>
       </div>

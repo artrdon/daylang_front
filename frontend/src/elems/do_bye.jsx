@@ -22,9 +22,11 @@ function DoBye({ ref, setBye, lang }) {
     const csrfToken = getCookie('csrftoken');
     const params = useParams();
 
+  
     const setSelectedTarif = (e) => {
       setTarif(e.currentTarget.name);
     }
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isChecked)
@@ -38,19 +40,20 @@ function DoBye({ ref, setBye, lang }) {
                     'X-CSRFToken': csrfToken,
                 },
             });
-            console.log('Response:', response.data);
+           // console.log('Response:', response.data);
             if (response.status === 200){
-                location.reload();
+              location.replace(response.data['PaymentURL'])
             }
 
         } catch (error) {
-            console.error('There was an error!', error.response.data);
+            console.error('There was an error!', error.response?.data);
         }
 
     };
 
 return ( 
     <>
+    
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100svh"}}>
             <div className='do_bye_transparency_fon' onClick={setByeFunc} />
             <div className='do_bye_panel' ref={ref}>

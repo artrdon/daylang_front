@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TwoMinuteTimer = ({ setTimehave, handleSubmit }) => {
+const TwoMinuteTimer = ({ setTimehave, handleSubmit, }) => {
   const [timeLeft, setTimeLeft] = useState(120); // 2 минуты = 120 секунд
   const [isActive, setIsActive] = useState(true);
 

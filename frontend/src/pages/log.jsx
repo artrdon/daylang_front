@@ -19,6 +19,7 @@ function Log() {
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const theme = useState(websocket.theme);
+    const [requestWasSended, setRequestWasSended] = useState(false);
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -44,29 +45,32 @@ function Log() {
     axios.defaults.withCredentials = true;
 
     const handleSubmit = async (e) => {
+      
         e.preventDefault();
         const token = await executeCaptcha();
         try {
           if (token != null)
           {
-            const response = await axios.post(`${env.APIURL}/log/`, { username: data.username, password: data.password, captcha: token}, {
+            setRequestWasSended(true);
+            const response = await axios.post(`${env.VITE_APIURL}/log/`, { username: data.username, password: data.password, captcha: token}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log(response.data);
+            //console.log(response.data);
             setEmailForCode(response.data);
+            
             if (response.data != 'username or password is incorrect'){
               setConf(true);
-              const to_email = await axios.post(`${env.APIURL}/email/`, { username: data.username, password: data.password, captcha: token, email: response.data}, {
+              const to_email = await axios.post(`${env.VITE_APIURL}/email/`, { username: data.username, password: data.password, captcha: token, email: response.data}, {
                   headers: {
                       'Content-Type': 'application/json',
                       'X-CSRFToken': getCookie('csrftoken'),
                   },
               });
 
-              console.log('Response:', to_email.data);
+              //console.log('Response:', to_email.data);
 
             }
             else{
@@ -84,12 +88,14 @@ function Log() {
           }
           console.error('There was an error!', error.response.data);
         }
+        setRequestWasSended(false);
     };
 
     const handleSubmit1 = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${env.APIURL}/confirm/`, data1, {
+            setRequestWasSended(true);
+            const response = await axios.post(`${env.VITE_APIURL}/confirm/`, data1, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -99,15 +105,16 @@ function Log() {
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
                 window.location.replace('/');
             }
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
+        setRequestWasSended(false);
     };
 
       const handleYandexLogin = () => {
           const clientId = '4fc7bce46ef14fcf9ee912093e44fa1c';
-          const redirectUri = encodeURIComponent(`${env.FRONT_URL}/auth/yandex/callback`);
+          const redirectUri = encodeURIComponent(`${env.VITE_FRONT_URL}/auth/yandex/callback`);
           const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
           window.location.href = url;
       };
@@ -154,7 +161,8 @@ function Log() {
               id='login_button'
               hidden
             />
-            <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>
+            {!requestWasSended && <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>}
+            {requestWasSended && <div className="login_btn"><div className='loading-spinner'></div></div>}
           </div>
           <div className="login_container">
             
@@ -219,8 +227,11 @@ function Log() {
               defaultValue="Confirm"
               hidden
             />
-          {timehave > 0 && 
+          {timehave > 0 && !requestWasSended &&
             <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
+          }
+          {timehave > 0 && requestWasSended &&
+            <div className="login_btn"></div>
           }
         </form>
       </div>

@@ -38,7 +38,7 @@ const CallbackHandler = () => {
                             'X-CSRFToken': getCookie('csrftoken'),
                         },
                     });
-                    console.log(response.data);
+                  //  console.log(response.data);
                     setEmailForCode(response.data);
                     setConf(true);
                     
@@ -65,7 +65,7 @@ const CallbackHandler = () => {
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
                 window.location.replace('/');
             }
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }

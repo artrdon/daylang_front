@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
 
+    const [requestWasSended, setRequestWasSended] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const setByeFunc = () =>{
       setBye(false);
@@ -26,9 +27,11 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
         e.preventDefault();
         if (!isChecked)
         {
+            alert("Вы должны согласиться с офертой");
             return;
         }
         try {
+            setRequestWasSended(true);
             const response = await axios.post(`${env.VITE_APIURL}/bye_access/`, {language: moreinfo[idOfInfo].name, price: moreinfo[idOfInfo].price}, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +51,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
             }
             console.error('There was an error!', error.response?.data);
         }
-
+        setRequestWasSended(false);
     };
 
     const topUp = () => {
@@ -84,10 +87,22 @@ return (
                     <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span> я согласен(на) с</span><Link to={'/public_oferta/'} className='log_reg_other_links' ><span>офертой</span></Link></label>    
                     </div>
 
-                    <button className='do_bye_bye_button' onClick={handleSubmit}>
-                        Перейти за {moreinfo[idOfInfo].price} рублей
-                    </button>
-
+                    {!requestWasSended && 
+                        <>
+                            <button className='do_bye_bye_button' onClick={handleSubmit}>
+                                Перейти за {moreinfo[idOfInfo].price} рублей
+                            </button>
+                        </>
+                    }
+                    
+                    {requestWasSended && 
+                        <>
+                            <div className='do_bye_bye_button'>
+                                
+                            </div>
+                        </>
+                    }
+                    
                 </>}
                 {error === 1 && <button className='do_bye_bye_button' onClick={topUp}>
                   Пополнить

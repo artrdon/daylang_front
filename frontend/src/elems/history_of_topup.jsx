@@ -49,7 +49,7 @@ function HistoryOfTopUpComp({ ref, setBye, lang }) {
           </div>
       </>);
       if (error) return <p>Error: {error}</p>;
-  console.log(data);
+
     
 return ( 
     <>

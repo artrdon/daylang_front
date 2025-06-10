@@ -1,7 +1,6 @@
 import { useState, useRef }  from 'react'
 import { useNavigate } from 'react-router-dom';
 import React from 'react'
-import ReCAPTCHA from "react-google-recaptcha";
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
@@ -55,7 +54,7 @@ function Log_reset() {
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log('Response:', to_email.data);
+           // console.log('Response:', to_email.data);
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
@@ -74,7 +73,7 @@ function Log_reset() {
                 setNewPassword(true);
                 
             }
-            console.log('Response:', response.data);
+            //console.log('Response:', response.data);
         } catch (error) {
             console.error('There was an error!', error.response.data);
         }
@@ -92,7 +91,7 @@ function Log_reset() {
                         'X-CSRFToken': getCookie('csrftoken'),
                     },
                 });
-                console.log('Response:', response.data);
+                //console.log('Response:', response.data);
                 if (response.data["if"] === "yes"){
                     window.location.replace('/log/');
                 }
@@ -225,7 +224,6 @@ function Log_reset() {
             />
           </div>
           <div className="login_container">
-            <ReCAPTCHA sitekey={env.VITE_KEY} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
           </div>
         </form>
       </div>
