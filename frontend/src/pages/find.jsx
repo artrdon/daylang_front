@@ -57,23 +57,24 @@ function Find() {
       staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
       refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
     });
-
     if (loading) return <AppLoad lang={lang}/>;
     if (error) return <p>Error: {error}</p>;
     
     if (loading1) return <AppLoad lang={lang}/>;
     if (error1) return <p>Error: {error1}</p>;
-    document.querySelector("title").textContent = "DayLang";
+    document.querySelector("title").textContent = "DayLang | Развивайте разговорную речь на иностранном языке ";
+    document.querySelector("meta[name='description']").content = "DayLang - место, где вы можете тренировать разговорую речь на английском языке. Разговаривайте на любые темы, как с настоящим собеседником, с помощью технологии искусственного интеллекта.";
+    document.querySelector("meta[name='keywords']").content = "daylang, DayLang, Дайленг, дейленг, ИИ, искуственный интеллект, разговор со смайликом на английском, разговор на английском с ии, разговор на английском с искуственным интеллектом";
+    document.querySelector("meta[property='og:url']").content = "https://daylang.ru";
+    document.querySelector("meta[property='og:title']").content = "DayLang | Развивайте разговорную речь на английском языке";
+    document.querySelector("meta[property='og:description']").content = "DayLang - место, где вы можете тренировать разговорую речь на английском языке. Разговаривайте на любые темы, как с настоящим собеседником, с помощью технологии искусственного интеллекта.";
+    document.querySelector("meta[property='og:image']").content = "https://daylang.ru/src/static/img/favicon.png";
 
     return (
         <>
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
 <div className='find_panel'>
   <div className="tag_select_panel">
-    {/*<h1 className='find_page_teacher'>{arrLang[lang]['teacher']}</h1>
-    <p className='find_page_teacher_description'>
-      {arrLang[lang]['teacher_description']}
-    </p>*/}
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
       {data1.map((data, index) => (

@@ -9,6 +9,15 @@ const About = () => {
   const [lang, setLang] = useState(websocket.lang);
  
   document.querySelector("title").textContent = arrLangNavigPanel[lang]['about'];
+  document.querySelector("meta[name='description']").content = `Мы создали платформу, где вы можете практиковать английский язык в комфортной обстановке, 
+            без страха ошибиться. Наша технология искусственного интеллекта понимает вас, 
+            поддерживает беседу и помогает улучшать произношение и грамматику естественным образом.`;
+  document.querySelector("meta[name='keywords']").content = "";
+  document.querySelector("meta[property='og:url']").content = "https://daylang.ru/about_us/";
+  document.querySelector("meta[property='og:title']").content = `DayLang | ${arrLangNavigPanel[lang]['about']}`;
+  document.querySelector("meta[property='og:description']").content = "DayLang - место, где вы можете тренировать разговорую речь на английском языке. Разговаривайте на любые темы, как с настоящим собеседником, с помощью технологии искусственного интеллекта.";
+  document.querySelector("meta[property='og:image']").content = "https://daylang.ru/src/static/img/favicon.png";
+        
 
   return (
     <>

@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import Find from '/src/pages/find.jsx'
-import Finded from '/src/pages/finded.jsx'
 import Me from '/src/pages/me.jsx'
 import Log_reset from '/src/pages/reset_password.jsx'
 import Settings from '/src/pages/settings.jsx'

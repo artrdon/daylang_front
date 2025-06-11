@@ -58,9 +58,9 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            console.log(response.data);
+          //  console.log(response.data);
         } catch (error) {
-            console.error('Ошибка при загрузке фото:', error);
+            console.error('Ошибка при загрузке фото:', error.response?.data);
         }
     };
 
@@ -84,10 +84,10 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
                 },
             });
             document.cookie = `lang=${settingChange.language}; path=/;max-age=31556926`;
-            /*if (response?.status === 200)
-              location.reload();*/
+            if (response?.status === 200)
+              location.reload();
         } catch (error) {
-            console.error('There was an error!', error.response.data);
+            console.error('There was an error!', error.response?.data);
         }
        //
     };
@@ -110,7 +110,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
               document.getElementById(`session_id_${response.data}`).remove();
 
         } catch (error) {
-            console.error('There was an error!', error.response.data);
+            console.error('There was an error!', error.response?.data);
         }
     };
 
@@ -127,7 +127,7 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
             console.log('Response:', response.data);
 
         } catch (error) {
-            console.error('There was an error!', error.response.data);
+            console.error('There was an error!', error.response?.data);
         }
     };
 
@@ -209,19 +209,19 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
               <div className="crt_offer_name_of_fields">
                 <span>{arrLangSettings[lang]['sessions']}</span>
                 <div className="input_field_description">
-                  {sessions.map((session) => (
-                    <div className='settings_session_div' key={`session${session.id}`} id={`session_id_${session.id}`}>
-                      {session.type !== 'ordinary' && <p className='settings_sessiond_div_p'>{session.type}</p>}
-                      <p className='settings_sessiond_div_p'>{session.device}</p>
-                      <p className='settings_sessiond_div_p'>{session.os}</p>
-                      <p className='settings_sessiond_div_p'>{session.browzer}</p>
-                      <button className='settings_delete_div_button' onClick={(e) => deleteSession(e, session.id)} type='button'>
-                        {arrLangSettings[lang]['delete']}
-                      </button>
-                    </div>
-                  ))}
-                  
-
+                  <div style={{overflow: "auto", height: "100%"}}>
+                    {sessions.map((session) => (
+                      <div className='settings_session_div' key={`session${session.id}`} id={`session_id_${session.id}`}>
+                        {session.type !== 'ordinary' && <p className='settings_sessiond_div_p'>{session.type}</p>}
+                        <p className='settings_sessiond_div_p'>{session.device}</p>
+                        <p className='settings_sessiond_div_p'>{session.os}</p>
+                        <p className='settings_sessiond_div_p'>{session.browzer}</p>
+                        <button className='settings_delete_div_button' onClick={(e) => deleteSession(e, session.id)} type='button'>
+                          {arrLangSettings[lang]['delete']}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 

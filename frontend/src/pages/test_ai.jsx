@@ -113,6 +113,8 @@ function TestAI() {
         const formData = new FormData();
         formData.append('audio', blob, 'recording.wav');
         formData.append('answers', JSON.stringify(answers));
+        formData.append('id', params.id);
+
 
         try {
             setWaitForAnswer(true);

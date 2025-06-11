@@ -38,9 +38,9 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
                     'X-CSRFToken': csrfToken,
                 },
             });
-            console.log('Response:', response.data);
+           // console.log('Response:', response.data);
             if (response.status === 200){
-                window.open(`${window.location.origin}${response.data}`, '_blank')
+                window.open(`${window.location.origin}${response.data}`, '_blank');
             }
             
 
