@@ -68,7 +68,7 @@ function Find() {
     document.querySelector("meta[property='og:url']").content = "https://daylang.ru";
     document.querySelector("meta[property='og:title']").content = "DayLang | Развивайте разговорную речь на английском языке";
     document.querySelector("meta[property='og:description']").content = "DayLang - место, где вы можете тренировать разговорую речь на английском языке. Разговаривайте на любые темы, как с настоящим собеседником, с помощью технологии искусственного интеллекта.";
-    document.querySelector("meta[property='og:image']").content = "https://daylang.ru/src/static/img/favicon.png";
+    document.querySelector("meta[property='og:image']").content = "https://daylang.ru/src/static/img/icon.svg";
 
     return (
         <>
