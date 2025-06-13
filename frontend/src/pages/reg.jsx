@@ -124,12 +124,18 @@ function Reg() {
 
     return (
         <>
-{!confirmation && <div style={{ width: "100vw", height: "100vh" }}>
+
+
+<div style={{width: "100vw", height: "100svh", position: "fixed", zIndex: 1, display: "flex", justifyContent: "center"}}>
+  <div className='log_reg_text_main_div'>
+    <p className='log_reg_before_using'>Перед использованием необходимо войти в аккаунт</p>
+  </div>
+</div>
+
+
+{!confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10,  }}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
-      <div className='reg_log_the_main_header'>
-        <h3 id="form-title">{arrLangLogin[lang]['reg']}</h3>
-      </div>
       <div className="form_container">
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -230,12 +236,9 @@ function Reg() {
     </div>
   </div>
 </div>}
-{confirmation && <div style={{ width: "100vw", height: "100vh" }}>
+{confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10,  }}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div className='reg_log_the_main_header'>
-        <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
-      </div>
       <div className="form_container">
         <form onSubmit={handleSubmit2}>
           <div className="input-group">

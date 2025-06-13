@@ -35,7 +35,7 @@ const TwoMinuteTimer = ({ setTimehave, handleSubmit, }) => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <div style={{ fontSize: '15px', margin: '20px' }}>
+      <div className='timer_for_code_time'>
         {formatTime(timeLeft)}
       </div>
       <div>

@@ -11,6 +11,7 @@ const WebSocketProvider = ({ children }) => {
     const [lessons, setLessons] = useState(0)
 
     axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -50,7 +51,7 @@ const WebSocketProvider = ({ children }) => {
    useEffect(() => {
       const initCSRF = async () => {
         try {
-          await axios.get(`${env.VITE_APIURL}/get_csrf/`, { withCredentials: true });
+          await axios.get(`${env.VITE_APIURL}/get_csrf/`);
          // console.log('CSRF token initialized');
         } catch (error) {
           console.error('CSRF init failed:', error);

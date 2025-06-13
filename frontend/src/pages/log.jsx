@@ -125,12 +125,15 @@ function Log() {
     return (
         <>
 
-{!confirmation && <div style={{ width: "100vw", height: "100svh" }}>
+<div style={{width: "100vw", height: "100svh", position: "fixed", zIndex: 1, display: "flex", justifyContent: "center"}}>
+  <div className='log_reg_text_main_div'>
+    <p className='log_reg_before_using'>Перед использованием необходимо войти в аккаунт</p>
+  </div>
+</div>
+
+{!confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
   <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div className='reg_log_the_main_header'>
-        <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
-      </div>
       <div className="form_container">
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -154,7 +157,7 @@ function Log() {
               onChange={handleChange}
             />
           </div>
-          <div className="login_container">
+          <div className="input-group">
             <input
               type="submit"
               defaultValue="Login"
@@ -185,22 +188,13 @@ function Log() {
             {arrLangLogin[lang]['sign_up']}
           </Link>
         </div>
-        {/*<div style={{ display: "flex", justifyContent: "center" }}>
-          {arrLangLogin[lang]['forgot_the_password']}
-          <Link to="/log/reset/" className='log_reg_other_links'>
-            {arrLangLogin[lang]['reset']}
-          </Link>
-        </div>*/}
       </div>
     </div>
   </div>
 </div>}
-{confirmation && <div style={{ width: "100vw", height: "100vh" }}>
+{confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
   <div style={{ width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
-      <div className='reg_log_the_main_header'>
-        <h3 id="form-title">{arrLangLogin[lang]['log']}</h3>
-      </div>
       <div className="form_container">
         <form onSubmit={handleSubmit1}>
           <div className="input-group">

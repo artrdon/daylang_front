@@ -1,47 +1,50 @@
+.timer_for_code_time{
+    font-size: 15px; margin: 20px;
+}
+.log_reg_text_main_div {
+    width: 1100px;
+}
+.log_reg_before_using{
+    font-size: 20px;
+    padding: 20px;
+}
 .reg_log_agree_with_privacy_checkbox{
     width: 15px;
 }
-
 .reg_log_agree_with_privacy{
     font-size: 16px;
 }
-
 .reg_log_error_text{
     z-index: 150; width: 100px; height: 30px;
 }
-
 .reg_log_the_main_header{
     display: flex; justify-content: center; width: 100%; background: #004aff; height: 70px; align-items: center; border-top-left-radius: 5px;  border-top-left-radius: 5px;
 }
-
 .form-control {
-    padding: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
     outline: none;
     color: rgb(0, 0, 0);
     border: 0px;
-    font-size: 14px;
+    font-size: 20px;
     background: #00000000;
     border-bottom: 2px solid;
-    width: calc(100% - 10px);
+    width: calc(100% - 30px);
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 15px;
 }
-
 .user_card {
     width: 400px;
     background: #ebebeb;
     position: relative;
     padding: 0px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5px;
     margin: auto;
 }
 
 .input-group {
-    width: 250px;
-    margin: 5px;
+    width: 350px;
 }
 
 .input-group-append {
@@ -49,22 +52,18 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
-
 .form_container {
     display: flex;
     justify-content: center;
 }
-
 .log_reg_other_links {
     margin-left: 10px;
     color: rgb(0, 0, 0);
 }
-
 #form-title {
     color: #fff;
     font-size: 20px;
 }
-
 .mt-4 {
     padding-bottom: 30px;
     font-size: 16px;
@@ -128,6 +127,9 @@
 
 @media only screen and (max-width: 525px)
 {
+    .timer_for_code_time{
+        font-size: 2.857142857142857vw; margin: 3.80952380952381vw;
+    }
     .reg_log_agree_with_privacy_checkbox{
         width: 2.857142857142857vw;
     }    
@@ -150,25 +152,22 @@
     }
     
     .form-control {
-        padding: 0.9523809523809524vw;
+        padding: 2.857142857142857vw;
         margin-top: 1.904761904761905vw;
         margin-bottom: 1.904761904761905vw;
         border-bottom: 0.380952380952381vw solid;
-        width: calc(100% - 1.904761904761905vw);
-        font-size: 2.666666666666667vw;
+        font-size: 3.80952380952381vw;
+        width: calc(100% - 6.095238095238095vw);
+        border-radius: 0.9523809523809524vw;
     }
     
     .user_card {
         width: 76.19047619047619vw;
-        box-shadow: 0 0.7619047619047619vw 1.523809523809524vw 0 rgba(0, 0, 0, 0.2), 0 1.142857142857143vw 3.80952380952381vw 0 rgba(0, 0, 0, 0.19);
-        -webkit-box-shadow: 0 0.7619047619047619vw 1.523809523809524vw 0 rgba(0, 0, 0, 0.2), 0 1.142857142857143vw 3.80952380952381vw 0 rgba(0, 0, 0, 0.19);
-        -moz-box-shadow: 0 0.7619047619047619vw 1.523809523809524vw 0 rgba(0, 0, 0, 0.2), 0 1.142857142857143vw 3.80952380952381vw 0 rgba(0, 0, 0, 0.19);
         border-radius: 0.9523809523809524vw;
     }
     
     .input-group {
-        width: 47.61904761904762vw;
-        margin: 0.9523809523809524vw;
+        width: 66.66666666666667vw;
     }
     
     .input-group-append {

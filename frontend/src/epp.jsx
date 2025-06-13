@@ -15,7 +15,7 @@ import Support from './pages/support.jsx'
 import CallbackHandler from './pages/yandex_call_back.jsx'
 import SmileTest from './pages/smile.jsx'
 import Public_oferta from './pages/public_oferta.jsx'
-
+import MoaiStatue from './elems/stone.jsx'
 
 export default function Epp(){
 
@@ -44,6 +44,8 @@ export default function Epp(){
 
             <Route path="/privacy/" element={<Privacy />} />
             <Route path="/public_oferta/" element={<Public_oferta />} />
+
+            <Route path='/stat/' element={<MoaiStatue />} />
         </Routes>
     
     )

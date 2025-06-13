@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import arrLangOfferType from '/languages/offer_type.js'
 
 function Type_offer({ lang, language_name, flag, price, getMoreInfo, index, minutes }) {
@@ -18,7 +17,7 @@ function Type_offer({ lang, language_name, flag, price, getMoreInfo, index, minu
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <p className='offer_type_price'>
-            {price} руб / {minutes} минут
+            {price} ₽ / {minutes} минут
           </p>
         </div>
         <img src="/src/static/img/bluefon.png" alt="fon" className="service_img" />

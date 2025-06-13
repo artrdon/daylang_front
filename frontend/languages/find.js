@@ -1,5 +1,8 @@
 const FindLang = {
     'english': {
+        'bye_access': 'Buy access',
+        'now_lessons': 'Current sessions',
+        'exp_lessons': 'Past sessions',
         'teachers_offers': "Teacher's offers",
         'pupils_offers': "Pupil's offers",
         'format': "Format",
@@ -9,7 +12,7 @@ const FindLang = {
         'yes': "Yes",
         'no': "No",
         'all': "All",
-        'goal': "Goal",  // Изменено с target → goal
+        'goal': "Goal",
         'exam': "Exam",
         'self_dev': "Self-development",
         'travelling': "Travel",
@@ -21,6 +24,9 @@ const FindLang = {
         'send': "Send"
     },
     'russian': {
+        'bye_access': 'Купить доступ',
+        'now_lessons': 'Текущие сеансы',
+        'exp_lessons': 'Прошедшие сеансы',
         'teachers_offers': "Предложения преподавателей",
         'pupils_offers': "Предложения учеников",
         'format': "Формат",
@@ -30,7 +36,7 @@ const FindLang = {
         'yes': "Да",
         'no': "Нет",
         'all': "Все",
-        'goal': "Цель",  // Изменено
+        'goal': "Цель",
         'exam': "Экзамен",
         'self_dev': "Саморазвитие",
         'travelling': "Путешествия",
@@ -42,6 +48,9 @@ const FindLang = {
         'send': "Отправить"
     },
     'serbian-lat': {
+        'bye_access': 'Kupite pristup',
+        'now_lessons': 'Trenutne sesije',
+        'exp_lessons': 'Prošle sesije',
         'teachers_offers': "Ponude nastavnika",
         'pupils_offers': "Ponude učenika",
         'format': "Format",
@@ -51,7 +60,7 @@ const FindLang = {
         'yes': "Da",
         'no': "Ne",
         'all': "Sve",
-        'goal': "Cilj",  // Изменено (более естественно для сербского)
+        'goal': "Cilj",
         'exam': "Ispit",
         'self_dev': "Samorazvoj",
         'travelling': "Putovanja",
@@ -63,6 +72,9 @@ const FindLang = {
         'send': "Pošalji"
     },
     'serbian-cir': {
+        'bye_access': 'Купите приступ',
+        'now_lessons': 'Тренутне сесије',
+        'exp_lessons': 'Прошле сесије',
         'teachers_offers': "Понуде наставника",
         'pupils_offers': "Понуде ученика",
         'format': "Формат",
@@ -72,7 +84,7 @@ const FindLang = {
         'yes': "Да",
         'no': "Не",
         'all': "Све",
-        'goal': "Циљ",  // Изменено (кириллица)
+        'goal': "Циљ",
         'exam': "Испит",
         'self_dev': "Саморaзвој",
         'travelling': "Путовања",
@@ -84,6 +96,9 @@ const FindLang = {
         'send': "Пошаљи"
     },
     'germany': {
+        'bye_access': 'Zugang kaufen',
+        'now_lessons': 'Aktuelle Sitzungen',
+        'exp_lessons': 'Vergangene Sitzungen',
         'teachers_offers': "Lehrerangebote",
         'pupils_offers': "Schülerangebote",
         'format': "Format",
@@ -93,7 +108,7 @@ const FindLang = {
         'yes': "Ja",
         'no': "Nein",
         'all': "Alle",
-        'goal': "Ziel",  // Изменено (Ziel ≈ "цель", Zweck ≈ "назначение")
+        'goal': "Ziel",
         'exam': "Prüfung",
         'self_dev': "Selbstentwicklung",
         'travelling': "Reisen",
@@ -105,6 +120,9 @@ const FindLang = {
         'send': "Senden"
     },
     'spanish': {
+        'bye_access': 'Comprar acceso',
+        'now_lessons': 'Sesiones actuales',
+        'exp_lessons': 'Sesiones pasadas',
         'teachers_offers': "Ofertas de profesores",
         'pupils_offers': "Ofertas de alumnos",
         'format': "Formato",
@@ -114,7 +132,7 @@ const FindLang = {
         'yes': "Sí",
         'no': "No",
         'all': "Todos",
-        'goal': "Objetivo",  // Изменено (более точно, чем "Propósito")
+        'goal': "Objetivo",
         'exam': "Examen",
         'self_dev': "Autodesarrollo",
         'travelling': "Viajes",
