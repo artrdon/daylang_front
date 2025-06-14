@@ -23,7 +23,7 @@
     font-size: 16px;
 }
 .reg_log_error_text{
-    z-index: 150; width: 100px; height: 30px;
+    z-index: 150; width: 100%; height: 30px; text-align: center;
 }
 .reg_log_the_main_header{
     display: flex; justify-content: center; width: 100%; background: #004aff; height: 70px; align-items: center; border-top-left-radius: 5px;  border-top-left-radius: 5px;
@@ -148,7 +148,7 @@
         font-size: 3.047619047619048vw;
     }
     .reg_log_error_text{
-        width: 19.04761904761905vw; height: 5.714285714285714vw;
+        height: 5.714285714285714vw;
     }
 
     .reg_log_the_main_header{

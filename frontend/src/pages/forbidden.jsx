@@ -17,16 +17,18 @@ axios.defaults.withCredentials = true;
 
 return (
     <>
-
-<div className="find_panel not_found_all_container_404_positing" >
+<div className="not_found_all_container_404_positing" >
     <div className='not_found_all_container_404'>
         <div className='not_found_font_404'>
             <p>403</p>
             <Link to={'/'}>
-              main page
+              <div style={{display: "flex", justifyContent: 'center'}}>
+                <div className='notfound_link_for_404'>
+                  У вас нет доступа к этой странице
+                </div>
+              </div>
             </Link>
         </div>
-        
     </div>
 </div>
 </>

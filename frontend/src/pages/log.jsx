@@ -9,10 +9,32 @@ import { useNavigate } from 'react-router-dom';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 import arrLangErrors from '../../languages/errors.js';
 
+function ForbiddenTries() {
+
+
+
+return (
+    <>
+<div className="not_found_all_container_404_positing" >
+    <div className='not_found_all_container_404'>
+        <div className='not_found_font_404'>
+            <p>403</p>
+              <div style={{display: "flex", justifyContent: 'center'}}>
+                <div className='notfound_link_for_404'>
+                  Закончился лимит попыток, приходите через 1 час
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+</>
+)
+}
 
 function Log() {
     const env = import.meta.env;
     const { executeCaptcha, captchaReady } = useSmartCaptcha(env.VITE_KEY);
+    const [if403, setIf403] = useState(false);
     const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
@@ -62,9 +84,14 @@ function Log() {
                 },
             });
             //console.log(response.data);
+            if (response.data === "user_with_email_has_another_account"){
+              alert(arrLangErrors[lang]["user_with_email_has_another_account"]);
+              setRequestWasSended(false);
+              return;
+            }
             setEmailForCode(response.data);
             
-            if (response.data != 'username or password is incorrect'){
+            if (response.data != 'username or password is incorrect' && response.data != "user_with_email_has_another_account"){
               setConf(true);
               const to_email = await axios.post(`${env.VITE_APIURL}/email/`, { password: data.password, captcha: token, email: response.data}, {
                   headers: {
@@ -86,7 +113,8 @@ function Log() {
           }
         } catch (error) {
           if (error.response?.status === 403){
-            window.location.replace('/forbidden/');
+            setIf403(true);
+            setRequestWasSended(false);
             return;
           }
           console.error('There was an error!', error.response.data);
@@ -110,7 +138,8 @@ function Log() {
             }
             //console.log('Response:', response.data);
         } catch (error) {
-            console.error('There was an error!', error.response.data);
+            console.error('There was an error!', error.response?.data);
+            setRequestWasSended(false);
         }
         setRequestWasSended(false);
     };
@@ -125,7 +154,6 @@ function Log() {
 
     useEffect(() => {
       if (error){
-        console.log(lang, error);
         alert(arrLangErrors[lang][error]);
       }
     }, []);
@@ -136,13 +164,19 @@ function Log() {
     return (
         <>
 
-<div style={{width: "100vw", height: "100svh", position: "fixed", zIndex: 1, display: "flex", justifyContent: "center"}}>
-  <div className='log_reg_text_main_div'>
-    <p className='log_reg_before_using'>Перед использованием необходимо войти в аккаунт</p>
-  </div>
-</div>
+{if403 && 
+  <ForbiddenTries />
+}
 
-{!confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
+{!if403 && 
+  <div style={{width: "100vw", height: "100svh", position: "fixed", zIndex: 1, display: "flex", justifyContent: "center"}}>
+    <div className='log_reg_text_main_div'>
+      <p className='log_reg_before_using'>Перед использованием необходимо войти в аккаунт</p>
+    </div>
+  </div>
+}
+
+{!confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
   <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div className="form_container">
@@ -175,7 +209,7 @@ function Log() {
               hidden
             />
             {!requestWasSended && <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>}
-            {requestWasSended && <div className="login_btn"><div className='loading-spinner'></div></div>}
+            {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
           </div>
           <p className='log_and_reg_text_login_via' >Или войти через:</p>
           <div style={{display: "flex", justifyContent: "center"}}>
@@ -203,7 +237,7 @@ function Log() {
     </div>
   </div>
 </div>}
-{confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
+{confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
   <div style={{ width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div className="form_container">
@@ -236,7 +270,7 @@ function Log() {
             <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
           }
           {timehave > 0 && requestWasSended &&
-            <div className="login_btn"></div>
+            <div className="login_btn"><div className='loading-spinnerButton'></div></div>
           }
         </form>
       </div>
