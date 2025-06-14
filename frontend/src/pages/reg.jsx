@@ -112,7 +112,7 @@ function Reg() {
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
                 window.location.replace('/'); // Нет возможности вернуться
             }
-            //console.log('Response:', response.data);
+            console.log('Response:', response.data);
 
         } catch (error) {
             console.error('There was an error!', error.response.data);
@@ -232,9 +232,6 @@ function Reg() {
           </div>
           <p className='log_and_reg_text_login_via' >Или войти через:</p>
           <div style={{display: "flex", justifyContent: "center"}}>
-            <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
-              <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
-            </button>
             <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
               <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
             </button>

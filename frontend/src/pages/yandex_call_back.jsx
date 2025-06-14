@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import arrLangLogin from '../../languages/login_translate.js';
-import TwoMinuteTimer from '../elems/timer2min';
-import { useWebSocket } from '../once/web_socket_provider.jsx';
 
 const CallbackHandler = () => {
     const env = import.meta.env;
@@ -29,11 +26,18 @@ const CallbackHandler = () => {
                             'X-CSRFToken': getCookie('csrftoken'),
                         },
                     });
+                    console.log(response.data);
+                    if (response?.data === "user_with_email_has_another_account"){
+                        window.location.href = '/log?error=user_with_email_has_another_account';
+                    }
                     if (response?.status === 200){
                         window.location.href = '/';
                     }
                     
                 } catch (error) {
+                    if (error.response?.data === "user_with_email_has_another_account"){
+                        window.location.href = '/log?error=user_with_email_has_another_account';
+                    }
                     console.error('There was an error!', error.response?.status, error.response?.data);
                 }
             }

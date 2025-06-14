@@ -1,16 +1,17 @@
-import { useState, useRef }  from 'react'
+import { useState, useRef, useEffect }  from 'react'
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
 import React from 'react'
 import axios from 'axios';
 import TwoMinuteTimer from '../elems/timer2min';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
+import { useNavigate } from 'react-router-dom';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
+import arrLangErrors from '../../languages/errors.js';
 
 
 function Log() {
-  const env = import.meta.env;
+    const env = import.meta.env;
     const { executeCaptcha, captchaReady } = useSmartCaptcha(env.VITE_KEY);
     const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
@@ -20,6 +21,8 @@ function Log() {
     const [lang, setLang] = useState(websocket.lang);
     const theme = useState(websocket.theme);
     const [requestWasSended, setRequestWasSended] = useState(false);
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get('error');
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -117,8 +120,16 @@ function Log() {
           const redirectUri = encodeURIComponent(`${env.VITE_FRONT_URL}/auth/yandex/callback`);
           const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
           window.location.href = url;
+
       };
 
+    useEffect(() => {
+      if (error){
+        console.log(lang, error);
+        alert(arrLangErrors[lang][error]);
+      }
+    }, []);
+      
 
     document.querySelector("title").textContent = arrLangLogin[lang]['log'];
 
@@ -168,9 +179,6 @@ function Log() {
           </div>
           <p className='log_and_reg_text_login_via' >Или войти через:</p>
           <div style={{display: "flex", justifyContent: "center"}}>
-            <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
-              <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
-            </button>
             <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
               <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
             </button>

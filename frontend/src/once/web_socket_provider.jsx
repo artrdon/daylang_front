@@ -1,13 +1,15 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import MainLoad from '../load_elems/load_main_page';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const WebSocketContext = createContext(null);
 
 const WebSocketProvider = ({ children }) => {
 
-  const env = import.meta.env;
+    const env = import.meta.env;
+    const navigate = useNavigate();
     const [lessons, setLessons] = useState(0)
 
     axios.defaults.withCredentials = true;
@@ -103,8 +105,8 @@ const WebSocketProvider = ({ children }) => {
             return response.data;
           } catch (err) {
             if (err.response?.status === 401){
-              if (window.location.pathname !== '/log'){
-                window.location.href = '/log';
+              if (window.location.pathname !== '/log' && window.location.pathname !== '/auth/yandex/callback'){
+                navigate('/log');
                 return "unauthorised";  
               }
               else {
@@ -133,8 +135,8 @@ const WebSocketProvider = ({ children }) => {
           return response.data; 
         } catch (err) {
           if (err.response?.status === 401){
-            if (window.location.pathname !== '/log'){
-              window.location.href = '/log';
+            if (window.location.pathname !== '/log' && window.location.pathname !== '/auth/yandex/callback'){
+              navigate('/log');
               return "unauthorised";  
             }
             else {
