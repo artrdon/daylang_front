@@ -103,7 +103,14 @@ const WebSocketProvider = ({ children }) => {
             return response.data;
           } catch (err) {
             if (err.response?.status === 401){
-              return "unauthorised";
+              if (window.location.pathname !== '/log'){
+                window.location.href = '/log';
+                return "unauthorised";  
+              }
+              else {
+                return "unauthorised";
+              }
+              
             }
             throw new Error(
               err.response?.data?.message || 
@@ -126,7 +133,14 @@ const WebSocketProvider = ({ children }) => {
           return response.data; 
         } catch (err) {
           if (err.response?.status === 401){
-            return "unauthorised";
+            if (window.location.pathname !== '/log'){
+              window.location.href = '/log';
+              return "unauthorised";  
+            }
+            else {
+              return "unauthorised";
+            }
+            
           }
         }
       },

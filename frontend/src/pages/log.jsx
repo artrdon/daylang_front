@@ -27,8 +27,8 @@ function Log() {
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
   
-    const [data, setData] = useState({ username: '', password: '', captcha: ''});
-    const [data1, setData1] = useState({ code: '', username: data.username, password: data.username});
+    const [data, setData] = useState({ email: '', password: '', captcha: ''});
+    const [data1, setData1] = useState({ code: '', email: data.email, password: data.password});
     const [passIncor, setPassIncor] = useState(false);
     const history = useNavigate();
 
@@ -52,7 +52,7 @@ function Log() {
           if (token != null)
           {
             setRequestWasSended(true);
-            const response = await axios.post(`${env.VITE_APIURL}/log/`, { username: data.username, password: data.password, captcha: token}, {
+            const response = await axios.post(`${env.VITE_APIURL}/log/`, { email: data.email, password: data.password, captcha: token}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -63,7 +63,7 @@ function Log() {
             
             if (response.data != 'username or password is incorrect'){
               setConf(true);
-              const to_email = await axios.post(`${env.VITE_APIURL}/email/`, { username: data.username, password: data.password, captcha: token, email: response.data}, {
+              const to_email = await axios.post(`${env.VITE_APIURL}/email/`, { password: data.password, captcha: token, email: response.data}, {
                   headers: {
                       'Content-Type': 'application/json',
                       'X-CSRFToken': getCookie('csrftoken'),
@@ -113,7 +113,7 @@ function Log() {
     };
 
       const handleYandexLogin = () => {
-          const clientId = '4fc7bce46ef14fcf9ee912093e44fa1c';
+          const clientId = env.VITE_clientId;
           const redirectUri = encodeURIComponent(`${env.VITE_FRONT_URL}/auth/yandex/callback`);
           const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
           window.location.href = url;
@@ -139,11 +139,10 @@ function Log() {
           <div className="input-group">
             <input
               type="text"
-              name="username"
-              placeholder={arrLangLogin[lang]['username']}
-              pattern="[a-zA-Z0-9]{1,140}"
+              name="email"
+              placeholder={arrLangLogin[lang]['email']}
               className="form-control"
-              value={data.username}
+              value={data.email}
               onChange={handleChange}
             />
           </div>
@@ -167,12 +166,16 @@ function Log() {
             {!requestWasSended && <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>}
             {requestWasSended && <div className="login_btn"><div className='loading-spinner'></div></div>}
           </div>
-          <div className="login_container">
-            
+          <p className='log_and_reg_text_login_via' >Или войти через:</p>
+          <div style={{display: "flex", justifyContent: "center"}}>
+            <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
+              <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
+            </button>
+            <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
+              <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
+            </button>
           </div>
-          <button onClick={handleYandexLogin}>
-            Войти через Яндекс
-          </button>
+          
         </form>
       </div>
       <div className="mt-4">

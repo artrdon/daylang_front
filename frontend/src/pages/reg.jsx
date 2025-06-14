@@ -119,6 +119,13 @@ function Reg() {
         }
         setRequestWasSended(false);
     };
+    const handleYandexLogin = () => {
+        const clientId = env.VITE_clientId;
+        const redirectUri = encodeURIComponent(`${env.VITE_FRONT_URL}/auth/yandex/callback`);
+        const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
+        window.location.href = url;
+    };
+
 
     document.querySelector("title").textContent = arrLangLogin[lang]['reg'];
 
@@ -222,6 +229,15 @@ function Reg() {
             />
             {!requestWasSended && <label htmlFor="reg_button" className="login_btn">{arrLangLogin[lang]['registration']}</label>}
             {requestWasSended && <div className="login_btn"></div>}
+          </div>
+          <p className='log_and_reg_text_login_via' >Или войти через:</p>
+          <div style={{display: "flex", justifyContent: "center"}}>
+            <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
+              <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
+            </button>
+            <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
+              <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
+            </button>
           </div>
         </form>
       </div>
