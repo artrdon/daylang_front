@@ -39,6 +39,11 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
                 },
             });
            // console.log('Response:', response.data);
+            if (response.data === "not_enough_money"){
+                alert("Не достаточно средств. Пополните баланс.");
+                setError(1);
+                return;
+            }
             if (response.status === 200){
                 window.open(`${window.location.origin}${response.data}`, '_blank');
             }

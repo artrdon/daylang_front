@@ -2,12 +2,11 @@
     width: 900px; height: 300px; margin: 10px; border-radius: 10px;
 }
 .now_lessons_lesson_Link_now{
-    /*background-color: rgb(112, 112, 112);*/
     background-color: rgb(0, 97, 189);
 }
 .now_lessons_lesson_Link_exp{
-    background-color: rgb(0, 97, 189);
-    /*background-color: rgb(0, 97, 189);*/
+    background-color: rgba(255, 255, 255, 0.192);
+    box-shadow: 1px 1px 1px gray;
 }
 
 

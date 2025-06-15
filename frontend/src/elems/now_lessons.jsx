@@ -33,6 +33,11 @@ function NowLessons() {
             )
              : 
             null}
+
+
+            {<div className='now_lessons_lesson_Link now_lessons_lesson_Link_now'>
+                <p># 11</p>
+            </div>}
         </>
     )
 }

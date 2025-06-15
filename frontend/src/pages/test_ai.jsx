@@ -140,6 +140,9 @@ function TestAI() {
                 setWaitForAnswer(false);
             }
         } catch (error) {
+            if (error.request?.status === 400){
+                alert(error.response.data['error']);
+            }
             console.error('There was an error!', error.request);
         }
     };

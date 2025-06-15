@@ -905,7 +905,9 @@ a{
 
 @media only screen and (max-width: 1100px)
 {
-    
+    *::-webkit-scrollbar{
+        display: none;
+    }
     .navig_panel_button:hover{
         background-color: #00000000; 
         transition: 0.2s linear;
