@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import '../static/my_lessons.css'
 
-function NowLessons() {
+function NowLessons({lang}) {
     const env = import.meta.env;
 
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
@@ -25,8 +25,17 @@ function NowLessons() {
             {data1 !== undefined ? 
             (data1.map((data, index) => (
                 <Link to={`/ai_speak/${data.id}`} key={data.id}>
-                    <div className='now_lessons_lesson_Link now_lessons_lesson_Link_now'>
+                    <div className='now_lessons_lesson_Link now_lessons_lesson_Link_exp' key={data.id}>
                         <p># {data.id}</p>
+                        <p className='my_lessons_name_of_lang'>{arrLangOfferType[lang][data.name_of_lang]}</p>
+                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                            <span>
+                                <p className='my_lessons_tarif'>{data.minutes} минут</p>
+                            </span>
+                            <span>
+                                <p className='my_lessons_tarif'>{data.price} ₽</p>
+                            </span>
+                        </div>
                     </div>
                 </Link>
             ))
@@ -35,9 +44,19 @@ function NowLessons() {
             null}
 
 
-            {<div className='now_lessons_lesson_Link now_lessons_lesson_Link_now'>
+            {/*<div className='now_lessons_lesson_Link now_lessons_lesson_Link_now'>
                 <p># 11</p>
-            </div>}
+                <p className='my_lessons_name_of_lang'>{arrLangOfferType[lang]['english']}</p>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                    <span>
+                        <p className='my_lessons_tarif'>{10} минут</p>
+                    </span>
+                    <span>
+                        <p className='my_lessons_tarif'>{50} ₽</p>
+                    </span>
+                </div>
+            </div>
+            */}
         </>
     )
 }

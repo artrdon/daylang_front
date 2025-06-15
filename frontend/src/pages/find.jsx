@@ -160,8 +160,8 @@ function Find() {
             <Type_offer lang={lang} language_name={data.name} flag={data.destination} price={data.price} getMoreInfo={getMoreInfo} index={index} key={index} minutes={data.minutes}/>
           ))}
         </>)}
-        {page === 1 && <NowLessons />}
-        {page === 2 && <ExpLessons />}
+        {page === 1 && <NowLessons lang={lang}/>}
+        {page === 2 && <ExpLessons lang={lang}/>}
 
       </div>
     </div>

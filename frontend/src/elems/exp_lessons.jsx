@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+
 import '../static/my_lessons.css'
 
-function ExpLessons() {
+function ExpLessons({lang}) {
     const env = import.meta.env;
 
     const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
@@ -26,15 +27,26 @@ function ExpLessons() {
             (data1.map((data, index) => (
                 <div className='now_lessons_lesson_Link now_lessons_lesson_Link_exp' key={data.id}>
                     <p># {data.id}</p>
+                    <p className='my_lessons_name_of_lang'>{arrLangOfferType[lang][data.name_of_lang]}</p>
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
+                        <span>
+                            <p className='my_lessons_tarif'>{data.minutes} минут</p>
+                        </span>
+                        <span>
+                            <p className='my_lessons_tarif'>{data.price} ₽</p>
+                        </span>
+                    </div>
+                    
+                    
                 </div>
             ))
             )
              : 
             null}
             
-            {<div className='now_lessons_lesson_Link now_lessons_lesson_Link_exp'>
+            {/*<div className='now_lessons_lesson_Link now_lessons_lesson_Link_exp'>
                 <p># 11</p>
-            </div>}
+            </div>*/}
         </>
     )
 }
