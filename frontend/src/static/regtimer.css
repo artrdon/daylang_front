@@ -21,6 +21,7 @@
 }
 .reg_log_agree_with_privacy{
     font-size: 16px;
+    color: black;
 }
 .reg_log_error_text{
     z-index: 150; width: 100%; height: 30px; text-align: center;
@@ -118,6 +119,9 @@
 }
 
 .dark_theme {
+    .reg_log_agree_with_privacy{
+        color: white;
+    }
     .user_card {
         background: #191919;
     }

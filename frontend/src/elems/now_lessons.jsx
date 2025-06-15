@@ -25,7 +25,7 @@ function NowLessons({lang}) {
             {data1 !== undefined ? 
             (data1.map((data, index) => (
                 <Link to={`/ai_speak/${data.id}`} key={data.id}>
-                    <div className='now_lessons_lesson_Link now_lessons_lesson_Link_exp' key={data.id}>
+                    <div className='now_lessons_lesson_Link now_lessons_lesson_Link_now' key={data.id}>
                         <p># {data.id}</p>
                         <p className='my_lessons_name_of_lang'>{arrLangOfferType[lang][data.name_of_lang]}</p>
                         <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>

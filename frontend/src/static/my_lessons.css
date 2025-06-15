@@ -1,11 +1,8 @@
-* {
-    color: white;
-}
 .my_lessons_name_of_lang{
-    font-size: 50px; margin: 20px;
+    font-size: 50px; margin: 20px; color: black;
 }
 .my_lessons_tarif{
-    font-size: 35px; margin: 20px; 
+    font-size: 35px; margin: 20px; color: black;
 }
 .now_lessons_lesson_Link{
     width: 880px; height: 250px; margin: 10px; border-radius: 10px; padding: 10px;
@@ -14,10 +11,23 @@
     background-color: rgb(0, 110, 212);
 }
 .now_lessons_lesson_Link_exp{
-    background-color: rgba(255, 255, 255, 0.192);
+    background-color: rgb(197, 197, 197);
     box-shadow: 1px 1px 1px gray;
 }
 
+.dark_theme{
+    .my_lessons_name_of_lang{
+        color: rgb(255, 255, 255);
+    }
+    .my_lessons_tarif{
+        color: rgb(255, 255, 255);
+    }   
+    .now_lessons_lesson_Link_exp{
+        background-color: rgb(105, 105, 105);
+        box-shadow: 1px 1px 1px gray;
+    }
+    
+}
 
 @media only screen and (max-width: 1400px)
 {
