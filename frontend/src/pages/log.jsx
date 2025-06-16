@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect }  from 'react'
+import { useState, useRef, useEffect, useCallback }  from 'react'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import axios from 'axios';
@@ -8,6 +8,8 @@ import arrLangLogin from '../../languages/login_translate.js';
 import { useNavigate } from 'react-router-dom';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 import arrLangErrors from '../../languages/errors.js';
+import { InvisibleSmartCaptcha } from '@yandex/smart-captcha'
+
 
 function ForbiddenTries() {
 
@@ -45,12 +47,17 @@ function Log() {
     const [requestWasSended, setRequestWasSended] = useState(false);
     const params = new URLSearchParams(window.location.search);
     const error = params.get('error');
+    const [token, setToken] = useState('');  
+    const [visible, setVisible] = useState(false);  
+    const handleChallengeHidden = useCallback(() => setVisible(false),);  
+    
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
+
   
     const [data, setData] = useState({ email: '', password: '', captcha: ''});
     const [data1, setData1] = useState({ code: '', email: data.email, password: data.password});
@@ -67,15 +74,26 @@ function Log() {
         setData1({ ...data1, [e.target.name]: e.target.value });
     };
 
+    const onSuccess = (token) => {
+      setToken(token);
+      console.log("success", token);
+      setVisible(false);
+      //handleSubmit(e);
+    }
     axios.defaults.withCredentials = true;
 
     const handleSubmit = async (e) => {
       
         e.preventDefault();
-        const token = await executeCaptcha();
+        if (!token){
+          setVisible(!visible);
+          console.log(visible);
+          window.smartCaptcha.execute();
+          return;
+        }
+        //const token = await executeCaptcha();
         try {
-          if (token != null)
-          {
+            console.log(token);
             setRequestWasSended(true);
             const response = await axios.post(`${env.VITE_APIURL}/log/`, { email: data.email, password: data.password, captcha: token}, {
                 headers: {
@@ -100,21 +118,16 @@ function Log() {
                   },
               });
 
-              //console.log('Response:', to_email.data);
-
             }
             else{
               setPassIncor(true);
             }
-          }
-          else
-          {
-            setIfChel(false);
-          }
+          
         } catch (error) {
           if (error.response?.status === 403){
             setIf403(true);
             setRequestWasSended(false);
+            document.cookie = `many_tries=yes; path=/;max-age=3600`;
             return;
           }
           console.error('There was an error!', error.response.data);
@@ -153,6 +166,10 @@ function Log() {
       };
 
     useEffect(() => {
+      if (getCookie('many_tries') === 'yes'){
+        setIf403(true);
+      }
+  
       if (error){
         alert(arrLangErrors[lang][error]);
       }
@@ -176,67 +193,71 @@ function Log() {
   </div>
 }
 
-{!confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
-  <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-    <div className="user_card">
-      <div className="form_container">
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <input
-              type="text"
-              name="email"
-              placeholder={arrLangLogin[lang]['email']}
-              className="form-control"
-              value={data.email}
-              onChange={handleChange}
-            />
+{!confirmation && !if403 &&
+<>
+  <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
+    <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div className="user_card">
+        <div className="form_container">
+          <form onSubmit={handleSubmit} id='form_to_captcha_submit'>
+            <div className="input-group">
+              <input
+                type="text"
+                name="email"
+                placeholder={arrLangLogin[lang]['email']}
+                className="form-control"
+                value={data.email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-group">
+              <input
+                type="password"
+                name="password"
+                placeholder={arrLangLogin[lang]['password']}
+                className="form-control"
+                value={data.password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="input-group">
+              <input
+                type="submit"
+                defaultValue="Login"
+                id='login_button'
+                hidden
+              />
+              {!requestWasSended && <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>}
+              {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
+            </div>
+            <p className='log_and_reg_text_login_via' >Или войти через:</p>
+            <div style={{display: "flex", justifyContent: "center"}}>
+              <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
+                <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
+              </button>
+            </div>
+            <InvisibleSmartCaptcha sitekey={env.VITE_KEY} onSuccess={onSuccess} onChallengeHidden={handleChallengeHidden} visible={visible} style={{zIndex:100}}/>  
+  
+          </form>
+        </div>
+        <div className="mt-4">
+          {ifChel === false && <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className='reg_log_error_text' >{arrLangLogin[lang]['confirm_u_r_human']}</div>
+          </div>}
+          {passIncor && <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className='reg_log_error_text' >{arrLangLogin[lang]['username_or_password_is_incorrect']}</div>
+          </div>}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {arrLangLogin[lang]['dont_have_an_account']}
+            <Link to="/reg/" className='log_reg_other_links'>
+              {arrLangLogin[lang]['sign_up']}
+            </Link>
           </div>
-          <div className="input-group">
-            <input
-              type="password"
-              name="password"
-              placeholder={arrLangLogin[lang]['password']}
-              className="form-control"
-              value={data.password}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-group">
-            <input
-              type="submit"
-              defaultValue="Login"
-              id='login_button'
-              hidden
-            />
-            {!requestWasSended && <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>}
-            {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
-          </div>
-          <p className='log_and_reg_text_login_via' >Или войти через:</p>
-          <div style={{display: "flex", justifyContent: "center"}}>
-            <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
-              <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
-            </button>
-          </div>
-          
-        </form>
-      </div>
-      <div className="mt-4">
-        {ifChel === false && <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div className='reg_log_error_text' >{arrLangLogin[lang]['confirm_u_r_human']}</div>
-        </div>}
-        {passIncor && <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div className='reg_log_error_text' >{arrLangLogin[lang]['username_or_password_is_incorrect']}</div>
-        </div>}
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          {arrLangLogin[lang]['dont_have_an_account']}
-          <Link to="/reg/" className='log_reg_other_links'>
-            {arrLangLogin[lang]['sign_up']}
-          </Link>
         </div>
       </div>
     </div>
   </div>
-</div>}
+</>}
 {confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
   <div style={{ width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">

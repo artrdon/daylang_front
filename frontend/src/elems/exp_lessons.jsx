@@ -33,7 +33,7 @@ function ExpLessons({lang}) {
                             <p className='my_lessons_tarif'>{data.minutes} минут</p>
                         </span>
                         <span>
-                            <p className='my_lessons_tarif'>{data.price} ₽</p>
+                            <p className='my_lessons_tarif'>{data.price} <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency' style={{position: "relative"}}/></p>
                         </span>
                     </div>
                     

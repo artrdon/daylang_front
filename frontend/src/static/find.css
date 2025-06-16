@@ -12,7 +12,20 @@ iframe{
 #only_for_fon{
     display: none;
 }
-
+.internal_currency{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    margin-left: 5px;
+}
+.internal_currency_mini{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    margin-left: 5px;
+}
 .cookie_main_div{
     background-color: white; color: black; width: calc(100% - 60px); height: 160px; position: absolute; bottom: 0px; z-index: 10000; margin: 10px; padding: 20px; border-radius: 10px; font-size: 16px;
 }
@@ -1160,6 +1173,16 @@ a{
 
 @media only screen and (max-width: 525px)
 {
+    .internal_currency{
+        width: 5.714285714285714vw;
+        height: 5.714285714285714vw;
+        margin-left: 0.9523809523809524vw;
+    }
+    .internal_currency_mini{
+        width: 3.8095238095238095vw;
+        height: 3.8095238095238095vw;
+        margin-left: 0.9523809523809524vw;
+    }
     .find_panel {
         top: 13.33333333333333vw;
     }

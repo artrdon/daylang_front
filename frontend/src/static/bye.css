@@ -36,8 +36,11 @@
 .do_bye_offer_to_bye_selected{
     background-color: #bbbbbb;
 }
+.do_bye_overflow_of_ready_offers_history{
+    width: 100%; height: calc(100% - 140px); position: absolute; top: 60px; overflow: auto;
+}
 .do_bye_overflow_of_ready_offers{
-    width: 100%; height: calc(100% - 140px); position: absolute; top: 0px; overflow: auto;
+    width: 100%; height: calc(100% - 200px); position: absolute; top: 60px; overflow: auto;
 }
 .do_bye_bye_button{
     width: 100%; height: 80px; background-color: #2854c7; border-radius: 10px; color: #ffffff; font-size: 25px; position: absolute; bottom: 0px;
@@ -88,7 +91,10 @@
         width: 100vw; height: 15.23809523809524vw; padding: 2.857142857142857vw; 
     }
     .do_bye_overflow_of_ready_offers{
-        height: calc(100% - 26.66666666666667vw);
+        height: calc(100% - 38.0952380952381vw); top: 11.42857142857143vw;
+    }
+    .do_bye_overflow_of_ready_offers_history{
+        height: calc(100% - 26.66666666666667vw); top: 11.42857142857143vw;
     }
     .do_bye_bye_button{
         height: 15.23809523809524vw; border-radius: 1.904761904761905vw; font-size: 4.761904761904762vw;

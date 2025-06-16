@@ -164,7 +164,7 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
                   {name} {lastname}
                 </span>
                 <div className='show_nav_in_desktop_section_main'>
-                    <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['balance']}: {balance}₽</p>
+                    <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['balance']}: {balance} <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini'/></p>
                 </div>
                 <button className='show_nav_in_desktop_section_main' onClick={setByeFunc}>
                     <p className='top_panel_balance_desktop'>{arrLangNavigPanel[lang]['top_up']}</p>

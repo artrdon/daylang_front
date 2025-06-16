@@ -25,7 +25,7 @@ function Support() {
                 <div className="contact-icon">✉️</div>
                 <h3>Электронная почта</h3>
                 <p>Пишите нам по любым вопросам</p>
-                <a href="mailto:sinmak.show@bk.com" className="contact-link">sinmak.show@bk.com</a>
+                <a href="mailto:sinmak.show@bk.ru" className="contact-link">sinmak.show@bk.ru</a>
               </div>
               
               <div className="contact-card">

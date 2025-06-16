@@ -58,17 +58,18 @@ return (
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100svh"}}>
             <div className='do_bye_transparency_fon' onClick={setByeFunc} />
             <div className='do_bye_panel' ref={ref}>
+              <div className='do_bye_ready_offers_title'>
+                <p>Выберите сумму пополнения</p>
+              </div>
               <div className='do_bye_overflow_of_ready_offers'>
-                <div className='do_bye_ready_offers_title'>
-                  <p>Выберите сумму пополнения</p>
-                </div>
+                
                 <button className={`do_bye_ready_offer_to_bye${tarif === "100" ? ' do_bye_offer_to_bye_selected' : ''}`} name='100' onClick={setSelectedTarif}>
                   <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
-                      <p>100</p>
+                      <p>100  <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini'/></p>
                     </span>
                     <span >
-                      <p>рублей</p>
+                      <p>100 рублей</p>
                     </span>
                   </div>
                 </button>
@@ -76,10 +77,10 @@ return (
                 <button className={`do_bye_ready_offer_to_bye${tarif === "300" ? ' do_bye_offer_to_bye_selected' : ''}`} name='300' onClick={setSelectedTarif}>
                   <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
-                      <p>300</p>
+                      <p>300 <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini'/></p>
                     </span>
                     <span >
-                      <p>рублей</p>
+                      <p>300 рублей</p>
                     </span>
                   </div>
                 </button>
@@ -87,10 +88,10 @@ return (
                 <button className={`do_bye_ready_offer_to_bye${tarif === "500" ? ' do_bye_offer_to_bye_selected' : ''}`} name='500' onClick={setSelectedTarif}>
                   <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
-                      <p>500</p>
+                      <p>500 <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini'/></p>
                     </span>
                     <span >
-                      <p>рублей</p>
+                      <p>500 рублей</p>
                     </span>
                   </div>
                 </button>
