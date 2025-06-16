@@ -24,6 +24,9 @@ function TestAI() {
     const [speechStatus, setSpeechStatus] = useState('Ready');
     const [waitForAnswer, setWaitForAnswer] = useState(false);
     const [whatHeSaid, setWhatHeSaid] = useState(false);
+    const [showSettings, setShowSettings] = useState(false);
+    const [volume, setVolume] = useState(50);
+    const [speed, setSpeed] = useState(50);
     const language = "Английского"
     const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
     const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
@@ -41,7 +44,17 @@ function TestAI() {
     const ShowWhatHeSaid = () => {
         setWhatHeSaid(!whatHeSaid);
     }
-    
+    const ShowSettingsFunc = () => {
+        setShowSettings(!showSettings);
+    }
+    const handleVolumeChange = (e) => {
+        const newVolume = parseInt(e.target.value);
+        setVolume(newVolume);
+    }
+    const handleSpeedChange = (e) => {
+        const newSpeed = parseInt(e.target.value);
+        setSpeed(newSpeed);
+    }
 
 
     const visualize = (analyser) => {
@@ -268,13 +281,40 @@ function TestAI() {
     return (
         <>
 <div>
-    <button className='ai_speak_what_he_said_button' onClick={ShowWhatHeSaid}>
+    <button className='ai_speak_settings_button' onClick={ShowSettingsFunc}>
+        <img
+            src="/src/static/img/setting.png"
+            alt="settings"
+            className="ai_speak_settings_img"
+        />
+    </button>
+    {showSettings && <>
+        <div className='do_bye_transparency_fon' style={{zIndex: 1100}}/>
+        <div className='ai_speak_what_he_said_panel_div' style={{left: 0, zIndex: 1101}}> 
+            <div style={{overflow: "auto", height: "100%"}}>
+                <div className='ai_speak_settings_div'>
+                    <p className='ai_speak_settings_name'>Звук</p>
+                    <input type="range" value={volume} min={0} max={100} onChange={handleVolumeChange} className='ai_speak_settings_reguling'/>    
+                </div>
+                <div className='ai_speak_settings_div'>
+                    <p className='ai_speak_settings_name'>Скорость</p>
+                    <input type="range" value={speed} min={0} max={100} onChange={handleSpeedChange} className='ai_speak_settings_reguling'/>    
+                </div>
+            </div>
+            <button className='ai_speak_what_he_said_panel_close_button' onClick={ShowSettingsFunc}>
+                close
+            </button>
+        </div>
+    </>}
+
+    <button className='ai_speak_what_he_said_button' onClick={ShowWhatHeSaid} style={{right: 0}}>
         what he said
     </button>
     {whatHeSaid && <>
-        <div className='ai_speak_what_he_said_panel_div'>
+        <div className='do_bye_transparency_fon' style={{zIndex: 1100}}/>
+        <div className='ai_speak_what_he_said_panel_div' style={{right: 0, zIndex: 1101}}>
             <div style={{overflow: "auto", height: "100%"}}>
-                {answersForWhatHeSaid.map((data, index) => (
+                {answersForWhatHeSaid.slice().reverse().map((data, index) => (
                     <p className='ai_speak_what_he_said_panel_p' key={index}>{data.AIAnswer}</p>
                 ))}
             </div>
@@ -290,8 +330,8 @@ function TestAI() {
         {!isSpeaking && <> 
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
-        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >start talking</button>}
-        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >end talking</button>} </>}
+        {/*!isRecording && <button onMouseUp={startRecording} className='ai_speak_start_end_record_button' >start talking</button>*/}
+        <button onMouseUp={stopRecording} onMouseDown={startRecording} onTouchEnd={stopRecording} onTouchStart={startRecording} className='ai_speak_start_end_record_button' >{!isRecording ? 'start talking' : 'end talking'}</button> </>}
         {isSpeaking && <> 
         <div style={{width: "100%", position: "absolute", bottom: 0}}>
             <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>pause</button>

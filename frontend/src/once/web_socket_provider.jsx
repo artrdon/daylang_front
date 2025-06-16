@@ -105,14 +105,14 @@ const WebSocketProvider = ({ children }) => {
             return response.data;
           } catch (err) {
             if (err.response?.status === 401){
-              if (window.location.pathname !== '/log' && window.location.pathname !== '/auth/yandex/callback'){
+             /* if (window.location.pathname !== '/log' && window.location.pathname !== '/auth/yandex/callback' && window.location.pathname !== '/privacy/' && window.location.pathname !== '/privacy' && window.location.pathname !== '/public_oferta/' && window.location.pathname !== '/public_oferta'){
                 navigate('/log');
                 return "unauthorised";  
               }
               else {
                 return "unauthorised";
-              }
-              
+              }*/
+                return "unauthorised";              
             }
             throw new Error(
               err.response?.data?.message || 
@@ -135,14 +135,14 @@ const WebSocketProvider = ({ children }) => {
           return response.data; 
         } catch (err) {
           if (err.response?.status === 401){
-            if (window.location.pathname !== '/log' && window.location.pathname !== '/auth/yandex/callback'){
+           /* if (window.location.pathname !== '/log' && window.location.pathname !== '/auth/yandex/callback' && window.location.pathname !== '/privacy/' && window.location.pathname !== '/privacy' && window.location.pathname !== '/public_oferta/' && window.location.pathname !== '/public_oferta'){
               navigate('/log');
               return "unauthorised";  
             }
             else {
               return "unauthorised";
-            }
-            
+            }*/
+              return "unauthorised";
           }
         }
       },

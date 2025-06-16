@@ -45,7 +45,7 @@
 }
 .user_card {
     width: 400px;
-    background: #ebebeb;
+    background: #ebebeb00;
     position: relative;
     padding: 0px;
     border-radius: 5px;
@@ -121,9 +121,6 @@
 .dark_theme {
     .reg_log_agree_with_privacy{
         color: white;
-    }
-    .user_card {
-        background: #191919;
     }
     .form-control {
         color: white;

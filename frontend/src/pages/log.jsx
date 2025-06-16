@@ -186,7 +186,7 @@ function Log() {
 }
 
 {!if403 && 
-  <div style={{width: "100vw", height: "100svh", position: "fixed", zIndex: 1, display: "flex", justifyContent: "center"}}>
+  <div style={{width: "100vw", height: "100svh", position: "fixed", display: "flex", justifyContent: "center"}}>
     <div className='log_reg_text_main_div'>
       <p className='log_reg_before_using'>Перед использованием необходимо войти в аккаунт</p>
     </div>
@@ -195,11 +195,11 @@ function Log() {
 
 {!confirmation && !if403 &&
 <>
-  <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
+  <div style={{ width: "100vw", height: "100svh", position: "fixed" }}>
     <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div className="user_card">
         <div className="form_container">
-          <form onSubmit={handleSubmit} id='form_to_captcha_submit'>
+          <form onSubmit={handleSubmit} className="input-group">
             <div className="input-group">
               <input
                 type="text"
@@ -236,7 +236,7 @@ function Log() {
                 <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
               </button>
             </div>
-            <InvisibleSmartCaptcha sitekey={env.VITE_KEY} onSuccess={onSuccess} onChallengeHidden={handleChallengeHidden} visible={visible} style={{zIndex:100}}/>  
+            <InvisibleSmartCaptcha sitekey={env.VITE_KEY} onSuccess={onSuccess} onChallengeHidden={handleChallengeHidden} visible={visible}/>  
   
           </form>
         </div>

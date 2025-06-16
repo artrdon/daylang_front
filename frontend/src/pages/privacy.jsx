@@ -9,7 +9,7 @@ export default function Privacy() {
   
 
   document.querySelector("title").textContent = arrLangNavigPanel[lang]['privacy_policy'];  
-
+console.log(window.location.pathname);
   return (
     <div style={{
       width: '100%',
