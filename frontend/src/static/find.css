@@ -162,7 +162,7 @@ iframe{
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    background-color: #d6d6d6;
+    background-color: #d6d6d600;
 }
 
 .find_page_up_button_el{
@@ -671,7 +671,7 @@ div *::-webkit-scrollbar-thumb {
         color: white;
     }
     .find_page_up_buttons{
-        background-color: #242424;
+        background-color: #24242400;
     }
     .find_page_up_button_el{
         background-color: #ebebeb00;

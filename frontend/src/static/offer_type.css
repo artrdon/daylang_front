@@ -1,5 +1,5 @@
 .offer_type_flag_img{
-    height: auto; width: 160px; aspect-ratio: 16/10; position: absolute; z-index: 10; top: 30px; left: 20px
+    height: auto; width: 160px; aspect-ratio: 16/10; position: absolute; z-index: 10; top: 30px; left: 20px;
 }
 .offer_type_name_of_lang{
     position: absolute; font-size: 28px; z-index: 10; font-weight: 600; top: 140px; color: white;

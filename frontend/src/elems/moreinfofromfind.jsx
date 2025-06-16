@@ -77,6 +77,9 @@ return (
                         <p>{moreinfo[idOfInfo].description}</p>
                     </div>
                 )}
+                <div className='more_into_to_bye_main_part'>
+                    <p>Лимит запросов: {moreinfo[idOfInfo].count_request}</p>
+                </div>
                 </div>
                 {error === 0 && 
                 <>
@@ -89,7 +92,7 @@ return (
                         checked={isChecked}
                         onChange={() => setIsChecked(!isChecked)}
                     />
-                    <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span> я согласен(на) с</span><Link to={'/public_oferta/'} className='log_reg_other_links' ><span>офертой</span></Link></label>    
+                    <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span> я согласен(на) с<Link to={'/public_oferta/'} className='log_reg_other_links' ><span>офертой</span></Link></span></label>    
                     </div>
 
                     {!requestWasSended && 

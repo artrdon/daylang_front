@@ -26,7 +26,7 @@ export default function Epp(){
     
             <Route path="/" element={<Find />}/>
             <Route path="/ai_speak/:id/" element={<TestAI />}/>
-            <Route path="/smile/" element={<SmileTest />}/>
+            {/*<Route path="/smile/" element={<SmileTest />}/>*/}
             {/*<Route path="/user/undefined/" element={<Log />}/>*/}
             <Route path="/log/" element={<Log />}/>
             {/*<Route path="/log/reset/" element={<Log_reset />}/>*/}
@@ -45,7 +45,7 @@ export default function Epp(){
             <Route path="/privacy/" element={<Privacy />} />
             <Route path="/public_oferta/" element={<Public_oferta />} />
 
-            <Route path='/stat/' element={<MoaiStatue />} />
+            {/*<Route path='/stat/' element={<MoaiStatue />} />*/}
         </Routes>
     
     )

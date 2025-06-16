@@ -26,6 +26,7 @@ function TestAI() {
     const [whatHeSaid, setWhatHeSaid] = useState(false);
     const language = "Английского"
     const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
+    const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const params = useParams();
@@ -129,6 +130,7 @@ function TestAI() {
                 AIAnswer: response.data['text'],
             };
             setAnswers((answers) => [...answers, newAnswer]);
+            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
             if (typeof response.data === 'string') {
                 speak(response.data)
                 setWaitForAnswer(false);
@@ -141,6 +143,9 @@ function TestAI() {
             }
         } catch (error) {
             if (error.request?.status === 400){
+                alert(error.response.data['error']);
+            }
+            else{
                 alert(error.response.data['error']);
             }
             console.error('There was an error!', error.request);
@@ -269,7 +274,7 @@ function TestAI() {
     {whatHeSaid && <>
         <div className='ai_speak_what_he_said_panel_div'>
             <div style={{overflow: "auto", height: "100%"}}>
-                {answers.map((data, index) => (
+                {answersForWhatHeSaid.map((data, index) => (
                     <p className='ai_speak_what_he_said_panel_p' key={index}>{data.AIAnswer}</p>
                 ))}
             </div>
