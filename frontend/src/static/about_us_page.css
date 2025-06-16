@@ -49,7 +49,7 @@
 .mission-section h2, .future-section h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #ffffff;
+  color: #000000;
 }
 
 .mission-section p, .future-section p {
@@ -96,6 +96,12 @@
 .feature-card p {
   color: #5a6a7d;
   line-height: 1.5;
+}
+
+.dark_theme{
+  .mission-section h2, .future-section h2 {
+    color: #ffffff;
+  }
 }
 
 @media (max-width: 768px) {

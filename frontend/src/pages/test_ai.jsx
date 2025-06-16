@@ -26,7 +26,8 @@ function TestAI() {
     const [whatHeSaid, setWhatHeSaid] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
     const [volume, setVolume] = useState(50);
-    const [speed, setSpeed] = useState(50);
+    const [speed, setSpeed] = useState(1.0);
+    const [tokens, setTokens] = useState(100);
     const language = "Английского"
     const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
     const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
@@ -52,8 +53,12 @@ function TestAI() {
         setVolume(newVolume);
     }
     const handleSpeedChange = (e) => {
-        const newSpeed = parseInt(e.target.value);
+        const newSpeed = parseFloat(e.target.value);
         setSpeed(newSpeed);
+    }
+    const handleTokensChange = (e) => {
+        const newTokens = parseFloat(e.target.value);
+        setTokens(newTokens);
     }
 
 
@@ -128,6 +133,7 @@ function TestAI() {
         formData.append('audio', blob, 'recording.wav');
         formData.append('answers', JSON.stringify(answers));
         formData.append('id', params.id);
+        formData.append('tokens', tokens);
 
 
         try {
@@ -271,6 +277,18 @@ function TestAI() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if (audio.current) {
+            audio.current.playbackRate = speed;
+        }
+    }, [speed]);
+    
+    useEffect(() => {
+        if (audio.current) {
+            const zvuk = Number(volume) / 100;
+            audio.current.volume = zvuk;
+        }
+    }, [volume]);
   
     
     if (loading) return <LoadingSpinner/>;
@@ -294,11 +312,18 @@ function TestAI() {
             <div style={{overflow: "auto", height: "100%"}}>
                 <div className='ai_speak_settings_div'>
                     <p className='ai_speak_settings_name'>Звук</p>
-                    <input type="range" value={volume} min={0} max={100} onChange={handleVolumeChange} className='ai_speak_settings_reguling'/>    
+                    <input type="range" value={volume} min={0} max={100} onChange={handleVolumeChange} className='ai_speak_settings_reguling'/>
+                    <p style={{textAlign: "center"}}>{volume}</p>        
                 </div>
                 <div className='ai_speak_settings_div'>
                     <p className='ai_speak_settings_name'>Скорость</p>
-                    <input type="range" value={speed} min={0} max={100} onChange={handleSpeedChange} className='ai_speak_settings_reguling'/>    
+                    <input type="range" value={speed} min={0.1} max={2.0} step={0.01} onChange={handleSpeedChange} className='ai_speak_settings_reguling'/>  
+                    <p style={{textAlign: "center"}}>{speed}</p>      
+                </div>
+                <div className='ai_speak_settings_div'>
+                    <p className='ai_speak_settings_name'>Токены</p>
+                    <input type="range" value={tokens} min={50} max={300} onChange={handleTokensChange} className='ai_speak_settings_reguling'/>
+                    <p style={{textAlign: "center"}}>{tokens}</p>    
                 </div>
             </div>
             <button className='ai_speak_what_he_said_panel_close_button' onClick={ShowSettingsFunc}>
@@ -331,7 +356,9 @@ function TestAI() {
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
         {/*!isRecording && <button onMouseUp={startRecording} className='ai_speak_start_end_record_button' >start talking</button>*/}
-        <button onMouseUp={stopRecording} onMouseDown={startRecording} onTouchEnd={stopRecording} onTouchStart={startRecording} className='ai_speak_start_end_record_button' >{!isRecording ? 'start talking' : 'end talking'}</button> </>}
+        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >start talking</button>}
+        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >end talking</button>} </>}
+         </>}
         {isSpeaking && <> 
         <div style={{width: "100%", position: "absolute", bottom: 0}}>
             <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>pause</button>
@@ -339,7 +366,7 @@ function TestAI() {
             <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>cancel</button>
         </div>
          </>}
-    </>}
+    
     {waitForAnswer && <LoadingSpinner/>}
 </div>
 </>
