@@ -31,6 +31,7 @@ const CallbackHandler = () => {
                         window.location.href = '/log?error=user_with_email_has_another_account';
                     }
                     if (response?.status === 200){
+                        window.ym(102267315,'reachGoal','successfulReg');
                         window.location.href = '/';
                     }
                     

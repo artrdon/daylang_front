@@ -12,7 +12,7 @@ function Reg() {
   const env = import.meta.env;
     axios.defaults.withCredentials = true;
 
-    const { executeCaptcha, captchaReady } = useSmartCaptcha(env.VITE_KEY);
+    const { executeCaptcha, resetCaptcha } = useSmartCaptcha(env.VITE_KEY);
     const [isVisible, setIsVisible] = useState(false);
     const [isVisibleEmail, setIsVisibleEmail] = useState(false);
     const [ifChel, setIfChel] = useState(false);
@@ -50,8 +50,9 @@ function Reg() {
     
 
     const handleSubmit = async (e) => {
-        
-        e.preventDefault();
+        if (e){
+          e.preventDefault();  
+        }
         try {
             if (!isChecked){
               alert(arrLangLogin[lang]['u_must_agree_with']);
@@ -110,6 +111,7 @@ function Reg() {
             });
             if (response.data["if"] === "yes"){
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
+                window.ym(102267315,'reachGoal','successfulReg');
                 window.location.replace('/'); // Нет возможности вернуться
             }
             console.log('Response:', response.data);

@@ -35,7 +35,7 @@ return (
 
 function Log() {
     const env = import.meta.env;
-    const { executeCaptcha, captchaReady } = useSmartCaptcha(env.VITE_KEY);
+    const { executeCaptcha, resetCaptcha } = useSmartCaptcha(env.VITE_KEY);
     const [if403, setIf403] = useState(false);
     const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
@@ -46,10 +46,8 @@ function Log() {
     const theme = useState(websocket.theme);
     const [requestWasSended, setRequestWasSended] = useState(false);
     const params = new URLSearchParams(window.location.search);
-    const error = params.get('error');
-    const [token, setToken] = useState('');  
-    const [visible, setVisible] = useState(false);  
-    const handleChallengeHidden = useCallback(() => setVisible(false),);  
+    const errorURL = params.get('error');
+    const formRef = useRef();
     
 
     function getCookie(name) {
@@ -74,26 +72,19 @@ function Log() {
         setData1({ ...data1, [e.target.name]: e.target.value });
     };
 
-    const onSuccess = (token) => {
-      setToken(token);
-      console.log("success", token);
-      setVisible(false);
-      //handleSubmit(e);
-    }
     axios.defaults.withCredentials = true;
 
+
     const handleSubmit = async (e) => {
-      
-        e.preventDefault();
-        if (!token){
-          setVisible(!visible);
-          console.log(visible);
-          window.smartCaptcha.execute();
-          return;
+        if (e){
+            e.preventDefault();
         }
-        //const token = await executeCaptcha();
         try {
-            console.log(token);
+            const token = await executeCaptcha();
+            setData({ ...data, captcha: token });
+            if (!token){
+                return;
+            }
             setRequestWasSended(true);
             const response = await axios.post(`${env.VITE_APIURL}/log/`, { email: data.email, password: data.password, captcha: token}, {
                 headers: {
@@ -101,7 +92,6 @@ function Log() {
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            //console.log(response.data);
             if (response.data === "user_with_email_has_another_account"){
               alert(arrLangErrors[lang]["user_with_email_has_another_account"]);
               setRequestWasSended(false);
@@ -130,7 +120,7 @@ function Log() {
             document.cookie = `many_tries=yes; path=/;max-age=3600`;
             return;
           }
-          console.error('There was an error!', error.response.data);
+          console.error('There was an error!', error);
         }
         setRequestWasSended(false);
     };
@@ -147,9 +137,9 @@ function Log() {
             });
             if (response.data["if"] === "yes"){
                 document.cookie = `lang=${response.data['lang']}; path=/;max-age=31556926`;
+                window.ym(102267315,'reachGoal','successfulReg');
                 window.location.replace('/');
             }
-            //console.log('Response:', response.data);
         } catch (error) {
             console.error('There was an error!', error.response?.data);
             setRequestWasSended(false);
@@ -170,8 +160,8 @@ function Log() {
         setIf403(true);
       }
   
-      if (error){
-        alert(arrLangErrors[lang][error]);
+      if (errorURL){
+        alert(arrLangErrors[lang][errorURL]);
       }
     }, []);
       
@@ -199,7 +189,7 @@ function Log() {
     <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div className="user_card">
         <div className="form_container">
-          <form onSubmit={handleSubmit} className="input-group">
+          <form onSubmit={handleSubmit} className="input-group" ref={formRef}>
             <div className="input-group">
               <input
                 type="text"
@@ -227,7 +217,7 @@ function Log() {
                 id='login_button'
                 hidden
               />
-              {!requestWasSended && <label htmlFor="login_button" className="login_btn">{arrLangLogin[lang]['login']}</label>}
+              {!requestWasSended && <label className="login_btn" htmlFor='login_button'>{arrLangLogin[lang]['login']}</label>}
               {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
             </div>
             <p className='log_and_reg_text_login_via' >Или войти через:</p>
@@ -236,8 +226,6 @@ function Log() {
                 <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
               </button>
             </div>
-            <InvisibleSmartCaptcha sitekey={env.VITE_KEY} onSuccess={onSuccess} onChallengeHidden={handleChallengeHidden} visible={visible}/>  
-  
           </form>
         </div>
         <div className="mt-4">
@@ -280,7 +268,7 @@ function Log() {
               onChange={handleChange1}
             />
           </div>
-          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit}/>
+          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit} formRef={formRef}/>
           <input
               type="submit"
               id='button_to_confirm_email'
