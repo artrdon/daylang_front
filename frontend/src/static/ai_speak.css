@@ -29,7 +29,10 @@
     width: 500px; height: 500px; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); z-index: 1000; position: fixed; margin: 15px; border-top-right-radius: 40px; border-top-left-radius: 40px;
 }
 .ai_speak_what_he_said_panel_p{
-    margin: 20px; padding: 10px; font-size: 25px; background-color: #434343; border-radius: 10px;
+    margin: 20px; padding: 10px; font-size: 25px; background-color: #d5d5d5; color: rgb(0, 0, 0); border-radius: 10px; width: calc(90% - 60px); right: 0px; position: relative;
+}
+.ai_speak_what_i_said_panel_p{
+    margin: 20px; padding: 10px; font-size: 25px; background-color: #e2c8ff; color: #090909; border-radius: 10px; width: calc(90% - 60px); right: 0px; position: relative; margin-left: auto;
 }
 .ai_speak_what_he_said_panel_close_button{
     width: 100%; height: 100px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 25px; border-bottom-right-radius: 40px; border-bottom-left-radius: 40px;
@@ -58,6 +61,12 @@
     .ai_speak_what_he_said_panel_close_button{
         background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);
     }
+    .ai_speak_what_he_said_panel_p{
+        background-color: #434343; color: white;
+    }
+    .ai_speak_what_i_said_panel_p{
+        background-color: #6d29c1; color: white;
+    }
     
 }
 @media only screen and (max-width: 1100px)
@@ -71,6 +80,18 @@
     
 }
 @media only screen and (max-width: 525px){
+    .ai_speak_settings_div{
+        margin: 5.714285714285714vw;
+        font-size: 4.761904761904762vw;
+    }
+    .ai_speak_settings_name{
+        width: calc(100% - 11.42857142857143vw);
+        margin: 1.904761904761905vw;
+    }
+    .ai_speak_settings_reguling{
+        width: calc(100% - 11.42857142857143vw);
+        margin: 1.904761904761905vw;
+    }
     .ai_speak_settings_img{
         width: 13.33333333333333vw; height: 13.33333333333333vw;
     }
@@ -90,8 +111,10 @@
         width: calc(100% - 5.714285714285714vw); height: 70svh; margin: 2.857142857142857vw; border-top-right-radius: 7.619047619047619vw; border-top-left-radius: 7.619047619047619vw;
     }
     .ai_speak_what_he_said_panel_p{
-        margin: 3.8095238095238095vw; padding: 1.904761904761905vw; font-size: 4.761904761904762vw; border-radius: 1.904761904761905vw;
-
+        margin: 3.8095238095238095vw; padding: 1.904761904761905vw; font-size: 4.761904761904762vw; border-radius: 1.904761904761905vw; width: calc(90% - 11.42857142857143vw);
+    }
+    .ai_speak_what_i_said_panel_p{
+        margin: 3.8095238095238095vw; padding: 1.904761904761905vw; font-size: 4.761904761904762vw; border-radius: 1.904761904761905vw; width: calc(90% - 11.42857142857143vw); margin-left: auto;
     }
     .ai_speak_what_he_said_panel_close_button{
         width: 100%; height: 19.04761904761905vw; font-size: 4.761904761904762vw; border-bottom-right-radius: 7.619047619047619vw; border-bottom-left-radius: 7.619047619047619vw;

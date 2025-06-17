@@ -14,14 +14,14 @@ function TestAI() {
     const env = import.meta.env;
     const audio = useRef(null);
     const mediaRecorderRef = useRef(null);
-    const canvasRef = useRef(null);
+    //const canvasRef = useRef(null);
     const animationRef = useRef(null);
     const analyserRef = useRef(null);
     const audioContextRef = useRef(null);
     const audioChunksRef = useRef([]);
     const [isRecording, setIsRecording] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
-    const [speechStatus, setSpeechStatus] = useState('Ready');
+    //const [speechStatus, setSpeechStatus] = useState('Ready');
     const [waitForAnswer, setWaitForAnswer] = useState(false);
     const [whatHeSaid, setWhatHeSaid] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
@@ -37,7 +37,7 @@ function TestAI() {
 
     const [upValue, setUpValue] = useState(-0.01);
     
-    function getCookie(name) {
+    const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
@@ -122,7 +122,7 @@ function TestAI() {
             audio.current.currentTime = 0; // Перемотка в начало
             audio.current = null;
             setIsSpeaking(false);
-            setSpeechStatus('Stopped');
+            //setSpeechStatus('Stopped');
         }
         
     };
@@ -150,6 +150,7 @@ function TestAI() {
             };
             setAnswers((answers) => [...answers, newAnswer]);
             setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
+            
             if (typeof response.data === 'string') {
                 speak(response.data)
                 setWaitForAnswer(false);
@@ -340,7 +341,10 @@ function TestAI() {
         <div className='ai_speak_what_he_said_panel_div' style={{right: 0, zIndex: 1101}}>
             <div style={{overflow: "auto", height: "100%"}}>
                 {answersForWhatHeSaid.slice().reverse().map((data, index) => (
-                    <p className='ai_speak_what_he_said_panel_p' key={index}>{data.AIAnswer}</p>
+                    <>
+                        <p className='ai_speak_what_he_said_panel_p' key={index}>{data.AIAnswer}</p> 
+                        <p className='ai_speak_what_i_said_panel_p' key={`${index}MY`}>{data.myPromt}</p>
+                    </>
                 ))}
             </div>
             <button className='ai_speak_what_he_said_panel_close_button' onClick={ShowWhatHeSaid}>

@@ -15,6 +15,8 @@ import Support from './pages/support.jsx'
 import CallbackHandler from './pages/yandex_call_back.jsx'
 import SmileTest from './pages/smile.jsx'
 import Public_oferta from './pages/public_oferta.jsx'
+import SuccessPage from './pages/success_payment.jsx'
+import FailedPayment from './pages/failed_payment.jsx'
 import MoaiStatue from './elems/stone.jsx'
 
 export default function Epp(){
@@ -37,6 +39,9 @@ export default function Epp(){
             <Route path="/about_us/" element={<About />}/>
             <Route path='/my_words/' element={<MyWords />} />
             <Route path='/support/' element={<Support />} />
+
+            <Route path='/success_payment/' element={<SuccessPage />} />
+            <Route path='/failed_payment/' element={<FailedPayment />} />
             
             <Route path="/forbidden/" element={<Forbidden />} />
             <Route path="/not_found/" element={<NotFound />} />
