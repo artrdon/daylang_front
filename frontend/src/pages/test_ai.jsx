@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import SmileTest from './smile.jsx';
+import arrLangAI from '../../languages/ai.js';
 import '/src/static/ai_speak.css'
 
 function TestAI() {
@@ -14,6 +15,8 @@ function TestAI() {
     const env = import.meta.env;
     const audio = useRef(null);
     const mediaRecorderRef = useRef(null);
+    const [data, setData] = useState({requests: 0, end: 0, language: 'english', });
+    const [time, setTime] = useState(0);
     //const canvasRef = useRef(null);
     const animationRef = useRef(null);
     const analyserRef = useRef(null);
@@ -28,8 +31,7 @@ function TestAI() {
     const [volume, setVolume] = useState(50);
     const [speed, setSpeed] = useState(1.0);
     const [tokens, setTokens] = useState(100);
-    const language = "Английского"
-    const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
+    const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${data?.language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${data?.language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
     const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
@@ -60,8 +62,12 @@ function TestAI() {
         const newTokens = parseFloat(e.target.value);
         setTokens(newTokens);
     }
+    /*setInterval(() => {
+        const now = Date.now() / 1000;
+        setTime(data.end - now);
+    }, 1000);
 
-
+*/
     const visualize = (analyser) => {
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         
@@ -135,9 +141,16 @@ function TestAI() {
         formData.append('id', params.id);
         formData.append('tokens', tokens);
 
-
+        if (data.requests <= 0){
+            alert('У вас больше нет запросов');
+            return;
+        }
         try {
             setWaitForAnswer(true);
+            setData(prevData => ({
+                ...prevData,          // Копируем все существующие поля
+                requests: prevData.requests - 1  // Уменьшаем `requests` на 1
+            }));
             const response = await axios.post(`${env.VITE_APIURL}/airequest/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -164,11 +177,19 @@ function TestAI() {
         } catch (error) {
             if (error.request?.status === 400){
                 alert(error.response.data['error']);
+                setWaitForAnswer(false);
+                return;
             }
-            else{
+            else if (error.response?.data['error']) {
                 alert(error.response.data['error']);
+                setWaitForAnswer(false);
+                return;
             }
-            console.error('There was an error!', error.request);
+            else {
+                alert(error.response.data);
+                setWaitForAnswer(false);
+                return;
+            }
         }
     };
 
@@ -263,7 +284,7 @@ function TestAI() {
     };
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -312,43 +333,48 @@ function TestAI() {
         <div className='ai_speak_what_he_said_panel_div' style={{left: 0, zIndex: 1101}}> 
             <div style={{overflow: "auto", height: "100%"}}>
                 <div className='ai_speak_settings_div'>
-                    <p className='ai_speak_settings_name'>Звук</p>
+                    <p className='ai_speak_settings_name'>Осталось запросов: {data.requests}</p>
+                   {/*<p className='ai_speak_settings_name'>Осталось времени: {Math.floor(time)}</p>*/}
+                </div>
+
+                <div className='ai_speak_settings_div'>
+                    <p className='ai_speak_settings_name'>{arrLangAI[lang]['volume']}</p>
                     <input type="range" value={volume} min={0} max={100} onChange={handleVolumeChange} className='ai_speak_settings_reguling'/>
                     <p style={{textAlign: "center"}}>{volume}</p>        
                 </div>
                 <div className='ai_speak_settings_div'>
-                    <p className='ai_speak_settings_name'>Скорость</p>
+                    <p className='ai_speak_settings_name'>{arrLangAI[lang]['speed']}</p>
                     <input type="range" value={speed} min={0.1} max={2.0} step={0.01} onChange={handleSpeedChange} className='ai_speak_settings_reguling'/>  
                     <p style={{textAlign: "center"}}>{speed}</p>      
                 </div>
                 <div className='ai_speak_settings_div'>
-                    <p className='ai_speak_settings_name'>Токены</p>
+                    <p className='ai_speak_settings_name'>{arrLangAI[lang]['tokens']}</p>
                     <input type="range" value={tokens} min={50} max={300} onChange={handleTokensChange} className='ai_speak_settings_reguling'/>
                     <p style={{textAlign: "center"}}>{tokens}</p>    
                 </div>
             </div>
             <button className='ai_speak_what_he_said_panel_close_button' onClick={ShowSettingsFunc}>
-                close
+                {arrLangAI[lang]['close']}
             </button>
         </div>
     </>}
 
     <button className='ai_speak_what_he_said_button' onClick={ShowWhatHeSaid} style={{right: 0}}>
-        what he said
+        {arrLangAI[lang]['text_trans']}
     </button>
     {whatHeSaid && <>
         <div className='do_bye_transparency_fon' style={{zIndex: 1100}}/>
         <div className='ai_speak_what_he_said_panel_div' style={{right: 0, zIndex: 1101}}>
             <div style={{overflow: "auto", height: "100%"}}>
                 {answersForWhatHeSaid.slice().reverse().map((data, index) => (
-                    <>
-                        <p className='ai_speak_what_he_said_panel_p' key={index}>{data.AIAnswer}</p> 
+                    <div key={`${index}AI_MY_DIV`}>
+                        <p className='ai_speak_what_he_said_panel_p' key={`${index}AI`}>{data.AIAnswer}</p> 
                         <p className='ai_speak_what_i_said_panel_p' key={`${index}MY`}>{data.myPromt}</p>
-                    </>
+                    </div>
                 ))}
             </div>
             <button className='ai_speak_what_he_said_panel_close_button' onClick={ShowWhatHeSaid}>
-                close
+                {arrLangAI[lang]['close']}
             </button>
         </div>
     </>}
@@ -360,14 +386,14 @@ function TestAI() {
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
         {/*!isRecording && <button onMouseUp={startRecording} className='ai_speak_start_end_record_button' >start talking</button>*/}
-        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >start talking</button>}
-        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >end talking</button>} </>}
+        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['start_talking']}</button>}
+        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['end_talking']}</button>} </>}
          </>}
         {isSpeaking && <> 
         <div style={{width: "100%", position: "absolute", bottom: 0}}>
-            <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>pause</button>
-            <button onClick={resume} className='ai_speak_stop_resume_cancel_button'>resume</button>
-            <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>cancel</button>
+            <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['pause']}</button>
+            <button onClick={resume} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['resume']}</button>
+            <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['cancel']}</button>
         </div>
          </>}
     

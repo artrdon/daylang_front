@@ -80,6 +80,9 @@ return (
                 <div className='more_into_to_bye_main_part'>
                     <p>Лимит запросов: {moreinfo[idOfInfo].count_request}</p>
                 </div>
+                <div className='more_into_to_bye_main_part'>
+                    <p>Лимит по времени: {moreinfo[idOfInfo].minutes} минут</p>
+                </div>
                 </div>
                 {error === 0 && 
                 <>
