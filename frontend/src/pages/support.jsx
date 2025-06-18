@@ -31,8 +31,8 @@ function Support() {
               <div className="contact-card">
                 <div className="contact-icon">📱</div>
                 <h3>Telegram</h3>
-                <p>Быстрые ответы в мессенджере</p>
-                <a href="https://t.me/kontroverzan" target="_blank" rel="noopener noreferrer" className="contact-link">@kontroverzan</a>
+                <p>Пишите сообщения прямо Telegram-каналу</p>
+                <a href="https://t.me/day_lang" target="_blank" rel="noopener noreferrer" className="contact-link">@kontroverzan</a>
               </div>
               
               <div className="contact-card">

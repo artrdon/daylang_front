@@ -1,13 +1,18 @@
+.ai_speak_settings_info{
+    background-color: gray;
+    padding: 10px;
+    border-radius: 10px;
+}
 .ai_speak_settings_div{
     margin: 30px;
     font-size: 25px;
 }
 .ai_speak_settings_name{
-    width: calc(100% - 60px);
+    width: calc(100% - 20px);
     margin: 10px;
 }
 .ai_speak_settings_reguling{
-    width: calc(100% - 60px);
+    width: calc(100% - 20px);
     margin: 10px;
 }
 .ai_speak_settings_img{
@@ -35,7 +40,7 @@
     margin: 20px; padding: 10px; font-size: 25px; background-color: #e2c8ff; color: #090909; border-radius: 10px; width: calc(90% - 60px); right: 0px; position: relative; margin-left: auto;
 }
 .ai_speak_what_he_said_panel_close_button{
-    width: 100%; height: 100px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 25px; border-bottom-right-radius: 40px; border-bottom-left-radius: 40px;
+    width: 100%; height: 100px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 45px; border-bottom-right-radius: 40px; border-bottom-left-radius: 40px;
 }
 
 
@@ -80,16 +85,20 @@
     
 }
 @media only screen and (max-width: 525px){
+    .ai_speak_settings_info{
+        padding: 1.904761904761905vw;
+        border-radius: 1.904761904761905vw;
+    }
     .ai_speak_settings_div{
         margin: 5.714285714285714vw;
         font-size: 4.761904761904762vw;
     }
     .ai_speak_settings_name{
-        width: calc(100% - 11.42857142857143vw);
+        width: calc(100% - 3.80952380952381vw);
         margin: 1.904761904761905vw;
     }
     .ai_speak_settings_reguling{
-        width: calc(100% - 11.42857142857143vw);
+        width: calc(100% - 3.80952380952381vw);
         margin: 1.904761904761905vw;
     }
     .ai_speak_settings_img{
@@ -117,7 +126,7 @@
         margin: 3.8095238095238095vw; padding: 1.904761904761905vw; font-size: 4.761904761904762vw; border-radius: 1.904761904761905vw; width: calc(90% - 11.42857142857143vw); margin-left: auto;
     }
     .ai_speak_what_he_said_panel_close_button{
-        width: 100%; height: 19.04761904761905vw; font-size: 4.761904761904762vw; border-bottom-right-radius: 7.619047619047619vw; border-bottom-left-radius: 7.619047619047619vw;
+        width: 100%; height: 19.04761904761905vw; font-size: 8.571428571428571vw; border-bottom-right-radius: 7.619047619047619vw; border-bottom-left-radius: 7.619047619047619vw;
     }
         
 }

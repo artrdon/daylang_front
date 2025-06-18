@@ -10,6 +10,28 @@ import SmileTest from './smile.jsx';
 import arrLangAI from '../../languages/ai.js';
 import '/src/static/ai_speak.css'
 
+function ForbiddenTries() {
+
+
+
+    return (
+        <>
+            <div className="not_found_all_container_404_positing" >
+                <div className='not_found_all_container_404'>
+                    <div className='not_found_font_404'>
+                        <p>403</p>
+                        <div style={{display: "flex", justifyContent: 'center'}}>
+                        <div className='notfound_link_for_404'>
+                            Закончился лимит попыток, приходите через 1 час
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
 function TestAI() {
 
     const env = import.meta.env;
@@ -33,6 +55,7 @@ function TestAI() {
     const [tokens, setTokens] = useState(100);
     const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${data?.language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${data?.language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
     const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
+    const [tokensInfo, showTokensInfo] = useState(false);
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const params = useParams();
@@ -61,6 +84,9 @@ function TestAI() {
     const handleTokensChange = (e) => {
         const newTokens = parseFloat(e.target.value);
         setTokens(newTokens);
+    }
+    const showTokensInfoFunc = () => {
+        showTokensInfo(!tokensInfo);
     }
     /*setInterval(() => {
         const now = Date.now() / 1000;
@@ -93,6 +119,9 @@ function TestAI() {
         }
         const audioSrc = `data:${text['format']};base64,${text['audio']}`;
         audio.current = new Audio(audioSrc);
+        const zvuk = Number(volume) / 100;
+        audio.current.volume = zvuk;
+        audio.current.playbackRate = speed;
         audio.current.play();
         setIsSpeaking(true);
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -291,7 +320,7 @@ function TestAI() {
             const response = await axios.get(`${env.VITE_APIURL}/check_access/${params.id}/`);
             setData(response.data);
           } catch (err) {
-            setError(err.message);
+            setError(err);
           } finally {
             setLoading(false);
           }
@@ -314,7 +343,15 @@ function TestAI() {
   
     
     if (loading) return <LoadingSpinner/>;
-    if (error) return <p>Error: {error}</p>;
+    if (error){
+        console.log(error)
+        if (error.status === 403){
+            return <ForbiddenTries />;
+        }
+        else {
+            return <p>Error: {error}</p>;
+        }
+    } 
     
     document.querySelector("title").textContent = arrLangNavigPanel[lang]['ai'];
 
@@ -345,10 +382,13 @@ function TestAI() {
                 <div className='ai_speak_settings_div'>
                     <p className='ai_speak_settings_name'>{arrLangAI[lang]['speed']}</p>
                     <input type="range" value={speed} min={0.1} max={2.0} step={0.01} onChange={handleSpeedChange} className='ai_speak_settings_reguling'/>  
-                    <p style={{textAlign: "center"}}>{speed}</p>      
+                    <p style={{textAlign: "center"}}>×{speed}</p>      
                 </div>
                 <div className='ai_speak_settings_div'>
-                    <p className='ai_speak_settings_name'>{arrLangAI[lang]['tokens']}</p>
+                    {tokensInfo && <div className='ai_speak_settings_info'>
+                        Чем больше токенов, тем больше текст сгенерированного ответа, тем больше время ожидания.
+                    </div>}
+                    <p className='ai_speak_settings_name' onClick={showTokensInfoFunc} style={{cursor: "pointer"}}>{arrLangAI[lang]['tokens']}</p>
                     <input type="range" value={tokens} min={50} max={300} onChange={handleTokensChange} className='ai_speak_settings_reguling'/>
                     <p style={{textAlign: "center"}}>{tokens}</p>    
                 </div>

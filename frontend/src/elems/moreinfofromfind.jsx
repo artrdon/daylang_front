@@ -65,7 +65,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
     
 return ( 
     <>
-          <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100svh"}}>
+          <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100svh"}}>
             <div className='do_bye_transparency_fon' onClick={setByeFunc} />
             <div className='do_bye_panel' ref={ref}>
                 <div className='do_bye_overflow_of_ready_offers'>
