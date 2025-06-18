@@ -17,7 +17,7 @@ function Type_offer({ lang, language_name, flag, price, getMoreInfo, index, minu
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <p className='offer_type_price'>
-            <span>{price}</span> <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini' style={{position: "relative", margin: 0}}/> <span>/ {minutes} минут</span> 
+            <span>{price}</span> <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini' style={{position: "relative", margin: 0}}/> <span>/ {minutes} минут</span> 
           </p>
         </div>
         <img src="/src/static/img/bluefon.png" alt="fon" className="service_img" />

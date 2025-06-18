@@ -65,7 +65,7 @@ return (
                     <button className={`do_bye_ready_offer_to_bye`} key={index}>
                         <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                         <span >
-                           <p>{data.isBye === true ? "-" : "+"} {data.price}  <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini' /></p>
+                           <p>{data.isBye === true ? "-" : "+"} {data.price}  <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini' /></p>
                         </span>
                         <span >
                             <p>{data.date} {data.time}</p>

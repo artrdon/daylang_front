@@ -101,7 +101,7 @@ return (
                     {!requestWasSended && 
                         <>
                             <button className='do_bye_bye_button' onClick={handleSubmit}>
-                                Перейти за {moreinfo[idOfInfo].price} <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency'/>
+                                Перейти за {moreinfo[idOfInfo].price} <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency'/>
                             </button>
                         </>
                     }

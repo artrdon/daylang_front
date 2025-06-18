@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from "react-router";
+import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../elems/loading_spinner.jsx';
 import arrLangNavigPanel from '../../languages/nav_panel.js';
@@ -10,7 +11,7 @@ import SmileTest from './smile.jsx';
 import arrLangAI from '../../languages/ai.js';
 import '/src/static/ai_speak.css'
 
-function ForbiddenTries() {
+function ForbiddenTries({message}) {
 
 
 
@@ -21,9 +22,11 @@ function ForbiddenTries() {
                     <div className='not_found_font_404'>
                         <p>403</p>
                         <div style={{display: "flex", justifyContent: 'center'}}>
-                        <div className='notfound_link_for_404'>
-                            Закончился лимит попыток, приходите через 1 час
-                        </div>
+                            <Link to={'/'}>
+                                <div className='notfound_link_for_404'>
+                                    {message}
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -344,9 +347,8 @@ function TestAI() {
     
     if (loading) return <LoadingSpinner/>;
     if (error){
-        console.log(error)
         if (error.status === 403){
-            return <ForbiddenTries />;
+            return <ForbiddenTries message={error.response.data}/>;
         }
         else {
             return <p>Error: {error}</p>;

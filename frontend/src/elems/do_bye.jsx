@@ -66,7 +66,7 @@ return (
                 <button className={`do_bye_ready_offer_to_bye${tarif === "100" ? ' do_bye_offer_to_bye_selected' : ''}`} name='100' onClick={setSelectedTarif}>
                   <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
-                      <p>100  <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini'/></p>
+                      <p>100  <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini'/></p>
                     </span>
                     <span >
                       <p>100 рублей</p>
@@ -77,7 +77,7 @@ return (
                 <button className={`do_bye_ready_offer_to_bye${tarif === "300" ? ' do_bye_offer_to_bye_selected' : ''}`} name='300' onClick={setSelectedTarif}>
                   <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
-                      <p>300 <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini'/></p>
+                      <p>300 <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini'/></p>
                     </span>
                     <span >
                       <p>300 рублей</p>
@@ -88,7 +88,7 @@ return (
                 <button className={`do_bye_ready_offer_to_bye${tarif === "500" ? ' do_bye_offer_to_bye_selected' : ''}`} name='500' onClick={setSelectedTarif}>
                   <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
                     <span >
-                      <p>500 <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency_mini'/></p>
+                      <p>500 <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini'/></p>
                     </span>
                     <span >
                       <p>500 рублей</p>

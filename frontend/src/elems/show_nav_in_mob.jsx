@@ -54,7 +54,7 @@ return (
                         </Link>
                         <div className="show_nav_in_mob_nav_panel_botton_main">
                             <div style={{display: 'block'}}>
-                              <p className='top_panel_balance'>{arrLangNavigPanel[lang]['balance']}: {money} <img src="/src/static/img/icon.svg" alt="internal_currency" className='internal_currency'/></p>
+                              <p className='top_panel_balance'>{arrLangNavigPanel[lang]['balance']}: {money} <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency'/></p>
                             </div>
                         </div>
                         <button className="show_nav_in_mob_nav_panel_botton_main" onClick={setByeFunc}>
