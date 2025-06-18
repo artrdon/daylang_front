@@ -253,7 +253,7 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
       }
 
     </div>
-    <div style={{ borderBottom: "1px solid rgb(138, 138, 138)" }}>
+    <div className='border_for_areas_of_nav_panel' >
       {!(username === undefined) &&
         <>
           <Link className="navig_panel_button" id="not_for_fon" to="/settings/">
@@ -278,9 +278,25 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
         <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel" />
         <span className="text_in_panel">{arrLangNavigPanel[lang]['about']}</span>
       </Link>
+      
       <Cookie lang={lang}/>
-      <Docks lang={lang} />
     </div>
+    <div className='border_for_areas_of_nav_panel'>
+      <Link className="navig_panel_button" id="not_for_fon" to="https://t.me/day_lang" target='_blank'>
+        <img src="/src/static/img/TGLogo.svg" alt="We" className="app_navig_panel_img on_desktop_panel" />
+        <span className="text_in_panel">Мы в Telegram</span>
+      </Link>
+    </div>
+      
+    <div className='border_for_areas_of_nav_panel'>
+      <Link className="navig_panel_button" id="not_for_fon" to='/privacy/'>
+        <span className="text_in_panel">{arrLangNavigPanel[lang]['privacy_policy']}</span>
+      </Link>
+      <Link className="navig_panel_button" id="not_for_fon" to='/public_oferta/' target='_blank'>
+        <span className="text_in_panel">Оферта</span>
+      </Link>
+    </div>
+      
   </div>
 
 <CSSTransition

@@ -12,11 +12,14 @@ iframe{
 #only_for_fon{
     display: none;
 }
+.border_for_areas_of_nav_panel{
+    border-bottom: 1px solid rgb(138, 138, 138);
+}
 .internal_currency{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    position: absolute;
+    position: relative;
     margin-left: 5px;
 }
 .internal_currency_mini{
@@ -920,6 +923,9 @@ a{
 {
     *::-webkit-scrollbar{
         display: none;
+    }
+    .border_for_areas_of_nav_panel{
+        border: 0px;
     }
     .navig_panel_button:hover{
         background-color: #00000000; 

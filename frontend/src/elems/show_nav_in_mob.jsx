@@ -93,24 +93,29 @@ return (
                       </div>
                 
                 <Link className="show_nav_in_mob_nav_panel_botton" to="/settings/">
-                <img
-                    src="/src/static/img/setting.png"
-                    alt="settings"
-                    className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
-                />
-                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['setting']}</span>
+                  <img
+                      src="/src/static/img/setting.png"
+                      alt="settings"
+                      className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
+                  />
+                  <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['setting']}</span>
                 </Link>
                 <Link className="show_nav_in_mob_nav_panel_botton" to="/support/">
-                <img
-                    src="/src/static/img/support.png"
-                    alt="support"
-                    className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
-                />
-                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['support']}</span>
+                  <img
+                      src="/src/static/img/support.png"
+                      alt="support"
+                      className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"
+                  />
+                  <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['support']}</span>
                 </Link>
                 <Link className="show_nav_in_mob_nav_panel_botton" to="/about_us/">
-                <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img" />
-                <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['about']}</span>
+                  <img src="/src/static/img/dj.png" alt="about us" className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img" />
+                  <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['about']}</span>
+                </Link>
+                <div style={{borderTop: '1px solid'}}></div>
+                <Link className="show_nav_in_mob_nav_panel_botton" to="https://t.me/day_lang" target='_blank'>
+                  <img src="/src/static/img/TGLogo.svg" alt="We" className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img" />
+                  <span className='show_nav_in_mob_button_text_color'>Мы в Telegram</span>
                 </Link>
                 <div style={{borderTop: '1px solid'}}></div>
                 <a className="show_nav_in_mob_nav_panel_botton" href='/privacy/' target='_blank'>
@@ -119,6 +124,7 @@ return (
                 <a className="show_nav_in_mob_nav_panel_botton" href='/public_oferta/' target='_blank'>
                   <span className='show_nav_in_mob_button_text_color'>Оферта</span>
                 </a>
+                <div style={{borderTop: '1px solid'}}></div>
         </div>
     </div>
 
