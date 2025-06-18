@@ -43,7 +43,7 @@ function DoBye({ ref, setBye, lang }) {
             });
            // console.log('Response:', response.data);
             if (response.status === 200){
-              location.replace(response.data['PaymentURL']);
+              location.replace(response.data['confirmation_url']);
             }
 
         } catch (error) {

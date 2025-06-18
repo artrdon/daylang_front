@@ -124,7 +124,6 @@ return (
                 <a className="show_nav_in_mob_nav_panel_botton" href='/public_oferta/' target='_blank'>
                   <span className='show_nav_in_mob_button_text_color'>Оферта</span>
                 </a>
-                <div style={{borderTop: '1px solid'}}></div>
         </div>
     </div>
 

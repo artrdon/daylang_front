@@ -32,7 +32,7 @@ function Support() {
                 <div className="contact-icon">📱</div>
                 <h3>Telegram</h3>
                 <p>Пишите сообщения прямо Telegram-каналу</p>
-                <a href="https://t.me/day_lang" target="_blank" rel="noopener noreferrer" className="contact-link">@kontroverzan</a>
+                <a href="https://t.me/day_lang" target="_blank" rel="noopener noreferrer" className="contact-link">@day_lang</a>
               </div>
               
               <div className="contact-card">

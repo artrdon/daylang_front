@@ -287,15 +287,13 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
         <span className="text_in_panel">Мы в Telegram</span>
       </Link>
     </div>
-      
-    <div className='border_for_areas_of_nav_panel'>
-      <Link className="navig_panel_button" id="not_for_fon" to='/privacy/'>
-        <span className="text_in_panel">{arrLangNavigPanel[lang]['privacy_policy']}</span>
-      </Link>
-      <Link className="navig_panel_button" id="not_for_fon" to='/public_oferta/' target='_blank'>
-        <span className="text_in_panel">Оферта</span>
-      </Link>
-    </div>
+    <Link className="navig_panel_button" id="not_for_fon" to='/privacy/'>
+      <span className="text_in_panel">{arrLangNavigPanel[lang]['privacy_policy']}</span>
+    </Link>
+    <Link className="navig_panel_button" id="not_for_fon" to='/public_oferta/' target='_blank'>
+      <span className="text_in_panel">Оферта</span>
+    </Link>
+  
       
   </div>
 

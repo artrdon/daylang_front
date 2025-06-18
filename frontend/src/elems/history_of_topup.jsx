@@ -68,7 +68,8 @@ return (
                            <p>{data.isBye === true ? "-" : "+"} {data.price}  <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini' /></p>
                         </span>
                         <span >
-                            <p>{data.date} {data.time}</p>
+                            <p>{new Date(new Date(`${data.date}T${data.time}Z`).getTime() - (new Date(`${data.date}T${data.time}Z`).getTimezoneOffset() * 60000)).toISOString().replace("T", " ").replace(".000Z", " ")}</p>
+                            
                         </span>
                         </div>
                     </button>
