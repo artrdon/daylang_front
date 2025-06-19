@@ -46,7 +46,7 @@ function ImageWithFallbackPanel({ src, fallbackSrc, alt, }) {
 
 
 
-function App({ name, lastname, username, lang, lessons, photo, balance }) {
+function App({ name, lastname, username, lang, photo, balance }) {
 
   const nodeRef = useRef(null);
   const refForBye = useRef(null);
@@ -55,6 +55,12 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
   const [showDesktopPanel, setshowDesktopPanel] = useState(false);
   const [bye, setBye] = useState(false);
   const [historyOfTopUp, setHistoryOfTopUp] = useState(false);
+
+  const [unauthShowPrice, setUnauthShowPrice] = useState(false);
+
+  const showUnauthShowPrice = () =>{
+    setUnauthShowPrice(!unauthShowPrice);
+  }
 
   const showHistoryOfTopUp = () => {
     setHistoryOfTopUp(!historyOfTopUp);
@@ -214,10 +220,10 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
         <span className="text_in_panel" key="about">{arrLangNavigPanel[lang]['find']}</span>
       </Link>
       {username === undefined &&
-        <Link className="navig_panel_button" to="/log/">
+        <button className="navig_panel_button" onClick={showUnauthShowPrice}>
           
-          <span className="text_in_panel">Login</span>
-        </Link>
+          <span className="text_in_panel">Купить токены</span>
+        </button>
       }
       {!(username === undefined) &&
         <>
@@ -283,7 +289,7 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
     </div>
     <div className='border_for_areas_of_nav_panel'>
       <Link className="navig_panel_button" id="not_for_fon" to="https://t.me/day_lang" target='_blank'>
-        <img src="/src/static/img/TGLogo.svg" alt="We" className="app_navig_panel_img on_desktop_panel" />
+        <img src="/src/static/img/TGLogo.svg" alt="We" className="app_navig_panel_img on_desktop_panel" style={{filter: 'brightness(100%)'}} />
         <span className="text_in_panel">Мы в Telegram</span>
       </Link>
     </div>
@@ -318,6 +324,19 @@ function App({ name, lastname, username, lang, lessons, photo, balance }) {
     <DoBye ref={refForBye} setBye={setBye} lang={lang} />
 
 </CSSTransition>
+
+
+<CSSTransition
+  in={unauthShowPrice}
+  timeout={300}
+  classNames="do_bye_panel"
+  unmountOnExit
+  nodeRef={refForBye}
+>
+    <DoBye ref={refForBye} setBye={setUnauthShowPrice} lang={lang} />
+
+</CSSTransition>
+
 
 
 <CSSTransition

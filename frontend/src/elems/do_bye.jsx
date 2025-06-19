@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 
 function DoBye({ ref, setBye, lang }) {
 
     const env = import.meta.env;
+    const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(false);
     const [tarif, setTarif] = useState('');
     const setByeFunc = () =>{
@@ -26,6 +29,18 @@ function DoBye({ ref, setBye, lang }) {
     const setSelectedTarif = (e) => {
       setTarif(e.currentTarget.name);
     }
+    const { data: data1, isLoading: loading1, isError: error1, error: errorDetails1 } = useQuery({
+      queryKey: ['get_top_up_tarifs'], // Уникальный ключ запроса
+      queryFn: async () => {
+        const response = await axios.get(`${env.VITE_APIURL}/get_top_up_tarifs/`);
+        return response.data; // Возвращаем только данные
+      },
+      // Опциональные параметры:
+      retry: 2, // Количество попыток повтора при ошибке
+      staleTime: 1000 * 60 * 5, // Данные считаются свежими 5 минут
+      refetchOnWindowFocus: false, // Отключаем повторный запрос при фокусе окна
+    });
+    
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,10 +62,28 @@ function DoBye({ ref, setBye, lang }) {
             }
 
         } catch (error) {
+            if (error.response?.status === 401){
+              navigate('/log');
+              return "unauthorised";  
+            }
             console.error('There was an error!', error.response?.data);
         }
 
     };
+
+    if (loading1) {
+      return (<>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100svh"}}>
+            <div className='do_bye_transparency_fon' onClick={setByeFunc} />
+            <div className='do_bye_panel' ref={ref}>
+              <div className='do_bye_ready_offers_title'>
+                <p>Выберите сумму пополнения</p>
+              </div>              
+            </div>
+          </div>
+      </>);
+    }
+    if (error1) return <p>Error: {error1}</p>;
 
 return ( 
     <>
@@ -62,39 +95,18 @@ return (
                 <p>Выберите сумму пополнения</p>
               </div>
               <div className='do_bye_overflow_of_ready_offers'>
-                
-                <button className={`do_bye_ready_offer_to_bye${tarif === "100" ? ' do_bye_offer_to_bye_selected' : ''}`} name='100' onClick={setSelectedTarif}>
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
-                    <span >
-                      <p>100  <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini'/></p>
-                    </span>
-                    <span >
-                      <p>100 рублей</p>
-                    </span>
-                  </div>
-                </button>
-
-                <button className={`do_bye_ready_offer_to_bye${tarif === "300" ? ' do_bye_offer_to_bye_selected' : ''}`} name='300' onClick={setSelectedTarif}>
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
-                    <span >
-                      <p>300 <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini'/></p>
-                    </span>
-                    <span >
-                      <p>300 рублей</p>
-                    </span>
-                  </div>
-                </button>
-
-                <button className={`do_bye_ready_offer_to_bye${tarif === "500" ? ' do_bye_offer_to_bye_selected' : ''}`} name='500' onClick={setSelectedTarif}>
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
-                    <span >
-                      <p>500 <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini'/></p>
-                    </span>
-                    <span >
-                      <p>500 рублей</p>
-                    </span>
-                  </div>
-                </button>
+                {data1.map((data, index) => (
+                  <button className={`do_bye_ready_offer_to_bye${tarif === `${data.summa}` ? ' do_bye_offer_to_bye_selected' : ''}`} name={data.summa} onClick={setSelectedTarif} key={`top_up_tarif_${index}`}>
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}} className='do_bye_small_titles'>
+                      <span >
+                        <p>{data.summa}  <img src="/src/static/img/coin.png" alt="internal_currency" className='internal_currency_mini'/></p>
+                      </span>
+                      <span >
+                        <p>{data.price} рублей</p>
+                      </span>
+                    </div>
+                  </button>
+                ))}
               </div>
               {tarif === '' ? null : (<>
                 <div className='do_bye_oferta_agreement'>

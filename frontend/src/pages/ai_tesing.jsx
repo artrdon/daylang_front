@@ -1,4 +1,4 @@
-import React from 'react';
+import { React } from 'react';
 import { useParams } from "react-router";
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
@@ -35,7 +35,7 @@ function ForbiddenTries({message}) {
     )
 }
 
-function TestAI() {
+function TestINGAI() {
 
     const env = import.meta.env;
     const audio = useRef(null);
@@ -62,6 +62,7 @@ function TestAI() {
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const params = useParams();
+    const ws = useRef(null);
 
     const [upValue, setUpValue] = useState(-0.01);
     
@@ -97,6 +98,34 @@ function TestAI() {
     }, 1000);
 
 */
+
+    useEffect(() => {
+        ws.current = new WebSocket('ws://127.0.0.1:8000/ws/voice/');
+        
+        ws.current.onmessage = (event) => {
+            const dataMess = JSON.parse(event.data);
+            console.log(dataMess);
+            /*const newAnswer = {
+                myPromt: response.data['myText'],
+                AIAnswer: response.data['text'],
+            };
+            setAnswers((answers) => [...answers, newAnswer]);
+            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
+            
+            if (typeof response.data === 'string') {
+                speak(response.data)
+                setWaitForAnswer(false);
+            } else if (response.data.text) {
+                speak(response.data)
+                setWaitForAnswer(false);
+            } else {
+                speak(response.data)
+                setWaitForAnswer(false);
+            }*/
+        };
+
+        return () => ws.current.close();
+    }, []);
     const visualize = (analyser) => {
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         
@@ -183,29 +212,11 @@ function TestAI() {
                 ...prevData,          // Копируем все существующие поля
                 requests: prevData.requests - 1  // Уменьшаем `requests` на 1
             }));
-            const response = await axios.post(`${env.VITE_APIURL}/airequest/`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'X-CSRFToken': getCookie('csrftoken'),
-                },
-            });
-            const newAnswer = {
-                myPromt: response.data['myText'],
-                AIAnswer: response.data['text'],
-            };
-            setAnswers((answers) => [...answers, newAnswer]);
-            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
             
-            if (typeof response.data === 'string') {
-                speak(response.data)
-                setWaitForAnswer(false);
-            } else if (response.data.text) {
-                speak(response.data)
-                setWaitForAnswer(false);
-            } else {
-                speak(response.data)
-                setWaitForAnswer(false);
+            if (ws.current.readyState === WebSocket.OPEN) {
+                ws.current.send(formData);
             }
+            
         } catch (error) {
             if (error.request?.status === 400){
                 alert(error.response.data['error']);
@@ -288,7 +299,6 @@ function TestAI() {
         mediaRecorderRef.current.ondataavailable = (e) => {
             audioChunksRef.current.push(e.data);
         };
-        
         mediaRecorderRef.current.onstop = async () => {
             // Сначала создаем blob в формате webm
             const webmBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
@@ -446,4 +456,4 @@ function TestAI() {
   )
 }
 
-export default TestAI
+export default TestINGAI

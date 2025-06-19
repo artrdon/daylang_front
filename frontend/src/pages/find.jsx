@@ -25,6 +25,7 @@ function Find() {
 
     const [moreinfo, setMoreInfo] = useState(false);
     const [idOfInfo, setIdOfInfo] = useState('');
+    
     const getMoreInfo = (id) => {
       let idd = Number(id);
       

@@ -17,6 +17,7 @@ import SmileTest from './pages/smile.jsx'
 import Public_oferta from './pages/public_oferta.jsx'
 import SuccessPage from './pages/success_payment.jsx'
 import FailedPayment from './pages/failed_payment.jsx'
+import TestINGAI from './pages/ai_tesing.jsx'
 import MoaiStatue from './elems/stone.jsx'
 
 export default function Epp(){
@@ -28,6 +29,7 @@ export default function Epp(){
     
             <Route path="/" element={<Find />}/>
             <Route path="/ai_speak/:id/" element={<TestAI />}/>
+            {/*<Route path="/ai_test/:id/" element={<TestINGAI />}/>*/}
             {/*<Route path="/smile/" element={<SmileTest />}/>*/}
             {/*<Route path="/user/undefined/" element={<Log />}/>*/}
             <Route path="/log/" element={<Log />}/>
