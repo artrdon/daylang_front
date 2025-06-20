@@ -63,6 +63,8 @@ function TestINGAI() {
     const [lang, setLang] = useState(websocket.lang);
     const params = useParams();
     const ws = useRef(null);
+    let startTime = null;
+    let endTime = null;
 
     const [upValue, setUpValue] = useState(-0.01);
     
@@ -105,6 +107,25 @@ function TestINGAI() {
         ws.current.onmessage = (event) => {
             const dataMess = JSON.parse(event.data);
             console.log(dataMess);
+            endTime = performance.now();
+            console.log("Execution time: ", endTime - startTime);
+            const newAnswer = {
+                myPromt: dataMess['myText'],
+                AIAnswer: dataMess['text'],
+            };
+            setAnswers((answers) => [...answers, newAnswer]);
+            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
+            
+            if (typeof dataMess === 'string') {
+                speak(dataMess)
+                setWaitForAnswer(false);
+            } else if (dataMess.text) {
+                speak(dataMess)
+                setWaitForAnswer(false);
+            } else {
+                speak(dataMess)
+                setWaitForAnswer(false);
+            }
             /*const newAnswer = {
                 myPromt: response.data['myText'],
                 AIAnswer: response.data['text'],
@@ -195,7 +216,7 @@ function TestINGAI() {
     };
     const send_request = async (blob) => {
       //  if (e) e.preventDefault();
-        
+        startTime = performance.now();
         const formData = new FormData();
         formData.append('audio', blob, 'recording.wav');
         formData.append('answers', JSON.stringify(answers));
@@ -212,14 +233,28 @@ function TestINGAI() {
                 ...prevData,          // Копируем все существующие поля
                 requests: prevData.requests - 1  // Уменьшаем `requests` на 1
             }));
+            function blobToBase64(blob) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                reader.readAsDataURL(blob);
+            });
+            }
+            const base64Audio = await blobToBase64(blob);
             
             if (ws.current.readyState === WebSocket.OPEN) {
-                ws.current.send(formData);
+                ws.current.send(JSON.stringify({
+                    audio: base64Audio,
+                    answers: answers,
+                    id: params.id,
+                    tokens: tokens,
+                    
+                }));
             }
             
         } catch (error) {
             if (error.request?.status === 400){
-                alert(error.response.data['error']);
+                alert(error.response?.data['error']);
                 setWaitForAnswer(false);
                 return;
             }
@@ -229,7 +264,8 @@ function TestINGAI() {
                 return;
             }
             else {
-                alert(error.response.data);
+                console.log(error);
+                alert(error.response?.data);
                 setWaitForAnswer(false);
                 return;
             }

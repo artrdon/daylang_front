@@ -92,7 +92,7 @@ return (
             <div className='do_bye_transparency_fon' onClick={setByeFunc} />
             <div className='do_bye_panel' ref={ref}>
               <div className='do_bye_ready_offers_title'>
-                <p>Выберите сумму пополнения</p>
+                <p>Выберите количество</p>
               </div>
               <div className='do_bye_overflow_of_ready_offers'>
                 {data1.map((data, index) => (
@@ -121,7 +121,7 @@ return (
                   <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span> я согласен(на) с</span><Link to={'/public_oferta/'} className='log_reg_other_links' ><span>офертой</span></Link></label>    
                 </div>
                 <button className='do_bye_bye_button' onClick={handleSubmit}>
-                  пополнить на {tarif} рублей
+                  Купить за {tarif} рублей
                 </button>
               </>)}
               

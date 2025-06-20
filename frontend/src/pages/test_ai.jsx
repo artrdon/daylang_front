@@ -166,7 +166,7 @@ function TestAI() {
     };
     const send_request = async (blob) => {
       //  if (e) e.preventDefault();
-        
+       // const startTime = performance.now();
         const formData = new FormData();
         formData.append('audio', blob, 'recording.wav');
         formData.append('answers', JSON.stringify(answers));
@@ -189,6 +189,9 @@ function TestAI() {
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
+            //const endTime = performance.now();
+
+            //console.log("Execution time: ", endTime - startTime);
             const newAnswer = {
                 myPromt: response.data['myText'],
                 AIAnswer: response.data['text'],
