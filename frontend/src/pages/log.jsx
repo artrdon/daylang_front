@@ -222,7 +222,7 @@ function Log() {
             </div>
             <p className='log_and_reg_text_login_via' >Или войти через:</p>
             <div style={{display: "flex", justifyContent: "center"}}>
-              <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
+              <button onClick={handleYandexLogin} onTouchStart={handleYandexLogin} className='log_and_reg_oauth_services'>
                 <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
               </button>
             </div>

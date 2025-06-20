@@ -139,17 +139,20 @@ function Find() {
 <App name={data.first_name} lastname={data.last_name} username={data.username} lang={lang} lessons={lessons} photo={data.photo} balance={data.balance}/>
 
 <div className='find_panel'>
-  <div className='find_page_up_buttons'>
-    <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {FindLang[lang]['bye_access']}
-    </button>
-    <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {FindLang[lang]['now_lessons']}
-    </button>
-    <button onClick={() => setPage(2)} className={page === 2 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
-      {FindLang[lang]['exp_lessons']}
-    </button>
+  <div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
+    <div className="page_of_type horizontal-scroll-content" style={{width: "100%"}}>
+      <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+        {FindLang[lang]['bye_access']}
+      </button>
+      <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+        {FindLang[lang]['now_lessons']}
+      </button>
+      <button onClick={() => setPage(2)} className={page === 2 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+        {FindLang[lang]['exp_lessons']}
+      </button>
+    </div>
   </div>
+    
   <div className="tag_select_panel">
     <div className='find_page_div_over_offer_types'>
       <div className='find_page_div_of_offer_types'>
