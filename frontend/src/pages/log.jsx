@@ -37,7 +37,6 @@ function Log() {
     const env = import.meta.env;
     const { executeCaptcha, resetCaptcha } = useSmartCaptcha(env.VITE_KEY);
     const [if403, setIf403] = useState(false);
-    const [ifChel, setIfChel] = useState(null);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
     const [emailForCode, setEmailForCode] = useState('');
@@ -47,7 +46,9 @@ function Log() {
     const [requestWasSended, setRequestWasSended] = useState(false);
     const params = new URLSearchParams(window.location.search);
     const errorURL = params.get('error');
-    const formRef = useRef();
+    const [isMainDisabled, setIsMainDisabled] = useState(true);
+    const [isCodeDisabled, setIsCodeDisabled] = useState(true);
+    
     
 
     function getCookie(name) {
@@ -57,19 +58,32 @@ function Log() {
     }
 
   
-    const [data, setData] = useState({ email: '', password: '', captcha: ''});
+    const [data, setData] = useState({ email: '', password: ''});
     const [data1, setData1] = useState({ code: '', email: data.email, password: data.password});
-    const [passIncor, setPassIncor] = useState(false);
-    const history = useNavigate();
-
+    
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
         setData1({ ...data1, [e.target.name]: e.target.value });
-        setPassIncor(false);
+        const updatedData = { ...data, [e.target.name]: e.target.value };
+        const hasEmptyFields = Object.values(updatedData).some(value => value === '');
+        if (hasEmptyFields) {
+          setIsMainDisabled(true);
+        }
+        else{
+          setIsMainDisabled(false);
+        }
     };
 
     const handleChange1 = (e) => {
         setData1({ ...data1, [e.target.name]: e.target.value });
+        const updatedData = { ...data1, [e.target.name]: e.target.value };
+        const hasEmptyFields = Object.values(updatedData).some(value => value === '');
+        if (hasEmptyFields) {
+          setIsCodeDisabled(true);
+        }
+        else{
+          setIsCodeDisabled(false);
+        }
     };
 
     axios.defaults.withCredentials = true;
@@ -80,6 +94,11 @@ function Log() {
             e.preventDefault();
         }
         try {
+            const hasEmptyFields = Object.values(data).some((value) => value === '');
+            if (hasEmptyFields) {
+              alert("Все поля должны быть заполнены!");
+              return;
+            }
             setRequestWasSended(true);
             const token = await executeCaptcha();
             setRequestWasSended(false);
@@ -94,26 +113,17 @@ function Log() {
                     'X-CSRFToken': getCookie('csrftoken'),
                 },
             });
-            if (response.data === "user_with_email_has_another_account"){
-              alert(arrLangErrors[lang]["user_with_email_has_another_account"]);
-              setRequestWasSended(false);
-              return;
-            }
+            
             setEmailForCode(response.data);
             
-            if (response.data != 'username or password is incorrect' && response.data != "user_with_email_has_another_account"){
-              setConf(true);
-              const to_email = await axios.post(`${env.VITE_APIURL}/email/`, { password: data.password, captcha: token, email: response.data}, {
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'X-CSRFToken': getCookie('csrftoken'),
-                  },
-              });
+            setConf(true);
+            const to_email = await axios.post(`${env.VITE_APIURL}/email/`, { password: data.password, captcha: token, email: response.data}, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+            });
 
-            }
-            else{
-              setPassIncor(true);
-            }
           
         } catch (error) {
           if (error.response?.status === 403){
@@ -122,6 +132,8 @@ function Log() {
             document.cookie = `many_tries=yes; path=/;max-age=3600`;
             return;
           }
+          alert(arrLangErrors[lang][error.response.data]);
+          setRequestWasSended(false);
           console.error('There was an error!', error);
         }
         setRequestWasSended(false);
@@ -143,6 +155,7 @@ function Log() {
                 window.location.replace('/');
             }
         } catch (error) {
+            alert(arrLangErrors[lang][error.response.data]);
             console.error('There was an error!', error.response?.data);
             setRequestWasSended(false);
         }
@@ -191,7 +204,7 @@ function Log() {
     <div style={{  width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div className="user_card">
         <div className="form_container">
-          <form onSubmit={handleSubmit} className="input-group" ref={formRef}>
+          <form onSubmit={handleSubmit} className="input-group">
             <div className="input-group">
               <input
                 type="text"
@@ -200,6 +213,7 @@ function Log() {
                 className="form-control"
                 value={data.email}
                 onChange={handleChange}
+                readOnly={requestWasSended}
               />
             </div>
             <div className="input-group">
@@ -210,6 +224,7 @@ function Log() {
                 className="form-control"
                 value={data.password}
                 onChange={handleChange}
+                readOnly={requestWasSended}
               />
             </div>
             <div className="input-group">
@@ -217,9 +232,10 @@ function Log() {
                 type="submit"
                 defaultValue="Login"
                 id='login_button'
+                disabled={isMainDisabled}
                 hidden
               />
-              {!requestWasSended && <label className="login_btn" htmlFor='login_button'>{arrLangLogin[lang]['login']}</label>}
+              {!requestWasSended && <label htmlFor='login_button' className={`${isMainDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['login']}</label>}
               {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
             </div>
             <p className='log_and_reg_text_login_via' >Или войти через:</p>
@@ -231,12 +247,6 @@ function Log() {
           </form>
         </div>
         <div className="mt-4">
-          {ifChel === false && <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className='reg_log_error_text' >{arrLangLogin[lang]['confirm_u_r_human']}</div>
-          </div>}
-          {passIncor && <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className='reg_log_error_text' >{arrLangLogin[lang]['username_or_password_is_incorrect']}</div>
-          </div>}
           <div style={{ display: "flex", justifyContent: "center" }}>
             {arrLangLogin[lang]['dont_have_an_account']}
             <Link to="/reg/" className='log_reg_other_links'>
@@ -248,7 +258,7 @@ function Log() {
     </div>
   </div>
 </>}
-{confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10 }}>
+{confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed"}}>
   <div style={{ width: "100vw", height: "100svh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div className="form_container">
@@ -268,17 +278,19 @@ function Log() {
               className="form-control"
               value={data1.code}
               onChange={handleChange1}
+              readOnly={requestWasSended}
             />
           </div>
-          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit} formRef={formRef}/>
+          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit} requestWasSended={requestWasSended}/>
           <input
               type="submit"
               id='button_to_confirm_email'
               defaultValue="Confirm"
+              disabled={isCodeDisabled}
               hidden
             />
           {timehave > 0 && !requestWasSended &&
-            <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
+            <label htmlFor='button_to_confirm_email' className={`${isCodeDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['confirm']}</label>
           }
           {timehave > 0 && requestWasSended &&
             <div className="login_btn"><div className='loading-spinnerButton'></div></div>

@@ -6,16 +6,14 @@ import axios from 'axios';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
+import arrLangErrors from '../../languages/errors.js';
 
 
 function Reg() {
-  const env = import.meta.env;
+    const env = import.meta.env;
     axios.defaults.withCredentials = true;
 
     const { executeCaptcha, resetCaptcha } = useSmartCaptcha(env.VITE_KEY);
-    const [isVisible, setIsVisible] = useState(false);
-    const [isVisibleEmail, setIsVisibleEmail] = useState(false);
-    const [ifChel, setIfChel] = useState(false);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
     const [emailForCode, setEmailForCode] = useState('');
@@ -24,6 +22,9 @@ function Reg() {
     const theme = useState(websocket.theme);
     const [isChecked, setIsChecked] = useState(false);
     const [requestWasSended, setRequestWasSended] = useState(false);
+    const [isMainDisabled, setIsMainDisabled] = useState(true);
+    const [isCodeDisabled, setIsCodeDisabled] = useState(true);
+    
 
     const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
     const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
@@ -38,13 +39,27 @@ function Reg() {
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
         setData2({ ...data2, [e.target.name]: e.target.value });
-        setIsVisible(false);
-        setIsVisibleEmail(false);
+        const updatedData = { ...data, [e.target.name]: e.target.value };
+        const hasEmptyFields = Object.values(updatedData).some(value => value === '');
+        if (hasEmptyFields) {
+          setIsMainDisabled(true);
+        }
+        else{
+          setIsMainDisabled(false);
+        }
     };
 
 
     const handleChange2 = (e) => {
         setData2({ ...data2, [e.target.name]: e.target.value });
+        const updatedData = { ...data2, [e.target.name]: e.target.value };
+        const hasEmptyFields = Object.values(updatedData).some(value => value === '');
+        if (hasEmptyFields) {
+          setIsCodeDisabled(true);
+        }
+        else{
+          setIsCodeDisabled(false);
+        }
     };
 
     
@@ -58,11 +73,16 @@ function Reg() {
               alert(arrLangLogin[lang]['u_must_agree_with']);
               return;
             }
+            const hasEmptyFields = Object.values(data).some((value) => value === '');
+            if (hasEmptyFields) {
+              alert("Все поля должны быть заполнены!");
+              return;
+            }
             setRequestWasSended(true);
             const token = await executeCaptcha();
             setRequestWasSended(false);
             setData({ ...data, captcha: token });
-            if (token != null)
+            if (token)
             {
                 setRequestWasSended(true);
                 const response = await axios.post(`${env.VITE_APIURL}/reg/`, { username: data.username, email: data.email, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name, captcha: token}, {
@@ -72,30 +92,21 @@ function Reg() {
                     },
                 });
                 setEmailForCode(response.data);
-               // console.log(response.data);
-                if (response.data === "ima")
-                {
-                    setIsVisible(true);
-                }
-                else if (response.data === "ima_email")
-                {
-                    setIsVisibleEmail(true);
-                }
-                else{
-                    setConf(true);
-                    const email = await axios.post(`${env.VITE_APIURL}/email/`, { username: data.username, email: response.data, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name}, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': getCookie('csrftoken'),
-                        },
-                    });
-                }
-
+               
+                setConf(true);
+                const email = await axios.post(`${env.VITE_APIURL}/email/`, { username: data.username, email: response.data, password1: data.password1, password2: data.password2, first_name: data.first_name, last_name: data.last_name}, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                });
+            
             }
             else{
-                setIfChel(true);
+                alert(arrLangLogin[lang]['confirm_u_r_human']);
             }
         } catch (error) {
+            alert(arrLangErrors[lang][error.response.data]);
             console.error('There was an error!', error.response.data);
         }
         setRequestWasSended(false);
@@ -119,6 +130,7 @@ function Reg() {
             console.log('Response:', response.data);
 
         } catch (error) {
+            alert(arrLangErrors[lang][error.response.data]);
             console.error('There was an error!', error.response.data);
         }
         setRequestWasSended(false);
@@ -137,14 +149,14 @@ function Reg() {
         <>
 
 
-<div style={{width: "100vw", height: "100svh", position: "fixed", zIndex: 1, display: "flex", justifyContent: "center"}}>
+<div style={{width: "100vw", height: "100svh", position: "fixed", display: "flex", justifyContent: "center"}}>
   <div className='log_reg_text_main_div'>
-    <p className='log_reg_before_using'>Перед использованием необходимо войти в аккаунт</p>
+    <p className='log_reg_before_using'>Перед использованием необходимо создать аккаунт</p>
   </div>
 </div>
 
 
-{!confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10,  }}>
+{!confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed",}}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
       <div className="form_container">
@@ -158,6 +170,7 @@ function Reg() {
               className="form-control"
               value={data.username}
               onChange={handleChange}
+              readOnly={requestWasSended}
             />
           </div>
           <div className="input-group">
@@ -168,6 +181,7 @@ function Reg() {
               className="form-control"
               value={data.login}
               onChange={handleChange}
+              readOnly={requestWasSended}
             />
           </div>
           <div className="input-group">
@@ -176,8 +190,9 @@ function Reg() {
               name="password1"
               placeholder={arrLangLogin[lang]['password']}
               className="form-control"
-              value={data.password}
+              value={data.password1}
               onChange={handleChange}
+              readOnly={requestWasSended}
             />
           </div>
           <div className="input-group">
@@ -186,8 +201,9 @@ function Reg() {
               name="password2"
               placeholder={arrLangLogin[lang]['confirm_password']}
               className="form-control"
-              value={data.password}
+              value={data.password2}
               onChange={handleChange}
+              readOnly={requestWasSended}
             />
           </div>
           <div className="input-group">
@@ -198,6 +214,7 @@ function Reg() {
               className="form-control"
               value={data.name}
               onChange={handleChange}
+              readOnly={requestWasSended}
             />
           </div>
           <div className="input-group">
@@ -208,6 +225,7 @@ function Reg() {
               className="form-control"
               value={data.second_name}
               onChange={handleChange}
+              readOnly={requestWasSended}
             />
           </div>
           <div className="input-group">
@@ -218,21 +236,20 @@ function Reg() {
               id='i_agree'
               checked={isChecked}
               onChange={() => setIsChecked(!isChecked)}
+              readOnly={requestWasSended}
             />
             <label htmlFor="i_agree" className='reg_log_agree_with_privacy'><span>{arrLangLogin[lang]['i_agree_with']}</span><Link to={'/privacy/'} className='log_reg_other_links' ><span>{arrLangLogin[lang]['privacy']}</span></Link></label>
           </div>
-          {isVisible && <div className='reg_log_error_text' >{arrLangLogin[lang]['user_exist']}</div>}
-          {isVisibleEmail && <div className='reg_log_error_text' >{arrLangLogin[lang]['email_exist']}</div>}
-          {ifChel && <div className='reg_log_error_text' >{arrLangLogin[lang]['confirm_u_r_human']}</div>}
           <div className="login_container">
             <input
               type="submit"
               defaultValue="Register Account"
               id='reg_button'
+              disabled={isMainDisabled}
               hidden
             />
-            {!requestWasSended && <label htmlFor="reg_button" className="login_btn">{arrLangLogin[lang]['registration']}</label>}
-            {requestWasSended && <div className="login_btn"></div>}
+            {!requestWasSended && <label htmlFor="reg_button" className={`${isMainDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['registration']}</label>}
+            {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
           </div>
           <p className='log_and_reg_text_login_via' >Или войти через:</p>
           <div style={{display: "flex", justifyContent: "center"}}>
@@ -253,7 +270,7 @@ function Reg() {
     </div>
   </div>
 </div>}
-{confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed", zIndex: 10,  }}>
+{confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed"}}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div className="form_container">
@@ -273,20 +290,22 @@ function Reg() {
               className="form-control"
               value={data2.code}
               onChange={handleChange2}
+              readOnly={requestWasSended}
             />
           </div>
-          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit}/>
+          <TwoMinuteTimer setTimehave={setTimehave} handleSubmit={handleSubmit} requestWasSended={requestWasSended}/>
           <input
               type="submit"
               id='button_to_confirm_email'
               defaultValue="Confirm"
+              disabled={isCodeDisabled}
               hidden
             />
           {timehave > 0 && !requestWasSended &&
-            <label htmlFor='button_to_confirm_email' className="login_btn">{arrLangLogin[lang]['confirm']}</label>
+            <label htmlFor='button_to_confirm_email' className={`${isCodeDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['confirm']}</label>
           }
           {timehave > 0 && requestWasSended &&
-            <div className="login_btn">{arrLangLogin[lang]['confirm']}</div>
+            <div className="login_btn"><div className='loading-spinnerButton'></div></div>
           }
         </form>
       </div>

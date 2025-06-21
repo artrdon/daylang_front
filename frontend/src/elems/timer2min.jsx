@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TwoMinuteTimer = ({ setTimehave, handleSubmit}) => {
+const TwoMinuteTimer = ({ setTimehave, handleSubmit, requestWasSended}) => {
   const [timeLeft, setTimeLeft] = useState(120); // 2 минуты = 120 секунд
   const [isActive, setIsActive] = useState(true);
 
@@ -39,13 +39,16 @@ const TwoMinuteTimer = ({ setTimehave, handleSubmit}) => {
         {formatTime(timeLeft)}
       </div>
       <div>
-        {timeLeft <= 0 && <button 
+        {timeLeft <= 0 && !requestWasSended && <button 
           onClick={resetTimer}
           className="btn login_btn"
         >
           Сброс
         </button>}
-        
+        {timeLeft <= 0 && requestWasSended && 
+        <div className="login_btn">
+          <div className='loading-spinnerButton'></div>
+        </div>}
       </div>
     </div>
   );
