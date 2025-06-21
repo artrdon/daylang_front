@@ -58,7 +58,9 @@ function Reg() {
               alert(arrLangLogin[lang]['u_must_agree_with']);
               return;
             }
+            setRequestWasSended(true);
             const token = await executeCaptcha();
+            setRequestWasSended(false);
             setData({ ...data, captcha: token });
             if (token != null)
             {

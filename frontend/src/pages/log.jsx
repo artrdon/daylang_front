@@ -80,7 +80,9 @@ function Log() {
             e.preventDefault();
         }
         try {
+            setRequestWasSended(true);
             const token = await executeCaptcha();
+            setRequestWasSended(false);
             setData({ ...data, captcha: token });
             if (!token){
                 return;
