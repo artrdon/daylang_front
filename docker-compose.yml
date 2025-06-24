@@ -31,7 +31,7 @@ services:
       - ./frontend/src/static:/usr/share/nginx/html
       - ./daylang.crt:/etc/ssl/daylang/daylang.crt
       - ./daylang.key:/etc/ssl/daylang/daylang.key
-      - ./yandex_7101ea01803c05e1.html:/usr/share/nginx/yandex
+      - ./yandex_7101ea01803c05e1.html:/usr/share/nginx/html/yandex_7101ea01803c05e1.html
     deploy:
       resources:
         limits:
