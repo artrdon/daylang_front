@@ -30,7 +30,8 @@
     "react-router-dom": "^7.6.0",
     "react-transition-group": "^4.4.5",
     "simple-peer": "^9.11.1",
-    "three": "^0.177.0"
+    "three": "^0.177.0",
+    "vosk": "^0.3.39"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

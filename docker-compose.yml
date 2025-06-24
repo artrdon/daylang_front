@@ -4,8 +4,6 @@ services:
   web:
     build: 
       context: ./frontend
-    ports:
-      - "3000:3000"
     deploy:
       resources:
         limits:
@@ -33,6 +31,7 @@ services:
       - ./frontend/src/static:/usr/share/nginx/html
       - ./daylang.crt:/etc/ssl/daylang/daylang.crt
       - ./daylang.key:/etc/ssl/daylang/daylang.key
+      - ./yandex_7101ea01803c05e1.html:/usr/share/nginx/yandex
     deploy:
       resources:
         limits:

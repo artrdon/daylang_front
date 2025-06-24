@@ -1,3 +1,13 @@
+.ai_speak_my_promt_before_gpt{
+    width: 500px;
+    height: 400px;
+    background-color: #d8d8d8;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 1px #808080;
+    padding: 20px;
+    font-size: 30px;
+    color: black;
+}
 .ai_speak_settings_info{
     background-color: gray;
     padding: 10px;
@@ -45,6 +55,10 @@
 
 
 .dark_theme{
+    .ai_speak_my_promt_before_gpt{
+        background-color: #d8d8d8;
+        color: black;
+    }
     .ai_speak_settings_img{
         filter: brightness(0%);
     }
@@ -84,7 +98,26 @@
     }*/
     
 }
+@media only screen and (max-width: 700px)
+{
+    .ai_speak_my_promt_before_gpt{
+        width: 71.42857142857143vw;
+        height: 57.14285714285714vw;
+        border-radius: 1.428571428571429;
+        box-shadow: 0px 0px 2.857142857142857vw 1px #808080;
+        padding: 2.857142857142857vw;
+        font-size: 4.285714285714286vw;
+    }
+}
 @media only screen and (max-width: 525px){
+    .ai_speak_my_promt_before_gpt{
+        width: 85.71428571428571vw;
+        height: 76.19047619047619vw;
+        border-radius: 1.904761904761905vw;
+        box-shadow: 0px 0px 3.80952380952381vw 1px #808080;
+        padding: 3.80952380952381vw;
+        font-size: 5.714285714285714vw;
+    }
     .ai_speak_settings_info{
         padding: 1.904761904761905vw;
         border-radius: 1.904761904761905vw;

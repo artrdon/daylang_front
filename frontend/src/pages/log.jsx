@@ -8,6 +8,7 @@ import arrLangLogin from '../../languages/login_translate.js';
 import { useNavigate } from 'react-router-dom';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 import arrLangErrors from '../../languages/errors.js';
+import { SmartCaptcha } from '@yandex/smart-captcha';
 import { InvisibleSmartCaptcha } from '@yandex/smart-captcha'
 
 

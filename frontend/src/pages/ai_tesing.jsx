@@ -55,10 +55,18 @@ function TestINGAI() {
     const [showSettings, setShowSettings] = useState(false);
     const [volume, setVolume] = useState(50);
     const [speed, setSpeed] = useState(1.0);
-    const [tokens, setTokens] = useState(30);
-    const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${data?.language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${data?.language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
+    const [tokens, setTokens] = useState(200);
+    const system = `now you are a teacher of ${data?.language} language, you should speak only in it, you can explain grammar using various examples that I will tell you, but your main task is to conduct a dialogue in ${data?.language} language, you yourself should suggest topics of conversation, if I don’t know what to talk about, you should switch to Russian if I ask you to do so.`;
     const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
     const [tokensInfo, showTokensInfo] = useState(false);
+    const [fullText, setFullText] = useState("");
+    const [showTextBeforeSend, setShowTextBeforeSend] = useState(false);
+    const [sendedRequest, setSendedRequest] = useState(0);
+    const [ifRequesSended, setIfRequestSended] = useState(false);
+    const [arrayOfAudio, setArrayOfAudio] = useState([]);
+    const arrayOfAudioRef = useRef([]);
+    const [indexOfArrayOfAudio, setIndexOfArrayOfAudio] = useState(0);
+    const indexOfArrayOfAudioRef = useRef(0);
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const params = useParams();
@@ -102,47 +110,33 @@ function TestINGAI() {
 */
 
     useEffect(() => {
-        ws.current = new WebSocket('ws://127.0.0.1:8000/ws/voice/');
+        ws.current = new WebSocket(`${env.VITE_WSAPIURL}/ws/voice/`);
         
         ws.current.onmessage = (event) => {
             const dataMess = JSON.parse(event.data);
-            console.log(dataMess);
-            endTime = performance.now();
-            console.log("Execution time: ", endTime - startTime);
-            const newAnswer = {
-                myPromt: dataMess['myText'],
-                AIAnswer: dataMess['text'],
-            };
-            setAnswers((answers) => [...answers, newAnswer]);
-            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
-            
-            if (typeof dataMess === 'string') {
-                speak(dataMess)
-                setWaitForAnswer(false);
-            } else if (dataMess.text) {
-                speak(dataMess)
-                setWaitForAnswer(false);
-            } else {
-                speak(dataMess)
+            if (dataMess['type'] === "stt"){
+                setSendedRequest(prevData => (
+                    prevData - 1  // Уменьшаем `requests` на 1
+                ));
+                setFullText(prev => prev + ' ' + dataMess["myPromt"]); // Собираем текст
+            }
+            else if (dataMess['type'] === "gpt"){
                 setWaitForAnswer(false);
             }
-            /*const newAnswer = {
-                myPromt: response.data['myText'],
-                AIAnswer: response.data['text'],
-            };
-            setAnswers((answers) => [...answers, newAnswer]);
-            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
-            
-            if (typeof response.data === 'string') {
-                speak(response.data)
+            else if (dataMess['type'] === "end"){
+                endTime = performance.now();
+                setAnswersForWhatHeSaid(answersForWhatHeSaid => 
+                    answersForWhatHeSaid.map((item, idx) => 
+                        idx === answersForWhatHeSaid.length - 1 ? { ...item, assistant: item.assistant + ' ' + dataMess["text"] } : item
+                    )
+                );
+                setArrayOfAudio((arrayOfAudio) => [...arrayOfAudio, dataMess['audio']])
+                arrayOfAudioRef.current = [...arrayOfAudioRef.current, dataMess['audio']];
                 setWaitForAnswer(false);
-            } else if (response.data.text) {
-                speak(response.data)
-                setWaitForAnswer(false);
-            } else {
-                speak(response.data)
-                setWaitForAnswer(false);
-            }*/
+            }
+            else{
+                console.log(dataMess);
+            }
         };
 
         return () => ws.current.close();
@@ -165,12 +159,14 @@ function TestINGAI() {
       };
     
 
-    const speak = (text) => {
+    const speak = () => {
         if (audio.current) {
             audio.current.pause();
             audio.current = null;
         }
-        const audioSrc = `data:${text['format']};base64,${text['audio']}`;
+        const audioSrc = `data:audio/ogg;base64,${arrayOfAudioRef.current[indexOfArrayOfAudioRef.current]}`;
+        setIndexOfArrayOfAudio(prevData => (prevData + 1));
+        indexOfArrayOfAudioRef.current += 1;
         audio.current = new Audio(audioSrc);
         const zvuk = Number(volume) / 100;
         audio.current.volume = zvuk;
@@ -189,6 +185,10 @@ function TestINGAI() {
 
         audio.current.onended = () => {
             audio.current = null;
+            if (arrayOfAudioRef.current.length > indexOfArrayOfAudioRef.current){
+                speak();
+                return;
+            }
             setIsSpeaking(false);
         };
     }
@@ -215,14 +215,9 @@ function TestINGAI() {
         
     };
     const send_request = async (blob) => {
-      //  if (e) e.preventDefault();
         startTime = performance.now();
-        const formData = new FormData();
-        formData.append('audio', blob, 'recording.wav');
-        formData.append('answers', JSON.stringify(answers));
-        formData.append('id', params.id);
-        formData.append('tokens', tokens);
-
+  
+        setIfRequestSended(false);
         if (data.requests <= 0){
             alert('У вас больше нет запросов');
             return;
@@ -233,25 +228,37 @@ function TestINGAI() {
                 ...prevData,          // Копируем все существующие поля
                 requests: prevData.requests - 1  // Уменьшаем `requests` на 1
             }));
+            setIndexOfArrayOfAudio(0);
+            indexOfArrayOfAudioRef.current = 0;
+            setArrayOfAudio([]);
+            arrayOfAudioRef.current = [];
+            const newAnswer = {
+                user: fullText,
+                assistant: '',
+            };
+            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
             function blobToBase64(blob) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result.split(',')[1]);
-                reader.readAsDataURL(blob);
-            });
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                    reader.readAsDataURL(blob);
+                });
             }
             const base64Audio = await blobToBase64(blob);
             
             if (ws.current.readyState === WebSocket.OPEN) {
                 ws.current.send(JSON.stringify({
+                    type: "end",
+                    system: system,
                     audio: base64Audio,
-                    answers: answers,
+                    answersForWhatHeSaid: answersForWhatHeSaid,
                     id: params.id,
                     tokens: tokens,
-                    
+                    userId: data['userId']
                 }));
             }
-            
+            setShowTextBeforeSend(false);
+            setFullText('');
         } catch (error) {
             if (error.request?.status === 400){
                 alert(error.response?.data['error']);
@@ -264,13 +271,76 @@ function TestINGAI() {
                 return;
             }
             else {
-                console.log(error);
                 alert(error.response?.data);
                 setWaitForAnswer(false);
                 return;
             }
         }
     };
+
+    const sendSttRequest = async (blob) => {
+          startTime = performance.now();
+    
+          if (data.requests <= 0){
+              alert('У вас больше нет запросов');
+              return;
+          }
+          try {
+              function blobToBase64(blob) {
+              return new Promise((resolve) => {
+                  const reader = new FileReader();
+                  reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                  reader.readAsDataURL(blob);
+              });
+              }
+              const base64Audio = await blobToBase64(blob);
+              
+              if (ws.current.readyState === WebSocket.OPEN) {
+                  ws.current.send(JSON.stringify({
+                    type: "stt",
+                    audio: base64Audio,
+                    id: params.id,
+                      
+                  }));
+              }
+              setSendedRequest(prevData => (
+                prevData + 1  // Уменьшаем `requests` на 1
+            ));
+              
+          } catch (error) {
+              if (error.request?.status === 400){
+                  alert(error.response?.data['error']);
+                  return;
+              }
+              else if (error.response?.data['error']) {
+                  alert(error.response.data['error']);
+                  return;
+              }
+              else {
+                  alert(error.response?.data);
+                  return;
+              }
+          }
+      };
+  
+    useEffect(() => {
+        const fetchData = async () => {
+            if (ifRequesSended && sendedRequest === 0) {
+                await send_request();
+            }
+        };
+    
+        fetchData();
+            
+    }, [ifRequesSended, sendedRequest]);
+
+
+    useEffect(() => {
+        if (arrayOfAudio.length > 0 && indexOfArrayOfAudio === 0){
+            speak();
+        }
+            
+    }, [indexOfArrayOfAudio, arrayOfAudio]);
 
     // Функция для конвертации AudioBuffer в WAV
     const audioBufferToWav = async (buffer) => {
@@ -355,7 +425,6 @@ function TestINGAI() {
         setIsRecording(true);
     };
 
-
     const stopRecording = () => {
         mediaRecorderRef.current.stop();
         setIsRecording(false);
@@ -405,6 +474,18 @@ function TestINGAI() {
 
     return (
         <>
+
+{showTextBeforeSend &&
+    <div style={{display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100svh", zIndex: 1001, position: "fixed"}}>
+        <div className='do_bye_transparency_fon'/>
+        <div className='ai_speak_my_promt_before_gpt' style={{zIndex: 1001}}>
+            <div style={{overflow: "auto", height: "100%", whiteSpace: "normal", wordBreak: "break-word",}}>
+                <p>{fullText}</p>
+            </div>
+        </div>
+    </div>
+}
+
 <div>
     <button className='ai_speak_settings_button' onClick={ShowSettingsFunc}>
         <img
@@ -456,8 +537,8 @@ function TestINGAI() {
             <div style={{overflow: "auto", height: "100%"}}>
                 {answersForWhatHeSaid.slice().reverse().map((data, index) => (
                     <div key={`${index}AI_MY_DIV`}>
-                        <p className='ai_speak_what_he_said_panel_p' key={`${index}AI`}>{data.AIAnswer}</p> 
-                        <p className='ai_speak_what_i_said_panel_p' key={`${index}MY`}>{data.myPromt}</p>
+                        <p className='ai_speak_what_he_said_panel_p' style={{whiteSpace: "normal", wordBreak: "break-word"}} key={`${index}AI`}>{data.assistant}</p> 
+                        <p className='ai_speak_what_i_said_panel_p' style={{whiteSpace: "normal", wordBreak: "break-word"}} key={`${index}MY`}>{data.user}</p>
                     </div>
                 ))}
             </div>
@@ -474,8 +555,9 @@ function TestINGAI() {
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
         {/*!isRecording && <button onMouseUp={startRecording} className='ai_speak_start_end_record_button' >start talking</button>*/}
-        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['start_talking']}</button>}
-        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['end_talking']}</button>} </>}
+        {isRecording === false && <button onClick={startRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['start_talking']}</button>}
+        {isRecording === true && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['end_talking']}</button>}
+        {isRecording === null && <button className='ai_speak_start_end_record_button' >{`Говорите...`}</button>} </>}
          </>}
         {isSpeaking && <> 
         <div style={{width: "100%", position: "absolute", bottom: 0}}>
