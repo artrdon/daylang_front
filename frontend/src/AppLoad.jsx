@@ -11,9 +11,9 @@ function AppLoad({ lang, lessons }) {
       <>
   <div className="top_banner">
     <div className='top_panel_under_topbanner'>
-        <div className="name_of_comp" translate="no">
+        <h1 className="name_of_comp" translate="no">
           DayLang
-        </div>
+        </h1>
     </div>
     {/*<div className="search_all_pos">
       <div id="search_all">

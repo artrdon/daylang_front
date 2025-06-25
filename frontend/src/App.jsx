@@ -128,9 +128,9 @@ function App({ name, lastname, username, lang, photo, balance }) {
   <div className="top_banner">
     <div className='top_panel_under_topbanner'>
       <Link to="/">
-        <div className="name_of_comp" translate="no">
+        <h1 className="name_of_comp" translate="no">
           DayLang
-        </div>
+        </h1>
       </Link>
     </div>
     {/*<div className="search_all_pos">
