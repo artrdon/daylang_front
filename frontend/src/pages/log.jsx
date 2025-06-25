@@ -7,7 +7,6 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
 import { useNavigate } from 'react-router-dom';
 import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
-import ReCAPTCHA from "react-google-recaptcha";
 import arrLangErrors from '../../languages/errors.js';
 import { SmartCaptcha } from '@yandex/smart-captcha';
 import { InvisibleSmartCaptcha } from '@yandex/smart-captcha'
@@ -50,7 +49,6 @@ function Log() {
     const errorURL = params.get('error');
     const [isMainDisabled, setIsMainDisabled] = useState(true);
     const [isCodeDisabled, setIsCodeDisabled] = useState(true);
-    const recaptchaRef = useRef(null);
     
     
 
@@ -103,7 +101,7 @@ function Log() {
               return;
             }
             setRequestWasSended(true);
-            const token = await recaptchaRef.current.executeAsync();
+            const token = await executeCaptcha();
             setRequestWasSended(false);
             setData({ ...data, captcha: token });
             if (!token){
@@ -230,7 +228,6 @@ function Log() {
                 readOnly={requestWasSended}
               />
             </div>
-            <ReCAPTCHA sitekey={env.VITE_KEY} ref={recaptchaRef} size='invisible' theme='dark'/>
             <div className="input-group">
               <input
                 type="submit"

@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /user/*
+Disallow: /auth/*
+Disallow: /ai_speak/*
+Disallow: /ai_test/*
+Disallow: /settings
+Disallow: /my_words
+Disallow: /forbidden
+Disallow: /not_found
+Disallow: /privacy
+Disallow: /public_oferta
+Allow: /
+Allow: /about_us
+Allow: /support
+Sitemap: https://daylang.ru/sitemap_index.xml
