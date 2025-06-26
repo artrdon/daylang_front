@@ -1,19 +1,41 @@
-import { useState, useRef }  from 'react'
+import { useState, useRef, useEffect }  from 'react'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
+import ReCAPTCHA from "react-google-recaptcha";
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
-import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 import arrLangErrors from '../../languages/errors.js';
 
+
+function ForbiddenTries() {
+
+
+
+  return (
+      <>
+  <div className="not_found_all_container_404_positing" >
+      <div className='not_found_all_container_404'>
+          <div className='not_found_font_404'>
+              <p>403</p>
+                <div style={{display: "flex", justifyContent: 'center'}}>
+                  <div className='notfound_link_for_404'>
+                    Закончился лимит попыток, приходите через 1 час
+                  </div>
+                </div>
+          </div>
+      </div>
+  </div>
+  </>
+  )
+  }
+  
 
 function Reg() {
     const env = import.meta.env;
     axios.defaults.withCredentials = true;
 
-    const { executeCaptcha, resetCaptcha } = useSmartCaptcha(env.VITE_KEY);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
     const [emailForCode, setEmailForCode] = useState('');
@@ -24,11 +46,12 @@ function Reg() {
     const [requestWasSended, setRequestWasSended] = useState(false);
     const [isMainDisabled, setIsMainDisabled] = useState(true);
     const [isCodeDisabled, setIsCodeDisabled] = useState(true);
-    
+    const recaptchaRef = useRef(null);
+    const [if403, setIf403] = useState(false);
 
     const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
     const [data2, setData2] = useState({ code: '', username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
-
+    
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -79,7 +102,7 @@ function Reg() {
               return;
             }
             setRequestWasSended(true);
-            const token = await executeCaptcha();
+            const token = await recaptchaRef.current.executeAsync();
             setRequestWasSended(false);
             setData({ ...data, captcha: token });
             if (token)
@@ -130,6 +153,12 @@ function Reg() {
             console.log('Response:', response.data);
 
         } catch (error) {
+            if (error.response?.status === 403){
+              setIf403(true);
+              setRequestWasSended(false);
+              document.cookie = `many_tries=yes; path=/;max-age=3600`;
+              return;
+            }
             alert(arrLangErrors[lang][error.response.data]);
             console.error('There was an error!', error.response.data);
         }
@@ -142,21 +171,33 @@ function Reg() {
         window.location.href = url;
     };
 
+    
+    useEffect(() => {
+      if (getCookie('many_tries') === 'yes'){
+        setIf403(true);
+      }
+  
+    }, []);
+      
 
     document.querySelector("title").textContent = arrLangLogin[lang]['reg'];
 
     return (
         <>
 
+{if403 && 
+  <ForbiddenTries />
+}
 
+{/*
 <div style={{width: "100vw", height: "100svh", position: "fixed", display: "flex", justifyContent: "center"}}>
   <div className='log_reg_text_main_div'>
     <p className='log_reg_before_using'>Перед использованием необходимо создать аккаунт</p>
   </div>
-</div>
+</div>*/}
 
 
-{!confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed",}}>
+{!confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed",}}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
       <div className="form_container">
@@ -251,7 +292,8 @@ function Reg() {
             {!requestWasSended && <label htmlFor="reg_button" className={`${isMainDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['registration']}</label>}
             {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
           </div>
-          <p className='log_and_reg_text_login_via' >Или войти через:</p>
+          <ReCAPTCHA sitekey={env.VITE_KEY} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
+          <p className='log_and_reg_text_login_via' >Или быстрый вход через:</p>
           <div style={{display: "flex", justifyContent: "center"}}>
             <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>
               <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>
@@ -270,7 +312,7 @@ function Reg() {
     </div>
   </div>
 </div>}
-{confirmation && <div style={{ width: "100vw", height: "100svh", position: "fixed"}}>
+{confirmation && !if403 && <div style={{ width: "100vw", height: "100svh", position: "fixed"}}>
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
     <div className="user_card">
       <div className="form_container">

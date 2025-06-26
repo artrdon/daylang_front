@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import CookiesLocal from '/languages/cookies.js'
 
 function Cookie({lang}) {

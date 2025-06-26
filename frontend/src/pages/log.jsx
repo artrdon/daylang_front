@@ -5,11 +5,9 @@ import axios from 'axios';
 import TwoMinuteTimer from '../elems/timer2min';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
+import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from 'react-router-dom';
-import { useSmartCaptcha } from '../once/useSmartCaptca.jsx';
 import arrLangErrors from '../../languages/errors.js';
-import { SmartCaptcha } from '@yandex/smart-captcha';
-import { InvisibleSmartCaptcha } from '@yandex/smart-captcha'
 
 
 function ForbiddenTries() {
@@ -36,7 +34,6 @@ return (
 
 function Log() {
     const env = import.meta.env;
-    const { executeCaptcha, resetCaptcha } = useSmartCaptcha(env.VITE_KEY);
     const [if403, setIf403] = useState(false);
     const [confirmation, setConf] = useState(false);
     const [timehave, setTimehave] = useState(true);
@@ -49,10 +46,11 @@ function Log() {
     const errorURL = params.get('error');
     const [isMainDisabled, setIsMainDisabled] = useState(true);
     const [isCodeDisabled, setIsCodeDisabled] = useState(true);
+    const recaptchaRef = useRef(null);
     
     
 
-    function getCookie(name) {
+    const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
@@ -101,7 +99,7 @@ function Log() {
               return;
             }
             setRequestWasSended(true);
-            const token = await executeCaptcha();
+            const token = await recaptchaRef.current.executeAsync();
             setRequestWasSended(false);
             setData({ ...data, captcha: token });
             if (!token){
@@ -156,6 +154,12 @@ function Log() {
                 window.location.replace('/');
             }
         } catch (error) {
+            if (error.response?.status === 403){
+              setIf403(true);
+              setRequestWasSended(false);
+              document.cookie = `many_tries=yes; path=/;max-age=3600`;
+              return;
+            }
             alert(arrLangErrors[lang][error.response.data]);
             console.error('There was an error!', error.response?.data);
             setRequestWasSended(false);
@@ -191,13 +195,13 @@ function Log() {
   <ForbiddenTries />
 }
 
-{!if403 && 
+{/*!if403 && 
   <div style={{width: "100vw", height: "100svh", position: "fixed", display: "flex", justifyContent: "center"}}>
     <div className='log_reg_text_main_div'>
       <p className='log_reg_before_using'>Перед использованием необходимо войти в аккаунт</p>
     </div>
   </div>
-}
+*/}
 
 {!confirmation && !if403 &&
 <>
@@ -239,7 +243,8 @@ function Log() {
               {!requestWasSended && <label htmlFor='login_button' className={`${isMainDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['login']}</label>}
               {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
             </div>
-            <p className='log_and_reg_text_login_via' >Или войти через:</p>
+            <ReCAPTCHA sitekey={env.VITE_KEY} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
+            <p className='log_and_reg_text_login_via' >Или быстрый вход через:</p>
             <div style={{display: "flex", justifyContent: "center"}}>
               <button onClick={handleYandexLogin} onTouchStart={handleYandexLogin} className='log_and_reg_oauth_services'>
                 <img src="/src/static/img/yandex.jpg" alt="yandex" style={{width: "100%", height: "100%"}}/>

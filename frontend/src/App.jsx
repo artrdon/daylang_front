@@ -2,12 +2,11 @@ import { useState, useEffect, state, handleChange, handleSubmit, setState, useRe
 import { Routes, Route, Link } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group';
 import Cookie from '/src/elems/cookie.jsx'
-import Docks from '/src/elems/docks.jsx'
 import DoBye from './elems/do_bye';
 import ShowNavInMob from '/src/elems/show_nav_in_mob.jsx'
 import arrLangNavigPanel from '/languages/nav_panel.js'
 import HistoryOfTopUpComp from './elems/history_of_topup';
-import axios from 'axios';
+import Hello from './elems/hello';
 
 function ImageWithFallback({ src, fallbackSrc, alt, style}) {
   const [imgSrc, setImgSrc] = useState(src);
@@ -125,6 +124,9 @@ function App({ name, lastname, username, lang, photo, balance }) {
 
   return (
       <>
+  
+  {username === undefined ? <Hello lang={lang} /> : null}
+
   <div className="top_banner">
     <div className='top_panel_under_topbanner'>
       <Link to="/">

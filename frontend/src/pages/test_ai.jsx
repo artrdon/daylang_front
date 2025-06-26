@@ -56,7 +56,7 @@ function TestAI() {
     const [volume, setVolume] = useState(50);
     const [speed, setSpeed] = useState(1.0);
     const [tokens, setTokens] = useState(30);
-    const [answers, setAnswers] = useState([{myPromt: `теперь ты преподаватель ${data?.language} языка, ты должен говорить только на нем, можешь обьяснять грамматику на различных примерах, которые я тебе скажу, но твоя основная задача вести диалог на ${data?.language} языке, ты сам должен предагать темы разговора, если я не знаю о чем поговорить, должен переклчатся на русский, если я тебя об этом попрошу.`, AIAnswer: "",}]);
+    const system = `now you are a teacher of ${data?.language} language, you should speak only in it, you can explain grammar using various examples that I will tell you, but your main task is to conduct a dialogue in ${data?.language} language, you yourself should suggest topics of conversation, if I don’t know what to talk about, you should switch to Russian if I ask you to do so.`;
     const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
     const [tokensInfo, showTokensInfo] = useState(false);
     const websocket = useWebSocket();
@@ -169,9 +169,10 @@ function TestAI() {
        // const startTime = performance.now();
         const formData = new FormData();
         formData.append('audio', blob, 'recording.wav');
-        formData.append('answers', JSON.stringify(answers));
         formData.append('id', params.id);
         formData.append('tokens', tokens);
+        formData.append('system', system);
+        formData.append('answersForWhatHeSaid', JSON.stringify(answersForWhatHeSaid));
 
         if (data.requests <= 0){
             alert('У вас больше нет запросов');
@@ -193,10 +194,9 @@ function TestAI() {
 
             //console.log("Execution time: ", endTime - startTime);
             const newAnswer = {
-                myPromt: response.data['myText'],
-                AIAnswer: response.data['text'],
+                user: response.data['myText'],
+                assistant: response.data['text'],
             };
-            setAnswers((answers) => [...answers, newAnswer]);
             setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
             
             if (typeof response.data === 'string') {
@@ -413,8 +413,8 @@ function TestAI() {
             <div style={{overflow: "auto", height: "100%"}}>
                 {answersForWhatHeSaid.slice().reverse().map((data, index) => (
                     <div key={`${index}AI_MY_DIV`}>
-                        <p className='ai_speak_what_he_said_panel_p' key={`${index}AI`}>{data.AIAnswer}</p> 
-                        <p className='ai_speak_what_i_said_panel_p' key={`${index}MY`}>{data.myPromt}</p>
+                        <p className='ai_speak_what_he_said_panel_p' key={`${index}AI`}>{data.assistant}</p> 
+                        <p className='ai_speak_what_i_said_panel_p' key={`${index}MY`}>{data.user}</p>
                     </div>
                 ))}
             </div>

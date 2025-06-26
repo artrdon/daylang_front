@@ -140,7 +140,7 @@ function Find() {
 
 <div className='find_panel'>
   <div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
-    <div className="page_of_type horizontal-scroll-content" style={{width: "100%"}}>
+    <div className="horizontal-scroll-content" style={{width: "100%"}}>
       <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
         {FindLang[lang]['bye_access']}
       </button>

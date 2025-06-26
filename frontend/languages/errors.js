@@ -12,6 +12,7 @@ const arrLangErrors = {
         'passwords_too_short': "Password is too short, it must contain at least 8 characters",
         'password_is_equal_to_username': "Password is similar to username",
         'password_is_equal_to_email': "Password is similar to email",
+        'verification failed': "Verification failed. Try again later",
         'undefined_error': "Unknown error",
     },
     'russian': {
@@ -27,6 +28,7 @@ const arrLangErrors = {
         'passwords_too_short': "Пароли слишком короткие, они должны содержать минимум 8 символов",
         'password_is_equal_to_username': "Пароль похож на имя пользователя",
         'password_is_equal_to_email': "Пароль похож на имейл",
+        'verification failed': "Ошибка верификации. Попробуйте позже",
         'undefined_error': "Неизвестная ошибка",
     },
     'serbian-lat': {
@@ -42,6 +44,7 @@ const arrLangErrors = {
         'passwords_too_short': "Lozinka je prekratka, mora sadržati najmanje 8 karaktera",
         'password_is_equal_to_username': "Lozinka je slična korisničkom imenu",
         'password_is_equal_to_email': "Lozinka je slična e-mail adresi",
+        'verification failed': "Verifikacija nije uspela. Pokušajte ponovo kasnije",
         'undefined_error': "Nepoznata greška",
     },
     'serbian-cir': {
@@ -57,6 +60,7 @@ const arrLangErrors = {
         'passwords_too_short': "Лозинка је прекратка, мора садржати најмање 8 карактера",
         'password_is_equal_to_username': "Лозинка је слична корисничком имену",
         'password_is_equal_to_email': "Лозинка је слична е-маил адреси",
+        'verification failed': "Верификација није успела. Покушајте поново касније",
         'undefined_error': "Непозната грешка",
     },
     'germany': {
@@ -72,6 +76,7 @@ const arrLangErrors = {
         'passwords_too_short': "Passwort ist zu kurz, es muss mindestens 8 Zeichen enthalten",
         'password_is_equal_to_username': "Passwort ähnelt dem Benutzernamen",
         'password_is_equal_to_email': "Passwort ähnelt der E-Mail-Adresse",
+        'verification failed': "Verifizierung fehlgeschlagen. Versuchen Sie es später erneut",
         'undefined_error': "Unbekannter Fehler",
     },
     'spanish': {
@@ -87,6 +92,7 @@ const arrLangErrors = {
         'passwords_too_short': "La contraseña es demasiado corta, debe contener al menos 8 caracteres",
         'password_is_equal_to_username': "La contraseña es similar al nombre de usuario",
         'password_is_equal_to_email': "La contraseña es similar al correo electrónico",
+        'verification failed': "Error de verificación. Inténtelo de nuevo más tarde",
         'undefined_error': "Error desconocido",
     }
 };

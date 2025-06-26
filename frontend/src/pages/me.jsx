@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
-import arrLangMyProfil from '/languages/my_profil.js'
 import App from '/src/App.jsx'
 import AppLoad from '/src/AppLoad.jsx'
 import My_load from '/src/load_elems/me_load.jsx'
@@ -34,6 +33,7 @@ function Me() {
   const websocket = useWebSocket();
   const [lessons, setLessons] = useState(websocket.lessons);
   const [lang, setLang] = useState(websocket.lang);
+  const [page, setPage] = useState(0);
   useEffect(() => {
     setLessons(websocket.lessons);
 }, [websocket.lessons]);
@@ -140,13 +140,46 @@ document.querySelector("title").textContent = `${data.first_name} ${data.last_na
 
   </div>
 
-<div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
-  <div className="me_description_offer" >
-    {data1.about_myself}
+  <div id="main_page" style={{ display: "block" }} className='horizontal-scroll-container'>
+  <div className="page_of_type horizontal-scroll-content">
+      <button onClick={() => setPage(0)} className={page === 0 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+        Main
+      </button>
+      <button onClick={() => setPage(1)} className={page === 1 ? 'find_page_up_button_el selected' : 'find_page_up_button_el'}>
+        Stat
+      </button>
   </div>
-  </div>
-</div>
+  {page === 0 && 
+    <div className="me_description_offer" >
+      <p>{data1.about_myself}</p>
+    </div>  
+  }
+  {page === 1 && 
+    <div className="me_description_offer" >
+      <div className='me_stat_table'>
+        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}} className='me_stat_writing'>
+          <span >
+            <p>Всего разговорных практик</p>
+          </span>
+          <span >
+            <p>100</p>
+          </span>
+        </div>
 
+        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}} className='me_stat_writing'>
+          <span >
+            <p>Всего разговорных практик</p>
+          </span>
+          <span >
+            <p>100</p>
+          </span>
+        </div>
+      </div>
+    </div>  
+  }
+  
+</div>
+</div>
 
 
 </>

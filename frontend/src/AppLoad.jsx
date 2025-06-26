@@ -1,8 +1,5 @@
-import { useState, useEffect, state, handleChange, handleSubmit, setStat }  from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import Docks from '/src/elems/docks.jsx'
 import arrLangNavigPanel from '/languages/nav_panel.js'
-import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 
 function AppLoad({ lang, lessons }) {
