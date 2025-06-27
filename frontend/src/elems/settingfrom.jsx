@@ -213,9 +213,9 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
                     {sessions.map((session) => (
                       <div className='settings_session_div' key={`session${session.id}`} id={`session_id_${session.id}`}>
                         {session.type !== 'ordinary' && <p className='settings_sessiond_div_p'>{session.type}</p>}
-                        <p className='settings_sessiond_div_p'>{session.device}</p>
-                        <p className='settings_sessiond_div_p'>{session.os}</p>
-                        <p className='settings_sessiond_div_p'>{session.browzer}</p>
+                        <p className='settings_sessiond_div_p'>Устройство: {session.device}</p>
+                        <p className='settings_sessiond_div_p'>Операционная система: {session.os}</p>
+                        <p className='settings_sessiond_div_p'>Браузер: {session.browzer}</p>
                         <button className='settings_delete_div_button' onClick={(e) => deleteSession(e, session.id)} type='button'>
                           {arrLangSettings[lang]['delete']}
                         </button>

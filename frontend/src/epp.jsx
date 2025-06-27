@@ -14,6 +14,7 @@ import Support from './pages/support.jsx'
 import CallbackHandler from './pages/yandex_call_back.jsx'
 import Public_oferta from './pages/public_oferta.jsx'
 import CallbackHandlerGoogle from './pages/google_call_back.jsx'
+import DemoAI from './pages/demo_speak.jsx'
 
 export default function Epp(){
 
@@ -24,6 +25,7 @@ export default function Epp(){
             <Route path="/auth/google/callback" element={<CallbackHandlerGoogle />} />
             <Route path="/" element={<Find />}/>
             <Route path="/ai_speak/:id/" element={<TestAI />}/>
+            <Route path="/demo_speak/" element={<DemoAI />}/>
             {/*<Route path="/ai_test/:id/" element={<TestINGAI />}/>*/}
             <Route path="/log/" element={<Log />}/>
             <Route path="/reg/" element={<Reg />}/>

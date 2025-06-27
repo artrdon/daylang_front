@@ -117,13 +117,13 @@ function Smiley({upValue}) {
       </mesh>
 
       {/* Рот (используем тор) */}
-      <mesh ref={mouthRefUp} position={[0, -0.1, 0.9]} rotation={[Math.PI + Math.PI*0.04, 0, Math.PI*0.08]}>
-        <torusGeometry args={[0.4, 0.02, 16, 32, Math.PI/1.2]} />
+      <mesh ref={mouthRefUp} position={[0, -0.1, 0.9]} rotation={[Math.PI + Math.PI*0.04, 0, Math.PI*0.16666]}>
+        <torusGeometry args={[0.4, 0.02, 16, 32, Math.PI/1.5]} />
         <meshStandardMaterial map={mouthTexture} />
       </mesh>
 
-      <mesh ref={mouthRefDown} position={[0, -0.2, 0.84]} rotation={[Math.PI + Math.PI*0.04, 0, 0]}>
-        <torusGeometry args={[0.4, 0.05, 16, 32, Math.PI]} />
+      <mesh ref={mouthRefDown} position={[0, -0.2, 0.84]} rotation={[Math.PI + Math.PI*0.04, 0, Math.PI*0.115]}>
+        <torusGeometry args={[0.4, 0.05, 16, 32, Math.PI/1.3]} />
         <meshStandardMaterial map={mouthTexture} />
       </mesh>
     </group>
