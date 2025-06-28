@@ -45,6 +45,9 @@ function Hello({lang}) {
         navigate('/reg');
     }
 
+    const demoMode = () => {
+        navigate('/demo_speak');
+    }
     if (cook === null) return;
 
 
@@ -101,6 +104,9 @@ return (
                     </button>
                     <button className='hello_main_button' onClick={allowCookieReg}>
                         Создать аккаунт
+                    </button>
+                    <button className='hello_main_button' onClick={demoMode}>
+                        Попробовать бесплатно
                     </button>
                 </div>
                 

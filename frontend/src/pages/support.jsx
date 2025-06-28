@@ -28,12 +28,12 @@ function Support() {
                 <a href="mailto:sinmak.show@bk.ru" className="contact-link">sinmak.show@bk.ru</a>
               </div>
               
-              <div className="contact-card">
+              {/*<div className="contact-card">
                 <div className="contact-icon">📱</div>
                 <h3>Telegram</h3>
                 <p>Пишите сообщения прямо Telegram-каналу</p>
                 <a href="https://t.me/day_lang" target="_blank" rel="noopener noreferrer" className="contact-link">@day_lang</a>
-              </div>
+              </div>*/}
               
               <div className="contact-card">
                 <div className="contact-icon">📚</div>
@@ -55,10 +55,10 @@ function Support() {
                   <h4>Электронная почта</h4>
                   <p>До 24 часов</p>
                 </div>
-                <div className="time-card">
+                {/*<div className="time-card">
                   <h4>Telegram</h4>
                   <p>До 8 часов</p>
-                </div>
+                </div>*/}
               </div>
             </div>
           </div>

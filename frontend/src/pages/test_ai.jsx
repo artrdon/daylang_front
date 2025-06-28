@@ -197,7 +197,12 @@ function TestAI() {
                 user: response.data['myText'],
                 assistant: response.data['text'],
             };
-            setAnswersForWhatHeSaid((answersForWhatHeSaid) => [...answersForWhatHeSaid, newAnswer]);
+            setAnswersForWhatHeSaid(prevAnswers => {
+                const updatedAnswers = [...prevAnswers, newAnswer];
+                return updatedAnswers.length > 10 
+                    ? updatedAnswers.slice(1) // Удаляем первый элемент если > 10
+                    : updatedAnswers;
+            });
             
             if (typeof response.data === 'string') {
                 speak(response.data)
@@ -310,6 +315,10 @@ function TestAI() {
         
         mediaRecorderRef.current.start();
         setIsRecording(true);
+        setTimeout(() => {
+            stopRecording();
+            return;
+        }, 10000);
     };
 
 

@@ -78,10 +78,10 @@ function AppLoad({ lang, lessons }) {
       </Link>
     </div>
     <div className='border_for_areas_of_nav_panel'>
-      <Link className="navig_panel_button" id="not_for_fon">
+      {/*<Link className="navig_panel_button" id="not_for_fon">
         <img src="/src/static/img/TGLogo.svg" alt="We" className="app_navig_panel_img on_desktop_panel" style={{filter: 'brightness(100%)'}} />
         <span className="text_in_panel">Мы в Telegram</span>
-      </Link>
+      </Link>*/}
     </div>
     <Link className="navig_panel_button" id="not_for_fon">
       <span className="text_in_panel">{arrLangNavigPanel[lang]['privacy_policy']}</span>

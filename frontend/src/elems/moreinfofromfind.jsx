@@ -62,6 +62,7 @@ function MoreInfoFromFind({ ref, setBye, lang, idOfInfo, moreinfo }) {
     const topUp = () => {
         setBye(false);
     };
+    const timeLol = new Date().getUTCHours();
     
 return ( 
     <>
@@ -111,6 +112,14 @@ return (
                             <div className='do_bye_bye_button'>
                                 
                             </div>
+                        </>
+                    }
+
+                    {timeLol === 17 && 
+                        <>
+                            <button className='do_bye_bye_button'>
+                                Приходите через час
+                            </button>
                         </>
                     }
                     

@@ -131,6 +131,25 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
         }
     };
 
+    const deleteAccount = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${env.VITE_APIURL}/account/delete/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+            });
+            if (response?.status === 200)
+                location.reload();
+            else
+                console.log('Response:', response.data);
+
+        } catch (error) {
+            console.error('There was an error!', error.response?.data);
+        }
+  };
+
     return (
         <>
 <div className="ctr_offer_find_panel">
@@ -238,6 +257,14 @@ function SettingsForm({ language, name, surname, about_myself, photo, sessions, 
                 onClick={exit}
               >
                 {arrLangSettings[lang]['exit']}
+              </button>
+
+              <button
+                className='crt_offer_save_button'
+                type='button'
+                onClick={deleteAccount}
+              >
+                Удалить аккаунт
               </button>
 
           </div>

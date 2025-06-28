@@ -290,10 +290,10 @@ function App({ name, lastname, username, lang, photo, balance }) {
       <Cookie lang={lang}/>
     </div>
     <div className='border_for_areas_of_nav_panel'>
-      <Link className="navig_panel_button" id="not_for_fon" to="https://t.me/day_lang" target='_blank'>
+      {/*<Link className="navig_panel_button" id="not_for_fon" to="https://t.me/day_lang" target='_blank'>
         <img src="/src/static/img/TGLogo.svg" alt="We" className="app_navig_panel_img on_desktop_panel" style={{filter: 'brightness(100%)'}} />
         <span className="text_in_panel">Мы в Telegram</span>
-      </Link>
+      </Link>*/}
     </div>
     <Link className="navig_panel_button" id="not_for_fon" to='/privacy/'>
       <span className="text_in_panel">{arrLangNavigPanel[lang]['privacy_policy']}</span>

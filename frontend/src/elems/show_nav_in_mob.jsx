@@ -113,10 +113,10 @@ return (
                   <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['about']}</span>
                 </Link>
                 <div style={{borderTop: '1px solid'}}></div>
-                <Link className="show_nav_in_mob_nav_panel_botton" to="https://t.me/day_lang" target='_blank'>
+                {/*<Link className="show_nav_in_mob_nav_panel_botton" to="https://t.me/day_lang" target='_blank'>
                   <img src="/src/static/img/TGLogo.svg" alt="We" className="app_navig_panel_img on_desktop_panel show_nav_in_mob_nav_panel_img"  style={{filter: 'brightness(100%)'}}/>
                   <span className='show_nav_in_mob_button_text_color'>Мы в Telegram</span>
-                </Link>
+                </Link>*/}
                 <div style={{borderTop: '1px solid'}}></div>
                 <a className="show_nav_in_mob_nav_panel_botton" href='/privacy/' target='_blank'>
                   <span className='show_nav_in_mob_button_text_color'>{arrLangNavigPanel[lang]['privacy_policy']}</span>

@@ -10,6 +10,7 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 import SmileTest from './smile.jsx';
 import arrLangAI from '../../languages/ai.js';
 import '/src/static/ai_speak.css'
+import AfterDemo from '../elems/afterDemo.jsx';
 
 function ForbiddenTries({message}) {
 
@@ -346,6 +347,14 @@ function DemoAI() {
             audio.current.volume = zvuk;
         }
     }, [volume]);
+
+    useEffect(() => {
+        const screenFingerprint = navigator.hardwareConcurrency;
+        
+        console.log(screenFingerprint);
+
+        console.log(screenFingerprint.toString());
+    }, []);
   
     if (loading) return <LoadingSpinner/>;
     if (error) return <p>Error: {error}</p>; 
@@ -353,6 +362,8 @@ function DemoAI() {
 
     return (
         <>
+{data.requests === 0 && <AfterDemo lang={lang}/>}
+
 <div>
     <button className='ai_speak_settings_button' onClick={ShowSettingsFunc}>
         <img
