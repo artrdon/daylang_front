@@ -348,13 +348,13 @@ function DemoAI() {
         }
     }, [volume]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         const screenFingerprint = navigator.hardwareConcurrency;
         
         console.log(screenFingerprint);
 
         console.log(screenFingerprint.toString());
-    }, []);
+    }, []);*/
   
     if (loading) return <LoadingSpinner/>;
     if (error) return <p>Error: {error}</p>; 
