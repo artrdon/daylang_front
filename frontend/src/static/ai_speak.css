@@ -1,3 +1,60 @@
+.toggle-btn {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #2c3e50;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    position: fixed;
+    margin: 20px;
+    bottom: 0px;
+    transition: all 0.3s ease;
+  }
+  
+  .toggle-btn::before {
+    content: "";
+    position: absolute;
+    transition: all 0.3s ease;
+  }
+  
+  /* Состояние Play (треугольник) */
+  .toggle-btn[data-state="paused"]::before {
+    left: 48%;
+    top: 50%;
+    transform: translate(-30%, -50%);
+    width: 0;
+    height: 0;
+    border-top: 35px solid transparent;
+    border-bottom: 35px solid transparent;
+    border-left: 50px solid #2c3e50;
+  }
+  
+  /* Состояние Pause (две линии) */
+  .toggle-btn[data-state="playing"]::before {
+    left: 35%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 60px;
+    background: #2c3e50;
+    box-shadow: 30px 0 0 #2c3e50;
+  }
+
+.ai_speak_promt_progress_bar{
+    width: 100vw;
+    height: 30px;
+    border-radius: 0px;
+    position: fixed;
+    bottom: 100px;
+
+}
+.ai_speak_promt_progress_bar::-webkit-progress-value {
+    background: linear-gradient(rgb(35, 116, 223) 0%, rgb(18, 141, 223) 100%);
+    background: -moz-linear-gradient(90deg, rgb(35, 116, 223) 0%, rgb(18, 141, 223) 100%);
+    background: -webkit-linear-gradient(90deg, rgb(35, 116, 223) 0%, rgb(18, 141, 223) 100%);
+    background: linear-gradient(90deg, rgb(35, 116, 223) 0%, rgb(18, 141, 223) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#020024", endColorstr="#12bddf", GradientType=1);
+}
 .ai_speak_my_promt_before_gpt{
     width: 500px;
     height: 400px;
@@ -35,7 +92,7 @@
     width: 100%; height: 100px; position: fixed; bottom: 0px; font-size: 50px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); z-index: 1000;
 }
 .ai_speak_stop_resume_cancel_button{
-    width: calc(100% / 3); height: 100px; display: inline-block; font-size: 25px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); z-index: 1000; position: relative;
+    width: 100px; height: 100px; font-size: 25px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); z-index: 1000; position: fixed; margin: 20px; bottom: 0; right: 0; border-radius: 50%;
 }
 .ai_speak_what_he_said_button{
     width: 200px; height: 100px; display: inline-block; font-size: 25px; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); z-index: 1000; position: fixed; margin: 20px; border-radius: 40px;
@@ -110,6 +167,31 @@
     }
 }
 @media only screen and (max-width: 525px){
+    .toggle-btn {
+        width: 19.04761904761905vw;
+        height: 19.04761904761905vw;
+        border: 0.380952380952381vw solid #2c3e50;
+        margin: 3.80952380952381vw;
+      }
+      
+      /* Состояние Play (треугольник) */
+      .toggle-btn[data-state="paused"]::before {
+        border-top: 6.666666666666667vw solid transparent;
+        border-bottom: 6.666666666666667vw solid transparent;
+        border-left: 9.523809523809524vw solid #2c3e50;
+      }
+      
+      /* Состояние Pause (две линии) */
+      .toggle-btn[data-state="playing"]::before {
+        width: 3.80952380952381vw;
+        height: 11.42857142857143vw;
+        box-shadow: 5.714285714285714vw 0 0 #2c3e50;
+      }
+    
+    .ai_speak_promt_progress_bar{
+        height: 5.714285714285714vw;
+        bottom: 19.04761904761905vw;
+    }
     .ai_speak_my_promt_before_gpt{
         width: 85.71428571428571vw;
         height: 76.19047619047619vw;
@@ -144,7 +226,7 @@
         height: 19.04761904761905vw; font-size: 9.523809523809524vw;
     }
     .ai_speak_stop_resume_cancel_button{
-        height: 19.04761904761905vw; font-size: 4.761904761904762vw;
+        width: 19.04761904761905vw; height: 19.04761904761905vw; font-size: 4.761904761904762vw; margin: 3.80952380952381vw;
     }
     .ai_speak_what_he_said_button{
         width: 38.0952380952381vw; height: 19.04761904761905vw; font-size: 4.761904761904762vw; margin: 3.8095238095238095vw; border-radius: 7.619047619047619vw;

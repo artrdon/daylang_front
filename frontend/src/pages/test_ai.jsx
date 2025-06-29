@@ -41,7 +41,22 @@ function TestAI() {
     const audio = useRef(null);
     const mediaRecorderRef = useRef(null);
     const [data, setData] = useState({requests: 0, end: 0, language: 'english', });
-    const [time, setTime] = useState(0);
+    const [promtProgress, setPromtProgress] = useState(100);
+    const [isPlaying, setIsPlaying] = useState(true);
+
+    const togglePlay = () => {
+        if (audio.current && !audio.current.paused && isPlaying) {
+            audio.current.pause();
+            setIsPlaying(false);
+            return;
+        }
+        if (audio.current && audio.current.paused && !isPlaying) {
+            audio.current.play().catch(e => console.error("Resume failed:", e));
+            setIsPlaying(true);
+            return;
+        }
+        
+    };
     //const canvasRef = useRef(null);
     const animationRef = useRef(null);
     const analyserRef = useRef(null);
@@ -126,6 +141,7 @@ function TestAI() {
         audio.current.volume = zvuk;
         audio.current.playbackRate = speed;
         audio.current.play();
+        setIsPlaying(true);
         setIsSpeaking(true);
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const analyser = audioContext.createAnalyser();
@@ -142,17 +158,6 @@ function TestAI() {
             setIsSpeaking(false);
         };
     }
-    const pause = () => {
-        if (audio.current && !audio.current.paused) {
-            audio.current.pause();
-        }
-    };
-
-    const resume = () => {
-        if (audio.current && audio.current.paused) {
-            audio.current.play().catch(e => console.error("Resume failed:", e));
-        }
-    };
 
     const cancel = () => {
         if (audio.current) {
@@ -356,6 +361,17 @@ function TestAI() {
         }
     }, [volume]);
   
+    useEffect(() => {
+        if (isRecording){
+            setTimeout(() => {
+                setPromtProgress(prev => (prev - 0.5));
+            }, 50);
+        }
+        else{
+            setPromtProgress(100);
+        }
+            
+    }, [promtProgress, isRecording]);
     
     if (loading) return <LoadingSpinner/>;
     if (error){
@@ -440,14 +456,18 @@ function TestAI() {
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
         {/*!isRecording && <button onMouseUp={startRecording} className='ai_speak_start_end_record_button' >start talking</button>*/}
-        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['start_talking']}</button>}
-        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['end_talking']}</button>} </>}
+        {!isRecording && <>
+            <button onClick={startRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['start_talking']}</button>
+        </> }
+        {isRecording && <>
+            <progress max={100} value={promtProgress} className='ai_speak_promt_progress_bar'>{promtProgress}</ progress>
+            <button onClick={stopRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['end_talking']}</button>
+        </> } </>}
          </>}
         {isSpeaking && <> 
         <div style={{width: "100%", position: "absolute", bottom: 0}}>
-            <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['pause']}</button>
-            <button onClick={resume} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['resume']}</button>
-            <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['cancel']}</button>
+            <button className="toggle-btn" data-state={isPlaying ? "playing" : "paused"} onClick={togglePlay}></button>
+            <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>Отмена</button>
         </div>
          </>}
     

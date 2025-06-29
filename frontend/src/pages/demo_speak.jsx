@@ -42,7 +42,22 @@ function DemoAI() {
     const audio = useRef(null);
     const mediaRecorderRef = useRef(null);
     const [data, setData] = useState({requests: 3, end: 0, language: 'english', });
-    const [time, setTime] = useState(0);
+    const [promtProgress, setPromtProgress] = useState(100);
+    const [isPlaying, setIsPlaying] = useState(true);
+
+    const togglePlay = () => {
+        if (audio.current && !audio.current.paused && isPlaying) {
+            audio.current.pause();
+            setIsPlaying(false);
+            return;
+        }
+        if (audio.current && audio.current.paused && !isPlaying) {
+            audio.current.play().catch(e => console.error("Resume failed:", e));
+            setIsPlaying(true);
+            return;
+        }
+        
+    };
     //const canvasRef = useRef(null);
     const animationRef = useRef(null);
     const analyserRef = useRef(null);
@@ -60,6 +75,7 @@ function DemoAI() {
     const system = `now you are a teacher of ${data?.language} language, you should speak only in it, you can explain grammar using various examples that I will tell you, but your main task is to conduct a dialogue in ${data?.language} language, you yourself should suggest topics of conversation, if I don’t know what to talk about, you should switch to Russian if I ask you to do so.`;
     const [answersForWhatHeSaid, setAnswersForWhatHeSaid]  = useState([]);
     const [tokensInfo, showTokensInfo] = useState(false);
+    const [byeAccess, setByeAccess] = useState(false);
     const websocket = useWebSocket();
     const [lang, setLang] = useState(websocket.lang);
     const params = useParams();
@@ -143,17 +159,6 @@ function DemoAI() {
             setIsSpeaking(false);
         };
     }
-    const pause = () => {
-        if (audio.current && !audio.current.paused) {
-            audio.current.pause();
-        }
-    };
-
-    const resume = () => {
-        if (audio.current && audio.current.paused) {
-            audio.current.play().catch(e => console.error("Resume failed:", e));
-        }
-    };
 
     const cancel = () => {
         if (audio.current) {
@@ -176,6 +181,7 @@ function DemoAI() {
 
         if (data.requests <= 0){
             alert('У вас больше нет запросов');
+            setByeAccess(true);
             return;
         }
         try {
@@ -310,6 +316,10 @@ function DemoAI() {
         
         mediaRecorderRef.current.start();
         setIsRecording(true);
+        setTimeout(() => {
+            stopRecording();
+            return;
+        }, 10000);
     };
 
 
@@ -326,6 +336,9 @@ function DemoAI() {
             const response = await axios.get(`${env.VITE_APIURL}/check_access/demo/`);
             setData(response.data);
             setData({requests: 3 - Number(response.data['requests']), end: 0, language: 'english', });
+            if (3 - Number(response.data['requests']) <= 0){
+                setByeAccess(true);
+            }
           } catch (err) {
             setError(err);
           } finally {
@@ -348,6 +361,17 @@ function DemoAI() {
         }
     }, [volume]);
 
+    useEffect(() => {
+        if (isRecording){
+            setTimeout(() => {
+                setPromtProgress(prev => (prev - 0.5));
+            }, 50);
+        }
+        else{
+            setPromtProgress(100);
+        }
+            
+    }, [promtProgress, isRecording]);
     /*useEffect(() => {
         const screenFingerprint = navigator.hardwareConcurrency;
         
@@ -362,7 +386,7 @@ function DemoAI() {
 
     return (
         <>
-{data.requests === 0 && <AfterDemo lang={lang}/>}
+{byeAccess && <AfterDemo lang={lang}/>}
 
 <div>
     <button className='ai_speak_settings_button' onClick={ShowSettingsFunc}>
@@ -433,14 +457,19 @@ function DemoAI() {
         {/*<textarea name="promt" id="" value={promt.promt} onChange={handleInput} style={{position: "fixed", bottom: 0, left: 400, width: 500, height: 100, color: "black", backgroundColor: "white", resize: "none"}}></textarea>
         <button onClick={send_request} style={{width: 200, height: 100, backgroundColor: "white", color: "black"}}>send_request</button>*/} 
         {/*!isRecording && <button onMouseUp={startRecording} className='ai_speak_start_end_record_button' >start talking</button>*/}
-        {!isRecording && <button onClick={startRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['start_talking']}</button>}
-        {isRecording && <button onClick={stopRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['end_talking']}</button>} </>}
+        {!isRecording && <>
+            
+            <button onClick={startRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['start_talking']}</button>
+        </> }
+        {isRecording && <>
+            <progress max={100} value={promtProgress} className='ai_speak_promt_progress_bar'>{promtProgress}</ progress>
+            <button onClick={stopRecording} className='ai_speak_start_end_record_button' >{arrLangAI[lang]['end_talking']}</button>
+        </> } </>}
          </>}
         {isSpeaking && <> 
         <div style={{width: "100%", position: "absolute", bottom: 0}}>
-            <button onClick={pause} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['pause']}</button>
-            <button onClick={resume} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['resume']}</button>
-            <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>{arrLangAI[lang]['cancel']}</button>
+            <button className="toggle-btn" data-state={isPlaying ? "playing" : "paused"} onClick={togglePlay}></button>
+            <button onClick={cancel} className='ai_speak_stop_resume_cancel_button'>Отмена</button>
         </div>
          </>}
     
