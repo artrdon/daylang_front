@@ -4,6 +4,7 @@ import React from 'react'
 import TwoMinuteTimer from '../elems/timer2min';
 import axios from 'axios';
 import ReCAPTCHA from "react-google-recaptcha";
+import { SmartCaptcha } from '@yandex/smart-captcha';
 import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
 import arrLangErrors from '../../languages/errors.js';
@@ -46,7 +47,7 @@ function Reg() {
     const [requestWasSended, setRequestWasSended] = useState(false);
     const [isMainDisabled, setIsMainDisabled] = useState(true);
     const [isCodeDisabled, setIsCodeDisabled] = useState(true);
-    const recaptchaRef = useRef(null);
+    const [token, setToken] = useState('');
     const [if403, setIf403] = useState(false);
 
     const [data, setData] = useState({ username: '', email: '', password1: '', password2: '', first_name: '', last_name: ''});
@@ -101,9 +102,10 @@ function Reg() {
               alert("Все поля должны быть заполнены!");
               return;
             }
-            setRequestWasSended(true);
-            const token = await recaptchaRef.current.executeAsync();
-            setRequestWasSended(false);
+            if (token === '') {
+              alert("Подтвердите, что вы не робот.");
+              return;
+            }
             setData({ ...data, captcha: token });
             if (token)
             {
@@ -165,6 +167,10 @@ function Reg() {
         setRequestWasSended(false);
     };
     const handleYandexLogin = () => {
+        if (!isChecked){
+          alert(arrLangLogin[lang]['u_must_agree_with']);
+          return;
+        }
         const clientId = env.VITE_clientId;
         const redirectUri = encodeURIComponent(`${env.VITE_FRONT_URL}/auth/yandex/callback`);
         const url = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}`;
@@ -201,7 +207,7 @@ function Reg() {
   <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
     <div className="user_card">
       <div className="form_container">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="input-group">
           <div className="input-group">
             <input
               type="text"
@@ -292,7 +298,8 @@ function Reg() {
             {!requestWasSended && <label htmlFor="reg_button" className={`${isMainDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['registration']}</label>}
             {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
           </div>
-          <ReCAPTCHA sitekey={env.VITE_KEY} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
+          <SmartCaptcha sitekey={env.VITE_KEY} webview={true} theme='dark' onSuccess={setToken}/>
+            
           <p className='log_and_reg_text_login_via' >Или быстрый вход через:</p>
           <div style={{display: "flex", justifyContent: "center"}}>
             <button onClick={handleYandexLogin} className='log_and_reg_oauth_services'>

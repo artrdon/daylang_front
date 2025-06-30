@@ -1,3 +1,19 @@
+.CheckboxCaptcha-Button {
+    border-radius: 1px !important;
+}
+.CaptchaLinks.Text {
+    font-size: 20px !important;
+}
+.Text_typography_control-l{
+    font-size: 20px !important;
+}
+.smart-captcha {
+    min-width: 100% !important;
+    height: 102px !important;
+    min-height: 102px !important; /* Минимальная высота */
+}
+
+
 .log_and_reg_disabled-label {
     opacity: 0.6;
     cursor: not-allowed;
@@ -140,6 +156,20 @@
 
 @media only screen and (max-width: 525px)
 {
+
+    .CaptchaLinks.Text {
+        font-size: 20px !important;
+    }
+    .Text_typography_control-l{
+        font-size: 20px !important;
+    }
+    .smart-captcha {
+        min-width: 100% !important;
+        height: 19.42857142857143vw !important;
+        min-height: 19.42857142857143vw !important; /* Минимальная высота */
+    }
+
+
     .timer_for_code_time{
         font-size: 2.857142857142857vw; margin: 3.80952380952381vw;
     }

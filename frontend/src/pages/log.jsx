@@ -7,6 +7,7 @@ import { useWebSocket } from '../once/web_socket_provider.jsx';
 import arrLangLogin from '../../languages/login_translate.js';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from 'react-router-dom';
+import { SmartCaptcha } from '@yandex/smart-captcha';
 import arrLangErrors from '../../languages/errors.js';
 
 
@@ -47,6 +48,7 @@ function Log() {
     const [isMainDisabled, setIsMainDisabled] = useState(true);
     const [isCodeDisabled, setIsCodeDisabled] = useState(true);
     const recaptchaRef = useRef(null);
+    const [token, setToken] = useState('')
     
     
 
@@ -98,9 +100,10 @@ function Log() {
               alert("Все поля должны быть заполнены!");
               return;
             }
-            setRequestWasSended(true);
-            const token = await recaptchaRef.current.executeAsync();
-            setRequestWasSended(false);
+            if (token === '') {
+              alert("Подтвердите, что вы не робот.");
+              return;
+            }
             setData({ ...data, captcha: token });
             if (!token){
                 return;
@@ -184,6 +187,8 @@ function Log() {
         alert(arrLangErrors[lang][errorURL]);
       }
     }, []);
+
+
       
 
     document.querySelector("title").textContent = arrLangLogin[lang]['log'];
@@ -243,7 +248,8 @@ function Log() {
               {!requestWasSended && <label htmlFor='login_button' className={`${isMainDisabled ? "login_btn log_and_reg_disabled-label" : "login_btn"}`}>{arrLangLogin[lang]['login']}</label>}
               {requestWasSended && <div className="login_btn"><div className='loading-spinnerButton'></div></div>}
             </div>
-            <ReCAPTCHA sitekey={env.VITE_KEY} ref={recaptchaRef} size='invisible' theme={theme[0]}/>
+            <SmartCaptcha sitekey={env.VITE_KEY} webview={true} theme='dark' onSuccess={setToken} />
+            
             <p className='log_and_reg_text_login_via' >Или быстрый вход через:</p>
             <div style={{display: "flex", justifyContent: "center"}}>
               <button onClick={handleYandexLogin} onTouchStart={handleYandexLogin} className='log_and_reg_oauth_services'>
